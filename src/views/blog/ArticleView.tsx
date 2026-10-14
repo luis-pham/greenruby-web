@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { Breadcrumb, SiteFooter, SiteNav, Topbar, type Chrome, type Crumb } from '@/components/layout';
 import { ORGANIZATION_ID } from '@/lib/organization';
+import { DEFAULT_SOCIAL_IMAGE } from '@/lib/seo';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SmartLink } from '@/components/ui';
 import { homePath, sectionPath } from '@/lib/i18n';
@@ -187,7 +188,8 @@ export function ArticleView({ article, chrome }: { article: Article; chrome: Chr
           url,
           headline: article.title,
           ...((article.seo.description ?? article.lead) && { description: article.seo.description ?? article.lead }),
-          ...(article.image && { image: [absoluteImageUrl(article.image, 1200, 630)] }),
+          // Google requires an image for Article results; fall back to the site's social card.
+          image: [article.image ? absoluteImageUrl(article.image, 1200, 630) : absoluteUrl(DEFAULT_SOCIAL_IMAGE)],
           ...(article.publishDate && { datePublished: article.publishDate }),
           ...((article.updatedAt ?? article.publishDate) && { dateModified: article.updatedAt ?? article.publishDate }),
           inLanguage: locale,

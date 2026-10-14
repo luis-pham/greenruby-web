@@ -6,6 +6,8 @@ const en = {
   breadcrumb: 'Gallery',
   metaTitle: 'Photo Gallery',
   pageSuffix: (page: number) => ` - Page ${page}`,
+  categoryDescription: (name: string) =>
+    `${name}: real photos from aboard Green Ruby cruises on Ha Long Bay and Lan Ha Bay. Cabins, dining, activities and the bay itself.`,
   heroEyebrow: 'The Green Ruby visual journal',
   heroTitle: 'A thousand ways to',
   heroTitleEm: 'remember.',
@@ -95,6 +97,8 @@ const vi: GalleryMessages = {
   breadcrumb: 'Thư viện',
   metaTitle: 'Thư viện ảnh',
   pageSuffix: (page) => ` - Trang ${page}`,
+  categoryDescription: (name) =>
+    `${name}: ảnh thật trên du thuyền Green Ruby ở Vịnh Hạ Long và Lan Hạ. Phòng nghỉ, ẩm thực, hoạt động và cảnh vịnh.`,
   heroEyebrow: 'Nhật ký hình ảnh Green Ruby',
   heroTitle: 'Muôn cách để',
   heroTitleEm: 'lưu giữ.',

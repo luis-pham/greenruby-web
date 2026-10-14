@@ -9,7 +9,7 @@ import { StepsBar } from './StepsBar';
 import s from './booking.module.css';
 
 // Photography already used by the CMS (homepage banner).
-const HERO_IMAGE = '/upload/2026/03/13/banner-home.png';
+const HERO_IMAGE = '/upload/2026/06/08/green-ruby-cruises-halong-bay-1.jpg';
 
 /**
  * Booking page. The hero, footer and the wizard's loading state are prerendered; the wizard itself

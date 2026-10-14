@@ -3,17 +3,25 @@ import type { Locale } from '@/lib/i18n';
 import type { SiteInfo } from '@/lib/site-info';
 import { absoluteImageUrl, absoluteUrl } from '@/lib/site-url';
 
-const DEFAULT_SOCIAL_IMAGE = '/assets/frontend/images/logo-social.jpg?v=0.0.1';
+export const DEFAULT_SOCIAL_IMAGE = '/assets/frontend/images/logo-social.jpg?v=0.0.1';
 
 /**
  * Title, description, canonical, hreflang, Open Graph and Twitter tags for a page.
  * hreflang is only emitted when the other-language counterpart is known exactly.
  */
+/** Search results show ~160 characters; long CMS summaries are cut at a word boundary. */
+function clip(text: string | undefined, max = 160): string | undefined {
+  const clean = text?.replace(/\s+/g, ' ').trim();
+  if (!clean || clean.length <= max) return clean || undefined;
+  const cut = clean.slice(0, max - 1);
+  return `${cut.slice(0, cut.lastIndexOf(' ') > 100 ? cut.lastIndexOf(' ') : cut.length).replace(/[\s,;:.\-–—]+$/, '')}…`;
+}
+
 export function pageMetadata({
   locale,
   site,
   title,
-  description,
+  description: rawDescription,
   path,
   alternatePath,
   image,
@@ -28,9 +36,9 @@ export function pageMetadata({
   image?: string | null;
   noIndex?: boolean;
 }): Metadata {
-  // CMS SEO titles often already end with the brand ("… | Green Ruby"); don't append it twice.
-  const brand = site.name.split(' ').slice(0, 2).join(' ').toLowerCase();
-  const fullTitle = title.toLowerCase().includes(brand) ? title : `${title} | ${site.name}`;
+  const description = clip(rawDescription);
+  // Editor-written titles ("… | Green Ruby") are complete; names like "Green Ruby 1" still get the brand.
+  const fullTitle = title.includes('|') || title.toLowerCase().includes(site.name.toLowerCase()) ? title : `${title} | ${site.name}`;
   const url = absoluteUrl(path);
   const other: Locale = locale === 'en' ? 'vi' : 'en';
   const languages: Record<string, string> | undefined = alternatePath

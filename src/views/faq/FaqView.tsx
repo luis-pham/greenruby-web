@@ -13,7 +13,7 @@ import s from './faq.module.css';
 
 const pad = (n: number) => String(n).padStart(2, '0');
 
-const CONTACT_IMAGE = '/upload/2026/03/13/banner-home.png';
+const CONTACT_IMAGE = '/upload/2026/06/08/green-ruby-cruises-halong-bay-1.jpg';
 
 const ICONS: ReactNode[] = [
   <><circle cx="12" cy="12" r="9" /><path d="m15.5 8.5-2.4 4.6-4.6 2.4 2.4-4.6z" /></>,

@@ -19,7 +19,7 @@ const largeImage = (src: string) => (/^https?:\/\//.test(src) ? src : `${mediaOr
 const mediaFile = (src: string) => (/^https?:\/\//.test(src) ? src : `${mediaOrigin}${src}`);
 
 // Photography already used by the CMS homepage banner (the gallery page config has no hero image).
-const HERO_IMAGE = '/upload/2026/03/13/banner-home.png';
+const HERO_IMAGE = '/upload/2026/06/08/green-ruby-cruises-halong-bay-1.jpg';
 
 export function GalleryView({ gallery, chrome }: { gallery: Gallery; chrome: Chrome }) {
   const { locale, t, site } = chrome;

@@ -68,7 +68,7 @@ export function galleryRoute(locale: Locale) {
       site: siteInfo(site),
       // Category pages get their own title, so they don't duplicate the hub's.
       title: `${category ? `${category.name} · ${t.metaTitle}` : base}${page > 1 ? t.pageSuffix(page) : ''}`,
-      description: gallery.seo.description ?? t.heroBody,
+      description: `${category ? t.categoryDescription(category.name) : (gallery.seo.description ?? t.heroBody)}${page > 1 ? t.pageSuffix(page) : ''}`,
       path: canonicalPath,
       alternatePath: alternate.exact ? alternate.href : undefined,
       image: gallery.items.find((i) => i.type === 'image')?.src,

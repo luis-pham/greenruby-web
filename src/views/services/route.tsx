@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { getSite } from '@/lib/api/content';
+import { getSite, listCabins } from '@/lib/api/content';
 import { sectionPath, type Locale } from '@/lib/i18n';
 import { pageMetadata } from '@/lib/seo';
 import { siteInfo } from '@/lib/site-info';
@@ -26,11 +26,12 @@ export function servicesRoute(locale: Locale) {
   }
 
   async function Page() {
-    const [site, data, cmsFaqs] = await Promise.all([getSite(locale), getServicesPage(locale), getServiceFaqs(locale)]);
+    const [site, data, cmsFaqs, cabins] = await Promise.all([getSite(locale), getServicesPage(locale), getServiceFaqs(locale), listCabins(locale)]);
     return (
       <ServicesView
         data={data}
         cmsFaqs={cmsFaqs}
+        cabinIds={cabins.map((c) => c.id)}
         chrome={{ locale, site, t: getMessages(locale), alternateHref: sectionPath(other, 'services') }}
       />
     );

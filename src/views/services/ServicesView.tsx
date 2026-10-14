@@ -13,7 +13,7 @@ import { ServiceFilter } from './ServiceFilter';
 import s from './services.module.css';
 
 // CMS photography: the homepage banner (also used by the contact page) and the transfer service photo.
-const HERO_IMAGE = '/upload/2026/03/13/banner-home.png';
+const HERO_IMAGE = '/upload/2026/06/08/green-ruby-cruises-halong-bay-1.jpg';
 const TRANSFER_IMAGE = '/upload/2026/03/12/limousine-bus-hanoi-halong-bay-5.jpg';
 
 const pad = (n: number) => String(n).padStart(2, '0');
@@ -22,7 +22,18 @@ function formatPrice(price: number, currency: 'USD' | 'VND', locale: string) {
   return new Intl.NumberFormat(locale === 'vi' ? 'vi-VN' : 'en-US', { style: 'currency', currency, maximumFractionDigits: 0 }).format(price);
 }
 
-export function ServicesView({ data, cmsFaqs, chrome }: { data: ServicesPage; cmsFaqs: FaqItem[]; chrome: Chrome }) {
+export function ServicesView({
+  data,
+  cmsFaqs,
+  cabinIds,
+  chrome,
+}: {
+  data: ServicesPage;
+  cmsFaqs: FaqItem[];
+  /** Cabins that have a public detail page; event spaces picked in the CMS (e.g. the lounge) may not. */
+  cabinIds: number[];
+  chrome: Chrome;
+}) {
   const { locale, t, site } = chrome;
   const m = servicesMessages[locale];
   const info = siteInfo(site);
@@ -219,18 +230,24 @@ export function ServicesView({ data, cmsFaqs, chrome }: { data: ServicesPage; cm
                   <h3 className={s.spacesTitle}>{m.celebrations.spaces}</h3>
                   <div className={s.spaces}>
                     {spaces.map((cabin) => {
-                      const url = detailPath(locale, 'cabin', cabin.slug, cabin.id);
+                      const url = cabinIds.includes(cabin.id) ? detailPath(locale, 'cabin', cabin.slug, cabin.id) : null;
                       const facts = [cabin.cruise?.name, cabin.area ? m.celebrations.area(cabin.area) : null, cabin.capacity ? m.celebrations.guests(cabin.capacity) : null].filter(Boolean);
                       return (
                         <article key={cabin.id} className={s.space}>
-                          <SmartLink href={url} className={s.spacePhoto} aria-label={cabin.name}>
-                            {cabin.image && <Image src={cabin.image} alt={cabin.name} fill sizes="(max-width: 600px) 100vw, 50vw" />}
-                          </SmartLink>
+                          {url ? (
+                            <SmartLink href={url} className={s.spacePhoto} aria-label={cabin.name}>
+                              {cabin.image && <Image src={cabin.image} alt={cabin.name} fill sizes="(max-width: 600px) 100vw, 50vw" />}
+                            </SmartLink>
+                          ) : (
+                            <div className={s.spacePhoto}>
+                              {cabin.image && <Image src={cabin.image} alt={cabin.name} fill sizes="(max-width: 600px) 100vw, 50vw" />}
+                            </div>
+                          )}
                           <div className={s.spaceBody}>
                             <span className={s.mini}>{facts.join(' · ')}</span>
-                            <h4><SmartLink href={url}>{cabin.name}</SmartLink></h4>
+                            <h4>{url ? <SmartLink href={url}>{cabin.name}</SmartLink> : cabin.name}</h4>
                             {cabin.summary && <p>{cabin.summary}</p>}
-                            <TextLink href={url} inverse>{m.celebrations.viewSpace}</TextLink>
+                            {url && <TextLink href={url} inverse>{m.celebrations.viewSpace}</TextLink>}
                           </div>
                         </article>
                       );

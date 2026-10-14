@@ -71,8 +71,8 @@ export function faqRoute(locale: Locale) {
       locale,
       site: siteInfo(site),
       title: title ?? t.metaTitle,
-      // Without a group the API only has the site-wide default description, so the hub uses its own.
-      description: (list.group ? list.seo.description : null) ?? t.metaDescription,
+      // The API only has the site-wide default description, so every listing gets its own.
+      description: `${list.group ? t.categoryDescription(list.group.name) : t.metaDescription}${page > 1 ? t.pageSuffix(page) : ''}`,
       path: canonicalPath,
       alternatePath: alternate.exact ? alternate.href : undefined,
     });

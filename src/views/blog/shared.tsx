@@ -24,9 +24,9 @@ export function linked(locale: Locale, articles: ArticleSummary[]): LinkedArticl
 // Photography already in the CMS media library (also used by the contact page), for the hero,
 // topic cards and calls to action when no article image is available.
 export const PHOTOS = {
-  hero: '/upload/2026/03/13/banner-home.png',
+  hero: '/upload/2026/06/08/green-ruby-cruises-halong-bay-1.jpg',
   afterword: '/upload/2026/03/13/2n3d-lh.png',
-  topics: ['/upload/2026/03/09/banner-itineraries.png', '/upload/2026/03/13/2n3d-hl-1.png', '/upload/2026/03/13/3n2d-lh.png', '/upload/2026/03/13/2n3d-lh.png', '/upload/2026/03/13/banner-home.png'],
+  topics: ['/upload/2026/06/08/green-ruby-cruises-halong-bay.jpg', '/upload/2026/03/13/2n3d-hl-1.png', '/upload/2026/03/13/3n2d-lh.png', '/upload/2026/03/13/2n3d-lh.png', '/upload/2026/06/08/green-ruby-cruises-halong-bay-1.jpg'],
 };
 
 export function SearchIcon() {

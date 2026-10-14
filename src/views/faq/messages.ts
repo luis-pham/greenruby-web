@@ -5,6 +5,8 @@ const en = {
   metaDescription:
     'Answers to common questions about Green Ruby cruises on Ha Long Bay and Lan Ha Bay: itineraries, booking and payment, cabins, life on board and green technology.',
   pageSuffix: (page: number) => ` - Page ${page}`,
+  categoryDescription: (name: string) =>
+    `${name}: answers to common questions about Green Ruby cruises on Ha Long Bay and Lan Ha Bay, from our reservations team.`,
   heroEyebrow: 'The Green Ruby guide',
   heroTitle: 'A little clarity.',
   heroTitleEm: 'A more beautiful journey.',
@@ -71,6 +73,8 @@ const vi: FaqMessages = {
   metaDescription:
     'Giải đáp thắc mắc về du thuyền Green Ruby trên Vịnh Hạ Long và Lan Hạ: hành trình, đặt chỗ và thanh toán, phòng nghỉ, cuộc sống trên tàu và công nghệ xanh.',
   pageSuffix: (page) => ` - Trang ${page}`,
+  categoryDescription: (name) =>
+    `${name}: giải đáp các câu hỏi thường gặp về du thuyền Green Ruby trên Vịnh Hạ Long và Lan Hạ, từ đội ngũ đặt chỗ của chúng tôi.`,
   heroEyebrow: 'Cẩm nang Green Ruby',
   heroTitle: 'Rõ ràng hơn một chút.',
   heroTitleEm: 'Hành trình trọn vẹn hơn.',
