@@ -44,14 +44,66 @@
   position: relative;
   z-index: var(--z-nav);
   color: var(--color-neutral-white);
+  /* Wider than the 1300px content column (up to 1560px) so a full CMS menu fits on one line. */
+  width: min(calc(100vw - 2 * var(--space-gutter) - 16px), 1560px);
+  left: 50%;
+  transform: translateX(-50%);
 }
-.navLinks { display: flex; align-items: center; gap: 24px; }
-.navLinks a { font-size: var(--font-size-label); font-weight: var(--font-weight-bold); letter-spacing: 0.05em; white-space: nowrap; }
-.navLinks a:hover,
-.navLinks [aria-current='page'] { color: var(--text-inverse-accent); }
-.navEnd { display: flex; align-items: center; gap: 15px; }
-.language { font-size: var(--font-size-label); letter-spacing: 0.1em; white-space: nowrap; }
-.language:hover { color: var(--text-inverse-accent); }
+.navLinks { display: flex; align-items: center; gap: 28px; list-style: none; margin: 0; padding: 0; }
+.navItem { position: relative; }
+.navLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 14px 0;
+  font-size: 14px;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color var(--motion-duration-fast);
+}
+.navLink:hover,
+.navItem:focus-within > .navLink,
+.navLink [aria-current='page'] { color: var(--text-inverse-accent); }
+.chevron { width: 12px; height: 8px; flex: 0 0 auto; transition: transform var(--motion-duration-fast); }
+.navItem:hover .chevron,
+.navItem:focus-within .chevron { transform: rotate(180deg); }
+
+/* Dropdown: plain links in the HTML, shown on hover or keyboard focus. */
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: -20px;
+  z-index: var(--z-overlay);
+  min-width: 230px;
+  margin: 0;
+  padding: 10px 0;
+  list-style: none;
+  background: var(--color-green-950);
+  border-top: 2px solid var(--action-primary);
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(6px);
+  transition: opacity var(--motion-duration-fast), transform var(--motion-duration-fast), visibility var(--motion-duration-fast);
+}
+.navItem:hover > .dropdown,
+.navItem:focus-within > .dropdown { opacity: 1; visibility: visible; transform: none; }
+.dropdown a { display: block; padding: 10px 20px; color: var(--color-green-50); font-size: 14px; white-space: nowrap; }
+.dropdown a:hover,
+.dropdown [aria-current='page'] { color: var(--text-inverse-accent); }
+
+.navEnd { display: flex; align-items: center; gap: 18px; }
+
+/* Language switcher: current language's flag (ringed) + the other language's flag as the link. */
+.flags { display: flex; align-items: center; gap: 8px; }
+.flag { display: inline-flex; width: 28px; height: 19px; overflow: hidden; border-radius: 2px; box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.35); }
+.flag svg { width: 100%; height: 100%; display: block; }
+a.flag { opacity: 0.7; transition: opacity var(--motion-duration-fast), box-shadow var(--motion-duration-fast); }
+a.flag:hover, a.flag:focus-visible { opacity: 1; box-shadow: 0 0 0 2px var(--text-inverse-accent); }
+.flagCurrent { box-shadow: 0 0 0 2px var(--text-inverse-accent); }
+.mobileLanguage { display: inline-flex; align-items: center; gap: 12px; }
 .navBook {
   background: var(--color-neutral-sand);
   color: var(--text-heading);
@@ -186,12 +238,10 @@
 .footerBottom nav { display: flex; gap: 18px; }
 .footerBottom a:hover { color: var(--color-neutral-white); }
 
-@media (max-width: 1360px) {
-  .navLinks { gap: 16px; }
-}
-/* CMS menus can be long (10 items in Vietnamese): collapse to the menu button earlier than other layout changes. */
+/* Below this the booking button and flags move into the menu too (the menu itself collapses earlier,
+   at a width computed from the CMS menu length in SiteNav). */
 @media (max-width: 1200px) {
-  .navLinks, .language, .navBook { display: none; }
+  .navLinks, .flags, .navBook { display: none; }
   .mobileMenu { display: block; }
 }
 @media (max-width: 1160px) {
@@ -201,7 +251,7 @@
 @media (max-width: 900px) {
   .topbarContact { display: none; }
   .nav { height: var(--size-nav-height-mobile); }
-  .navLinks, .language, .navBook { display: none; }
+  .navLinks, .flags, .navBook { display: none; }
   .mobileMenu { display: block; }
   .hero { min-height: 680px; }
   .heroCompact { min-height: 520px; }

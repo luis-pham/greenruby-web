@@ -4,9 +4,10 @@ import { cx, Eyebrow, SmartLink } from '@/components/ui';
 import { JsonLd } from '@/components/seo/JsonLd';
 import type { Site } from '@/lib/api/schemas';
 import { homePath, sectionPath, type Locale } from '@/lib/i18n';
-import { navLinks, siteInfo } from '@/lib/site-info';
+import { navLinks, siteInfo, type NavLink } from '@/lib/site-info';
 import { absoluteUrl } from '@/lib/site-url';
 import type { Messages } from '@/messages';
+import { FlagGB, FlagVN } from './Flags';
 import { MobileMenu } from './MobileMenu';
 import s from './layout.module.css';
 
@@ -61,23 +62,79 @@ export function Topbar({ site, t }: Pick<Chrome, 'site' | 't'>) {
   );
 }
 
+const LANGUAGE_NAMES = { en: 'English', vi: 'Tiếng Việt' } as const;
+
+/**
+ * Rough width (px) the desktop menu needs at its size (14px uppercase, 0.12em tracking): used to pick
+ * the viewport width below which the menu collapses into the menu button instead of overflowing.
+ */
+function menuBreakpoint(links: NavLink[]): number {
+  const chars = links.reduce((n, l) => n + l.label.length, 0);
+  const chevrons = links.filter((l) => l.children.length > 0).length;
+  const menu = chars * 10.2 + chevrons * 21 + Math.max(0, links.length - 1) * 28;
+  const chrome = 80 + 275 + 50 + 2 * 46 + 16; // logo, flags + booking button, gaps, gutters, scrollbar
+  return Math.round(Math.max(1200, menu + chrome));
+}
+
+function Chevron() {
+  return (
+    <svg className={s.chevron} viewBox="0 0 12 8" aria-hidden="true">
+      <path d="M1 1.5 6 6.5 11 1.5" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function LanguageFlags({ locale, alternateHref, uid }: { locale: Locale; alternateHref: string; uid: string }) {
+  const other: Locale = locale === 'en' ? 'vi' : 'en';
+  const flag = (l: Locale) => (l === 'en' ? <FlagGB uid={uid} /> : <FlagVN />);
+  return (
+    <span className={s.flags}>
+      <span className={cx(s.flag, s.flagCurrent)} title={LANGUAGE_NAMES[locale]} aria-current="true">
+        {flag(locale)}
+        <span className="sr-only">{LANGUAGE_NAMES[locale]}</span>
+      </span>
+      <a className={s.flag} href={alternateHref} hrefLang={other} lang={other} title={LANGUAGE_NAMES[other]}>
+        {flag(other)}
+        <span className="sr-only">{LANGUAGE_NAMES[other]}</span>
+      </a>
+    </span>
+  );
+}
+
 export function SiteNav({ locale, site, t, alternateHref, currentHref }: Chrome & { currentHref?: string }) {
+  // The brand already links home, so the home item is left out of the desktop menu.
   const links = navLinks(site.menus.primary);
+  const desktopLinks = links.filter((link) => link.href !== homePath(locale));
+  const collapseAt = menuBreakpoint(desktopLinks);
+  const isCurrent = (link: NavLink) => link.href === currentHref || link.children.some((c) => c.href === currentHref);
   return (
     <nav className={s.nav} aria-label={t.nav.label}>
+      {/* Collapse to the menu button when this menu (from the CMS) wouldn't fit on one line. */}
+      <style>{`@media (max-width:${collapseAt}px){.${s.navLinks}{display:none}.${s.mobileMenu}{display:block}}`}</style>
       <Brand locale={locale} site={site} eager />
-      <div className={s.navLinks}>
-        {/* The brand already links home; skipping it keeps long CMS menus (e.g. Vietnamese) on one line. */}
-        {links.filter((link) => link.href !== homePath(locale)).map((link) => (
-          <Anchor key={link.href + link.label} href={link.href} external={link.external}>
-            <span aria-current={link.href === currentHref ? 'page' : undefined}>{link.label}</span>
-          </Anchor>
+      <ul className={s.navLinks}>
+        {desktopLinks.map((link) => (
+          <li key={link.href + link.label} className={s.navItem}>
+            <Anchor href={link.href} external={link.external} className={s.navLink}>
+              <span aria-current={isCurrent(link) ? 'page' : undefined}>{link.label}</span>
+              {link.children.length > 0 && <Chevron />}
+            </Anchor>
+            {link.children.length > 0 && (
+              <ul className={s.dropdown}>
+                {link.children.map((child) => (
+                  <li key={child.href + child.label}>
+                    <Anchor href={child.href} external={child.external}>
+                      <span aria-current={child.href === currentHref ? 'page' : undefined}>{child.label}</span>
+                    </Anchor>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
         ))}
-      </div>
+      </ul>
       <div className={s.navEnd}>
-        <a className={s.language} href={alternateHref} hrefLang={locale === 'en' ? 'vi' : 'en'} lang={locale === 'en' ? 'vi' : 'en'}>
-          {t.nav.switchLanguage}
-        </a>
+        <LanguageFlags locale={locale} alternateHref={alternateHref} uid="nav" />
         <SmartLink className={s.navBook} href={sectionPath(locale, 'booking')}>
           {t.nav.book} <span aria-hidden="true">↗</span>
         </SmartLink>
@@ -94,7 +151,10 @@ export function SiteNav({ locale, site, t, alternateHref, currentHref }: Chrome 
               )}
             </div>
           ))}
-          <a href={alternateHref}>{t.nav.switchLanguage}</a>
+          <a className={s.mobileLanguage} href={alternateHref} hrefLang={locale === 'en' ? 'vi' : 'en'}>
+            <span className={s.flag}>{locale === 'en' ? <FlagVN /> : <FlagGB uid="mobile" />}</span>
+            {LANGUAGE_NAMES[locale === 'en' ? 'vi' : 'en']}
+          </a>
           <SmartLink href={sectionPath(locale, 'booking')}>{t.nav.book} ↗</SmartLink>
         </MobileMenu>
       </div>
