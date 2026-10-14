@@ -64,6 +64,12 @@ const MIGRATED = [
   /^\/vi\/du-thuyen\//,
   /^\/booking$/,
   /^\/vi\/booking$/,
+  /^\/(legal|safety-policies|terms-and-conditions|privacy-policy|payment-methods)$/,
+  /^\/vi\/(phap-ly|chinh-sach-an-toan|dieu-khoan-dieu-kien|chinh-sach-bao-mat|phuong-thuc-thanh-toan)$/,
+  /^\/(services|about-us)$/,
+  /^\/vi\/(dich-vu|gioi-thieu)$/,
+  /^\/experiences(\/|$)/,
+  /^\/vi\/hoat-dong-trai-nghiem(\/|$)/,
 ];
 
 export function isMigratedPath(href: string): boolean {

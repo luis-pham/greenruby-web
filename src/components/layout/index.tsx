@@ -64,7 +64,8 @@ export function SiteNav({ locale, site, t, alternateHref, currentHref }: Chrome 
     <nav className={s.nav} aria-label={t.nav.label}>
       <Brand locale={locale} name={info.name} />
       <div className={s.navLinks}>
-        {links.map((link) => (
+        {/* The brand already links home; skipping it keeps long CMS menus (e.g. Vietnamese) on one line. */}
+        {links.filter((link) => link.href !== homePath(locale)).map((link) => (
           <Anchor key={link.href + link.label} href={link.href} external={link.external}>
             <span aria-current={link.href === currentHref ? 'page' : undefined}>{link.label}</span>
           </Anchor>
