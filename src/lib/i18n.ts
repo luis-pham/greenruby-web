@@ -70,6 +70,8 @@ const MIGRATED = [
   /^\/vi\/(dich-vu|gioi-thieu)$/,
   /^\/experiences(\/|$)/,
   /^\/vi\/hoat-dong-trai-nghiem(\/|$)/,
+  /^\/(gallery|faq)(\/|$)/,
+  /^\/vi\/(thu-vien|cau-hoi-thuong-gap)(\/|$)/,
 ];
 
 export function isMigratedPath(href: string): boolean {
