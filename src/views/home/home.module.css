@@ -335,15 +335,6 @@
 .faq { padding: 100px 0; background: var(--bg-surface); }
 .faqGrid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 120px; }
 .faqGrid > div > p { color: var(--text-muted); font-size: var(--font-size-base); line-height: 1.9; }
-.faqList details { padding: 17px 0; border-bottom: 1px solid var(--color-green-100); }
-.faqList details:first-child { border-top: 1px solid var(--color-green-100); }
-.faqList summary { display: flex; justify-content: space-between; gap: 10px; list-style: none; cursor: pointer; color: var(--text-heading); font-size: 14px; font-weight: var(--font-weight-semibold); line-height: 1.5; }
-.faqList summary::-webkit-details-marker { display: none; }
-.faqList summary::after { content: '+'; font-family: var(--font-family-serif); font-size: 21px; color: var(--action-primary); }
-.faqList details[open] summary::after { content: '−'; }
-.faqAnswer { margin: 12px 25px 7px 0; color: var(--text-muted); font-size: 13px; line-height: 1.8; }
-.faqAnswer p { margin: 0; }
-
 /* ---------- Closing banner ---------- */
 .quote { position: relative; isolation: isolate; overflow: hidden; display: grid; place-items: center; min-height: 470px; text-align: center; color: var(--color-neutral-white); background: #1e5550; }
 .quoteImage { z-index: -1; object-fit: cover; object-position: center 54%; filter: brightness(0.37) saturate(0.7); }

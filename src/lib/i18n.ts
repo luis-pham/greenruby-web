@@ -49,7 +49,15 @@ export function experiencePath(locale: Locale, slug: string, id: number): string
  * so links to it must be plain <a> elements: next/link would try a client-side navigation to a
  * route this app doesn't have. Extend this list as pages are migrated.
  */
-const MIGRATED = [/^\/(vi\/?)?$/, /^\/cabin\//, /^\/vi\/phong-nghi\//, /^\/contact$/, /^\/vi\/lien-he$/];
+const MIGRATED = [
+  /^\/(vi\/?)?$/,
+  /^\/cabin\//,
+  /^\/vi\/phong-nghi\//,
+  /^\/contact$/,
+  /^\/vi\/lien-he$/,
+  /^\/itinerary(\/|$)/,
+  /^\/vi\/hanh-trinh(\/|$)/,
+];
 
 export function isMigratedPath(href: string): boolean {
   if (!href.startsWith('/')) return false;

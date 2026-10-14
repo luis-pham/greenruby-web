@@ -2,7 +2,7 @@ import 'server-only';
 import { cacheLife, cacheTag } from 'next/cache';
 import type { Locale } from '@/lib/i18n';
 import { getContent } from './client';
-import { cabinListSchema, cabinSchema, homepageSchema, siteSchema } from './schemas';
+import { cabinListSchema, cabinSchema, homepageSchema, itineraryListSchema, itinerarySchema, siteSchema } from './schemas';
 
 // Every reader is cached and tagged. Laravel (app/Http/Middleware/RevalidateFrontend.php) calls
 // /api/revalidate with these tags after admin edits; "content" refreshes everything (e.g. media).
@@ -39,4 +39,20 @@ export async function getHomepage(locale: Locale) {
   const page = await getContent('/pages/homepage', { lang: locale }, homepageSchema);
   if (!page) throw new Error(`Homepage content missing for ${locale}`);
   return page;
+}
+
+export async function listItineraries(locale: Locale) {
+  'use cache';
+  cacheLife('hours');
+  cacheTag('content', 'itineraries', 'page:itinerary');
+  const list = await getContent('/itineraries', { lang: locale }, itineraryListSchema);
+  if (!list) throw new Error(`Itinerary list missing for ${locale}`);
+  return list;
+}
+
+export async function getItinerary(cruiseId: number, itineraryId: number, locale: Locale) {
+  'use cache';
+  cacheLife('hours');
+  cacheTag('content', 'itineraries', `itinerary:${itineraryId}`, `cruise:${cruiseId}`, 'cabins', 'services', 'experiences');
+  return getContent(`/itineraries/${cruiseId}/${itineraryId}`, { lang: locale }, itinerarySchema);
 }

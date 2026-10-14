@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import type { ReactNode } from 'react';
 import { SiteFooter, SiteNav, type Chrome } from '@/components/layout';
+import { FaqList, faqPageSchema } from '@/components/sections/Faq';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SmartLink, TextLink } from '@/components/ui';
 import type { Homepage } from '@/lib/api/schemas';
@@ -348,14 +349,7 @@ export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
                 <p>{h.faqBody}</p>
                 <TextLink href={sectionPath(locale, 'faq')}>{h.faqLink}</TextLink>
               </div>
-              <div className={s.faqList}>
-                {page.faqs.map((faq) => (
-                  <details key={faq.question}>
-                    <summary>{faq.question}</summary>
-                    <div className={s.faqAnswer} dangerouslySetInnerHTML={{ __html: faq.answerHtml }} />
-                  </details>
-                ))}
-              </div>
+              <FaqList items={page.faqs} schema={false} />
             </div>
           </section>
         )}
@@ -402,18 +396,7 @@ export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
                 name: it.name,
               })),
             },
-            ...(page.faqs.length > 0
-              ? [
-                  {
-                    '@type': 'FAQPage',
-                    mainEntity: page.faqs.map((faq) => ({
-                      '@type': 'Question',
-                      name: faq.question,
-                      acceptedAnswer: { '@type': 'Answer', text: faq.answerHtml.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim() },
-                    })),
-                  },
-                ]
-              : []),
+            ...(page.faqs.length > 0 ? [{ ...faqPageSchema(page.faqs), '@context': undefined }] : []),
           ],
         }}
       />
