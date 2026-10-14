@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import { cx, Eyebrow, SmartLink } from '@/components/ui';
 import { JsonLd } from '@/components/seo/JsonLd';
 import type { Site } from '@/lib/api/schemas';
-import { homePath, sectionPath, type Locale } from '@/lib/i18n';
+import { homePath, sectionPath, type Locale, type Section } from '@/lib/i18n';
 import { navLinks, siteInfo, type NavLink } from '@/lib/site-info';
 import { absoluteUrl } from '@/lib/site-url';
 import type { Messages } from '@/messages';
@@ -101,9 +101,14 @@ function LanguageFlags({ locale, alternateHref, uid }: { locale: Locale; alterna
   );
 }
 
+/** Sections linked from the footer only, so the header menu stays short. */
+const FOOTER_ONLY: Section[] = ['gallery', 'blog', 'aboutUs', 'faq'];
+
 export function SiteNav({ locale, site, t, alternateHref, currentHref }: Chrome & { currentHref?: string }) {
+  const footerOnly = FOOTER_ONLY.map((section) => sectionPath(locale, section));
+  const inHeader = (link: NavLink) => !footerOnly.some((path) => link.href === path || link.href.startsWith(`${path}/`));
+  const links = navLinks(site.menus.primary).filter(inHeader);
   // The brand already links home, so the home item is left out of the desktop menu.
-  const links = navLinks(site.menus.primary);
   const desktopLinks = links.filter((link) => link.href !== homePath(locale));
   const collapseAt = menuBreakpoint(desktopLinks);
   const isCurrent = (link: NavLink) => link.href === currentHref || link.children.some((c) => c.href === currentHref);
