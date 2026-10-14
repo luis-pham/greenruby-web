@@ -125,7 +125,7 @@ const vi: Messages = {
     metaTitle: 'Du thuyền sinh thái cao cấp vịnh Hạ Long & Lan Hạ',
     metaDescription:
       'Green Ruby Cruises: hành trình du thuyền sinh thái cao cấp trên vịnh Hạ Long và vịnh Lan Hạ. Hai du thuyền, phòng suite riêng tư và lịch trình được chăm chút.',
-    heroEyebrow: 'Hành trình riêng tư giữa kỳ quan thiên nhiên Việt Nam',
+    heroEyebrow: 'Du thuyền Eco-Luxury Vịnh Hạ Long & Lan Hạ',
     heroTitle: 'Nơi vịnh biển trở thành',
     heroTitleEm: 'của riêng bạn.',
     heroBody:

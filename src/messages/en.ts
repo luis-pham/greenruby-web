@@ -123,7 +123,7 @@ const en = {
     metaTitle: 'Eco-Luxury Cruises in Ha Long & Lan Ha Bay',
     metaDescription:
       'Green Ruby Cruises: eco-luxury voyages through Ha Long Bay and Lan Ha Bay. Two vessels, private suites and thoughtfully designed itineraries.',
-    heroEyebrow: 'An intimate voyage through Vietnam’s natural wonders',
+    heroEyebrow: 'Ha Long Bay & Lan Ha Bay Eco-Luxury Cruises',
     heroTitle: 'Where the bay becomes',
     heroTitleEm: 'yours.',
     heroBody:

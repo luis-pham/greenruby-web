@@ -39,7 +39,8 @@ export function pageMetadata({
         [other]: absoluteUrl(alternatePath),
         'x-default': absoluteUrl(locale === 'en' ? path : alternatePath),
       }
-    : undefined;
+    : // No exact counterpart in the other language: declare the page's own language only (as the Laravel site did).
+      { [locale]: url };
   // Pages without their own image share the Laravel site's default social card (frontend.organizationLogoSocial).
   const images = image
     ? [{ url: absoluteImageUrl(image, 1200, 630), width: 1200, height: 630 }]

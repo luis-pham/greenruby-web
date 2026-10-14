@@ -26,8 +26,12 @@
     linear-gradient(0deg, rgba(6, 31, 30, 0.7) 0%, transparent 39%, rgba(10, 30, 32, 0.17) 88%);
 }
 .heroCopy { position: relative; z-index: 1; max-width: 800px; margin-top: clamp(110px, 16vh, 190px); }
+.heroH1 { margin: 0; font: inherit; letter-spacing: normal; }
 .heroTitle {
   margin: 28px 0 23px;
+  font-family: var(--font-family-serif);
+  font-weight: var(--font-weight-regular);
+  text-wrap: balance;
   max-width: 770px;
   color: var(--color-neutral-white);
   font-size: var(--font-size-display);

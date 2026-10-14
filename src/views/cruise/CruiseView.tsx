@@ -1,11 +1,12 @@
 import Image from 'next/image';
 import { PageHero, SiteFooter, type Chrome } from '@/components/layout';
+import { organizationRef } from '@/lib/organization';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SmartLink, TextLink } from '@/components/ui';
 import type { Cruise } from '@/lib/api/schemas';
 import { detailPath, experiencePath, homePath, itineraryPath, sectionPath } from '@/lib/i18n';
 import { siteInfo } from '@/lib/site-info';
-import { absoluteImageUrl, absoluteUrl, siteUrl } from '@/lib/site-url';
+import { absoluteImageUrl, absoluteUrl } from '@/lib/site-url';
 import cabinStyles from '@/views/cabin/cabin.module.css';
 import { cabinPath } from '@/views/cabin/CabinView';
 import { Carousel } from '@/views/home/Carousel';
@@ -323,7 +324,15 @@ export function CruiseView({ cruise, index, chrome }: { cruise: Cruise; index: n
           amenityFeature: cruise.amenities.map((a) => ({ '@type': 'LocationFeatureSpecification', name: a.name, value: true })),
           containsPlace: cruise.cabins.map((cabin) => ({ '@type': 'HotelRoom', name: cabin.name, url: absoluteUrl(cabinPath(locale, cabin)) })),
           ...(bayName && { containedInPlace: { '@type': 'Place', name: bayName, address: 'Quảng Ninh, Vietnam' } }),
-          brand: { '@type': 'Brand', name: info.name, url: siteUrl },
+          ...(cruise.yearBuilt != null && { yearBuilt: cruise.yearBuilt }),
+          additionalProperty: [
+            cruise.length != null && { '@type': 'PropertyValue', name: 'Length', value: cruise.length, unitCode: 'MTR', unitText: 'm' },
+            cruise.totalFloor != null && { '@type': 'PropertyValue', name: 'Decks', value: cruise.totalFloor },
+            cruise.capacity != null && { '@type': 'PropertyValue', name: 'Capacity', value: cruise.capacity, unitText: 'guests' },
+            cruise.cabins.length > 0 && { '@type': 'PropertyValue', name: 'Cabin categories', value: cruise.cabins.length },
+          ].filter(Boolean),
+          // The ship is operated by Green Ruby Cruises (the site-wide organization node).
+          brand: organizationRef(info.name),
         }}
       />
     </>

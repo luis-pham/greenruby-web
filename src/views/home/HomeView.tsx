@@ -58,10 +58,13 @@ export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
         <div className="container">
           <SiteNav {...chrome} currentHref={homePath(locale)} />
           <div className={s.heroCopy}>
-            <Eyebrow inverse>{h.heroEyebrow}</Eyebrow>
-            <h1 className={s.heroTitle}>
-              {h.heroTitle} <em>{h.heroTitleEm}</em>
+            {/* The keyword line is the H1 (as on the Laravel site); the tagline below is display copy. */}
+            <h1 className={s.heroH1}>
+              <Eyebrow inverse>{h.heroEyebrow}</Eyebrow>
             </h1>
+            <p className={s.heroTitle}>
+              {h.heroTitle} <em>{h.heroTitleEm}</em>
+            </p>
             <p className={s.heroBody}>{h.heroBody}</p>
             <div className={s.heroCtas}>
               <ButtonLink href="#journeys">{h.heroPrimary}</ButtonLink>

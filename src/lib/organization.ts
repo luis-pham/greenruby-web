@@ -2,7 +2,10 @@ import type { Site } from '@/lib/api/schemas';
 import { siteInfo } from '@/lib/site-info';
 import { siteUrl } from '@/lib/site-url';
 
-// The organization node, matching the Laravel site's shared/structured-data-organization.blade.php:
+// The organization node, based on the Laravel site's shared/structured-data-organization.blade.php.
+// Green Ruby operates its own ships, so it is an Organization + LocalBusiness rather than a TravelAgency
+// (a reseller); schema.org has no cruise-line type. LocalBusiness keeps the address/geo eligible for local results.
+//
 // structured address and coordinates come from Modules/FrontEnd/Config/config.php (not CMS fields),
 // everything else from the CMS site config.
 
@@ -18,7 +21,7 @@ const ADDRESS = {
 const GEO = { '@type': 'GeoCoordinates', latitude: 20.916492117326154, longitude: 106.98930708346906 };
 const AREA_SERVED = ['Ha Long Bay', 'Lan Ha Bay'];
 
-/** Full TravelAgency/LocalBusiness node (home, contact, about). Other pages reference it by @id. */
+/** Full Organization/LocalBusiness node (home, contact, about). Other pages reference it by @id. */
 export function organizationSchema(site: Site, extra: Record<string, unknown> = {}) {
   const info = siteInfo(site);
   const description = site.config['website-description'];
@@ -30,7 +33,7 @@ export function organizationSchema(site: Site, extra: Record<string, unknown> = 
     ...(whatsapp ? [{ '@type': 'ContactPoint', contactType: 'WhatsApp Support', telephone: whatsapp }] : []),
   ];
   return {
-    '@type': ['TravelAgency', 'LocalBusiness'],
+    '@type': ['Organization', 'LocalBusiness'],
     '@id': ORGANIZATION_ID,
     name: info.name,
     url: siteUrl,
@@ -48,4 +51,4 @@ export function organizationSchema(site: Site, extra: Record<string, unknown> = 
 }
 
 /** Short reference used as author/publisher/provider/brand elsewhere. */
-export const organizationRef = (name: string) => ({ '@type': 'TravelAgency', '@id': ORGANIZATION_ID, name, url: siteUrl });
+export const organizationRef = (name: string) => ({ '@type': 'Organization', '@id': ORGANIZATION_ID, name, url: siteUrl });
