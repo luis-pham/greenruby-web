@@ -51,6 +51,11 @@ export function siteInfo(site: Site): SiteInfo {
 
 export type NavLink = { label: string; href: string; external: boolean; children: NavLink[] };
 
+const ROMAN: Record<string, string> = { I: '1', II: '2', III: '3', IV: '4', V: '5' };
+
+/** CMS menu labels name the ships "Green Ruby I/II"; the rest of the site says "Green Ruby 1/2". */
+const arabicNumeral = (label: string) => label.replace(/\s(I{1,3}|IV|V)$/, (_, n: string) => ` ${ROMAN[n]}`);
+
 const isPlaceholder = (url: string | null) => !url || url === '#' || url.startsWith('javascript:');
 
 /** CMS menu -> clean links. Group items without their own URL point at their first child. */
@@ -59,6 +64,6 @@ export function navLinks(menu: MenuItem[]): NavLink[] {
     const children = navLinks(item.children);
     const href = isPlaceholder(item.url) ? children[0]?.href : (item.url as string);
     if (!href) return [];
-    return [{ label: item.name, href, external: item.target === '_blank', children }];
+    return [{ label: arabicNumeral(item.name), href, external: item.target === '_blank', children }];
   });
 }
