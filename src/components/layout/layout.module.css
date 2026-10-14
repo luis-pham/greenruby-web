@@ -201,40 +201,52 @@ a.flag:hover, a.flag:focus-visible { opacity: 1; box-shadow: 0 0 0 2px var(--tex
 .heroActions { display: flex; align-items: center; gap: 27px; flex-wrap: wrap; }
 
 /* ---------- Footer (menus as on the Laravel site) ---------- */
-.footer { background: var(--bg-inverse); color: var(--text-inverse); padding-top: 80px; }
-.footerMain { display: grid; grid-template-columns: minmax(220px, 0.9fr) 3fr; gap: 64px; padding-bottom: 64px; }
+.footer { background: var(--bg-inverse); color: var(--text-inverse); padding-top: var(--space-18); }
+.footerMain { display: grid; grid-template-columns: minmax(220px, 0.9fr) 3fr; gap: var(--space-14); padding-bottom: var(--space-14); }
 .footerBrand { min-width: 0; }
-.footerAbout { max-width: 300px; margin: 24px 0 0; color: #a5bdb1; font-size: 14px; line-height: 1.8; }
-.certBadge { display: inline-flex; align-items: center; gap: 10px; margin: 22px 0 0; padding: 9px 12px; border: 1px solid rgba(255, 255, 255, 0.16); color: var(--color-green-100); font-size: var(--font-size-xs); }
-.certBadge svg { width: 18px; height: 18px; flex: 0 0 auto; fill: none; stroke: var(--text-inverse-accent); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-.socialBlock { margin-top: 26px; }
-.socialLabel { margin: 0 0 10px; color: var(--color-gold-200); font-size: var(--font-size-label); letter-spacing: 0.16em; text-transform: uppercase; }
-.socials { display: flex; flex-wrap: wrap; gap: 8px 16px; }
-.socials a { color: #aec2b8; font-size: 13px; text-transform: capitalize; }
-.socials a:hover { color: var(--color-neutral-white); }
-.footerNav { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 40px; }
-.footerCol h2 {
-  margin: 0 0 30px;
-  color: var(--color-green-50);
-  font-family: var(--font-family-serif);
-  font-size: 17px;
-  font-weight: var(--font-weight-regular);
-  letter-spacing: 0.22em;
+.footerAbout { max-width: 300px; margin: var(--space-6) 0 0; color: var(--text-inverse-muted); font-size: var(--font-size-sm); line-height: var(--font-leading-relaxed); }
+.socialBlock { margin-top: var(--space-6); }
+.socialLabel {
+  margin: 0 0 var(--space-3);
+  color: var(--text-inverse-accent);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--font-tracking-wider);
   text-transform: uppercase;
 }
-.footerCol ul { display: flex; flex-direction: column; gap: 18px; margin: 0; padding: 0; list-style: none; }
-.footerCol li { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
+.socials { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); }
+.socials a { color: var(--text-inverse-muted); font-size: var(--font-size-sm); text-transform: capitalize; }
+.socials a:hover { color: var(--text-inverse); }
+.footerNav { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-10); }
+.footerCol h2 {
+  margin: 0 0 var(--space-6);
+  color: var(--text-inverse);
+  font-family: var(--font-family-serif);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--font-leading-snug);
+  letter-spacing: var(--font-tracking-wider);
+  text-transform: uppercase;
+}
+.footerCol ul { display: flex; flex-direction: column; gap: var(--space-3); margin: 0; padding: 0; list-style: none; }
+.footerCol li { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-2); }
 .footerCol a,
-.footerSoonItem { color: var(--color-green-50); font-size: 17px; line-height: 1.35; transition: color var(--motion-duration-fast); }
+.footerSoonItem {
+  color: var(--text-inverse-muted);
+  font-size: var(--font-size-sm);
+  line-height: var(--font-leading-normal);
+  transition: color var(--motion-duration-fast);
+}
 .footerCol a:hover { color: var(--text-inverse-accent); }
 .footerSoonItem { cursor: default; }
 .soonBadge {
-  padding: 3px 8px;
-  background: rgba(224, 196, 153, 0.12);
+  padding: 2px 6px;
+  border: 1px solid var(--border-inverse);
   color: var(--text-inverse-accent);
   font-size: var(--font-size-label);
   font-weight: var(--font-weight-semibold);
-  letter-spacing: 0.12em;
+  letter-spacing: var(--font-tracking-wide);
+  line-height: var(--font-leading-normal);
   text-transform: uppercase;
 }
 .footerBottom {
@@ -242,16 +254,24 @@ a.flag:hover, a.flag:focus-visible { opacity: 1; box-shadow: 0 0 0 2px var(--tex
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 20px;
-  padding: 24px 0;
-  border-top: 1px solid #305049;
-  color: #8fa99d;
+  gap: var(--space-5);
+  padding: var(--space-6) 0;
+  border-top: 1px solid var(--border-inverse);
+  color: var(--text-inverse-muted);
   font-size: var(--font-size-xs);
 }
-.footerBottom nav { display: flex; gap: 12px; }
-.footerBottom a:hover { color: var(--color-neutral-white); }
-.footerContact { display: flex; flex-wrap: wrap; gap: 8px 24px; padding: 0 0 26px; color: #8fa99d; font-size: var(--font-size-xs); font-style: normal; }
-.footerContact a:hover { color: var(--color-neutral-white); }
+.footerBottom nav { display: flex; gap: var(--space-3); }
+.footerBottom a:hover { color: var(--text-inverse); }
+.footerContact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-6);
+  padding: 0 0 var(--space-6);
+  color: var(--text-inverse-muted);
+  font-size: var(--font-size-xs);
+  font-style: normal;
+}
+.footerContact a:hover { color: var(--text-inverse); }
 
 @media (max-width: 1200px) {
   .navLinks, .flags, .navBook { display: none; }
@@ -268,8 +288,8 @@ a.flag:hover, a.flag:focus-visible { opacity: 1; box-shadow: 0 0 0 2px var(--tex
   .hero { min-height: 680px; }
   .heroCompact { min-height: 520px; }
   .heroBody { padding-top: 84px; }
-  .footerMain { grid-template-columns: 1fr; gap: 48px; }
-  .footerNav { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 24px; }
+  .footerMain { grid-template-columns: 1fr; gap: var(--space-12); }
+  .footerNav { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-10) var(--space-6); }
 }
 @media (max-width: 600px) {
   .brandLogo { height: 52px; }
@@ -282,7 +302,4 @@ a.flag:hover, a.flag:focus-visible { opacity: 1; box-shadow: 0 0 0 2px var(--tex
   .heroSubtitle { font-size: 24px; }
   .heroDescription { font-size: 13px; }
   .heroActions { align-items: flex-start; gap: 17px; }
-  .footerCol h2 { margin-bottom: 20px; font-size: 15px; }
-  .footerCol a, .footerSoonItem { font-size: 15px; }
-  .footerCol ul { gap: 14px; }
 }

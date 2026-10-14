@@ -14,7 +14,6 @@ const en = {
   },
   footer: {
     statement: 'Where the bay stays wild — and the experience doesn’t compromise.',
-    certBadge: 'Green Globe Certification — in progress',
     followUs: 'Follow us',
     soon: 'Soon',
     columns: {

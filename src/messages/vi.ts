@@ -16,7 +16,6 @@ const vi: Messages = {
   },
   footer: {
     statement: 'Nơi vịnh vẫn hoang sơ — và trải nghiệm không đánh đổi điều gì.',
-    certBadge: 'Chứng nhận Green Globe — đang tiến hành',
     followUs: 'Theo dõi chúng tôi',
     soon: 'Soon',
     columns: {

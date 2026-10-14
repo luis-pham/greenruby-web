@@ -108,6 +108,7 @@
   --text-muted: var(--color-neutral-muted);
   --text-accent: var(--color-gold-700);
   --text-inverse: var(--color-green-50);
+  --text-inverse-muted: #a9bfb4;
   --text-inverse-accent: var(--color-gold-300);
   --text-on-accent: #152c27;
   --text-danger: var(--color-red-700);

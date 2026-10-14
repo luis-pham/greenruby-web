@@ -156,6 +156,7 @@ export const tokens = {
     "muted": "#5f6a63",
     "accent": "#806c4b",
     "inverse": "#eaf1ea",
+    "inverse-muted": "#a9bfb4",
     "inverse-accent": "#e0c499",
     "on-accent": "#152c27",
     "danger": "#8f5047"
