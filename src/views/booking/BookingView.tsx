@@ -1,18 +1,16 @@
-import Image from 'next/image';
 import { Suspense } from 'react';
-import { Breadcrumb, SiteFooter, SiteNav, Topbar, type Chrome } from '@/components/layout';
-import { cx, Eyebrow } from '@/components/ui';
+import { PageIntro, SiteFooter, type Chrome } from '@/components/layout';
 import { homePath, sectionPath } from '@/lib/i18n';
 import { siteInfo } from '@/lib/site-info';
 import { BookingWizard } from './BookingWizard';
 import { StepsBar } from './StepsBar';
 import s from './booking.module.css';
 
-// Photography already used by the CMS (homepage banner).
+// Photography already used by the CMS (homepage banner); shown in the wizard's summary.
 const HERO_IMAGE = '/upload/2026/06/08/green-ruby-cruises-halong-bay-1.jpg';
 
 /**
- * Booking page. The hero, footer and the wizard's loading state are prerendered; the wizard itself
+ * Booking page. The page intro, footer and the wizard's loading state are prerendered; the wizard itself
  * renders in the browser because it depends on the query string (prefill and payment return).
  */
 export function BookingView({ chrome }: { chrome: Chrome }) {
@@ -23,29 +21,14 @@ export function BookingView({ chrome }: { chrome: Chrome }) {
 
   return (
     <>
-      <Topbar site={site} t={t} />
-      <header className={s.hero}>
-        <div className="container">
-          <SiteNav {...chrome} currentHref={path} />
-        </div>
-        <div className={cx('container', s.heroLayout)}>
-          <div className={s.heroCopy}>
-            <Breadcrumb label={t.breadcrumb.label} items={[{ label: t.breadcrumb.home, href: homePath(locale) }, { label: b.crumb, href: path }]} />
-            <Eyebrow inverse>{b.heroEyebrow}</Eyebrow>
-            <h1>
-              {b.heroTitle} <em>{b.heroTitleEm}</em>
-            </h1>
-            <p>{b.heroIntro}</p>
-          </div>
-          <div className={s.heroImage}>
-            <Image src={HERO_IMAGE} alt="" fill preload sizes="(max-width: 760px) 100vw, 50vw" quality={85} />
-            <span className={s.heroCaption}>
-              <span aria-hidden="true" />
-              {b.heroCaption}
-            </span>
-          </div>
-        </div>
-      </header>
+      <PageIntro
+        chrome={chrome}
+        currentHref={path}
+        crumbs={[{ label: t.breadcrumb.home, href: homePath(locale) }, { label: b.crumb, href: path }]}
+        eyebrow={b.heroEyebrow}
+        title={<>{b.heroTitle} <em>{b.heroTitleEm}</em></>}
+        lead={b.heroIntro}
+      />
 
       <Suspense
         fallback={

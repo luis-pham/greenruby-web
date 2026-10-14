@@ -341,7 +341,6 @@ const vi: Messages = {
     introEyebrow: (name: string) => `Chào mừng lên ${name}`,
     introTitle: 'Một cách mới tuyệt đẹp để',
     introTitleEm: 'trải nghiệm vịnh biển.',
-    introStamp: 'Vẻ đẹp vượt ngoài vịnh',
     cabinCategories: (n: number) => `${n} hạng phòng`,
     areaRange: (min: number, max: number) => (min === max ? `${min} m² không gian riêng.` : `Từ ${min} m² đến ${max} m² không gian riêng.`),
     experiencesCount: (n: number) => `${n} trải nghiệm trên tàu`,
@@ -396,7 +395,6 @@ const vi: Messages = {
     heroTitleEm: 'bắt đầu từ đây.',
     heroIntro:
       'Mỗi chuyến đi đẹp đều bắt đầu từ vài lựa chọn tinh tế. Hãy chọn cabin, chia sẻ mong muốn của bạn và để đội ngũ chúng tôi chuẩn bị mọi chi tiết.',
-    heroCaption: 'Vịnh Hạ Long · Việt Nam',
     progressLabel: 'Tiến trình đặt chỗ',
     steps: [
       { title: 'Thông tin đặt chỗ', hint: 'Chọn chuyến đi' },

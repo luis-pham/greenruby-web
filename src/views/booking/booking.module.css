@@ -1,42 +1,5 @@
 /* Booking page: new_website/green-ruby-booking-v1.html, on semantic tokens. */
 
-/* ---------- Hero ---------- */
-.hero { background: var(--bg-inverse); color: var(--text-inverse); }
-.heroLayout { display: grid; grid-template-columns: 1.05fr 0.95fr; min-height: 310px; }
-.heroCopy { padding: 48px 55px 57px 0; }
-.heroCopy h1 {
-  margin: 13px 0 17px;
-  color: var(--color-neutral-white);
-  font-size: clamp(43px, 4.2vw, 64px);
-  line-height: var(--font-leading-tight);
-  letter-spacing: -0.045em;
-}
-.heroCopy h1 em { color: var(--text-inverse-accent); font-style: italic; }
-.heroCopy p { max-width: 520px; color: var(--text-inverse); opacity: 0.85; font-size: var(--font-size-sm); line-height: 1.8; }
-.heroImage { position: relative; min-height: 310px; overflow: hidden; background: var(--bg-brand); }
-.heroImage img { object-fit: cover; object-position: center 52%; }
-.heroImage::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: linear-gradient(90deg, var(--bg-inverse) 0, transparent 33%), linear-gradient(0deg, var(--color-overlay-soft), transparent 60%);
-}
-.heroCaption {
-  position: absolute;
-  right: 35px;
-  bottom: 30px;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  color: var(--color-neutral-white);
-  font-size: var(--font-size-label);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-.heroCaption span { width: 44px; height: 1px; background: currentColor; opacity: 0.6; }
-
 /* ---------- Progress ---------- */
 .stepsWrap { background: var(--bg-raised); border-bottom: 1px solid var(--border-default); }
 .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); min-height: 105px; }
@@ -363,11 +326,6 @@ fieldset.block { display: block; }
   .main { padding-top: 36px; }
 }
 @media (max-width: 760px) {
-  .heroLayout { grid-template-columns: 1fr; min-height: 0; }
-  .heroCopy { padding: 30px 0 33px; }
-  .heroImage { min-height: 185px; margin: 0 calc(-1 * var(--space-gutter)); }
-  .heroImage::before { background: linear-gradient(0deg, var(--color-overlay-soft), transparent 55%); }
-  .heroCaption { right: 23px; bottom: 16px; }
   .stepsWrap { overflow-x: auto; }
   .steps { min-width: 595px; }
   .stepButton { padding: 13px 9px; gap: 10px; }

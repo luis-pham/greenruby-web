@@ -118,7 +118,6 @@ export function CruiseView({ cruise, index, chrome }: { cruise: Cruise; index: n
               {cruise.cabins[0]?.image && (
                 <div className={s.introSecondary}><Image src={cruise.cabins[0].image} alt={cruise.cabins[0].name} fill sizes="(max-width: 900px) 45vw, 25vw" /></div>
               )}
-              <p className={s.stamp} aria-hidden="true">{c.introStamp}</p>
             </div>
           </div>
         </section>

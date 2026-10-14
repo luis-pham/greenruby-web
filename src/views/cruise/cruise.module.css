@@ -18,14 +18,6 @@
 .introMain { position: absolute; right: 0; top: 0; width: 85%; height: 88%; overflow: hidden; background: linear-gradient(135deg, #3c6a64, #b9b9a3); }
 .introSecondary { position: absolute; bottom: 0; left: 0; width: 47%; height: 49%; overflow: hidden; border: 9px solid var(--bg-page); background: #516b66; }
 .introMain img, .introSecondary img { object-fit: cover; }
-.stamp {
-  position: absolute; top: 38px; left: 0; z-index: 1;
-  width: 108px; height: 108px; display: grid; place-items: center; padding: 14px;
-  border: 7px solid var(--bg-page); border-radius: var(--radius-full);
-  background: var(--action-primary); color: var(--text-on-accent);
-  font-size: var(--font-size-label); font-weight: var(--font-weight-bold); letter-spacing: 0.08em; line-height: 1.5;
-  text-align: center; text-transform: uppercase; transform: rotate(-14deg);
-}
 
 /* Suites */
 .suites { background: var(--bg-surface); }
@@ -121,7 +113,6 @@
 }
 @media (max-width: 600px) {
   .introVisual { height: 355px; }
-  .stamp { top: 10px; width: 82px; height: 82px; font-size: 9px; border-width: 5px; }
   .onboardPhoto { min-height: 300px; }
   .facilityGrid { grid-template-columns: 1fr; }
   .facility { min-height: 0; }

@@ -339,7 +339,6 @@ const en = {
     introEyebrow: (name: string) => `Welcome aboard ${name}`,
     introTitle: 'A beautiful new way to',
     introTitleEm: 'experience the bay.',
-    introStamp: 'Beauty beyond the bay',
     cabinCategories: (n: number) => `${n} cabin categor${n === 1 ? 'y' : 'ies'}`,
     areaRange: (min: number, max: number) => (min === max ? `${min} m² of private space.` : `From ${min} m² to ${max} m² of private space.`),
     experiencesCount: (n: number) => `${n} onboard experiences`,
@@ -394,7 +393,6 @@ const en = {
     heroTitleEm: 'begins here.',
     heroIntro:
       'Every beautiful escape begins with a few thoughtful choices. Select your sanctuary, share your preferences, and let our team prepare the details.',
-    heroCaption: 'Ha Long Bay · Vietnam',
     progressLabel: 'Booking progress',
     steps: [
       { title: 'Booking info', hint: 'Choose your stay' },
