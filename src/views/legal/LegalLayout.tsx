@@ -1,6 +1,5 @@
-import Image from 'next/image';
 import type { ReactNode } from 'react';
-import { Breadcrumb, SiteFooter, SolidHeader, type Chrome, type Crumb } from '@/components/layout';
+import { PageIntro, SiteFooter, type Chrome, type Crumb } from '@/components/layout';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SmartLink } from '@/components/ui';
 import { sectionPath } from '@/lib/i18n';
@@ -11,9 +10,6 @@ import type { LegalMessages } from './messages';
 import type { Policy } from './policies';
 import { ScrollSpy } from './ScrollSpy';
 import s from './legal.module.css';
-
-// Photography already used by the CMS (homepage banner).
-const HERO_IMAGE = '/upload/2026/03/13/banner-home.png';
 
 export type TocItem = { href: string; label: string; number?: string; current?: boolean };
 
@@ -44,7 +40,7 @@ const ICONS: Record<Policy['key'], ReactNode> = {
   ),
 };
 
-/** Topbar, solid nav, the light split hero, the four-policy jump bar, then the page body, CTA and footer. */
+/** Shared page intro (no hero), the four-policy jump bar, then the page body, CTA and footer. */
 export function LegalShell({
   chrome,
   m,
@@ -54,8 +50,6 @@ export function LegalShell({
   titleEm,
   intro,
   updated,
-  artEyebrow,
-  artCaption,
   jumpLinks,
   pageName,
   dateModified,
@@ -69,53 +63,34 @@ export function LegalShell({
   titleEm: string;
   intro: string;
   updated: string | null;
-  artEyebrow: string;
-  artCaption: string;
   jumpLinks: { policy: Policy; href: string; title: string; current?: boolean }[];
   pageName: string;
   dateModified: string | null;
   children: ReactNode;
 }) {
-  const { locale, site, t } = chrome;
+  const { locale, site } = chrome;
   const contactHref = sectionPath(locale, 'contact');
   return (
     <>
-      <SolidHeader chrome={chrome} currentHref={path} />
-
-      <section className={s.hero}>
-        <div className={cx('container', s.heroGrid)}>
-          <div>
-            <div className={s.crumbs}>
-              <Breadcrumb items={crumbs} label={t.breadcrumb.label} />
-            </div>
-            <Eyebrow className={s.heroEyebrow}>{m.heroEyebrow}</Eyebrow>
-            <h1 className={s.heroTitle}>
-              {title}
-              <br />
-              <em>{titleEm}</em>
-            </h1>
-            <p className={s.heroIntro}>{intro}</p>
-            <p className={s.heroMeta}>
-              {updated && (
-                <>
-                  <span><strong>{m.lastUpdated}:</strong> {updated}</span>
-                  <span className={s.metaDivider} aria-hidden="true" />
-                </>
-              )}
-              <span><strong>{m.appliesTo}:</strong> {new URL(siteUrl).host}</span>
-            </p>
-          </div>
-          <div className={s.heroArt}>
-            <Image src={HERO_IMAGE} alt="" fill preload sizes="(max-width: 600px) 100vw, 46vw" quality={85} className={s.heroImage} />
-            <span className={s.artFrame} aria-hidden="true" />
-            <span className={s.artCorner} aria-hidden="true">GR.</span>
-            <p className={s.artCaption}>
-              <span>{artEyebrow}</span>
-              <strong>{artCaption}</strong>
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageIntro
+        chrome={chrome}
+        currentHref={path}
+        crumbs={crumbs}
+        eyebrow={m.heroEyebrow}
+        title={<>{title} <em>{titleEm}</em></>}
+        lead={intro}
+        meta={
+          <p className={s.heroMeta}>
+            {updated && (
+              <>
+                <span><strong>{m.lastUpdated}:</strong> {updated}</span>
+                <span className={s.metaDivider} aria-hidden="true" />
+              </>
+            )}
+            <span><strong>{m.appliesTo}:</strong> {new URL(siteUrl).host}</span>
+          </p>
+        }
+      />
 
       <div className={cx('container', s.jumpWrap)}>
         <nav className={s.jumpBar} aria-label={m.jumpBarLabel}>

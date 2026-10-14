@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import type { ReactNode } from 'react';
-import { Breadcrumb, SiteFooter, SiteNav, Topbar, type Chrome } from '@/components/layout';
+import { PageIntro, SiteFooter, type Chrome } from '@/components/layout';
 import { FaqList as FaqAccordion, faqPageSchema } from '@/components/sections/Faq';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SmartLink, TextLink } from '@/components/ui';
@@ -13,8 +13,6 @@ import s from './faq.module.css';
 
 const pad = (n: number) => String(n).padStart(2, '0');
 
-// Photography already used by the CMS (cruise detail and homepage banners); the faq page config has no images.
-const HERO_IMAGE = '/upload/2026/03/09/cruise-detail.png';
 const CONTACT_IMAGE = '/upload/2026/03/13/banner-home.png';
 
 const ICONS: ReactNode[] = [
@@ -68,42 +66,24 @@ export function FaqView({ list, chrome }: { list: FaqList; chrome: Chrome }) {
 
   return (
     <>
-      <Topbar site={site} t={t} />
-      <div className={s.shell}>
-        <div className="container">
-          <SiteNav {...chrome} currentHref={hubPath} />
-        </div>
-        <header className={cx('container', s.hero)}>
-          <div className={s.heroContent}>
-            <Breadcrumb
-              label={t.breadcrumb.label}
-              items={[
-                { label: t.breadcrumb.home, href: homePath(locale) },
-                { label: f.breadcrumb, href: hubPath },
-                ...(current ? [{ label: current.name, href: faqPath(locale, current.slug) }] : []),
-              ]}
-            />
-            <Eyebrow inverse>{f.heroEyebrow}</Eyebrow>
-            <h1 className={s.heroTitle}>
-              {current ? current.name : f.heroTitle}
-              <em>{current ? f.breadcrumb : f.heroTitleEm}</em>
-            </h1>
-            <p className={s.heroBody}>{f.heroBody}</p>
-            <div className={s.heroActions}>
-              <ButtonLink href="#questions">{f.heroPrimary}</ButtonLink>
-              <TextLink href={contactPath} inverse>{f.heroSecondary}</TextLink>
-            </div>
-          </div>
-          <div className={s.heroArt}>
-            <Image src={HERO_IMAGE} alt="" fill preload sizes="(max-width: 900px) 100vw, 45vw" quality={85} />
-            <span className={s.heroRule} aria-hidden="true" />
-            <p className={s.artFoot}>
-              <span>{f.artKicker}</span>
-              <strong>{f.artTitle}</strong>
-            </p>
-          </div>
-        </header>
-      </div>
+      <PageIntro
+        chrome={chrome}
+        currentHref={hubPath}
+        crumbs={[
+          { label: t.breadcrumb.home, href: homePath(locale) },
+          { label: f.breadcrumb, href: hubPath },
+          ...(current ? [{ label: current.name, href: faqPath(locale, current.slug) }] : []),
+        ]}
+        eyebrow={f.heroEyebrow}
+        title={current ? <>{current.name} <em>{f.breadcrumb}</em></> : <>{f.heroTitle} <em>{f.heroTitleEm}</em></>}
+        lead={f.heroBody}
+        actions={
+          <>
+            <ButtonLink href="#questions">{f.heroPrimary}</ButtonLink>
+            <TextLink href={contactPath}>{f.heroSecondary}</TextLink>
+          </>
+        }
+      />
 
       <main>
         {quick.length > 0 && (

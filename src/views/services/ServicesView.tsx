@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import type { ReactNode } from 'react';
-import { Breadcrumb, SiteFooter, SiteNav, Topbar, type Chrome } from '@/components/layout';
+import { PageIntro, SiteFooter, type Chrome } from '@/components/layout';
 import { FaqList, type FaqItem } from '@/components/sections/Faq';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SmartLink, TextLink } from '@/components/ui';
@@ -72,35 +72,20 @@ export function ServicesView({ data, cmsFaqs, chrome }: { data: ServicesPage; cm
 
   return (
     <>
-      <Topbar site={site} t={t} />
-      <header className={s.hero}>
-        <div className="container">
-          <SiteNav {...chrome} currentHref={path} />
-          <div className={s.heroStage}>
-            <div className={s.heroCopy}>
-              <Breadcrumb items={[{ label: t.breadcrumb.home, href: homePath(locale) }, { label: m.breadcrumb, href: path }]} label={t.breadcrumb.label} />
-              <Eyebrow inverse>{m.hero.eyebrow}</Eyebrow>
-              <h1>
-                {m.hero.title}
-                <br />
-                <em>{m.hero.titleEm}</em>
-              </h1>
-              <p>{m.hero.body}</p>
-              <div className={s.heroActions}>
-                <ButtonLink href="#collection">{m.hero.primary}</ButtonLink>
-                <TextLink href={contactUrl} inverse>{m.hero.secondary}</TextLink>
-              </div>
-            </div>
-            <div className={s.heroVisual}>
-              <Image src={HERO_IMAGE} alt="" fill preload sizes="(max-width: 900px) 100vw, 50vw" quality={85} />
-              <div className={s.heroCaption}>
-                <b>{m.hero.visualLabel}</b>
-                <span>{m.hero.visualCaption}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
+      <PageIntro
+        chrome={chrome}
+        currentHref={path}
+        crumbs={[{ label: t.breadcrumb.home, href: homePath(locale) }, { label: m.breadcrumb, href: path }]}
+        eyebrow={m.hero.eyebrow}
+        title={<>{m.hero.title} <em>{m.hero.titleEm}</em></>}
+        lead={m.hero.body}
+        actions={
+          <>
+            <ButtonLink href="#collection">{m.hero.primary}</ButtonLink>
+            <TextLink href={contactUrl}>{m.hero.secondary}</TextLink>
+          </>
+        }
+      />
 
       <main>
         <div className={cx('container', s.overview)}>

@@ -21,7 +21,7 @@
 .artFoot strong { font: var(--font-weight-regular) 26px var(--font-family-serif); }
 
 /* ---------- Quick topic links ---------- */
-.quick { position: relative; z-index: 2; margin-top: -43px; }
+.quick { position: relative; z-index: 2; margin-top: var(--space-12); }
 .quickCard { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); background: var(--color-neutral-paper); border: 1px solid var(--border-default); box-shadow: var(--shadow-md); }
 .quickLink { position: relative; display: flex; align-items: center; gap: 19px; min-height: 130px; padding: 25px 33px; transition: background var(--motion-duration-fast); }
 .quickLink + .quickLink::before { content: ''; position: absolute; left: 0; top: 26px; bottom: 26px; width: 1px; background: var(--border-default); }

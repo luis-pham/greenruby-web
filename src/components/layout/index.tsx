@@ -186,6 +186,54 @@ export function SolidHeader({ chrome, currentHref }: { chrome: Chrome; currentHr
   );
 }
 
+/**
+ * Page opening without an image hero (contact, hubs, legal): solid header, then breadcrumb, eyebrow and
+ * title on the left, intro and actions on the right, on the page background.
+ */
+export function PageIntro({
+  chrome,
+  currentHref,
+  crumbs,
+  eyebrow,
+  title,
+  lead,
+  actions,
+  meta,
+}: {
+  chrome: Chrome;
+  currentHref?: string;
+  crumbs: Crumb[];
+  eyebrow: string;
+  title: ReactNode;
+  lead?: ReactNode;
+  actions?: ReactNode;
+  meta?: ReactNode;
+}) {
+  return (
+    <>
+      <SolidHeader chrome={chrome} currentHref={currentHref} />
+      <section className={s.pageIntro}>
+        <div className="container">
+          <Breadcrumb onLight items={crumbs} label={chrome.t.breadcrumb.label} />
+          <div className={s.pageIntroGrid}>
+            <div>
+              <Eyebrow>{eyebrow}</Eyebrow>
+              <h1 className={s.pageIntroTitle}>{title}</h1>
+            </div>
+            {(lead || actions || meta) && (
+              <div className={s.pageIntroAside}>
+                {lead && <p className={s.pageIntroLead}>{lead}</p>}
+                {actions && <div className={s.pageIntroActions}>{actions}</div>}
+                {meta && <div className={s.pageIntroMeta}>{meta}</div>}
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
+
 export type Crumb = { label: string; href?: string };
 
 /** Visible breadcrumb plus BreadcrumbList JSON-LD. The last crumb is the current page. */

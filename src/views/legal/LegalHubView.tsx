@@ -31,8 +31,6 @@ export function LegalHubView({ chrome, legal }: { chrome: Chrome; legal: Legal }
       titleEm={m.hub.heroTitleEm}
       intro={m.hub.heroIntro}
       updated={formatUpdated(legal.updatedAt, locale)}
-      artEyebrow={m.hub.artEyebrow}
-      artCaption={m.hub.artCaption}
       jumpLinks={POLICIES.map((policy) => ({
         policy,
         href: sections.some((x) => x.policy.key === policy.key) ? `#${policy.anchor}` : sectionPath(locale, policy.page),

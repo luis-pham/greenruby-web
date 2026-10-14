@@ -55,8 +55,6 @@ export function LegalPageView({ chrome, legal, page }: { chrome: Chrome; legal: 
       titleEm={copy.heroTitleEm}
       intro={copy.heroIntro}
       updated={formatUpdated(updatedAt, locale)}
-      artEyebrow={m.page.artEyebrow}
-      artCaption={m.page.artCaption}
       jumpLinks={POLICIES.map((p) => ({
         policy: p,
         href: sectionPath(locale, p.page),

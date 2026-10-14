@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { PageHero, SiteFooter, type Chrome } from '@/components/layout';
+import { PageIntro, SiteFooter, type Chrome } from '@/components/layout';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SmartLink, TextLink } from '@/components/ui';
 import { experiencePath, homePath, sectionPath } from '@/lib/i18n';
@@ -39,11 +39,9 @@ export function GalleryView({ gallery, chrome }: { gallery: Gallery; chrome: Chr
 
   return (
     <>
-      <PageHero
+      <PageIntro
         chrome={chrome}
         currentHref={hubPath}
-        image={HERO_IMAGE}
-        imageAlt=""
         crumbs={[
           { label: t.breadcrumb.home, href: homePath(locale) },
           { label: g.breadcrumb, href: hubPath },
@@ -51,11 +49,11 @@ export function GalleryView({ gallery, chrome }: { gallery: Gallery; chrome: Chr
         ]}
         eyebrow={g.heroEyebrow}
         title={<>{g.heroTitle} <em>{g.heroTitleEm}</em></>}
-        description={g.heroBody}
+        lead={g.heroBody}
         actions={
           <>
             <ButtonLink href="#collection">{g.heroPrimary}</ButtonLink>
-            {tours.length > 0 && <TextLink href="#virtual" inverse>{g.heroSecondary}</TextLink>}
+            {tours.length > 0 && <TextLink href="#virtual">{g.heroSecondary}</TextLink>}
           </>
         }
       />

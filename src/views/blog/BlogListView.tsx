@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { Suspense } from 'react';
-import { Breadcrumb, SiteFooter, SiteNav, Topbar, type Chrome, type Crumb } from '@/components/layout';
+import { PageIntro, SiteFooter, type Chrome, type Crumb } from '@/components/layout';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SmartLink, TextLink } from '@/components/ui';
 import { homePath, sectionPath } from '@/lib/i18n';
@@ -87,29 +87,15 @@ export function BlogListView({ chrome, list, search }: { chrome: Chrome; list: A
 
   return (
     <>
-      <Topbar site={chrome.site} t={t} />
-      <header className={s.hero}>
-        <div className="container">
-          <SiteNav {...chrome} currentHref={blogHref} />
-          <div className={s.heroLayout}>
-            <div className={s.heroCopy}>
-              <Breadcrumb items={crumbs} label={t.breadcrumb.label} />
-              <div className={s.heroMain}>
-                <Eyebrow inverse>{eyebrow}</Eyebrow>
-                <h1 className={s.heroTitle}>{heroTitle}</h1>
-                <p className={s.heroLead}>{heroLead}</p>
-                <ButtonLink href="#stories">{m.heroCta}</ButtonLink>
-              </div>
-              <p className={s.heroSeal}>{m.heroSeal}</p>
-            </div>
-            <div className={s.heroArt}>
-              <Image src={PHOTOS.hero} alt="" fill preload sizes="(max-width: 900px) 100vw, 50vw" quality={85} />
-              <span className={s.heroSide}>{m.heroSide}</span>
-              <span className={s.heroArtCaption}>{m.heroArt}</span>
-            </div>
-          </div>
-        </div>
-      </header>
+      <PageIntro
+        chrome={chrome}
+        currentHref={blogHref}
+        crumbs={crumbs}
+        eyebrow={eyebrow}
+        title={heroTitle}
+        lead={heroLead}
+        actions={<ButtonLink href="#stories">{m.heroCta}</ButtonLink>}
+      />
 
       <main>
         <div className={s.ribbon}>

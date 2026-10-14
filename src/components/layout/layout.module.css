@@ -185,6 +185,27 @@ a.flag:hover, a.flag:focus-visible { opacity: 1; box-shadow: 0 0 0 2px var(--tex
 .breadcrumbOnLight a:hover,
 .breadcrumbOnLight [aria-current='page'] { color: var(--text-heading); }
 
+/* Page intro (pages without an image hero). */
+.pageIntro { padding: var(--space-12) 0 var(--space-14); background: var(--bg-page); border-bottom: 1px solid var(--border-default); }
+.pageIntro .breadcrumb ol { margin-bottom: var(--space-10); }
+.pageIntroGrid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr); gap: var(--space-24); align-items: end; }
+.pageIntroTitle {
+  margin: var(--space-5) 0 0;
+  max-width: 760px;
+  font-size: var(--font-size-3xl);
+  line-height: var(--font-leading-tight);
+  letter-spacing: var(--font-tracking-display);
+}
+.pageIntroTitle em { font-style: italic; color: var(--text-accent); }
+.pageIntroAside { padding-bottom: var(--space-2); }
+.pageIntroLead { margin: 0; color: var(--text-muted); font-size: var(--font-size-base); line-height: var(--font-leading-relaxed); }
+.pageIntroActions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4) var(--space-6); margin-top: var(--space-6); }
+.pageIntroMeta { margin-top: var(--space-5); color: var(--text-muted); font-size: var(--font-size-sm); }
+@media (max-width: 900px) {
+  .pageIntroGrid { grid-template-columns: 1fr; gap: var(--space-6); }
+  .pageIntro { padding: var(--space-10) 0 var(--space-12); }
+}
+
 /* Solid header (pages without an image hero). */
 .solidHeader { position: relative; z-index: var(--z-nav); background: var(--bg-brand); }
 .solidHeader .nav { border-bottom: 0; }

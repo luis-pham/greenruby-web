@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import type { ReactNode } from 'react';
-import { Breadcrumb, SiteFooter, SiteNav, Topbar, type Chrome } from '@/components/layout';
+import { PageIntro, SiteFooter, type Chrome } from '@/components/layout';
 import { FaqList } from '@/components/sections/Faq';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SmartLink, TextLink } from '@/components/ui';
@@ -85,33 +85,20 @@ export function ExperiencesView({ list, chrome, m }: { list: ExperienceList; chr
 
   return (
     <>
-      <Topbar site={chrome.site} t={t} />
-      <header className={s.hero}>
-        <div className="container">
-          <SiteNav {...chrome} currentHref={path} />
-        </div>
-        <div className={cx('container', s.heroMain)}>
-          <div className={s.heroLeft}>
-            <Breadcrumb items={[{ label: t.breadcrumb.home, href: homePath(locale) }, { label: m.breadcrumb, href: path }]} label={t.breadcrumb.label} />
-            <Eyebrow inverse>{m.heroEyebrow}</Eyebrow>
-            <h1 className={s.heroTitle}>
-              {m.heroTitle} <em>{m.heroTitleEm}</em>
-            </h1>
-            <p className={s.heroBody}>{m.heroBody}</p>
-            <div className={s.heroActions}>
-              <ButtonLink href="#collection">{m.heroPrimary}</ButtonLink>
-              <TextLink href="#rhythm" inverse>{m.heroSecondary}</TextLink>
-            </div>
-          </div>
-          <div className={s.heroRight}>
-            {heroImage && <Image src={heroImage} alt="" fill preload sizes="(max-width: 640px) 100vw, 52vw" quality={85} />}
-            <span className={s.roundMark} aria-hidden="true">
-              {m.heroMark.map((line) => <span key={line}>{line}</span>)}
-            </span>
-            <span className={s.imageLabel}>{t.topbar.location.replace(/, Vietnam$/i, '')}</span>
-          </div>
-        </div>
-      </header>
+      <PageIntro
+        chrome={chrome}
+        currentHref={path}
+        crumbs={[{ label: t.breadcrumb.home, href: homePath(locale) }, { label: m.breadcrumb, href: path }]}
+        eyebrow={m.heroEyebrow}
+        title={<>{m.heroTitle} <em>{m.heroTitleEm}</em></>}
+        lead={m.heroBody}
+        actions={
+          <>
+            <ButtonLink href="#collection">{m.heroPrimary}</ButtonLink>
+            <TextLink href="#rhythm">{m.heroSecondary}</TextLink>
+          </>
+        }
+      />
 
       <main>
         <div className={s.strip}>

@@ -47,8 +47,8 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 12px 22px;
-  margin-top: 35px;
-  padding-top: 23px;
+  margin-top: 0;
+  padding-top: var(--space-4);
   border-top: 1px solid #ddd9cf;
   color: #717c73;
   font-size: var(--font-size-label);
@@ -79,7 +79,7 @@
 .artCaption strong { display: block; margin-top: 6px; font: 400 26px/1.3 var(--font-family-serif); }
 
 /* ---------- Jump bar ---------- */
-.jumpWrap { position: relative; z-index: 3; margin-top: -50px; }
+.jumpWrap { position: relative; z-index: 3; margin-top: var(--space-12); }
 .jumpBar {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -267,7 +267,6 @@
   .artCaption { bottom: 24px; left: 29px; }
   .artCaption strong { font-size: 22px; }
   .artCorner { padding: 15px; font-size: 18px; }
-  .jumpWrap { margin-top: -38px; }
   .jumpCard { min-height: 99px; gap: 11px; padding: 16px 13px; }
   .jumpCopy b { font-size: 16px; }
   .jumpCopy > span { font-size: 8px; }

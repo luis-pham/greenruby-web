@@ -46,7 +46,7 @@
 .heroCaption span { max-width: 280px; font-family: var(--font-family-serif); font-size: 19px; line-height: 1.35; text-align: right; }
 
 /* ---------- Overview panel ---------- */
-.overview { position: relative; z-index: 3; margin-top: -51px; }
+.overview { position: relative; z-index: 3; margin-top: var(--space-12); }
 .overviewPanel {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -254,7 +254,6 @@
   .heroCopy h1 { font-size: clamp(50px, 8vw, 78px); }
   .heroVisual { height: 400px; margin: 0 calc(var(--space-gutter) * -1); }
   .heroCaption { bottom: 60px; }
-  .overview { margin-top: -32px; }
   .overviewPanel { grid-template-columns: 1fr 1fr; padding: 10px; }
   .overviewItem { padding: 21px 23px; }
   .overviewItem:nth-child(3) { border-left: 0; border-top: 1px solid var(--border-default); }
@@ -285,7 +284,6 @@
   .heroCaption { left: 20px; right: 20px; bottom: 44px; flex-direction: column; align-items: flex-start; gap: 6px; padding-top: 12px; }
   .heroCaption span { text-align: left; }
   .heroCaption span { font-size: 16px; }
-  .overview { margin-top: -24px; }
   .overviewPanel { padding: 7px; }
   .overviewItem { grid-template-columns: 1fr; align-content: start; gap: 7px; min-height: 145px; padding: 18px 12px; }
   .overviewItem svg { width: 29px; height: 29px; }
