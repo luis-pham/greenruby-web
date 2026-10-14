@@ -72,6 +72,8 @@ const MIGRATED = [
   /^\/vi\/hoat-dong-trai-nghiem(\/|$)/,
   /^\/(gallery|faq)(\/|$)/,
   /^\/vi\/(thu-vien|cau-hoi-thuong-gap)(\/|$)/,
+  /^\/blog(\/|$)/,
+  /^\/vi\/blog(\/|$)/,
 ];
 
 export function isMigratedPath(href: string): boolean {
