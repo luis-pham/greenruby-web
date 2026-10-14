@@ -54,7 +54,7 @@ const vi: Messages = {
     description: 'Website sử dụng Google Tag Manager để phân tích lưu lượng truy cập. Dữ liệu giúp chúng tôi cải thiện trải nghiệm của bạn.',
     accept: 'Chấp nhận',
     decline: 'Từ chối',
-    learnMore: 'Tìm hiểu thêm',
+    learnMore: 'Xem chính sách cookie',
   },
   breadcrumb: { home: 'Trang chủ', label: 'Đường dẫn' },
   cabin: {

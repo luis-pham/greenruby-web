@@ -135,7 +135,7 @@ export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
                   const journey = firstItineraryOfCruise(cruise.id);
                   return (
                     <article key={cruise.id} className={s.fleetCard}>
-                      <SmartLink href={url} className={s.fleetVisual} aria-label={h.explore(cruise.name)}>
+                      <SmartLink href={url} className={s.fleetVisual}>
                         {(cruise.image ?? cruise.cover) && (
                           <Image src={(cruise.image ?? cruise.cover) as string} alt={cruise.name} fill sizes="(max-width: 900px) 100vw, 50vw" />
                         )}

@@ -52,7 +52,7 @@ const en = {
     description: 'This website uses Google Tag Manager to analyse traffic. The data helps us improve your experience.',
     accept: 'Accept',
     decline: 'Decline',
-    learnMore: 'Learn more',
+    learnMore: 'Read our cookie policy',
   },
   breadcrumb: { home: 'Home', label: 'Breadcrumb' },
   cabin: {

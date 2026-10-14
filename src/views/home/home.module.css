@@ -263,6 +263,7 @@
 /* ---------- Experiences ---------- */
 .experiences { padding: 112px 0 128px; background: #113832; color: #f9f7f1; }
 .experiences .heading { max-width: 560px; color: var(--color-neutral-white); }
+.experiences .heading em { color: var(--text-inverse-accent); }
 .experiences .head p { color: #b8c9c2; }
 .experienceGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: 52px; }
 .experienceCard { display: flex; flex-direction: column; min-width: 0; }
@@ -276,7 +277,7 @@
 .experiencesMore { margin-top: 48px; }
 
 /* ---------- Sustainability ---------- */
-.sustainability { padding: 115px 0; background: #f0eee5; }
+.sustainability { padding: 115px 0; background: var(--bg-page); }
 .sustainGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 110px; align-items: center; }
 .sustainImg { position: relative; height: 500px; overflow: hidden; margin: 0; background: #adc1bf; }
 .sustainImg img { object-fit: cover; }
@@ -296,7 +297,7 @@
 .sustainCopy > p { color: var(--text-muted); font-size: var(--font-size-base); line-height: 1.9; }
 .sustainList { list-style: none; margin: 33px 0 30px; padding: 0; }
 .sustainItem { display: grid; grid-template-columns: 31px 1fr; gap: 20px; padding: 19px 0; border-top: 1px solid #d2d7cc; }
-.sustainNum { color: var(--action-primary); font-family: var(--font-family-serif); font-size: 21px; }
+.sustainNum { color: var(--text-accent); font-family: var(--font-family-serif); font-size: 21px; }
 .sustainItem h3 { margin: 0 0 5px; font-family: var(--font-family-sans); font-size: 14px; font-weight: var(--font-weight-bold); letter-spacing: 0; color: var(--text-heading); }
 .sustainItem p { margin: 0; color: var(--text-muted); font-size: 13px; line-height: 1.7; }
 
