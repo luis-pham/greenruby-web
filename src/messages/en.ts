@@ -46,6 +46,12 @@ const en = {
     legal: 'Legal',
     bays: 'Ha Long Bay ✦ Lan Ha Bay',
   },
+  cookies: {
+    title: 'We use cookies',
+    description: 'This website uses Google Tag Manager to analyse traffic. The data helps us improve your experience.',
+    accept: 'Accept',
+    decline: 'Decline',
+  },
   breadcrumb: { home: 'Home', label: 'Breadcrumb' },
   cabin: {
     eyebrowFallback: 'Private sanctuary',

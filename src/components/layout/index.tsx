@@ -8,7 +8,9 @@ import { navLinks, siteInfo, type NavLink } from '@/lib/site-info';
 import { absoluteUrl } from '@/lib/site-url';
 import type { Messages } from '@/messages';
 import { FlagGB, FlagVN } from './Flags';
+import { CookieConsent } from './CookieConsent';
 import { MobileMenu } from './MobileMenu';
+import { SOCIAL_LABELS, SocialIcon } from './SocialIcon';
 import s from './layout.module.css';
 
 export type Chrome = { locale: Locale; site: Site; t: Messages; alternateHref: string };
@@ -305,7 +307,16 @@ export function SiteFooter({ locale, site, t }: Pick<Chrome, 'locale' | 'site' |
                 <p className={s.socialLabel}>{t.footer.followUs}</p>
                 <div className={s.socials}>
                   {info.socials.map((social) => (
-                    <a key={social.name} href={social.url} target="_blank" rel="noopener">{social.name}</a>
+                    <a
+                      key={social.name}
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener me"
+                      aria-label={SOCIAL_LABELS[social.name] ?? social.name}
+                      title={SOCIAL_LABELS[social.name] ?? social.name}
+                    >
+                      <SocialIcon name={social.name} />
+                    </a>
                   ))}
                 </div>
               </div>
@@ -340,6 +351,7 @@ export function SiteFooter({ locale, site, t }: Pick<Chrome, 'locale' | 'site' |
           </nav>
           <span>{t.footer.bays}</span>
         </div>
+        <CookieConsent gtmId={info.gtmId} labels={t.cookies} />
         {(info.hotlineHref || info.email || info.address) && (
           <address className={s.footerContact}>
             {info.hotlineHref && <a href={info.hotlineHref}>{info.hotline}</a>}

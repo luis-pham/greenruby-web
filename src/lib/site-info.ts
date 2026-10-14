@@ -14,6 +14,8 @@ export type SiteInfo = {
   /** Brand logos from the CMS: full-colour ("website-logo") and white for dark backgrounds ("website-logo-negative"). */
   logo: string | null;
   logoNegative: string | null;
+  /** Google Tag Manager container id (ad_config "google-tag-manager-id"), loaded only after cookie consent. */
+  gtmId: string | null;
 };
 
 const SOCIAL_KEYS = ['facebook', 'instagram', 'youtube', 'tiktok', 'tripadvisor', 'linkedin', 'pinterest', 'twitter'];
@@ -43,6 +45,7 @@ export function siteInfo(site: Site): SiteInfo {
     icon: uploadPath(c['website-icon']),
     logo: uploadPath(c['website-logo']),
     logoNegative: uploadPath(c['website-logo-negative']),
+    gtmId: /^GTM-[A-Z0-9]+$/.test(c['google-tag-manager-id'] ?? '') ? (c['google-tag-manager-id'] as string) : null,
   };
 }
 

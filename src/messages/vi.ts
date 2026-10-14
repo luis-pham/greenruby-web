@@ -48,6 +48,12 @@ const vi: Messages = {
     legal: 'Pháp lý',
     bays: 'Vịnh Hạ Long ✦ Vịnh Lan Hạ',
   },
+  cookies: {
+    title: 'Chúng tôi sử dụng Cookie',
+    description: 'Website sử dụng Google Tag Manager để phân tích lưu lượng truy cập. Dữ liệu giúp chúng tôi cải thiện trải nghiệm của bạn.',
+    accept: 'Chấp nhận',
+    decline: 'Từ chối',
+  },
   breadcrumb: { home: 'Trang chủ', label: 'Đường dẫn' },
   cabin: {
     eyebrowFallback: 'Không gian riêng',
