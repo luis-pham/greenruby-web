@@ -62,6 +62,8 @@ const MIGRATED = [
   /^\/vi\/hanh-trinh(\/|$)/,
   /^\/cruise\//,
   /^\/vi\/du-thuyen\//,
+  /^\/booking$/,
+  /^\/vi\/booking$/,
 ];
 
 export function isMigratedPath(href: string): boolean {

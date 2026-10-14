@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "tokens": "node design-system/build-tokens.mjs"
+    "tokens": "node design-system/build-tokens.mjs",
+    "test": "node --test src/**/*.test.ts"
   },
   "dependencies": {
     "next": "16.4.0",
