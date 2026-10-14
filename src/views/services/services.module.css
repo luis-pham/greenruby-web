@@ -34,7 +34,7 @@
   z-index: 1;
   left: 42px;
   right: 35px;
-  bottom: 83px; /* clears the overview panel that overlaps the hero by 51px */
+  bottom: 32px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -46,23 +46,6 @@
 .heroCaption span { max-width: 280px; font-family: var(--font-family-serif); font-size: 19px; line-height: 1.35; text-align: right; }
 
 /* ---------- Overview panel ---------- */
-.overview { position: relative; z-index: 3; margin-top: var(--space-12); }
-.overviewPanel {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  min-height: 139px;
-  margin: 0;
-  padding: 24px 17px;
-  list-style: none;
-  background: var(--color-neutral-paper);
-  box-shadow: var(--shadow-md);
-}
-.overviewItem { display: grid; grid-template-columns: 42px minmax(0, 1fr); align-items: center; gap: 12px; min-width: 0; padding: 11px 20px; }
-.overviewItem + .overviewItem { border-left: 1px solid var(--border-default); }
-.overviewItem svg { color: #55766c; }
-.overviewLabel { display: block; margin-bottom: 9px; color: var(--text-accent); font-size: var(--font-size-label); font-weight: var(--font-weight-bold); letter-spacing: 0.16em; text-transform: uppercase; }
-.overviewItem strong { display: block; color: var(--text-heading); font: var(--font-weight-regular) 21px/1.2 var(--font-family-serif); }
-.overviewItem small { display: block; margin-top: 6px; color: var(--text-muted); font-size: var(--font-size-label); line-height: 1.65; }
 
 /* ---------- Collection ---------- */
 .collection { padding: 111px 0 126px; }
@@ -237,9 +220,6 @@
 .ctaLinks { display: flex; flex-wrap: wrap; align-items: center; gap: 23px; }
 
 @media (max-width: 1160px) {
-  .overviewItem { grid-template-columns: 34px 1fr; padding: 9px 13px; }
-  .overviewItem svg { width: 34px; }
-  .overviewItem strong { font-size: 19px; }
   .cardBody { padding: 24px 23px 28px; }
   .cardBody h3 { font-size: 28px; }
   .storyGrid { gap: 65px; }
@@ -254,10 +234,6 @@
   .heroCopy h1 { font-size: clamp(50px, 8vw, 78px); }
   .heroVisual { height: 400px; margin: 0 calc(var(--space-gutter) * -1); }
   .heroCaption { bottom: 60px; }
-  .overviewPanel { grid-template-columns: 1fr 1fr; padding: 10px; }
-  .overviewItem { padding: 21px 23px; }
-  .overviewItem:nth-child(3) { border-left: 0; border-top: 1px solid var(--border-default); }
-  .overviewItem:nth-child(4) { border-top: 1px solid var(--border-default); }
   .collection { padding: 87px 0; }
   .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .sectionHead { grid-template-columns: 1fr; gap: 12px; }
@@ -284,11 +260,6 @@
   .heroCaption { left: 20px; right: 20px; bottom: 44px; flex-direction: column; align-items: flex-start; gap: 6px; padding-top: 12px; }
   .heroCaption span { text-align: left; }
   .heroCaption span { font-size: 16px; }
-  .overviewPanel { padding: 7px; }
-  .overviewItem { grid-template-columns: 1fr; align-content: start; gap: 7px; min-height: 145px; padding: 18px 12px; }
-  .overviewItem svg { width: 29px; height: 29px; }
-  .overviewLabel { margin-bottom: 6px; }
-  .overviewItem strong { font-size: 18px; }
   .collection { padding: 75px 0 83px; }
   .heading { font-size: clamp(34px, 10vw, 41px); }
   .sectionHead { margin-bottom: 32px; }

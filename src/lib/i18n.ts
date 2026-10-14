@@ -21,6 +21,7 @@ const segments = {
   safetyPolicies: { en: 'safety-policies', vi: 'chinh-sach-an-toan' },
   termsAndConditions: { en: 'terms-and-conditions', vi: 'dieu-khoan-dieu-kien' },
   paymentMethods: { en: 'payment-methods', vi: 'phuong-thuc-thanh-toan' },
+  cookiePolicy: { en: 'cookie-policy', vi: 'chinh-sach-cookie' },
 } as const;
 
 export type Section = keyof typeof segments;
@@ -64,8 +65,8 @@ const MIGRATED = [
   /^\/vi\/du-thuyen\//,
   /^\/booking$/,
   /^\/vi\/booking$/,
-  /^\/(legal|safety-policies|terms-and-conditions|privacy-policy|payment-methods)$/,
-  /^\/vi\/(phap-ly|chinh-sach-an-toan|dieu-khoan-dieu-kien|chinh-sach-bao-mat|phuong-thuc-thanh-toan)$/,
+  /^\/(legal|safety-policies|terms-and-conditions|privacy-policy|payment-methods|cookie-policy)$/,
+  /^\/vi\/(phap-ly|chinh-sach-an-toan|dieu-khoan-dieu-kien|chinh-sach-bao-mat|phuong-thuc-thanh-toan|chinh-sach-cookie)$/,
   /^\/(services|about-us)$/,
   /^\/vi\/(dich-vu|gioi-thieu)$/,
   /^\/experiences(\/|$)/,

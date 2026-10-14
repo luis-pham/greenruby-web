@@ -410,10 +410,12 @@ export function SiteFooter({ locale, site, t }: Pick<Chrome, 'locale' | 'site' |
             <SmartLink href={sectionPath(locale, 'privacyPolicy')}>{t.footer.privacy}</SmartLink>
             <span aria-hidden="true">|</span>
             <SmartLink href={sectionPath(locale, 'termsAndConditions')}>{t.footer.terms}</SmartLink>
+            <span aria-hidden="true">|</span>
+            <SmartLink href={sectionPath(locale, 'cookiePolicy')}>{t.footer.cookies}</SmartLink>
           </nav>
           <span>{t.footer.bays}</span>
         </div>
-        <CookieConsent gtmId={info.gtmId} labels={t.cookies} />
+        <CookieConsent gtmId={info.gtmId} labels={t.cookies} policyHref={sectionPath(locale, 'cookiePolicy')} />
         {(info.hotlineHref || info.email || info.address) && (
           <address className={s.footerContact}>
             {info.hotlineHref && <a href={info.hotlineHref}>{info.hotline}</a>}

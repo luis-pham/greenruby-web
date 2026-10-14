@@ -4,11 +4,13 @@ import { sectionPath, type Locale } from '@/lib/i18n';
 import { pageMetadata } from '@/lib/seo';
 import { siteInfo } from '@/lib/site-info';
 import { getMessages } from '@/messages';
+import { cookiePolicy } from './cookie-policy';
+import { CookiePolicyView } from './CookiePolicyView';
 import { getLegal, type LegalPageKey } from './data';
 import { LegalHubView } from './LegalHubView';
 import { LegalPageView } from './LegalPageView';
 
-// All five legal URLs are noindex, follow, as on the Blade site (FeUtils::applyNoIndexFollowMeta).
+// All legal URLs (and /cookie-policy) are noindex, follow, as on the Blade site (FeUtils::applyNoIndexFollowMeta).
 
 export function legalHubRoute(locale: Locale) {
   const other: Locale = locale === 'en' ? 'vi' : 'en';
@@ -58,6 +60,36 @@ export function legalPageRoute(locale: Locale, page: LegalPageKey) {
         page={page}
         legal={legal}
         chrome={{ locale, site, t: getMessages(locale), alternateHref: sectionPath(other, page) }}
+      />
+    );
+  }
+
+  return { generateMetadata, Page };
+}
+
+export function cookiePolicyRoute(locale: Locale) {
+  const other: Locale = locale === 'en' ? 'vi' : 'en';
+
+  async function generateMetadata(): Promise<Metadata> {
+    const site = await getSite(locale);
+    const copy = cookiePolicy[locale];
+    return pageMetadata({
+      locale,
+      site: siteInfo(site),
+      title: copy.title,
+      description: copy.seoDescription,
+      path: sectionPath(locale, 'cookiePolicy'),
+      alternatePath: sectionPath(other, 'cookiePolicy'),
+      noIndex: true,
+    });
+  }
+
+  async function Page() {
+    const [site, legal] = await Promise.all([getSite(locale), getLegal(locale)]);
+    return (
+      <CookiePolicyView
+        legal={legal}
+        chrome={{ locale, site, t: getMessages(locale), alternateHref: sectionPath(other, 'cookiePolicy') }}
       />
     );
   }

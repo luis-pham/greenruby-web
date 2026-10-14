@@ -42,6 +42,7 @@ const en = {
     },
     copyright: 'Copyright © 2026 Green Ruby Cruises. All rights reserved.',
     privacy: 'Privacy',
+    cookies: 'Cookies',
     terms: 'Terms',
     legal: 'Legal',
     bays: 'Ha Long Bay ✦ Lan Ha Bay',
@@ -51,6 +52,7 @@ const en = {
     description: 'This website uses Google Tag Manager to analyse traffic. The data helps us improve your experience.',
     accept: 'Accept',
     decline: 'Decline',
+    learnMore: 'Learn more',
   },
   breadcrumb: { home: 'Home', label: 'Breadcrumb' },
   cabin: {

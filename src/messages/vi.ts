@@ -44,6 +44,7 @@ const vi: Messages = {
     },
     copyright: 'Bản quyền © 2026 Green Ruby Cruises. Mọi quyền được bảo lưu.',
     privacy: 'Quyền riêng tư',
+    cookies: 'Cookie',
     terms: 'Điều khoản',
     legal: 'Pháp lý',
     bays: 'Vịnh Hạ Long ✦ Vịnh Lan Hạ',
@@ -53,6 +54,7 @@ const vi: Messages = {
     description: 'Website sử dụng Google Tag Manager để phân tích lưu lượng truy cập. Dữ liệu giúp chúng tôi cải thiện trải nghiệm của bạn.',
     accept: 'Chấp nhận',
     decline: 'Từ chối',
+    learnMore: 'Tìm hiểu thêm',
   },
   breadcrumb: { home: 'Trang chủ', label: 'Đường dẫn' },
   cabin: {

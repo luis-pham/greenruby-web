@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import type { ReactNode } from 'react';
 import { PageIntro, SiteFooter, type Chrome } from '@/components/layout';
 import { FaqList, type FaqItem } from '@/components/sections/Faq';
 import { JsonLd } from '@/components/seo/JsonLd';
@@ -17,33 +16,6 @@ const HERO_IMAGE = '/upload/2026/03/13/banner-home.png';
 const TRANSFER_IMAGE = '/upload/2026/03/12/limousine-bus-hanoi-halong-bay-5.jpg';
 
 const pad = (n: number) => String(n).padStart(2, '0');
-
-const ICONS: Record<string, ReactNode> = {
-  transfer: <path d="M5 19 8 10h24l3 9v13H5V19Zm0 5h30M10 32v4h5v-4m12 0v4h5v-4M8 19h24m-22 8h4m12 0h4" />,
-  flower: (
-    <>
-      <path d="M20 19c-6-10-14-2-6 4-10 1-8 13 2 10 1 10 13 8 12-2 10 5 15-6 5-10 7-8-4-14-9-5-2-10-14-8-11 3Z" />
-      <circle cx="22" cy="23" r="4" />
-      <path d="M21 37v3" />
-    </>
-  ),
-  camera: (
-    <>
-      <path d="M6 13h7l3-4h9l3 4h6v21H6V13Z" />
-      <circle cx="20" cy="24" r="7" />
-      <path d="M27 17h2" />
-    </>
-  ),
-  leaf: <path d="M35 6C17 7 8 15 8 27c0 7 5 11 11 11 12 0 17-13 16-32ZM11 35c5-10 11-16 22-24" />,
-};
-
-function Icon({ name }: { name: string }) {
-  return (
-    <svg width="42" height="42" viewBox="0 0 40 40" stroke="currentColor" strokeWidth="1.4" fill="none" strokeLinejoin="round" strokeLinecap="round" aria-hidden="true">
-      {ICONS[name]}
-    </svg>
-  );
-}
 
 function formatPrice(price: number, currency: 'USD' | 'VND', locale: string) {
   return new Intl.NumberFormat(locale === 'vi' ? 'vi-VN' : 'en-US', { style: 'currency', currency, maximumFractionDigits: 0 }).format(price);
@@ -88,21 +60,6 @@ export function ServicesView({ data, cmsFaqs, chrome }: { data: ServicesPage; cm
       />
 
       <main>
-        <div className={cx('container', s.overview)}>
-          <ul className={s.overviewPanel} aria-label={m.overview.label}>
-            {m.overview.items.map((item) => (
-              <li key={item.label} className={s.overviewItem}>
-                <Icon name={item.icon} />
-                <div>
-                  <span className={s.overviewLabel}>{item.label}</span>
-                  <strong>{item.title}</strong>
-                  <small>{item.caption}</small>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-
         <section className={s.collection} id="collection" aria-labelledby="collection-title">
           <div className="container">
             <div className={s.sectionHead}>

@@ -20,15 +20,6 @@ const en = {
     visualLabel: 'The art of personal service',
     visualCaption: 'Made for your moments.',
   },
-  overview: {
-    label: 'Service highlights',
-    items: [
-      { icon: 'transfer', label: 'Your arrival', title: 'Travel with ease', caption: 'Transfer arrangements' },
-      { icon: 'flower', label: 'Special touches', title: 'Make it personal', caption: 'Celebrations & occasions' },
-      { icon: 'camera', label: 'Memories', title: 'Keep the moment', caption: 'Photography & film' },
-      { icon: 'leaf', label: 'Wellbeing', title: 'Time to restore', caption: 'Fitness & spa' },
-    ],
-  },
   collection: {
     eyebrow: 'Considered extras',
     title: 'A little more,',
@@ -162,15 +153,6 @@ const vi: ServicesMessages = {
     secondary: 'Trao đổi với chúng tôi',
     visualLabel: 'Nghệ thuật phục vụ tận tâm',
     visualCaption: 'Dành cho những khoảnh khắc của bạn.',
-  },
-  overview: {
-    label: 'Dịch vụ nổi bật',
-    items: [
-      { icon: 'transfer', label: 'Đưa đón', title: 'Khởi hành nhẹ nhàng', caption: 'Sắp xếp xe đưa đón' },
-      { icon: 'flower', label: 'Dấu ấn riêng', title: 'Theo cách của bạn', caption: 'Kỷ niệm & dịp đặc biệt' },
-      { icon: 'camera', label: 'Kỷ niệm', title: 'Lưu giữ khoảnh khắc', caption: 'Chụp ảnh & quay phim' },
-      { icon: 'leaf', label: 'Thư thái', title: 'Tái tạo năng lượng', caption: 'Fitness & spa' },
-    ],
   },
   collection: {
     eyebrow: 'Dịch vụ tùy chọn',
