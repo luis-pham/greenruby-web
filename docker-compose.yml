@@ -1,0 +1,35 @@
+# Runs next to the Laravel CMS container (green-ruby-cms) on the shared Docker network.
+# Requires on the host: .env.production (runtime env, see .env.example) and
+# secrets/content_api_key (same value as CONTENT_API_KEY in the Laravel .env).
+services:
+  web:
+    container_name: green-ruby-web
+    image: green-ruby-web
+    build:
+      context: .
+      network: host # the build prerenders pages from the Laravel API on the host port
+      args:
+        CONTENT_API_URL: ${BUILD_CONTENT_API_URL:-http://127.0.0.1:8082}
+        SITE_URL: https://greenrubycruises.com
+        LARAVEL_ORIGIN: http://green-ruby-cms
+      secrets:
+        - content_api_key
+    restart: always
+    env_file: .env.production
+    ports:
+      - "127.0.0.1:3130:3000"
+    volumes:
+      - next-cache:/app/.next/cache
+    networks:
+      - green-ruby-private
+
+secrets:
+  content_api_key:
+    file: ./secrets/content_api_key
+
+volumes:
+  next-cache:
+
+networks:
+  green-ruby-private:
+    external: true

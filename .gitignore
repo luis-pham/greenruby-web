@@ -43,3 +43,7 @@ next-env.d.ts
 
 # Internal planning notes (contain security details; keep out of the public repo)
 MIGRATION_PLAN.md
+
+# Deploy-time secrets (VPS only)
+secrets/
+.env.production

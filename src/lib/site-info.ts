@@ -9,6 +9,8 @@ export type SiteInfo = {
   address: string | null;
   socials: { name: string; url: string }[];
   noIndex: boolean;
+  /** Favicon from the CMS (ad_config "website-icon"), as an /upload path. */
+  icon: string | null;
 };
 
 const SOCIAL_KEYS = ['facebook', 'instagram', 'youtube', 'tiktok', 'tripadvisor', 'linkedin', 'pinterest', 'twitter'];
@@ -31,6 +33,7 @@ export function siteInfo(site: Site): SiteInfo {
     address: c['address'] || null,
     socials: SOCIAL_KEYS.flatMap((name) => (c[name] ? [{ name, url: c[name] as string }] : [])),
     noIndex: c['block-search-engine'] === 'true' || c['block-search-engine'] === '1',
+    icon: c['website-icon'] ? `/upload${c['website-icon'].startsWith('/') ? '' : '/'}${c['website-icon'].replace(/^\/upload/, '')}` : null,
   };
 }
 

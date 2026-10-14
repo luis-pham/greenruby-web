@@ -55,5 +55,6 @@ export function pageMetadata({
     },
     twitter: { card: images ? 'summary_large_image' : 'summary', title: fullTitle, description, images: images?.map((i) => i.url) },
     robots: noIndex || site.noIndex ? { index: false, follow: true } : undefined,
+    ...(site.icon && { icons: { icon: site.icon, apple: site.icon } }),
   };
 }
