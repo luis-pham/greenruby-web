@@ -164,3 +164,36 @@ export const itinerarySchema = itinerarySummarySchema.extend({
   updatedAt: optionalText,
 });
 export type Itinerary = z.infer<typeof itinerarySchema>;
+
+export const cruiseSchema = z.object({
+  id: z.number(),
+  slug: z.string(),
+  name: z.string(),
+  summary: optionalText,
+  contentHtml: optionalText,
+  image: optionalText,
+  cover: optionalText,
+  bay,
+  starRating: z.number().nullable(),
+  capacity: z.number().nullable(),
+  totalFloor: z.number().nullable(),
+  length: z.number().nullable(),
+  yearBuilt: z.number().nullable(),
+  descriptionDesignHtml: optionalText,
+  greenTechnology: z.array(z.object({ title: optionalText, description: optionalText, icon: optionalText })),
+  amenities: z.array(z.object({ name: z.string(), icon: optionalText })),
+  services: z.object({ included: z.array(serviceItem), optional: z.array(serviceItem.extend({ price: z.number().nullable().optional() })) }),
+  cabins: z.array(cabinSummarySchema),
+  facilities: z.array(z.object({ id: z.number(), name: z.string(), summary: optionalText, image: optionalText, group: optionalText })),
+  experiences: z.array(activityItem),
+  itineraries: z.array(itinerarySummarySchema),
+  gallery: z.array(galleryItem),
+  seo: z.object({ title: optionalText, description: optionalText }),
+  alternate: z.object({ lang: z.enum(['en', 'vi']), id: z.number(), slug: z.string() }).nullable(),
+  updatedAt: optionalText,
+});
+export type Cruise = z.infer<typeof cruiseSchema>;
+
+export const cruiseListSchema = z.object({
+  items: z.array(z.object({ id: z.number(), slug: z.string(), name: z.string() }).passthrough()),
+});

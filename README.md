@@ -35,6 +35,8 @@ Public website for greenrubycruises.com. Content comes from the Laravel CMS (`..
 ## Pages done
 
 - Homepage: `/`, `/vi`
+- Itineraries: `/itinerary`, `/vi/hanh-trinh` and details `/itinerary/{slug}-{cruiseId}-{itineraryId}.html`
+- Cruise detail: `/cruise/{slug}-{id}.html`, `/vi/du-thuyen/{slug}-{id}.html`
 - Cabin detail: `/cabin/{slug}-{id}.html`, `/vi/phong-nghi/{slug}-{id}.html`
 - Contact: `/contact`, `/vi/lien-he`
 - `robots.txt`, 404 pages

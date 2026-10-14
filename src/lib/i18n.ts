@@ -57,6 +57,8 @@ const MIGRATED = [
   /^\/vi\/lien-he$/,
   /^\/itinerary(\/|$)/,
   /^\/vi\/hanh-trinh(\/|$)/,
+  /^\/cruise\//,
+  /^\/vi\/du-thuyen\//,
 ];
 
 export function isMigratedPath(href: string): boolean {
