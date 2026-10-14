@@ -11,9 +11,16 @@ export type SiteInfo = {
   noIndex: boolean;
   /** Favicon from the CMS (ad_config "website-icon"), as an /upload path. */
   icon: string | null;
+  /** Brand logos from the CMS: full-colour ("website-logo") and white for dark backgrounds ("website-logo-negative"). */
+  logo: string | null;
+  logoNegative: string | null;
 };
 
 const SOCIAL_KEYS = ['facebook', 'instagram', 'youtube', 'tiktok', 'tripadvisor', 'linkedin', 'pinterest', 'twitter'];
+
+/** CMS file values look like "/2026/02/06/logo.png"; served from /upload. */
+const uploadPath = (value: string | null | undefined) =>
+  value ? `/upload/${value.replace(/^\/?(upload\/)?/, '')}` : null;
 
 const telHref = (phone: string | null | undefined) => {
   const digits = phone?.replace(/[^\d+]/g, '');
@@ -33,7 +40,9 @@ export function siteInfo(site: Site): SiteInfo {
     address: c['address'] || null,
     socials: SOCIAL_KEYS.flatMap((name) => (c[name] ? [{ name, url: c[name] as string }] : [])),
     noIndex: c['block-search-engine'] === 'true' || c['block-search-engine'] === '1',
-    icon: c['website-icon'] ? `/upload${c['website-icon'].startsWith('/') ? '' : '/'}${c['website-icon'].replace(/^\/upload/, '')}` : null,
+    icon: uploadPath(c['website-icon']),
+    logo: uploadPath(c['website-logo']),
+    logoNegative: uploadPath(c['website-logo-negative']),
   };
 }
 

@@ -17,16 +17,8 @@
 
 /* ---------- Brand ---------- */
 .brand { display: inline-flex; align-items: center; gap: 14px; color: var(--color-neutral-white); flex-shrink: 0; }
-.brandMark {
-  width: 45px;
-  height: 45px;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: var(--radius-md);
-  transform: rotate(45deg);
-  display: grid;
-  place-items: center;
-}
-.brandMark svg { transform: rotate(-45deg); width: 25px; height: 25px; }
+.brandLogo { display: block; width: auto; height: 64px; }
+.footerMain .brandLogo { height: 76px; }
 .brandWord {
   font-family: var(--font-family-serif);
   font-size: 22px;
@@ -218,7 +210,7 @@
   .footerMain > :last-child { grid-column: 1 / -1; }
 }
 @media (max-width: 600px) {
-  .brandMark { width: 36px; height: 36px; }
+  .brandLogo { height: 52px; }
   .brandWord { font-size: 18px; }
   .brandWord small { font-size: 7px; }
   .hero { min-height: 645px; }

@@ -20,18 +20,22 @@ function Anchor({ href, external, className, children }: { href: string; externa
   );
 }
 
-export function Brand({ locale, name }: { locale: Locale; name: string }) {
+/** The real brand logo from the CMS (white version: the header and footer sit on dark backgrounds). */
+export function Brand({ locale, site, className, eager }: { locale: Locale; site: Site; className?: string; eager?: boolean }) {
+  const info = siteInfo(site);
+  const logo = info.logoNegative ?? info.logo;
+  // Served as-is (no resizing) so the transparent PNG stays crisp. In production /upload is same-origin
+  // via Nginx; locally NEXT_PUBLIC_MEDIA_ORIGIN points at Laravel.
+  const src = logo ? `${process.env.NEXT_PUBLIC_MEDIA_ORIGIN ?? ''}${logo}` : null;
   return (
-    <SmartLink href={homePath(locale)} className={s.brand} aria-label={name}>
-      <span className={s.brandMark}>
-        <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
-          <path d="M20 4 34 17 20 35 6 17 20 4Z" stroke="#d9c89f" strokeWidth="1.6" />
-          <path d="M6 17h28M20 4l-7 13 7 18 7-18-7-13Z" stroke="#d9c89f" strokeWidth="1.1" />
-        </svg>
-      </span>
-      <span className={s.brandWord}>
-        GREEN RUBY<small>CRUISES</small>
-      </span>
+    <SmartLink href={homePath(locale)} className={cx(s.brand, className)} aria-label={info.name}>
+      {src ? (
+        <Image src={src} alt={info.name} width={117} height={93} unoptimized loading={eager ? 'eager' : 'lazy'} className={s.brandLogo} />
+      ) : (
+        <span className={s.brandWord}>
+          GREEN RUBY<small>CRUISES</small>
+        </span>
+      )}
     </SmartLink>
   );
 }
@@ -59,10 +63,9 @@ export function Topbar({ site, t }: Pick<Chrome, 'site' | 't'>) {
 
 export function SiteNav({ locale, site, t, alternateHref, currentHref }: Chrome & { currentHref?: string }) {
   const links = navLinks(site.menus.primary);
-  const info = siteInfo(site);
   return (
     <nav className={s.nav} aria-label={t.nav.label}>
-      <Brand locale={locale} name={info.name} />
+      <Brand locale={locale} site={site} eager />
       <div className={s.navLinks}>
         {/* The brand already links home; skipping it keeps long CMS menus (e.g. Vietnamese) on one line. */}
         {links.filter((link) => link.href !== homePath(locale)).map((link) => (
@@ -183,7 +186,7 @@ export function SiteFooter({ locale, site, t }: Pick<Chrome, 'locale' | 'site' |
       <div className="container">
         <div className={s.footerMain}>
           <div>
-            <Brand locale={locale} name={info.name} />
+            <Brand locale={locale} site={site} />
             <p className={s.footerAbout}>{t.footer.tagline}</p>
             {info.socials.length > 0 && (
               <div className={s.socials}>
