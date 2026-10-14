@@ -279,7 +279,7 @@ function FeatureCard({ article, locale }: { article: LinkedArticle; locale: Chro
   const m = blogMessages(locale);
   return (
     <article className={s.feature}>
-      <SmartLink className={s.featurePhoto} href={article.href} aria-label={article.title} tabIndex={-1}>
+      <SmartLink className={s.featurePhoto} href={article.href} aria-hidden="true" tabIndex={-1}>
         {article.image && <Image src={article.image} alt="" fill sizes="(max-width: 900px) 100vw, 52vw" />}
         <span className={s.photoCorner}>{article.isFeatured ? m.featured : m.latest}</span>
         <span className={s.photoCredit}>{m.journalNumber(1)}</span>

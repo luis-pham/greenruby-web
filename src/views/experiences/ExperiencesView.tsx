@@ -51,7 +51,7 @@ function ExperienceCard({
   const image = cardImage(item);
   return (
     <article className={s.card} data-tab={item.group?.tab ?? ''}>
-      <SmartLink href={url} className={s.cardImage} aria-label={m.exploreAria(item.name)} tabIndex={-1}>
+      <SmartLink href={url} className={s.cardImage} aria-hidden="true" tabIndex={-1}>
         {image && <Image src={image} alt={item.name} fill sizes={sizes} />}
         <span className={s.imageCorner} aria-hidden="true">↗</span>
       </SmartLink>

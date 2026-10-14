@@ -240,7 +240,7 @@ export function CruiseView({ cruise, index, chrome }: { cruise: Cruise; index: n
                   const itUrl = itineraryPath(locale, it.slug, it.cruiseId, it.itineraryId);
                   return (
                     <article key={`${it.itineraryId}-${it.cruiseId}`} className={s.journey}>
-                      <SmartLink href={itUrl} className={s.journeyPhoto} aria-label={it.name}>
+                      <SmartLink href={itUrl} className={s.journeyPhoto} aria-hidden="true" tabIndex={-1}>
                         {it.image && <Image src={it.image} alt={it.name} fill sizes="(max-width: 600px) 100vw, 50vw" />}
                         <span className={s.journeyBadge}>{t.home.duration(it.duration)}</span>
                         <span className={s.journeyNum}>{pad(i + 1)} / {pad(cruise.itineraries.length)}</span>

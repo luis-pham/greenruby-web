@@ -106,7 +106,7 @@ export function ItinerariesView({
                 const url = itineraryPath(locale, it.slug, it.cruiseId, it.itineraryId);
                 return (
                   <article key={`${it.itineraryId}-${it.cruiseId}`} className={s.trip} data-bay={it.bay ?? ''} data-duration={it.duration}>
-                    <SmartLink href={url} className={s.tripPhoto} aria-label={it.name}>
+                    <SmartLink href={url} className={s.tripPhoto} aria-hidden="true" tabIndex={-1}>
                       {it.image && <Image src={it.image} alt={it.name} fill sizes="(max-width: 600px) 100vw, 50vw" />}
                       {it.bay && <span className={s.tripLocation}>{t.home.bays[it.bay]}</span>}
                       <span className={s.tripNumber}>{pad(i + 1)} / {pad(items.length)}</span>

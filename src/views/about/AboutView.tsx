@@ -296,7 +296,7 @@ export function AboutView({
                   const image = cruise.image ?? cruise.cover ?? null;
                   return (
                     <article key={cruise.id} className={s.vessel}>
-                      <SmartLink href={url} className={s.vesselPhoto} aria-label={cruise.name}>
+                      <SmartLink href={url} className={s.vesselPhoto} aria-hidden="true" tabIndex={-1}>
                         {image && <Image src={image} alt={cruise.name} fill sizes="(max-width: 690px) 100vw, 50vw" />}
                         <span className={s.vesselHeading}>{cruise.name}</span>
                       </SmartLink>

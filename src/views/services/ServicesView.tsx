@@ -235,7 +235,7 @@ export function ServicesView({
                       return (
                         <article key={cabin.id} className={s.space}>
                           {url ? (
-                            <SmartLink href={url} className={s.spacePhoto} aria-label={cabin.name}>
+                            <SmartLink href={url} className={s.spacePhoto} aria-hidden="true" tabIndex={-1}>
                               {cabin.image && <Image src={cabin.image} alt={cabin.name} fill sizes="(max-width: 600px) 100vw, 50vw" />}
                             </SmartLink>
                           ) : (

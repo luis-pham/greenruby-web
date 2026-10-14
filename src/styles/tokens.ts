@@ -24,7 +24,7 @@ export const tokens = {
       "200": "#d5c3a0",
       "300": "#e0c499",
       "500": "#bb9e70",
-      "700": "#806c4b"
+      "700": "#766344"
     },
     "red": {
       "50": "#fbf0ed",
@@ -154,7 +154,7 @@ export const tokens = {
     "body": "#273a35",
     "heading": "#123a35",
     "muted": "#5f6a63",
-    "accent": "#806c4b",
+    "accent": "#766344",
     "inverse": "#eaf1ea",
     "inverse-muted": "#a9bfb4",
     "inverse-accent": "#e0c499",
@@ -171,7 +171,7 @@ export const tokens = {
     "primary": "#bb9e70",
     "primary-hover": "#e0c499",
     "secondary": "#ffffff",
-    "focus": "#806c4b"
+    "focus": "#766344"
   }
 } as const;
 
