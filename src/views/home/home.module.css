@@ -243,6 +243,7 @@
 .roomOverline { display: flex; justify-content: space-between; gap: 10px; margin-top: 25px; color: var(--text-accent); font-size: var(--font-size-label); font-weight: var(--font-weight-bold); letter-spacing: 0.13em; text-transform: uppercase; }
 .roomContent h3 { margin: 13px 0 12px; font-size: 26px; line-height: 1.15; }
 .roomContent p { flex: 1; margin: 0 0 20px; color: var(--text-muted); font-size: 13px; line-height: 1.75; }
+.roomContent .roomOverline { flex: none; margin-bottom: 0; }
 .roomContent > :last-child { align-self: flex-start; }
 
 /* ---------- Facilities ---------- */
@@ -354,4 +355,48 @@
   .fleetSpecs dd { font-size: 25px; }
   .story { padding: 87px 0 90px; }
   .storyVisual { height: 360px; }
-  
+  .facts { gap: 8px; }
+  .facts dd { font-size: 24px; }
+  .journeyPhoto { height: 220px; }
+  .journeyDetails { padding: 22px 22px 24px; }
+  .journeyDetails h3 { font-size: 24px; }
+  .journeyDetails p { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; }
+  .photoLabel { left: 14px; bottom: 14px; padding: 8px 11px; }
+  .tabs { display: flex; width: 100%; }
+  .tab { flex: 1; padding: 14px 9px; }
+  .roomContent { padding: 0 20px 22px; }
+  .roomContent h3 { font-size: 23px; }
+  .roomContent h3 + p { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; }
+  .carouselArrow { width: 40px; height: 40px; }
+  .facilitiesGrid { grid-template-columns: 1fr; }
+  .facility { min-height: 0; }
+  .experiences { padding: 80px 0; }
+  .experienceGrid { grid-template-columns: 1fr; gap: 36px; }
+  .sustainability { padding: 75px 0; }
+  .sustainImg { height: 290px; }
+  .faq { padding: 75px 0; }
+  .quote { min-height: 420px; }
+}
+
+/* ---------- Tablet & mobile: journeys and suites become swipeable rows ----------
+   One card in view with the next one peeking, bleeding to the screen edge. */
+@media (max-width: 900px) {
+  .journeyGrid,
+  .carouselTrack {
+    display: flex;
+    gap: 16px;
+    margin-inline: calc(var(--space-gutter) * -1);
+    padding: 1px var(--space-gutter) 6px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--space-gutter);
+    scrollbar-width: none;
+    overscroll-behavior-inline: contain;
+  }
+  .journeyGrid::-webkit-scrollbar { display: none; }
+  .journeyCard, .roomCard { flex: 0 0 min(70%, 440px); scroll-snap-align: start; }
+  .journeyCard:hover { transform: none; }
+}
+@media (max-width: 600px) {
+  .journeyCard, .roomCard { flex-basis: 86%; }
+}

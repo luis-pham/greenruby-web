@@ -26,6 +26,8 @@ export function JourneyTabs({
     grid.current?.querySelectorAll<HTMLElement>('[data-duration]').forEach((card) => {
       card.hidden = Number(card.dataset.duration) !== duration;
     });
+    // On mobile the cards are a horizontal swipe row: start the new set from its first card.
+    grid.current?.scrollTo({ left: 0 });
   };
 
   return (

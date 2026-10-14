@@ -37,7 +37,7 @@ export function Carousel({
   const scroll = (direction: 1 | -1) => {
     const el = track.current;
     const card = el?.firstElementChild as HTMLElement | null;
-    if (el && card) el.scrollBy({ left: direction * (card.offsetWidth + 24), behavior: 'smooth' });
+    if (el && card) el.scrollBy({ left: direction * (card.offsetWidth + (parseFloat(getComputedStyle(el).columnGap) || 0)), behavior: 'smooth' });
   };
 
   return (
