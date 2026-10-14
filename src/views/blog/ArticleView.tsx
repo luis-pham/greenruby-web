@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { Breadcrumb, SiteFooter, SiteNav, Topbar, type Chrome, type Crumb } from '@/components/layout';
+import { ORGANIZATION_ID } from '@/lib/organization';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SmartLink } from '@/components/ui';
 import { homePath, sectionPath } from '@/lib/i18n';
@@ -194,8 +195,14 @@ export function ArticleView({ article, chrome }: { article: Article; chrome: Chr
           wordCount: html ? html.replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length : undefined,
           isPartOf: { '@type': 'Blog', '@id': `${absoluteUrl(blogHref)}#blog`, url: absoluteUrl(blogHref) },
           // No author field in the CMS: the organization is credited, as on the Laravel site.
-          author: { '@type': 'Organization', '@id': `${siteUrl}/#organization`, name: info.name, url: siteUrl },
-          publisher: { '@type': 'Organization', '@id': `${siteUrl}/#organization`, name: info.name, url: siteUrl },
+          author: { '@type': 'Organization', '@id': ORGANIZATION_ID, name: info.name, url: siteUrl },
+          publisher: {
+            '@type': 'Organization',
+            '@id': ORGANIZATION_ID,
+            name: info.name,
+            url: siteUrl,
+            ...(info.logo && { logo: { '@type': 'ImageObject', url: `${siteUrl}${info.logo}` } }),
+          },
         }}
       />
     </>

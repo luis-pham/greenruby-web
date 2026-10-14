@@ -1,11 +1,12 @@
 import Image from 'next/image';
 import { PageIntro, SiteFooter, type Chrome } from '@/components/layout';
 import { FaqList, type FaqItem } from '@/components/sections/Faq';
+import { organizationRef } from '@/lib/organization';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SmartLink, TextLink } from '@/components/ui';
 import { detailPath, homePath, sectionPath } from '@/lib/i18n';
 import { siteInfo } from '@/lib/site-info';
-import { absoluteImageUrl, absoluteUrl, siteUrl } from '@/lib/site-url';
+import { absoluteImageUrl, absoluteUrl } from '@/lib/site-url';
 import type { ServicesPage } from './data';
 import { servicesMessages } from './messages';
 import { ServiceFilter } from './ServiceFilter';
@@ -308,7 +309,7 @@ export function ServicesView({ data, cmsFaqs, chrome }: { data: ServicesPage; cm
               ...(item.image && { image: absoluteImageUrl(item.image, 1200) }),
               ...(item.group && { category: item.group.name }),
               areaServed: 'Ha Long Bay, Vietnam',
-              provider: { '@type': 'TravelAgency', name: info.name, url: siteUrl },
+              provider: organizationRef(info.name),
               ...(item.price != null && {
                 offers: { '@type': 'Offer', price: item.price, priceCurrency: data.currency },
               }),

@@ -1,12 +1,13 @@
 import Image from 'next/image';
 import { PageHero, SiteFooter, type Chrome } from '@/components/layout';
 import { FaqList } from '@/components/sections/Faq';
+import { organizationRef } from '@/lib/organization';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SmartLink, TextLink } from '@/components/ui';
 import type { Itinerary } from '@/lib/api/schemas';
 import { detailPath, experiencePath, homePath, itineraryPath, sectionPath } from '@/lib/i18n';
 import { siteInfo } from '@/lib/site-info';
-import { absoluteImageUrl, absoluteUrl, siteUrl } from '@/lib/site-url';
+import { absoluteImageUrl, absoluteUrl } from '@/lib/site-url';
 import { cabinPath } from '@/views/cabin/CabinView';
 import { formatDate } from '@/views/itineraries/ItinerariesView';
 import s from './itinerary.module.css';
@@ -284,7 +285,7 @@ export function ItineraryView({ itinerary: it, chrome }: { itinerary: Itinerary;
           inLanguage: locale,
           ...(photos[0] && { image: photos.slice(0, 4).map((p) => absoluteImageUrl(p)) }),
           touristType: ['Leisure', 'Cruise'],
-          provider: { '@type': 'TravelAgency', name: info.name, url: siteUrl },
+          provider: organizationRef(info.name),
           itinerary: {
             '@type': 'ItemList',
             numberOfItems: it.days.length,

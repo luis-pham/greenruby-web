@@ -1,4 +1,3 @@
-const pad = (n: number) => String(n).padStart(2, '0');
 
 const en = {
   breadcrumb: 'Frequently Asked Questions',

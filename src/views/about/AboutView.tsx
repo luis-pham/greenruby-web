@@ -1,11 +1,11 @@
 import Image from 'next/image';
 import type { ReactNode } from 'react';
 import { PageHero, SiteFooter, type Chrome } from '@/components/layout';
+import { organizationSchema } from '@/lib/organization';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SmartLink, TextLink } from '@/components/ui';
 import { detailPath, homePath, sectionPath } from '@/lib/i18n';
-import { siteInfo } from '@/lib/site-info';
-import { absoluteImageUrl, absoluteUrl, siteUrl } from '@/lib/site-url';
+import { absoluteImageUrl, absoluteUrl } from '@/lib/site-url';
 import type { AboutCruise, AboutPage } from './data';
 import { aboutMessages, honestDescription } from './messages';
 import s from './about.module.css';
@@ -68,7 +68,6 @@ export function AboutView({
 }) {
   const { locale, t, site } = chrome;
   const m = aboutMessages[locale];
-  const info = siteInfo(site);
   const c = data.config;
   const path = sectionPath(locale, 'aboutUs');
   const banner = c.banner?.[0];
@@ -368,21 +367,11 @@ export function AboutView({
           inLanguage: locale,
           ...(banner && { primaryImageOfPage: absoluteImageUrl(banner.src, 1200) }),
           ...(data.updatedAt && { dateModified: data.updatedAt }),
-          mainEntity: {
-            '@type': 'Organization',
-            '@id': `${siteUrl}/#organization`,
-            name: info.name,
-            url: siteUrl,
-            ...(site.config['website-description'] && { description: site.config['website-description'] }),
-            ...(info.email && { email: info.email }),
-            ...(info.hotline && { telephone: info.hotline }),
-            ...(info.address && { address: info.address }),
-            areaServed: ['Ha Long Bay', 'Lan Ha Bay'],
-            ...(info.socials.length > 0 && { sameAs: info.socials.map((x) => x.url) }),
+          mainEntity: organizationSchema(site, {
             ...(fleet.length > 0 && {
               owns: fleet.map((cruise) => ({ '@type': 'Product', name: cruise.name, url: absoluteUrl(detailPath(locale, 'cruise', cruise.slug, cruise.id)) })),
             }),
-          },
+          }),
         }}
       />
     </>

@@ -1,5 +1,6 @@
 import 'server-only';
 import { cacheLife, cacheTag } from 'next/cache';
+import { z } from 'zod';
 import type { Locale } from '@/lib/i18n';
 import { getContent } from './client';
 import {
@@ -79,4 +80,15 @@ export async function getCruise(id: number, locale: Locale) {
   cacheLife('hours');
   cacheTag('content', 'cruises', `cruise:${id}`, 'cabins', 'itineraries', 'services', 'experiences');
   return getContent(`/cruises/${id}`, { lang: locale }, cruiseSchema);
+}
+
+const pageSeoSchema = z.object({ seo: z.object({ title: z.string().nullable(), description: z.string().nullable() }) });
+
+/** SEO title/description an editor set for a hub page in the CMS (GET /pages/{code}, CONTENT_API.md 4.10). */
+export async function getPageSeo(code: 'contact' | 'booking', locale: Locale) {
+  'use cache';
+  cacheLife('hours');
+  cacheTag('content', 'pages', `page:${code}`);
+  const page = await getContent(`/pages/${code}`, { lang: locale }, pageSeoSchema);
+  return page?.seo ?? { title: null, description: null };
 }

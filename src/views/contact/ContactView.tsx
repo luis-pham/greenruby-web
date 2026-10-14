@@ -1,9 +1,10 @@
 import { SiteFooter, SolidHeader, Breadcrumb, type Chrome } from '@/components/layout';
+import { organizationSchema } from '@/lib/organization';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SectionHeading } from '@/components/ui';
 import { homePath, sectionPath } from '@/lib/i18n';
 import { siteInfo } from '@/lib/site-info';
-import { absoluteUrl, siteUrl } from '@/lib/site-url';
+import { absoluteUrl } from '@/lib/site-url';
 import { ContactForm } from './ContactForm';
 import s from './contact.module.css';
 
@@ -135,22 +136,7 @@ export function ContactView({ chrome }: { chrome: Chrome }) {
           url: absoluteUrl(path),
           name: c.metaTitle,
           inLanguage: locale,
-          mainEntity: {
-            '@type': 'TravelAgency',
-            name: info.name,
-            url: siteUrl,
-            ...(info.email && { email: info.email }),
-            ...(info.hotline && { telephone: info.hotline }),
-            ...(info.address && { address: info.address }),
-            contactPoint: {
-              '@type': 'ContactPoint',
-              contactType: 'reservations',
-              availableLanguage: ['en', 'vi'],
-              ...(info.email && { email: info.email }),
-              ...(info.hotline && { telephone: info.hotline }),
-            },
-            ...(info.socials.length > 0 && { sameAs: info.socials.map((x) => x.url) }),
-          },
+          mainEntity: organizationSchema(site),
         }}
       />
     </>

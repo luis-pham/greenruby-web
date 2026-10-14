@@ -3,6 +3,8 @@ import type { Locale } from '@/lib/i18n';
 import type { SiteInfo } from '@/lib/site-info';
 import { absoluteImageUrl, absoluteUrl } from '@/lib/site-url';
 
+const DEFAULT_SOCIAL_IMAGE = '/assets/frontend/images/logo-social.jpg?v=0.0.1';
+
 /**
  * Title, description, canonical, hreflang, Open Graph and Twitter tags for a page.
  * hreflang is only emitted when the other-language counterpart is known exactly.
@@ -38,7 +40,10 @@ export function pageMetadata({
         'x-default': absoluteUrl(locale === 'en' ? path : alternatePath),
       }
     : undefined;
-  const images = image ? [{ url: absoluteImageUrl(image, 1200, 630), width: 1200, height: 630 }] : undefined;
+  // Pages without their own image share the Laravel site's default social card (frontend.organizationLogoSocial).
+  const images = image
+    ? [{ url: absoluteImageUrl(image, 1200, 630), width: 1200, height: 630 }]
+    : [{ url: absoluteUrl(DEFAULT_SOCIAL_IMAGE), width: 1200, height: 627 }];
 
   return {
     title: fullTitle,
@@ -53,7 +58,7 @@ export function pageMetadata({
       locale: locale === 'vi' ? 'vi_VN' : 'en_US',
       images,
     },
-    twitter: { card: images ? 'summary_large_image' : 'summary', title: fullTitle, description, images: images?.map((i) => i.url) },
+    twitter: { card: 'summary_large_image', title: fullTitle, description, images: images.map((i) => i.url) },
     robots: noIndex || site.noIndex ? { index: false, follow: true } : undefined,
     ...(site.icon && { icons: { icon: site.icon, apple: site.icon } }),
   };
