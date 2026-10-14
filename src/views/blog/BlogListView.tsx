@@ -195,7 +195,7 @@ export function BlogListView({ chrome, list, search }: { chrome: Chrome; list: A
                         <span className={s.topicType}>{m.topicType}</span>
                         <h3>{node.name}</h3>
                         <p>{m.topicCount(node.count)}</p>
-                        <span className={s.linkLine}>{m.exploreTopic} <span aria-hidden="true">↗</span></span>
+                        <span className={s.linkLine}>{m.exploreTopic} <span aria-hidden="true">↗︎</span></span>
                       </span>
                     </SmartLink>
                   </li>
@@ -210,7 +210,7 @@ export function BlogListView({ chrome, list, search }: { chrome: Chrome; list: A
                       <span className={s.topicType}>{m.ctaTopicType}</span>
                       <h3>{m.ctaTopicTitle}</h3>
                       <p>{m.ctaTopicBody}</p>
-                      <span className={s.linkLine}>{m.ctaTopicLink} <span aria-hidden="true">↗</span></span>
+                      <span className={s.linkLine}>{m.ctaTopicLink} <span aria-hidden="true">↗︎</span></span>
                     </span>
                   </SmartLink>
                 </li>

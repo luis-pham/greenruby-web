@@ -18,7 +18,7 @@ export function CopyLink({ url, label, copied, failed, className, toastClass }: 
 
   return (
     <>
-      <button type="button" className={className} onClick={copy} title={label} aria-label={label}>↗</button>
+      <button type="button" className={className} onClick={copy} title={label} aria-label={label}>↗︎</button>
       <span className={toastClass} role="status" aria-live="polite" data-visible={message ? 'true' : undefined}>{message}</span>
     </>
   );

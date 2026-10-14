@@ -103,7 +103,7 @@
 .serviceBlock ul { list-style: none; margin: 0; padding: 0; }
 .serviceBlock li { display: flex; gap: 12px; padding: 9px 0; color: var(--text-muted); font-size: 13px; line-height: 1.65; }
 .serviceBlock li::before { content: '✓'; color: var(--action-primary); font-weight: var(--font-weight-bold); }
-.serviceBlock:last-child li::before { content: '↗'; }
+.serviceBlock:last-child li::before { content: '\2197\FE0E'; }
 
 @media (max-width: 1160px) {
   .introGrid, .ecoGrid, .servicesGrid { gap: 55px; }

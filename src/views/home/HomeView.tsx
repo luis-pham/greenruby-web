@@ -145,7 +145,7 @@ export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
                         </span>
                         <span className={s.fleetPhotoBottom}>
                           <strong>{cruise.name}</strong>
-                          <span className={s.fleetPhotoIcon} aria-hidden="true">↗</span>
+                          <span className={s.fleetPhotoIcon} aria-hidden="true">↗︎</span>
                         </span>
                       </SmartLink>
                       <div className={s.fleetBody}>

@@ -118,7 +118,7 @@ export function FaqView({ list, chrome }: { list: FaqList; chrome: Chrome }) {
                   <Icon>{MESSAGE_ICON}</Icon>
                   <h3>{f.helpTitle}</h3>
                   <p>{f.helpBody}</p>
-                  <SmartLink href={contactPath}>{f.helpLink} ↗</SmartLink>
+                  <SmartLink href={contactPath}>{f.helpLink} ↗︎</SmartLink>
                 </div>
               </aside>
 

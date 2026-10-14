@@ -109,7 +109,7 @@ export function ServicesView({
                         {item.description && <p>{item.description}</p>}
                         <a className={s.cardLink} href={enquireHref(item.name)}>
                           {m.collection.enquire}
-                          <span aria-hidden="true">↗</span>
+                          <span aria-hidden="true">↗︎</span>
                         </a>
                       </div>
                     </article>
@@ -159,7 +159,7 @@ export function ServicesView({
                   <h3>{col.title[0]}<br />{col.title[1]}</h3>
                   <ul className={s.inclusionList}>
                     {col.items.map((row) => (
-                      <li key={row}><span className={s.tick} aria-hidden="true">{i === 0 ? '✓' : '↗'}</span><span>{row}</span></li>
+                      <li key={row}><span className={s.tick} aria-hidden="true">{i === 0 ? '✓' : '↗︎'}</span><span>{row}</span></li>
                     ))}
                   </ul>
                   <p className={s.inclusionFoot}>{col.foot}</p>

@@ -62,7 +62,7 @@ export function ContactForm({ locale, t, privacyHref }: { locale: Locale; t: Mes
       </p>
       {general && <p className={s.errorBox} role="alert">{general}</p>}
       <Button type="submit" disabled={pending} aria-busy={pending}>
-        {pending ? t.sending : t.submit} <span aria-hidden="true">↗</span>
+        {pending ? t.sending : t.submit} <span aria-hidden="true">↗︎</span>
       </Button>
     </form>
   );

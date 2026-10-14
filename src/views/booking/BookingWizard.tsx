@@ -356,7 +356,7 @@ export function BookingWizard({ locale, t, contact, homeHref, bookingHref, priva
                           : state.confirmation === 'inquiry'
                             ? t.submitInquiry
                             : t.submitPayment)}{' '}
-                    <span aria-hidden="true">↗</span>
+                    <span aria-hidden="true">↗︎</span>
                   </button>
                 </div>
               </form>

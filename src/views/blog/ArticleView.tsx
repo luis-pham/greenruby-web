@@ -142,7 +142,7 @@ export function ArticleView({ article, chrome }: { article: Article; chrome: Chr
                     <span className={s.relatedKicker}>{pad(i + 1)} &nbsp;/&nbsp; {a.category.name}</span>
                     <h3>{a.title}</h3>
                     {a.lead && <p>{a.lead}</p>}
-                    <span className={s.linkLine}>{m.readStory} <span aria-hidden="true">↗</span></span>
+                    <span className={s.linkLine}>{m.readStory} <span aria-hidden="true">↗︎</span></span>
                   </SmartLink>
                 </li>
               ))}
@@ -152,7 +152,7 @@ export function ArticleView({ article, chrome }: { article: Article; chrome: Chr
                     <span className={s.relatedKicker}>{pad(related.length + i + 1)} &nbsp;/&nbsp; {card.kicker}</span>
                     <h3>{card.title}</h3>
                     <p>{card.body}</p>
-                    <span className={s.linkLine}>{card.link} <span aria-hidden="true">↗</span></span>
+                    <span className={s.linkLine}>{card.link} <span aria-hidden="true">↗︎</span></span>
                   </SmartLink>
                 </li>
               ))}

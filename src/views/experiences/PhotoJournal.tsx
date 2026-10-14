@@ -44,7 +44,7 @@ export function PhotoJournal({
         {photos.map((photo, i) => (
           <button key={photo.src + i} type="button" className={s.galleryBtn} aria-label={openLabel[i]} onClick={() => open(i)}>
             <Image src={photo.src} alt={photo.alt} fill sizes={i === 0 ? '(max-width: 850px) 100vw, 42vw' : '(max-width: 850px) 50vw, 30vw'} />
-            <span className={s.expand} aria-hidden="true">↗</span>
+            <span className={s.expand} aria-hidden="true">↗︎</span>
             <span className={s.caption}>
               <small>{photo.kicker}</small>
               <strong>{photo.title}</strong>

@@ -53,7 +53,7 @@ function ExperienceCard({
     <article className={s.card} data-tab={item.group?.tab ?? ''}>
       <SmartLink href={url} className={s.cardImage} aria-hidden="true" tabIndex={-1}>
         {image && <Image src={image} alt={item.name} fill sizes={sizes} />}
-        <span className={s.imageCorner} aria-hidden="true">↗</span>
+        <span className={s.imageCorner} aria-hidden="true">↗︎</span>
       </SmartLink>
       <div className={s.cardBody}>
         <div className={s.cardTop}>
@@ -64,7 +64,7 @@ function ExperienceCard({
         {item.summary && <p>{item.summary}</p>}
         <div className={s.cardBottom}>
           <span>{item.group?.name ?? item.notes[0] ?? ''}</span>
-          <SmartLink href={url}>{m.viewExperience} <span aria-hidden="true">↗</span></SmartLink>
+          <SmartLink href={url}>{m.viewExperience} <span aria-hidden="true">↗︎</span></SmartLink>
         </div>
       </div>
     </article>

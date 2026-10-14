@@ -146,7 +146,7 @@ export function SiteNav({ locale, site, t, alternateHref, currentHref }: Chrome 
       <div className={s.navEnd}>
         <LanguageFlags locale={locale} alternateHref={alternateHref} uid="nav" />
         <SmartLink className={s.navBook} href={sectionPath(locale, 'booking')}>
-          {t.nav.book} <span aria-hidden="true">↗</span>
+          {t.nav.book} <span aria-hidden="true">↗︎</span>
         </SmartLink>
         <MobileMenu label={t.nav.openMenu}>
           {links.map((link) => (
@@ -165,7 +165,7 @@ export function SiteNav({ locale, site, t, alternateHref, currentHref }: Chrome 
             <span className={s.flag}>{locale === 'en' ? <FlagVN /> : <FlagGB uid="mobile" />}</span>
             {LANGUAGE_NAMES[locale === 'en' ? 'vi' : 'en']}
           </a>
-          <SmartLink href={sectionPath(locale, 'booking')}>{t.nav.book} ↗</SmartLink>
+          <SmartLink href={sectionPath(locale, 'booking')}>{t.nav.book} ↗︎</SmartLink>
         </MobileMenu>
       </div>
     </nav>

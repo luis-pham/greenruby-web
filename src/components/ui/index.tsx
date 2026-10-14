@@ -36,7 +36,7 @@ export function ButtonLink({
   const content = (
     <>
       {children}
-      {arrow && <span className={s.arrow} aria-hidden="true">↗</span>}
+      {arrow && <span className={s.arrow} aria-hidden="true">↗︎</span>}
     </>
   );
   const classes = cx(s.btn, s[variant], className);
@@ -65,7 +65,7 @@ export function TextLink({ href, inverse, children }: { href: string; inverse?: 
   const content = (
     <>
       {children}
-      <span className={s.arrow} aria-hidden="true">↗</span>
+      <span className={s.arrow} aria-hidden="true">↗︎</span>
     </>
   );
   return isExternal(href) ? <a href={href} className={classes}>{content}</a> : <Link href={href} className={classes}>{content}</Link>;

@@ -182,7 +182,7 @@ export function ExperienceView({
         <div className={cx('container', s.subnavInner)}>
           <SectionNav links={sections} />
           <SmartLink className={s.subnavCta} href={bookingUrl}>
-            {m.planVoyage} <span aria-hidden="true">↗</span>
+            {m.planVoyage} <span aria-hidden="true">↗︎</span>
           </SmartLink>
         </div>
       </nav>
@@ -284,7 +284,7 @@ export function ExperienceView({
               <ul>
                 {panel.map((item) => (
                   <li key={item.title}>
-                    <span className={s.tick} aria-hidden="true">↗</span>
+                    <span className={s.tick} aria-hidden="true">↗︎</span>
                     <div>
                       <strong>{item.title}</strong>
                       <p>{item.body}</p>
@@ -319,7 +319,7 @@ export function ExperienceView({
                         <small>{tabLabel(m, item)}</small>
                         <h3><SmartLink href={experienceUrl(locale, item)} className={s.relatedLink}>{item.name}</SmartLink></h3>
                         {item.summary && <p>{item.summary}</p>}
-                        <span className={s.relatedMore} aria-hidden="true">{m.exploreExperience} <span>↗</span></span>
+                        <span className={s.relatedMore} aria-hidden="true">{m.exploreExperience} <span>↗︎</span></span>
                       </div>
                     </article>
                   );

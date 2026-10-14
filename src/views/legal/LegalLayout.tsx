@@ -184,8 +184,8 @@ export function LegalSidebar({
         <span className={s.supportEyebrow}>{m.support.eyebrow}</span>
         <h2>{m.support.title}</h2>
         <p>{m.support.body}</p>
-        {info.email && <a href={`mailto:${info.email}`}>{info.email} ↗</a>}
-        {info.hotlineHref && <a href={info.hotlineHref}>{info.hotline} ↗</a>}
+        {info.email && <a href={`mailto:${info.email}`}>{info.email} ↗︎</a>}
+        {info.hotlineHref && <a href={info.hotlineHref}>{info.hotline} ↗︎</a>}
       </div>
 
       {linked.length > 0 && (
@@ -255,7 +255,7 @@ export function RelatedLinks({ items }: { items: { href: string; eyebrow: string
             <small>{item.eyebrow}</small>
             {item.label}
           </span>
-          <span className={s.arr} aria-hidden="true">↗</span>
+          <span className={s.arr} aria-hidden="true">↗︎</span>
         </SmartLink>
       ))}
     </div>

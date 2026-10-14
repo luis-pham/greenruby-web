@@ -66,7 +66,7 @@ export function ContactView({ chrome }: { chrome: Chrome }) {
                       <span className={s.channelLabel}>{c.call}</span>
                       <a className={s.channelValue} href={info.hotlineHref}>{info.hotline}</a>
                       {info.whatsappHref && (
-                        <a className={s.channelLink} href={info.whatsappHref} target="_blank" rel="noopener">{c.whatsapp} ↗</a>
+                        <a className={s.channelLink} href={info.whatsappHref} target="_blank" rel="noopener">{c.whatsapp} ↗︎</a>
                       )}
                     </div>
                   </li>
@@ -86,7 +86,7 @@ export function ContactView({ chrome }: { chrome: Chrome }) {
                     <div>
                       <span className={s.channelLabel}>{c.visit}</span>
                       <address className={s.channelValue}>{info.address}</address>
-                      {mapsHref && <a className={s.channelLink} href={mapsHref} target="_blank" rel="noopener">{c.openMap} ↗</a>}
+                      {mapsHref && <a className={s.channelLink} href={mapsHref} target="_blank" rel="noopener">{c.openMap} ↗︎</a>}
                     </div>
                   </li>
                 )}

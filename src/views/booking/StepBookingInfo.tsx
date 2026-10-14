@@ -118,7 +118,7 @@ export function StepBookingInfo({ t, locale, state, dispatch, currency, routeIma
               target="_blank"
               rel="noopener"
             >
-              {t.seeDetail} <span aria-hidden="true">↗</span>
+              {t.seeDetail} <span aria-hidden="true">↗︎</span>
             </a>
           )}
         </div>
@@ -212,7 +212,7 @@ export function StepBookingInfo({ t, locale, state, dispatch, currency, routeIma
                     {cabin.summary && <p>{cabin.summary}</p>}
                     <a className={s.textLink} href={detailPath(locale, 'cabin', slugify(cabin.name), cabin.id)} target="_blank" rel="noopener">
                       {t.viewCabin} <span className="sr-only">: {cabin.name}</span>
-                      <span aria-hidden="true"> ↗</span>
+                      <span aria-hidden="true"> ↗︎</span>
                     </a>
                   </div>
                   <div className={s.cabAction}>
