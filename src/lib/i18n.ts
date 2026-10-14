@@ -18,6 +18,9 @@ const segments = {
   booking: { en: 'booking', vi: 'booking' },
   privacyPolicy: { en: 'privacy-policy', vi: 'chinh-sach-bao-mat' },
   legal: { en: 'legal', vi: 'phap-ly' },
+  safetyPolicies: { en: 'safety-policies', vi: 'chinh-sach-an-toan' },
+  termsAndConditions: { en: 'terms-and-conditions', vi: 'dieu-khoan-dieu-kien' },
+  paymentMethods: { en: 'payment-methods', vi: 'phuong-thuc-thanh-toan' },
 } as const;
 
 export type Section = keyof typeof segments;
