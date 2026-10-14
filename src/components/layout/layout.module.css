@@ -240,13 +240,13 @@ a.flag:hover, a.flag:focus-visible { opacity: 1; box-shadow: 0 0 0 2px var(--tex
 .footerCol a:hover { color: var(--text-inverse-accent); }
 .footerSoonItem { cursor: default; }
 .soonBadge {
-  padding: 2px 6px;
+  padding: 3px 6px;
   border: 1px solid var(--border-inverse);
   color: var(--text-inverse-accent);
   font-size: var(--font-size-label);
   font-weight: var(--font-weight-semibold);
   letter-spacing: var(--font-tracking-wide);
-  line-height: var(--font-leading-normal);
+  line-height: var(--font-leading-none); /* keeps rows with a badge as tall as the others */
   text-transform: uppercase;
 }
 .footerBottom {
