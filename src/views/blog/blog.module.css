@@ -58,12 +58,6 @@
 .heroArtCaption { bottom: 33px; right: 40px; font-weight: var(--font-weight-bold); }
 
 /* ---------- Ribbon ---------- */
-.ribbon { background: var(--bg-surface-alt); border-bottom: 1px solid var(--border-default); }
-.ribbonInner { display: grid; grid-template-columns: repeat(3, 1fr); align-items: center; min-height: 98px; margin-block: 0; list-style: none; }
-.ribbonItem { display: flex; align-items: center; gap: 17px; min-height: 47px; padding: 7px 35px; color: var(--text-heading); font: var(--font-weight-regular) 18px var(--font-family-serif); }
-.ribbonItem:first-child { padding-left: 0; }
-.ribbonItem:not(:last-child) { border-right: 1px solid var(--border-strong); }
-.roman { font: var(--font-weight-bold) var(--font-size-label) var(--font-family-sans); letter-spacing: 0.14em; color: var(--text-accent); }
 
 /* ---------- Listing ---------- */
 .journal { padding: 116px 0 120px; }
@@ -271,7 +265,6 @@
   .browseBar { flex-direction: column; align-items: stretch; gap: 14px; }
   .searchField { flex: 0 0 auto; max-width: 410px; }
   .featureText { padding: 41px 34px; }
-  .ribbonItem { padding-inline: 24px; font-size: 15px; }
   .afterwordLayout { gap: 40px; }
 }
 
@@ -280,7 +273,6 @@
   .heroCopy { padding: 25px 0 65px; }
   .heroMain { margin-bottom: 27px; padding-top: 63px; }
   .heroArt { height: 315px; min-height: 0; margin: 0 calc(var(--space-gutter) * -1); }
-  .ribbonItem { gap: 8px; padding: 10px 16px; font-size: 13px; }
   .journal, .topics { padding: 86px 0; }
   .sectionHead { flex-direction: column; align-items: flex-start; gap: 10px; margin-bottom: 30px; }
   .sectionHead .desc { max-width: 550px; }
@@ -302,9 +294,6 @@
   .heroArt { height: 240px; }
   .heroSide { right: 20px; }
   .heroArtCaption { right: 19px; bottom: 22px; }
-  .ribbonInner { grid-template-columns: 1fr; padding-block: 8px; }
-  .ribbonItem { padding: 12px 0; border-right: 0 !important; }
-  .ribbonItem:not(:last-child) { border-bottom: 1px solid var(--border-strong); }
   .journal, .topics { padding: 72px 0 78px; }
   .heading { font-size: 40px; }
   .browseBar { margin-bottom: 27px; padding: 15px 0; }

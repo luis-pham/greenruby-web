@@ -98,17 +98,6 @@ export function BlogListView({ chrome, list, search }: { chrome: Chrome; list: A
       />
 
       <main>
-        <div className={s.ribbon}>
-          <ul className={cx('container', s.ribbonInner)} aria-label={m.ribbonLabel}>
-            {m.ribbon.map((item, i) => (
-              <li key={item} className={s.ribbonItem}>
-                <span className={s.roman}>{['I', 'II', 'III'][i]}</span>
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
         <section className={s.journal} id="stories" aria-labelledby="stories-title">
           <div className="container">
             <div className={s.sectionHead}>

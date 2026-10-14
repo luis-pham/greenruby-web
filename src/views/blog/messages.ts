@@ -17,8 +17,6 @@ const en = {
   heroSeal: 'Notes on life, landscape & the sea',
   heroSide: 'From Ha Long & Lan Ha Bay',
   heroArt: 'A Green Ruby perspective',
-  ribbonLabel: 'Our editorial principles',
-  ribbon: ['Travel thoughtfully', 'See beyond the ordinary', 'Discover your own rhythm'],
   // Listing
   listEyebrow: 'From our journal',
   listTitle: 'Perspectives',
@@ -123,8 +121,6 @@ const vi: BlogMessages = {
   heroSeal: 'Ghi chép về cuộc sống, cảnh quan & biển cả',
   heroSide: 'Từ vịnh Hạ Long & Lan Hạ',
   heroArt: 'Góc nhìn Green Ruby',
-  ribbonLabel: 'Tinh thần biên tập',
-  ribbon: ['Du lịch có chủ đích', 'Nhìn xa hơn điều quen thuộc', 'Tìm nhịp sống của riêng bạn'],
   listEyebrow: 'Từ cẩm nang',
   listTitle: 'Góc nhìn',
   listTitleEm: 'từ mặt nước.',
