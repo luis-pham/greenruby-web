@@ -1,0 +1,104 @@
+/* Eyebrow: small tracked label with a leading rule. */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--font-tracking-wider);
+  text-transform: uppercase;
+  color: var(--text-accent);
+}
+.eyebrow::before {
+  content: '';
+  width: 29px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.7;
+}
+.eyebrowInverse { color: var(--text-inverse-accent); }
+
+/* Buttons */
+.btn {
+  min-height: var(--size-control);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-5);
+  padding: 0 var(--space-7);
+  border: 1px solid transparent;
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--font-tracking-wide);
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background var(--motion-duration-fast),
+    color var(--motion-duration-fast),
+    transform var(--motion-duration-fast);
+}
+.btn:hover { transform: translateY(-2px); }
+.btn:disabled { opacity: 0.6; cursor: progress; transform: none; }
+.gold { background: var(--action-primary); color: var(--text-on-accent); }
+.gold:hover { background: var(--action-primary-hover); }
+.dark { background: var(--bg-brand); color: var(--color-neutral-white); }
+.dark:hover { background: var(--bg-brand-hover); }
+.outline { border-color: var(--border-strong); color: var(--text-heading); background: transparent; }
+.outline:hover { border-color: var(--text-heading); }
+.lightOutline { border-color: rgba(255, 255, 255, 0.55); color: var(--color-neutral-white); background: transparent; }
+.lightOutline:hover { background: rgba(255, 255, 255, 0.08); }
+.arrow { font-size: 17px; font-weight: var(--font-weight-regular); line-height: 1; }
+
+/* Text link with underline rule and arrow. */
+.textLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding-bottom: 11px;
+  border-bottom: 1px solid var(--color-gold-200);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-heading);
+  transition: border-color var(--motion-duration-fast);
+}
+.textLink:hover { border-color: var(--text-heading); }
+.textLinkInverse { color: var(--color-neutral-white); border-color: rgba(255, 255, 255, 0.65); }
+.textLinkInverse:hover { border-color: var(--color-neutral-white); }
+
+/* Section heading: title block left, intro right (stacks on small screens). */
+.sectionHeading {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.7fr);
+  gap: 64px;
+  align-items: end;
+  margin-bottom: var(--space-12);
+}
+.sectionHeadingStacked { grid-template-columns: minmax(0, 1fr); gap: var(--space-4); }
+.heading {
+  margin: 22px 0 0;
+  font-size: var(--font-size-2xl);
+  line-height: 1.15;
+}
+.heading em { font-style: italic; color: var(--text-accent); }
+.inverse .heading { color: var(--color-neutral-white); }
+.inverse .heading em { color: var(--text-inverse-accent); }
+.description {
+  max-width: var(--size-copy);
+  margin: 0 0 7px;
+  font-size: 14px;
+  line-height: 1.95;
+  color: var(--text-muted);
+}
+.inverse .description { color: var(--color-green-100); }
+
+@media (max-width: 900px) {
+  .sectionHeading { gap: 35px; }
+}
+@media (max-width: 600px) {
+  .sectionHeading { grid-template-columns: 1fr; gap: 13px; margin-bottom: 33px; }
+  .btn { padding: 0 var(--space-5); min-height: 49px; }
+}

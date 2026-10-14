@@ -1,0 +1,9 @@
+.page { min-height: 100vh; display: grid; place-items: center; padding: 48px var(--space-gutter); background: var(--bg-inverse); color: var(--text-inverse); text-align: center; }
+.inner { max-width: 640px; }
+.eyebrow { color: var(--text-inverse-accent); font-size: var(--font-size-label); font-weight: var(--font-weight-bold); letter-spacing: var(--font-tracking-wider); text-transform: uppercase; }
+.title { margin: 22px 0 18px; color: var(--color-neutral-white); font-size: var(--font-size-3xl); }
+.body { margin: 0 auto 32px; color: var(--color-green-100); line-height: 1.9; }
+.links { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+.primary, .secondary { min-height: var(--size-control); display: inline-flex; align-items: center; padding: 0 var(--space-7); font-size: var(--font-size-label); font-weight: var(--font-weight-bold); letter-spacing: var(--font-tracking-wide); text-transform: uppercase; }
+.primary { background: var(--action-primary); color: var(--text-on-accent); }
+.secondary { border: 1px solid rgba(255, 255, 255, 0.55); color: var(--color-neutral-white); }
