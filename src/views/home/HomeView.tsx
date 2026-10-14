@@ -172,10 +172,6 @@ export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
                   );
                 })}
               </div>
-              <p className={s.fleetBottom}>
-                <span>{h.fleetBottom}</span>
-                <span>{t.footer.bays}</span>
-              </p>
             </div>
           </section>
         )}
@@ -200,7 +196,6 @@ export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
               {page.cruises[0]?.image && (
                 <div className={s.photoSecondary}><Image src={page.cruises[0].image} alt={page.cruises[0].name} fill sizes="(max-width: 900px) 45vw, 22vw" /></div>
               )}
-              <p className={s.stamp} aria-hidden="true">{h.storyStamp}</p>
             </div>
           </div>
         </section>

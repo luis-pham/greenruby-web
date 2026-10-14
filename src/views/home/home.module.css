@@ -139,19 +139,6 @@
 .fleetSpecs dd { order: 1; margin: 0; font-family: var(--font-family-serif); font-size: 29px; line-height: 1.05; color: var(--text-heading); white-space: nowrap; }
 .fleetSpecs dd small { font-size: 16px; }
 .fleetActions { display: flex; justify-content: space-between; align-items: center; gap: 18px; flex-wrap: wrap; }
-.fleetBottom {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  flex-wrap: wrap;
-  margin-top: 40px;
-  padding-top: 23px;
-  border-top: 1px solid var(--border-default);
-  color: var(--text-muted);
-  font-size: var(--font-size-label);
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-}
 
 /* ---------- Story ---------- */
 .story { padding: 115px 0 150px; }
@@ -167,29 +154,6 @@
 .photoMain { position: absolute; right: 0; top: 0; width: 82%; height: 92%; overflow: hidden; }
 .photoSecondary { position: absolute; left: 0; bottom: -22px; width: 40%; height: 47%; overflow: hidden; border: 9px solid var(--bg-page); }
 .photoMain img, .photoSecondary img { object-fit: cover; }
-.stamp {
-  position: absolute;
-  top: 32px;
-  left: -40px;
-  z-index: 1;
-  width: 110px;
-  height: 110px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 14px;
-  border: 6px solid var(--bg-page);
-  border-radius: var(--radius-full);
-  background: var(--action-primary);
-  color: var(--text-on-accent);
-  font-size: var(--font-size-label);
-  font-weight: var(--font-weight-bold);
-  line-height: 1.5;
-  letter-spacing: 0.08em;
-  text-align: center;
-  text-transform: uppercase;
-  transform: rotate(-13deg);
-}
 
 /* ---------- Journeys ---------- */
 .journeys { background: var(--bg-surface); }
@@ -390,22 +354,4 @@
   .fleetSpecs dd { font-size: 25px; }
   .story { padding: 87px 0 90px; }
   .storyVisual { height: 360px; }
-  .stamp { left: 0; top: 0; width: 86px; height: 86px; font-size: 9px; }
-  .facts { gap: 8px; }
-  .facts dd { font-size: 24px; }
-  .journeyGrid { grid-template-columns: 1fr; }
-  .journeyPhoto { height: 240px; }
-  .journeyDetails { padding: 25px; }
-  .tabs { display: flex; width: 100%; }
-  .tab { flex: 1; padding: 14px 9px; }
-  .carouselTrack { --visible: 1; --gutter: 16px; }
-  .carouselArrow { width: 40px; height: 40px; }
-  .facilitiesGrid { grid-template-columns: 1fr; }
-  .facility { min-height: 0; }
-  .experiences { padding: 80px 0; }
-  .experienceGrid { grid-template-columns: 1fr; gap: 36px; }
-  .sustainability { padding: 75px 0; }
-  .sustainImg { height: 290px; }
-  .faq { padding: 75px 0; }
-  .quote { min-height: 420px; }
-}
+  
