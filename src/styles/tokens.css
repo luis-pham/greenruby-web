@@ -20,6 +20,9 @@
   --color-gold-300: #e0c499;
   --color-gold-500: #bb9e70;
   --color-gold-700: #806c4b;
+  --color-red-50: #fbf0ed;
+  --color-red-300: #cfaca4;
+  --color-red-700: #8f5047;
   --color-overlay-hero: rgba(5, 28, 29, 0.72);
   --color-overlay-soft: rgba(5, 28, 29, 0.22);
   --color-overlay-strong: rgba(4, 28, 28, 0.88);
@@ -97,6 +100,9 @@
   --bg-brand: var(--color-green-900);
   --bg-brand-hover: var(--color-green-800);
   --bg-overlay: var(--color-overlay-hero);
+  --bg-raised: var(--color-neutral-paper);
+  --bg-success: var(--color-green-50);
+  --bg-danger: var(--color-red-50);
   --text-body: var(--color-neutral-ink);
   --text-heading: var(--color-green-900);
   --text-muted: var(--color-neutral-muted);
@@ -104,9 +110,11 @@
   --text-inverse: var(--color-green-50);
   --text-inverse-accent: var(--color-gold-300);
   --text-on-accent: #152c27;
+  --text-danger: var(--color-red-700);
   --border-default: var(--color-neutral-line);
   --border-strong: var(--color-neutral-line-strong);
   --border-inverse: rgba(255, 255, 255, 0.22);
+  --border-danger: var(--color-red-300);
   --action-primary: var(--color-gold-500);
   --action-primary-hover: var(--color-gold-300);
   --action-secondary: var(--color-neutral-white);

@@ -26,6 +26,11 @@ export const tokens = {
       "500": "#bb9e70",
       "700": "#806c4b"
     },
+    "red": {
+      "50": "#fbf0ed",
+      "300": "#cfaca4",
+      "700": "#8f5047"
+    },
     "overlay": {
       "hero": "rgba(5, 28, 29, 0.72)",
       "soft": "rgba(5, 28, 29, 0.22)",
@@ -140,7 +145,10 @@ export const tokens = {
     "inverse": "#0c2826",
     "brand": "#123a35",
     "brand-hover": "#204840",
-    "overlay": "rgba(5, 28, 29, 0.72)"
+    "overlay": "rgba(5, 28, 29, 0.72)",
+    "raised": "#fffefa",
+    "success": "#eaf1ea",
+    "danger": "#fbf0ed"
   },
   "text": {
     "body": "#273a35",
@@ -149,12 +157,14 @@ export const tokens = {
     "accent": "#806c4b",
     "inverse": "#eaf1ea",
     "inverse-accent": "#e0c499",
-    "on-accent": "#152c27"
+    "on-accent": "#152c27",
+    "danger": "#8f5047"
   },
   "border": {
     "default": "#e2e0d7",
     "strong": "#cbcbbf",
-    "inverse": "rgba(255, 255, 255, 0.22)"
+    "inverse": "rgba(255, 255, 255, 0.22)",
+    "danger": "#cfaca4"
   },
   "action": {
     "primary": "#bb9e70",

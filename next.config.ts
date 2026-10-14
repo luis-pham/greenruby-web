@@ -9,6 +9,18 @@ const nextConfig: NextConfig = {
     // Two root layouts (app/(en), app/(vi)) means unmatched URLs need app/global-not-found.tsx.
     globalNotFound: true,
   },
+  // Booking and payment calls go from the browser to Laravel. In production Nginx routes these paths to
+  // Laravel; locally the dev/prod server proxies them. /api/revalidate stays on Next.
+  // Rewrites are baked in at build time, so LARAVEL_ORIGIN must be set for `next build`.
+  async rewrites() {
+    const origin = (process.env.LARAVEL_ORIGIN || process.env.CONTENT_API_URL || '').replace(/\/+$/, '');
+    if (!origin) return [];
+    return [
+      { source: '/api/booking/:path*', destination: `${origin}/api/booking/:path*` },
+      { source: '/api/payment/:path*', destination: `${origin}/api/payment/:path*` },
+      { source: '/payment/sepay/form', destination: `${origin}/payment/sepay/form` },
+    ];
+  },
   images: {
     // Images are resized by the Laravel /thumbnail proxy (WebP + disk cache), not by Next.
     loader: 'custom',
