@@ -1,6 +1,6 @@
 # Green Ruby Cruises: Next.js frontend
 
-Public website for greenrubycruises.com. Content comes from the Laravel CMS (`../cms-develop`) through its read-only Content API. Pages are prerendered on the server, so crawlers and AI bots get complete HTML. See [MIGRATION_PLAN.md](MIGRATION_PLAN.md) for the full plan.
+Public website for greenrubycruises.com. Content comes from the Laravel CMS (`../cms-develop`) through its read-only Content API. Pages are prerendered on the server, so crawlers and AI bots get complete HTML. The migration plan is kept as internal notes, outside this repository.
 
 ## Run locally
 
