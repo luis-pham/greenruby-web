@@ -172,12 +172,26 @@ export function SiteNav({ locale, site, t, alternateHref, currentHref }: Chrome 
   );
 }
 
+/** Topbar + solid dark header bar with the menu, for pages without an image hero. */
+export function SolidHeader({ chrome, currentHref }: { chrome: Chrome; currentHref?: string }) {
+  return (
+    <>
+      <Topbar site={chrome.site} t={chrome.t} />
+      <header className={s.solidHeader}>
+        <div className="container">
+          <SiteNav {...chrome} currentHref={currentHref} />
+        </div>
+      </header>
+    </>
+  );
+}
+
 export type Crumb = { label: string; href?: string };
 
 /** Visible breadcrumb plus BreadcrumbList JSON-LD. The last crumb is the current page. */
-export function Breadcrumb({ items, label }: { items: Crumb[]; label: string }) {
+export function Breadcrumb({ items, label, onLight }: { items: Crumb[]; label: string; onLight?: boolean }) {
   return (
-    <nav className={s.breadcrumb} aria-label={label}>
+    <nav className={cx(s.breadcrumb, onLight && s.breadcrumbOnLight)} aria-label={label}>
       <ol>
         {items.map((item, i) => (
           <li key={i}>

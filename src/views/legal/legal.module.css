@@ -1,7 +1,5 @@
 /* Legal hub + single-policy pages (green-ruby-legal-v1 / green-ruby-privacy-policy-v1). */
 
-.siteHeader { background: var(--bg-brand); position: relative; z-index: var(--z-nav); }
-.siteHeader nav { border-bottom: 0; }
 
 /* ---------- Hero (light, split) ---------- */
 .hero { position: relative; overflow: hidden; background: #f2eee5; }

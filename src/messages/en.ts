@@ -612,6 +612,8 @@ const en = {
     call: 'Call or WhatsApp',
     email: 'Email',
     visit: 'Departure terminal',
+    responseNote: 'We usually reply within one working day.',
+    whatsapp: 'Chat on WhatsApp',
     openMap: 'Open in Google Maps',
     stepsEyebrow: 'What happens next',
     stepsHeading: 'A smooth start to something extraordinary.',

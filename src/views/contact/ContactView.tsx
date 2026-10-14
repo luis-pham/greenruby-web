@@ -1,5 +1,4 @@
-import Image from 'next/image';
-import { PageHero, SiteFooter, type Chrome } from '@/components/layout';
+import { SiteFooter, SolidHeader, Breadcrumb, type Chrome } from '@/components/layout';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SectionHeading } from '@/components/ui';
 import { homePath, sectionPath } from '@/lib/i18n';
@@ -8,9 +7,29 @@ import { absoluteUrl, siteUrl } from '@/lib/site-url';
 import { ContactForm } from './ContactForm';
 import s from './contact.module.css';
 
-// Hero and side-panel photography already used by the CMS (homepage banner, itinerary banner).
-const HERO_IMAGE = '/upload/2026/03/13/banner-home.png';
-const PANEL_IMAGE = '/upload/2026/03/09/banner-itineraries.png';
+const icons = {
+  phone: <path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2" />,
+  mail: (
+    <>
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+      <path d="m3 7 9 6 9-6" />
+    </>
+  ),
+  pin: (
+    <>
+      <path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z" />
+      <circle cx="12" cy="10" r="2.5" />
+    </>
+  ),
+};
+
+function Icon({ name }: { name: keyof typeof icons }) {
+  return (
+    <span className={s.channelIcon} aria-hidden="true">
+      <svg viewBox="0 0 24 24">{icons[name]}</svg>
+    </span>
+  );
+}
 
 export function ContactView({ chrome }: { chrome: Chrome }) {
   const { locale, t, site } = chrome;
@@ -21,53 +40,64 @@ export function ContactView({ chrome }: { chrome: Chrome }) {
 
   return (
     <>
-      <PageHero
-        chrome={chrome}
-        currentHref={path}
-        compact
-        image={HERO_IMAGE}
-        imageAlt=""
-        crumbs={[{ label: t.breadcrumb.home, href: homePath(locale) }, { label: t.nav.contact, href: path }]}
-        eyebrow={c.eyebrow}
-        title={<>{c.title} <em>{c.titleEm}</em></>}
-        description={c.intro}
-      />
+      <SolidHeader chrome={chrome} currentHref={path} />
 
       <main>
-        <section className={s.section} aria-labelledby="form-title">
-          <div className={cx('container', s.layout)}>
-            <div className={s.formPanel}>
-              <Eyebrow>{c.formEyebrow}</Eyebrow>
-              <h2 id="form-title">{c.formHeading}</h2>
-              <ContactForm locale={locale} t={c} privacyHref={sectionPath(locale, 'privacyPolicy')} />
-            </div>
-            <aside className={s.direct} aria-labelledby="direct-title">
-              <Image src={PANEL_IMAGE} alt="" fill sizes="(max-width: 900px) 100vw, 40vw" className={s.directImage} />
-              <Eyebrow inverse>{c.directEyebrow}</Eyebrow>
-              <h2 id="direct-title">{c.directHeading}</h2>
-              <ul className={s.channels}>
+        <section className={s.intro} aria-labelledby="contact-title">
+          <div className={cx('container', s.introGrid)}>
+            <div className={s.introCopy}>
+              <Breadcrumb
+                onLight
+                label={t.breadcrumb.label}
+                items={[{ label: t.breadcrumb.home, href: homePath(locale) }, { label: t.nav.contact, href: path }]}
+              />
+              <Eyebrow>{c.eyebrow}</Eyebrow>
+              <h1 className={s.title} id="contact-title">
+                {c.title} <em>{c.titleEm}</em>
+              </h1>
+              <p className={s.lead}>{c.intro}</p>
+
+              <ul className={s.channels} aria-label={c.directHeading}>
                 {info.hotlineHref && (
                   <li className={s.channel}>
-                    <span>{c.call}</span>
-                    <a href={info.hotlineHref}>{info.hotline}</a>
-                    {info.whatsappHref && <><br /><a className={s.small} href={info.whatsappHref} target="_blank" rel="noopener">WhatsApp ↗</a></>}
+                    <Icon name="phone" />
+                    <div>
+                      <span className={s.channelLabel}>{c.call}</span>
+                      <a className={s.channelValue} href={info.hotlineHref}>{info.hotline}</a>
+                      {info.whatsappHref && (
+                        <a className={s.channelLink} href={info.whatsappHref} target="_blank" rel="noopener">{c.whatsapp} ↗</a>
+                      )}
+                    </div>
                   </li>
                 )}
                 {info.email && (
                   <li className={s.channel}>
-                    <span>{c.email}</span>
-                    <a href={`mailto:${info.email}`}>{info.email}</a>
+                    <Icon name="mail" />
+                    <div>
+                      <span className={s.channelLabel}>{c.email}</span>
+                      <a className={s.channelValue} href={`mailto:${info.email}`}>{info.email}</a>
+                    </div>
                   </li>
                 )}
                 {info.address && (
                   <li className={s.channel}>
-                    <span>{c.visit}</span>
-                    <address>{info.address}</address>
-                    {mapsHref && <a className={s.small} href={mapsHref} target="_blank" rel="noopener">{c.openMap} ↗</a>}
+                    <Icon name="pin" />
+                    <div>
+                      <span className={s.channelLabel}>{c.visit}</span>
+                      <address className={s.channelValue}>{info.address}</address>
+                      {mapsHref && <a className={s.channelLink} href={mapsHref} target="_blank" rel="noopener">{c.openMap} ↗</a>}
+                    </div>
                   </li>
                 )}
               </ul>
-            </aside>
+              <p className={s.responseNote}>{c.responseNote}</p>
+            </div>
+
+            <div className={s.formCard}>
+              <Eyebrow>{c.formEyebrow}</Eyebrow>
+              <h2 className={s.formHeading}>{c.formHeading}</h2>
+              <ContactForm locale={locale} t={c} privacyHref={sectionPath(locale, 'privacyPolicy')} />
+            </div>
           </div>
         </section>
 

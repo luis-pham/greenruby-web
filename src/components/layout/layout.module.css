@@ -181,6 +181,13 @@ a.flag:hover, a.flag:focus-visible { opacity: 1; box-shadow: 0 0 0 2px var(--tex
 .breadcrumb li + li::before { content: '/'; margin-right: 10px; }
 .breadcrumb a:hover { color: var(--color-neutral-white); }
 .breadcrumb [aria-current='page'] { color: var(--color-neutral-white); }
+.breadcrumbOnLight ol { color: var(--text-muted); }
+.breadcrumbOnLight a:hover,
+.breadcrumbOnLight [aria-current='page'] { color: var(--text-heading); }
+
+/* Solid header (pages without an image hero). */
+.solidHeader { position: relative; z-index: var(--z-nav); background: var(--bg-brand); }
+.solidHeader .nav { border-bottom: 0; }
 .heroTitle {
   margin: 24px 0 23px;
   max-width: 970px;

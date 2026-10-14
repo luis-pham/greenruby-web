@@ -614,6 +614,8 @@ const vi: Messages = {
     call: 'Gọi hoặc WhatsApp',
     email: 'Email',
     visit: 'Bến khởi hành',
+    responseNote: 'Chúng tôi thường phản hồi trong vòng một ngày làm việc.',
+    whatsapp: 'Nhắn qua WhatsApp',
     openMap: 'Mở Google Maps',
     stepsEyebrow: 'Tiếp theo là gì',
     stepsHeading: 'Khởi đầu nhẹ nhàng cho một hành trình đặc biệt.',

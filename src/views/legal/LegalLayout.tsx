@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import type { ReactNode } from 'react';
-import { Breadcrumb, SiteFooter, SiteNav, Topbar, type Chrome, type Crumb } from '@/components/layout';
+import { Breadcrumb, SiteFooter, SolidHeader, type Chrome, type Crumb } from '@/components/layout';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SmartLink } from '@/components/ui';
 import { sectionPath } from '@/lib/i18n';
@@ -80,12 +80,7 @@ export function LegalShell({
   const contactHref = sectionPath(locale, 'contact');
   return (
     <>
-      <Topbar site={site} t={t} />
-      <header className={s.siteHeader}>
-        <div className="container">
-          <SiteNav {...chrome} currentHref={path} />
-        </div>
-      </header>
+      <SolidHeader chrome={chrome} currentHref={path} />
 
       <section className={s.hero}>
         <div className={cx('container', s.heroGrid)}>
