@@ -65,15 +65,18 @@ export function Topbar({ site, t }: Pick<Chrome, 'site' | 't'>) {
 const LANGUAGE_NAMES = { en: 'English', vi: 'Tiếng Việt' } as const;
 
 /**
- * Rough width (px) the desktop menu needs at its size (14px uppercase, 0.12em tracking): used to pick
- * the viewport width below which the menu collapses into the menu button instead of overflowing.
+ * Viewport width below which the desktop menu collapses into the menu button. The header spans the
+ * 1300px content column (so the logo lines up with the page); a CMS menu too long for it always
+ * collapses. Width estimate: 14px uppercase with 0.12em tracking.
  */
 function menuBreakpoint(links: NavLink[]): number {
   const chars = links.reduce((n, l) => n + l.label.length, 0);
   const chevrons = links.filter((l) => l.children.length > 0).length;
   const menu = chars * 10.2 + chevrons * 21 + Math.max(0, links.length - 1) * 28;
-  const chrome = 80 + 275 + 50 + 2 * 46 + 16; // logo, flags + booking button, gaps, gutters, scrollbar
-  return Math.round(Math.max(1200, menu + chrome));
+  const needed = menu + 80 + 275 + 50; // menu, logo, flags + booking button, gaps
+  const column = 1300 - 2 * 46; // content column inside the container padding
+  if (needed > column) return 100000;
+  return Math.round(Math.max(1200, needed + 2 * 46 + 16));
 }
 
 function Chevron() {
@@ -242,55 +245,115 @@ export function PageHero({
   );
 }
 
+type FooterLink = { label: string; href?: string; soon?: boolean };
+
+/** Footer menus as on the Laravel site (EXPLORE / ABOUT / SUPPORT / SUSTAINABILITY). */
+function footerColumns(locale: Locale, t: Messages): { title: string; links: FooterLink[] }[] {
+  const f = t.footer.links;
+  const p = (section: Section, hash = '') => `${sectionPath(locale, section)}${hash}`;
+  return [
+    {
+      title: t.footer.columns.explore,
+      links: [
+        { label: f.ourCruises, href: `${homePath(locale)}#fleet` },
+        { label: f.ourItineraries, href: p('itinerary') },
+        { label: f.ourServices, href: p('services') },
+        { label: f.ourAdventures, href: p('experiences') },
+        { label: f.meetingEvents, href: p('services', '#events') },
+      ],
+    },
+    {
+      title: t.footer.columns.about,
+      links: [
+        { label: f.aboutUs, href: p('aboutUs') },
+        { label: f.contactUs, href: p('contact') },
+        { label: f.blog, href: p('blog') },
+        { label: f.gallery, href: p('gallery') },
+      ],
+    },
+    {
+      title: t.footer.columns.support,
+      links: [
+        { label: f.askAi, soon: true },
+        { label: f.faqs, href: p('faq') },
+        { label: f.safetyPolicies, href: p('safetyPolicies') },
+        { label: f.paymentMethods, href: p('paymentMethods') },
+      ],
+    },
+    {
+      title: t.footer.columns.sustainability,
+      links: [
+        { label: f.greenTechnology, href: p('aboutUs', '#sustainability') },
+        { label: f.greenGlobe, href: p('aboutUs', '#standards') },
+        { label: f.ecoDashboard, soon: true },
+      ],
+    },
+  ];
+}
+
 export function SiteFooter({ locale, site, t }: Pick<Chrome, 'locale' | 'site' | 't'>) {
   const info = siteInfo(site);
-  const p = (section: Parameters<typeof sectionPath>[1]) => sectionPath(locale, section);
-  const year = 2026; // Static on purpose: Date() would make every page dynamic. Bump yearly or derive at build.
   return (
     <footer className={s.footer}>
       <div className="container">
         <div className={s.footerMain}>
-          <div>
+          <div className={s.footerBrand}>
             <Brand locale={locale} site={site} />
-            <p className={s.footerAbout}>{t.footer.tagline}</p>
+            <p className={s.footerAbout}>{t.footer.statement}</p>
+            <p className={s.certBadge}>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 21c.5 -4.5 2.5 -8 7 -10" />
+                <path d="M9 18c6.218 0 10.5 -3.288 11 -12v-2h-4.014c-9 0 -11.986 4 -12 9c0 1 0 3 2 5h3z" />
+              </svg>
+              {t.footer.certBadge}
+            </p>
             {info.socials.length > 0 && (
-              <div className={s.socials}>
-                {info.socials.map((social) => (
-                  <a key={social.name} href={social.url} target="_blank" rel="noopener">{social.name}</a>
-                ))}
+              <div className={s.socialBlock}>
+                <p className={s.socialLabel}>{t.footer.followUs}</p>
+                <div className={s.socials}>
+                  {info.socials.map((social) => (
+                    <a key={social.name} href={social.url} target="_blank" rel="noopener">{social.name}</a>
+                  ))}
+                </div>
               </div>
             )}
           </div>
-          <div className={s.footerCol}>
-            <h2>{t.footer.explore}</h2>
-            <SmartLink href={p('itinerary')}>{t.nav.itineraries}</SmartLink>
-            <SmartLink href={p('experiences')}>{t.nav.experiences}</SmartLink>
-            <SmartLink href={p('gallery')}>{t.footer.gallery}</SmartLink>
-            <SmartLink href={p('services')}>{t.footer.services}</SmartLink>
-          </div>
-          <div className={s.footerCol}>
-            <h2>{t.footer.discover}</h2>
-            <SmartLink href={p('aboutUs')}>{t.footer.about}</SmartLink>
-            <SmartLink href={p('blog')}>{t.footer.journal}</SmartLink>
-            <SmartLink href={p('faq')}>{t.footer.faq}</SmartLink>
-          </div>
-          <div className={s.footerCol}>
-            <h2>{t.footer.getInTouch}</h2>
-            {info.hotlineHref && <a href={info.hotlineHref}>{info.hotline}</a>}
-            {info.email && <a href={`mailto:${info.email}`}>{info.email}</a>}
-            {info.address && <address><p>{info.address}</p></address>}
-            <SmartLink href={p('contact')}>{t.footer.contactTeam}</SmartLink>
-            <SmartLink href={p('booking')}>{t.footer.bookCruise} ↗</SmartLink>
+          <div className={s.footerNav}>
+            {footerColumns(locale, t).map((column) => (
+              <nav key={column.title} className={s.footerCol} aria-label={column.title}>
+                <h2>{column.title}</h2>
+                <ul>
+                  {column.links.map((link) => (
+                    <li key={link.label}>
+                      {link.href ? (
+                        <SmartLink href={link.href}>{link.label}</SmartLink>
+                      ) : (
+                        <span className={s.footerSoonItem} aria-disabled="true">{link.label}</span>
+                      )}
+                      {link.soon && <span className={s.soonBadge}>{t.footer.soon}</span>}
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            ))}
           </div>
         </div>
         <div className={s.footerBottom}>
-          <span>© {year} {info.name.toUpperCase()}. {t.footer.rights.toUpperCase()}</span>
-          <nav aria-label="Legal">
-            <SmartLink href={p('privacyPolicy')}>{t.footer.privacy}</SmartLink>
-            <SmartLink href={p('legal')}>{t.footer.legal}</SmartLink>
+          <span>{t.footer.copyright}</span>
+          <nav aria-label={t.footer.legal}>
+            <SmartLink href={sectionPath(locale, 'privacyPolicy')}>{t.footer.privacy}</SmartLink>
+            <span aria-hidden="true">|</span>
+            <SmartLink href={sectionPath(locale, 'termsAndConditions')}>{t.footer.terms}</SmartLink>
           </nav>
           <span>{t.footer.bays}</span>
         </div>
+        {(info.hotlineHref || info.email || info.address) && (
+          <address className={s.footerContact}>
+            {info.hotlineHref && <a href={info.hotlineHref}>{info.hotline}</a>}
+            {info.email && <a href={`mailto:${info.email}`}>{info.email}</a>}
+            {info.address && <span>{info.address}</span>}
+          </address>
+        )}
       </div>
     </footer>
   );

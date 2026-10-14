@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import type { ReactNode } from 'react';
-import { SiteFooter, SiteNav, type Chrome } from '@/components/layout';
+import { SiteFooter, SiteNav, Topbar, type Chrome } from '@/components/layout';
 import { FaqList, faqPageSchema } from '@/components/sections/Faq';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SmartLink, TextLink } from '@/components/ui';
@@ -51,6 +51,7 @@ export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
 
   return (
     <>
+      <Topbar site={site} t={t} />
       <header className={s.hero}>
         {heroImage && <Image src={heroImage} alt="" fill preload sizes="100vw" quality={80} className={s.heroImage} />}
         <div className="container">
