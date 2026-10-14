@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { Suspense } from 'react';
 import { PageIntro, SiteFooter, type Chrome, type Crumb } from '@/components/layout';
 import { ORGANIZATION_ID } from '@/lib/organization';
+import { DEFAULT_SOCIAL_IMAGE } from '@/lib/seo';
 import { siteInfo } from '@/lib/site-info';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SmartLink, TextLink } from '@/components/ui';
@@ -262,7 +263,7 @@ export function BlogListView({ chrome, list, search }: { chrome: Chrome; list: A
                   headline: a.title,
                   url: absoluteUrl(a.href),
                   ...(a.publishDate && { datePublished: a.publishDate }),
-                  ...(a.image && { image: absoluteImageUrl(a.image) }),
+                  image: a.image ? absoluteImageUrl(a.image) : absoluteUrl(DEFAULT_SOCIAL_IMAGE),
                   author: { '@type': 'Organization', '@id': ORGANIZATION_ID, name: siteInfo(chrome.site).name },
                 })),
               }),

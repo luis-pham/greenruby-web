@@ -51,7 +51,27 @@ export async function getGallery(locale: Locale, category: string | null, page: 
   'use cache';
   cacheLife('hours');
   cacheTag('content', 'gallery', 'experiences', 'pages', 'page:gallery');
-  return getContent('/gallery', { lang: locale, category: category ?? undefined, page }, gallerySchema);
+  const gallery = await getContent('/gallery', { lang: locale, category: category ?? undefined, page }, gallerySchema);
+  if (!gallery) return null;
+  // A 360 tour is one large video; if its file is missing on the server the whole tour block breaks,
+  // so drop it (the CMS still lists it). Checked once per cache period.
+  const tours = gallery.items.filter((i) => i.type === '360');
+  if (tours.length === 0) return gallery;
+  const missing = new Set(
+    (await Promise.all(tours.map(async (t) => ((await mediaExists(t.src)) ? null : t.src)))).filter(Boolean),
+  );
+  return missing.size ? { ...gallery, items: gallery.items.filter((i) => !missing.has(i.src)) } : gallery;
+}
+
+async function mediaExists(src: string): Promise<boolean> {
+  const origin = process.env.CONTENT_API_URL;
+  if (!origin || /^https?:\/\//.test(src)) return true;
+  try {
+    const res = await fetch(new URL(src, origin), { method: 'HEAD', signal: AbortSignal.timeout(5000) });
+    return res.ok;
+  } catch {
+    return true; // network trouble: keep the item rather than hide content
+  }
 }
 
 /**
