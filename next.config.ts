@@ -12,6 +12,13 @@ const nextConfig: NextConfig = {
   // Booking and payment calls go from the browser to Laravel. In production Nginx routes these paths to
   // Laravel; locally the dev/prod server proxies them. /api/revalidate stays on Next.
   // Rewrites are baked in at build time, so LARAVEL_ORIGIN must be set for `next build`.
+  // Laravel served English without a prefix and 301'd any /en/... URL to it; keep those links working.
+  async redirects() {
+    return [
+      { source: '/en', destination: '/', permanent: true },
+      { source: '/en/:path*', destination: '/:path*', permanent: true },
+    ];
+  },
   async rewrites() {
     const origin = (process.env.LARAVEL_ORIGIN || process.env.CONTENT_API_URL || '').replace(/\/+$/, '');
     if (!origin) return [];
