@@ -63,7 +63,8 @@ export function LegalShell({
   titleEm: string;
   intro: string;
   updated: string | null;
-  jumpLinks: { policy: Policy; href: string; title: string; current?: boolean }[];
+  /** The four-policy jump bar; only the /legal hub shows it. */
+  jumpLinks?: { policy: Policy; href: string; title: string; current?: boolean }[];
   pageName: string;
   dateModified: string | null;
   children: ReactNode;
@@ -92,22 +93,24 @@ export function LegalShell({
         }
       />
 
-      <div className={cx('container', s.jumpWrap)}>
-        <nav className={s.jumpBar} aria-label={m.jumpBarLabel}>
-          {jumpLinks.map(({ policy, href, title: label, current }, i) => (
-            <SmartLink key={policy.key} href={href} className={s.jumpCard} aria-current={current ? 'page' : undefined}>
-              <span className={s.jumpIcon}>
-                <svg viewBox="0 0 32 32" aria-hidden="true">{ICONS[policy.key]}</svg>
-              </span>
-              <span className={s.jumpCopy}>
-                <span>{String(i + 1).padStart(2, '0')} / {m.policies[policy.key].jumpLabel}</span>
-                <b>{label}</b>
-                <small>{m.policies[policy.key].jumpNote}</small>
-              </span>
-            </SmartLink>
-          ))}
-        </nav>
-      </div>
+      {jumpLinks && (
+        <div className={cx('container', s.jumpWrap)}>
+          <nav className={s.jumpBar} aria-label={m.jumpBarLabel}>
+            {jumpLinks.map(({ policy, href, title: label, current }, i) => (
+              <SmartLink key={policy.key} href={href} className={s.jumpCard} aria-current={current ? 'page' : undefined}>
+                <span className={s.jumpIcon}>
+                  <svg viewBox="0 0 32 32" aria-hidden="true">{ICONS[policy.key]}</svg>
+                </span>
+                <span className={s.jumpCopy}>
+                  <span>{String(i + 1).padStart(2, '0')} / {m.policies[policy.key].jumpLabel}</span>
+                  <b>{label}</b>
+                  <small>{m.policies[policy.key].jumpNote}</small>
+                </span>
+              </SmartLink>
+            ))}
+          </nav>
+        </div>
+      )}
 
       <main className={s.main}>{children}</main>
 

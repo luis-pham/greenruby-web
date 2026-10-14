@@ -55,12 +55,6 @@ export function LegalPageView({ chrome, legal, page }: { chrome: Chrome; legal: 
       titleEm={copy.heroTitleEm}
       intro={copy.heroIntro}
       updated={formatUpdated(updatedAt, locale)}
-      jumpLinks={POLICIES.map((p) => ({
-        policy: p,
-        href: sectionPath(locale, p.page),
-        title: legal.pages[p.page].title,
-        current: p.page === page,
-      }))}
       pageName={data.seo.title ?? data.title}
       dateModified={updatedAt}
     >

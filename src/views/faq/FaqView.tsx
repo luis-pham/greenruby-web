@@ -56,9 +56,7 @@ export function FaqView({ list, chrome }: { list: FaqList; chrome: Chrome }) {
   const hubPath = sectionPath(locale, 'faq');
   const contactPath = sectionPath(locale, 'contact');
   const { group: current, groups, pagination } = list;
-  const groupIndex = (slug: string) => groups.findIndex((g) => g.slug === slug);
   const totalAll = groups.reduce((sum, g) => sum + g.count, 0);
-  const quick = groups.filter((g) => g.count > 0).slice(0, 3);
   const blocks = sections(list, f.otherGroup);
   const faqs = list.items.map((item) => ({ question: item.question, answerHtml: item.answerHtml ?? '' }));
   const { found: foundText, ...searchLabels } = f.search;
@@ -86,26 +84,6 @@ export function FaqView({ list, chrome }: { list: FaqList; chrome: Chrome }) {
       />
 
       <main>
-        {quick.length > 0 && (
-          <nav className={cx('container', s.quick)} aria-label={f.quickLabel}>
-            <div className={s.quickCard}>
-              {quick.map((g) => {
-                const i = groupIndex(g.slug);
-                return (
-                  <SmartLink key={g.slug} href={`${faqPath(locale, g.slug)}#questions`} className={s.quickLink}>
-                    <span className={s.quickIcon}><Icon>{ICONS[i % ICONS.length]}</Icon></span>
-                    <span>
-                      <small>{f.quickKicker(i + 1)}</small>
-                      <strong>{g.name}</strong>
-                      <em>{f.questions(g.count)}</em>
-                    </span>
-                  </SmartLink>
-                );
-              })}
-            </div>
-          </nav>
-        )}
-
         <section className={s.faqSection} id="questions" aria-labelledby="questions-title">
           <div className="container">
             <div className={s.intro}>

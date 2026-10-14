@@ -33,7 +33,6 @@ export function CookiePolicyView({ chrome, legal }: { chrome: Chrome; legal: Leg
       titleEm={c.heroTitleEm}
       intro={c.heroIntro}
       updated={formatUpdated(c.updated, locale)}
-      jumpLinks={POLICIES.map((p) => ({ policy: p, href: sectionPath(locale, p.page), title: legal.pages[p.page].title }))}
       pageName={c.title}
       dateModified={c.updated}
     >
