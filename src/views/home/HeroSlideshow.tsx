@@ -6,7 +6,7 @@ import s from './home.module.css';
 
 export type HeroSlide = { image: string; title: string; titleEm: string | null; body: string | null };
 
-const INTERVAL = 2500;
+const INTERVAL = 3500;
 const pad = (n: number) => String(n).padStart(2, '0');
 const fullTitle = (slide: HeroSlide) => (slide.titleEm ? `${slide.title} ${slide.titleEm}` : slide.title);
 const fill = (template: string, n: number, slide: HeroSlide) => template.replace('{n}', pad(n)).replace('{title}', fullTitle(slide));

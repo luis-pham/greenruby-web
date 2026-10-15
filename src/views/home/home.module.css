@@ -25,7 +25,7 @@
   opacity: 0;
   transition: opacity 0.9s var(--motion-easing-standard);
 }
-.heroImageActive { opacity: 1; animation: heroDrift 4s var(--motion-easing-out) both; }
+.heroImageActive { opacity: 1; animation: heroDrift 5s var(--motion-easing-out) both; }
 @keyframes heroDrift { from { transform: scale(1.06); } to { transform: scale(1); } }
 .heroSlides { display: grid; }
 .heroSlide {
