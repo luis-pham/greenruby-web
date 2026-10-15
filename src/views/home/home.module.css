@@ -80,7 +80,7 @@
   letter-spacing: 0.18em;
   text-transform: uppercase;
 }
-.glanceCell dt::before { content: ''; width: 8px; height: 8px; transform: rotate(45deg); border: 1px solid #67887d; }
+.glanceCell dt::before { content: ''; flex: none; width: 7px; height: 7px; transform: rotate(45deg); background: var(--action-primary); }
 .glanceCell dd { margin: 0; }
 .glanceTitle {
   display: block;
