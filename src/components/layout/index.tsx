@@ -349,7 +349,7 @@ function footerColumns(locale: Locale, t: Messages): { title: string; links: Foo
       links: [
         { label: f.greenTechnology, href: p('aboutUs', '#sustainability') },
         { label: f.greenGlobe, href: p('aboutUs', '#standards') },
-        { label: f.ecoDashboard, soon: true },
+        { label: f.ecoDashboard, href: p('ecoDashboard') },
       ],
     },
   ];
