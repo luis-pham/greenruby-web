@@ -23,9 +23,9 @@
   object-position: center 45%;
   filter: saturate(0.8) contrast(1.03);
   opacity: 0;
-  transition: opacity 1.4s var(--motion-easing-standard);
+  transition: opacity 0.9s var(--motion-easing-standard);
 }
-.heroImageActive { opacity: 1; animation: heroDrift 9s var(--motion-easing-out) both; }
+.heroImageActive { opacity: 1; animation: heroDrift 6s var(--motion-easing-out) both; }
 @keyframes heroDrift { from { transform: scale(1.06); } to { transform: scale(1); } }
 .heroSlides { display: grid; }
 .heroSlide {
@@ -33,9 +33,9 @@
   opacity: 0;
   visibility: hidden;
   transform: translateY(14px);
-  transition: opacity 0.6s var(--motion-easing-standard), transform 0.8s var(--motion-easing-out), visibility 0s linear 0.6s;
+  transition: opacity 0.45s var(--motion-easing-standard), transform 0.6s var(--motion-easing-out), visibility 0s linear 0.45s;
 }
-.heroSlideActive { opacity: 1; visibility: visible; transform: none; transition-delay: 0.25s, 0.25s, 0s; }
+.heroSlideActive { opacity: 1; visibility: visible; transform: none; transition-delay: 0.15s, 0.15s, 0s; }
 .hero::before {
   content: '';
   position: absolute;
