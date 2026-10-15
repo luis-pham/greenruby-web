@@ -1,6 +1,5 @@
 /* Article detail (design: green-ruby-blog-detail-v1.html). */
 
-.header { position: relative; z-index: var(--z-nav); background: var(--bg-inverse); color: var(--color-neutral-white); }
 .heading { margin: 16px 0 0; font-size: clamp(38px, 4.2vw, 57px); line-height: 1.14; letter-spacing: -0.038em; }
 .heading em { font-style: italic; color: var(--text-accent); }
 .linkLine {

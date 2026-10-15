@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { Breadcrumb, SiteFooter, SiteNav, Topbar, type Chrome, type Crumb } from '@/components/layout';
+import { Breadcrumb, SiteFooter, SolidHeader, type Chrome, type Crumb } from '@/components/layout';
 import { ORGANIZATION_ID } from '@/lib/organization';
 import { DEFAULT_SOCIAL_IMAGE } from '@/lib/seo';
 import { JsonLd } from '@/components/seo/JsonLd';
@@ -47,12 +47,7 @@ export function ArticleView({ article, chrome }: { article: Article; chrome: Chr
 
   return (
     <>
-      <Topbar site={site} t={t} />
-      <header className={s.header}>
-        <div className="container">
-          <SiteNav {...chrome} currentHref={blogHref} />
-        </div>
-      </header>
+      <SolidHeader chrome={chrome} currentHref={blogHref} />
 
       <main>
         <article aria-labelledby="article-title">
