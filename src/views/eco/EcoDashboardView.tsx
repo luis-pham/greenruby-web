@@ -10,8 +10,8 @@ import { MetricPanel, ShipSnapshot } from './EcoSwitches';
 import { ecoMessages } from './messages';
 import s from './eco.module.css';
 
-/** Photography supplied with the design (new_website/green-ruby-eco-dashboard-v1.html), stored with the CMS uploads. */
-export const ECO_HERO_IMAGE = '/upload/2026/10/15/eco-dashboard-hero.jpg';
+/** Fallback when the CMS homepage has no banner; normally the hero reuses the homepage banner. */
+export const ECO_HERO_FALLBACK = '/upload/2026/06/08/green-ruby-cruises-halong-bay-1.jpg';
 
 const TECH_ICONS: ReactNode[] = [
   <Fragment key="sun">
@@ -42,7 +42,7 @@ function SectionHead({ eyebrow, title, titleEm, lede, id }: { eyebrow: string; t
 }
 
 /** /eco-dashboard: environmental reporting design. Figures are labelled estimates until measured data exists. */
-export function EcoDashboardView({ chrome }: { chrome: Chrome }) {
+export function EcoDashboardView({ chrome, heroImage }: { chrome: Chrome; heroImage: string }) {
   const { locale, t } = chrome;
   const m = ecoMessages[locale];
   const path = sectionPath(locale, 'ecoDashboard');
@@ -51,7 +51,7 @@ export function EcoDashboardView({ chrome }: { chrome: Chrome }) {
     <>
       <Topbar site={chrome.site} t={t} />
       <header className={s.hero}>
-        <Image src={ECO_HERO_IMAGE} alt="" fill preload sizes="100vw" quality={80} className={s.heroImage} />
+        <Image src={heroImage} alt="" fill preload sizes="100vw" quality={80} className={s.heroImage} />
         <div className="container">
           <SiteNav {...chrome} currentHref={path} />
           <div className={s.heroBody}>
@@ -225,7 +225,7 @@ export function EcoDashboardView({ chrome }: { chrome: Chrome }) {
               inLanguage: locale,
               about: { '@id': ORGANIZATION_ID },
               publisher: { '@id': ORGANIZATION_ID },
-              primaryImageOfPage: absoluteUrl(ECO_HERO_IMAGE),
+              primaryImageOfPage: absoluteUrl(heroImage),
             },
             {
               '@type': 'FAQPage',
