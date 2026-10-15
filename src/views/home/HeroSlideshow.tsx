@@ -8,7 +8,7 @@ export type HeroSlide = { image: string; title: string; titleEm: string | null; 
 
 const INTERVAL = 7000;
 const pad = (n: number) => String(n).padStart(2, '0');
-const fill = (template: string, n: number, title: string) => template.replace('{n}', String(n)).replace('{title}', title);
+const fill = (template: string, n: number, title: string) => template.replace('{n}', pad(n)).replace('{title}', title);
 
 /**
  * Homepage hero: CMS banners as a cross-fading slideshow with a vertical slide nav on the right.
