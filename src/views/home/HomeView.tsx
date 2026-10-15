@@ -10,6 +10,7 @@ import { detailPath, experiencePath, homePath, itineraryPath, sectionPath } from
 import { siteInfo } from '@/lib/site-info';
 import { absoluteImageUrl, absoluteUrl, siteUrl } from '@/lib/site-url';
 import { cabinPath } from '@/views/cabin/CabinView';
+import { cabinHighlights, cabinTier } from './cabin-card';
 import { Carousel } from './Carousel';
 import { HeroSlideshow, type HeroSlide } from './HeroSlideshow';
 import { FacilityIcon } from './FacilityIcon';
@@ -266,13 +267,16 @@ export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
                       {cabin.image && <Image src={cabin.image} alt={cabin.name} fill sizes="(max-width: 600px) 100vw, (max-width: 1160px) 50vw, 33vw" />}
                     </div>
                     <div className={s.roomContent}>
-                      <p className={s.roomOverline}>
-                        <span>{cabin.cabinClass ?? cabin.cruise?.name}</span>
-                        {cabin.area != null && <span>{cabin.area} m²</span>}
+                      <p className={s.roomMeta}>
+                        <span className={s.roomTier}>{cabinTier(cabin, locale) ?? cabin.cruise?.name}</span>
+                        {cabin.area != null && <span className={s.roomArea}>{cabin.area} m²</span>}
                       </p>
                       <h3><SmartLink href={cabinPath(locale, cabin)}>{cabin.name}</SmartLink></h3>
-                      {cabin.summary && <p>{cabin.summary}</p>}
-                      <TextLink href={cabinPath(locale, cabin)}>{h.discoverSuite}</TextLink>
+                      <p className={s.roomHighlights}>{cabinHighlights(cabin, locale).join(' · ')}</p>
+                      <p className={s.roomSummary}>{cabin.summary}</p>
+                      <div className={s.roomCta}>
+                        <TextLink href={cabinPath(locale, cabin)}>{h.discoverSuite}</TextLink>
+                      </div>
                     </div>
                   </article>
                 ))}

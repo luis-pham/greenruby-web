@@ -300,12 +300,38 @@
 .roomImg { position: relative; aspect-ratio: 1.12 / 1; overflow: hidden; background: #d6d2c7; }
 .roomImg img { object-fit: cover; transition: transform 0.65s; }
 .roomCard:hover .roomImg img { transform: scale(1.045); }
-.roomContent { display: flex; flex-direction: column; flex: 1; padding: 0 23px 25px; }
-.roomOverline { display: flex; justify-content: space-between; gap: 10px; margin-top: 25px; color: var(--text-accent); font-size: var(--font-size-label); font-weight: var(--font-weight-bold); letter-spacing: 0.13em; text-transform: uppercase; }
-.roomContent h3 { margin: 13px 0 12px; font-size: 26px; line-height: 1.15; }
-.roomContent p { flex: 1; margin: 0 0 20px; color: var(--text-muted); font-size: 13px; line-height: 1.75; }
-.roomContent .roomOverline { flex: none; margin-bottom: 0; }
-.roomContent > :last-child { align-self: flex-start; }
+.roomContent { display: flex; flex-direction: column; flex: 1; padding: 24px 24px 26px; }
+/* Tier — area */
+.roomMeta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  margin: 0 0 18px;
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.12em;
+  line-height: 1.4;
+}
+.roomTier { min-width: 0; overflow: hidden; color: var(--text-accent); text-overflow: ellipsis; text-transform: uppercase; white-space: nowrap; }
+.roomArea { flex: none; color: var(--text-heading); }
+.roomContent h3 { margin: 0 0 10px; font-size: 26px; line-height: 1.15; }
+.roomContent h3 a { color: var(--text-heading); }
+.roomHighlights { margin: 0 0 14px; overflow: hidden; color: var(--text-heading); font-size: var(--font-size-xs); font-weight: var(--font-weight-medium); letter-spacing: 0.02em; text-overflow: ellipsis; white-space: nowrap; }
+/* Three lines, reserved even when shorter, so every card lines up. */
+.roomSummary {
+  display: -webkit-box;
+  min-height: calc(3 * 1.75em);
+  margin: 0 0 22px;
+  overflow: hidden;
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+  line-height: 1.75;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+.roomCta { margin-top: auto; }
 
 /* ---------- Facilities ---------- */
 .facilities { background: var(--bg-surface); }
@@ -426,9 +452,8 @@
   .photoLabel { left: 14px; bottom: 14px; padding: 8px 11px; }
   .tabs { display: flex; width: 100%; }
   .tab { flex: 1; padding: 14px 9px; }
-  .roomContent { padding: 0 20px 22px; }
-  .roomContent h3 { font-size: 23px; }
-  .roomContent h3 + p { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; }
+  .roomContent { padding: 20px 20px 22px; }
+  .roomContent h3 { min-height: calc(2 * 1.15em); font-size: 23px; } /* names that wrap still line up */
   .carouselArrow { width: 40px; height: 40px; }
   .facilitiesGrid { grid-template-columns: 1fr; }
   .facility { min-height: 0; }
