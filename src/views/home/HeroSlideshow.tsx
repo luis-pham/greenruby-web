@@ -77,18 +77,20 @@ export function HeroSlideshow({
         touchX.current = null;
       }}
     >
-      {slides.map((slide, i) => (
-        <Image
-          key={slide.image + i}
-          src={slide.image}
-          alt=""
-          fill
-          preload={i === 0}
-          sizes="100vw"
-          quality={80}
-          className={`${s.heroImage} ${i === active ? s.heroImageActive : ''}`}
-        />
-      ))}
+      <div className={s.heroMedia} aria-hidden="true">
+        {slides.map((slide, i) => (
+          <Image
+            key={slide.image + i}
+            src={slide.image}
+            alt=""
+            fill
+            preload={i === 0}
+            sizes="100vw"
+            quality={80}
+            className={`${s.heroImage} ${i === active ? s.heroImageActive : ''}`}
+          />
+        ))}
+      </div>
 
       <div className="container">
         {nav}

@@ -9,15 +9,16 @@
   position: relative;
   z-index: 2;
   isolation: isolate;
-  min-height: 790px;
-  height: 91vh;
-  max-height: 1000px;
+  /* Grows with the slide copy (Vietnamese runs longer); the bottom padding keeps the CTAs clear of the
+     facts strip that overlaps the hero's lower edge. */
+  min-height: clamp(790px, 91vh, 1000px);
+  padding-bottom: 150px;
   color: var(--color-neutral-white);
   background: #133e42;
 }
-.heroStage { position: absolute; inset: 0; overflow: hidden; }
+.heroStage { display: block; }
+.heroMedia { position: absolute; inset: 0; z-index: -2; overflow: hidden; }
 .heroImage {
-  z-index: -2;
   object-fit: cover;
   object-position: center 45%;
   filter: saturate(0.8) contrast(1.03);
@@ -382,7 +383,7 @@
   .glanceCell { padding: 23px 18px 24px; }
 }
 @media (max-width: 900px) {
-  .hero { height: 790px; min-height: 690px; }
+  .hero { min-height: 790px; padding-bottom: 210px; }
   .glance { bottom: -133px; }
   .glanceGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .glanceCell:nth-child(n + 3) { border-top: 1px solid var(--border-default); }
@@ -401,7 +402,7 @@
   .faqGrid { grid-template-columns: 1fr; gap: 35px; }
 }
 @media (max-width: 600px) {
-  .hero { height: 800px; min-height: 800px; }
+  .hero { min-height: 800px; padding-bottom: 230px; }
   .heroImage { object-position: 62% center; }
   .heroCopy { margin-top: 100px; }
   .heroTitle { font-size: 48px; line-height: 1.11; }
