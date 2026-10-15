@@ -74,13 +74,8 @@ export function ServicesView({
       <main>
         <section className={s.collection} id="collection" aria-labelledby="collection-title">
           <div className="container">
-            <div className={s.sectionHead}>
-              <div>
-                <Eyebrow>{m.collection.eyebrow}</Eyebrow>
-                <h2 className={s.heading} id="collection-title">{m.collection.title} <em>{m.collection.titleEm}</em></h2>
-              </div>
-              <p className={s.desc}>{m.collection.body}</p>
-            </div>
+            {/* The page intro already introduces the collection; the filters follow it directly. */}
+            <h2 className="sr-only" id="collection-title">{m.collection.heading}</h2>
             {items.length > 0 ? (
               <ServiceFilter
                 label={m.collection.filterLabel}

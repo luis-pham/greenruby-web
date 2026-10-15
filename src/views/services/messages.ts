@@ -21,10 +21,7 @@ const en = {
     visualCaption: 'Made for your moments.',
   },
   collection: {
-    eyebrow: 'Considered extras',
-    title: 'A little more,',
-    titleEm: 'just for you.',
-    body: 'Every journey is different. Explore the services and thoughtful touches available to discuss with our reservations team, from door-to-door transfers to moments of restoration.',
+    heading: 'Our services',
     filterLabel: 'Filter services',
     all: 'All services',
     results: (n: number) => `Showing ${pad(n)} ${n === 1 ? 'service' : 'services'}`,
@@ -155,10 +152,7 @@ const vi: ServicesMessages = {
     visualCaption: 'Dành cho những khoảnh khắc của bạn.',
   },
   collection: {
-    eyebrow: 'Dịch vụ tùy chọn',
-    title: 'Thêm một chút,',
-    titleEm: 'dành riêng cho bạn.',
-    body: 'Mỗi hành trình một khác. Hãy xem các dịch vụ bạn có thể trao đổi cùng bộ phận đặt chỗ, từ xe đưa đón tận nơi đến những phút giây thư giãn.',
+    heading: 'Danh sách dịch vụ',
     filterLabel: 'Lọc dịch vụ',
     all: 'Tất cả dịch vụ',
     results: (n: number) => `Đang hiển thị ${pad(n)} dịch vụ`,
