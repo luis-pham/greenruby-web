@@ -130,7 +130,12 @@ const en = {
       'Discover a more considered way to explore Ha Long and Lan Ha Bay. Remarkable landscapes, private sanctuaries, and moments that stay with you.',
     heroPrimary: 'Discover our journeys',
     heroSecondary: 'Meet our vessels',
-    heroCounter: 'The art of sailing slowly',
+    heroSlides: {
+      region: 'Featured voyages',
+      slide: 'Slide {n}: {title}',
+      pause: 'Pause slideshow',
+      play: 'Play slideshow',
+    },
     glanceLabel: 'Green Ruby Cruises at a glance',
     glance: {
       fleet: 'Fleet',

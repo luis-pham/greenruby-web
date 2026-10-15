@@ -132,7 +132,12 @@ const vi: Messages = {
       'Khám phá vịnh Hạ Long và Lan Hạ theo một cách tinh tế hơn. Cảnh quan phi thường, không gian riêng tư và những khoảnh khắc đọng lại mãi.',
     heroPrimary: 'Khám phá hành trình',
     heroSecondary: 'Gặp gỡ đội tàu',
-    heroCounter: 'Nghệ thuật du ngoạn chậm',
+    heroSlides: {
+      region: 'Hành trình nổi bật',
+      slide: 'Slide {n}: {title}',
+      pause: 'Tạm dừng trình chiếu',
+      play: 'Phát trình chiếu',
+    },
     glanceLabel: 'Green Ruby Cruises trong nháy mắt',
     glance: {
       fleet: 'Đội tàu',

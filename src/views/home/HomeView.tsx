@@ -11,6 +11,7 @@ import { siteInfo } from '@/lib/site-info';
 import { absoluteImageUrl, absoluteUrl, siteUrl } from '@/lib/site-url';
 import { cabinPath } from '@/views/cabin/CabinView';
 import { Carousel } from './Carousel';
+import { HeroSlideshow, type HeroSlide } from './HeroSlideshow';
 import { FacilityIcon } from './FacilityIcon';
 import { JourneyTabs } from './JourneyTabs';
 import s from './home.module.css';
@@ -37,6 +38,21 @@ function Head({ eyebrow, title, body, inverse, id }: { eyebrow: string; title: R
   );
 }
 
+/**
+ * A CMS banner title as display copy: the part after a line break (or the last words) is set in italics,
+ * like the design's "Where the bay becomes <em>yours.</em>".
+ */
+function splitTitle(title: string): { title: string; titleEm: string | null } {
+  const [first, ...rest] = title.split(/\r?\n/).map((l) => l.trim()).filter(Boolean);
+  if (rest.length) return { title: first, titleEm: rest.join(' ') };
+  const words = first.split(' ');
+  const tail = words.length >= 4 ? 2 : 1;
+  return words.length > 1 ? { title: words.slice(0, -tail).join(' '), titleEm: words.slice(-tail).join(' ') } : { title: first, titleEm: null };
+}
+
+/** Banner titles editors left as the uploaded file name ("a1ea43d….jpg") are not copy. */
+const isFileName = (text: string | null) => !text || /\.(jpe?g|png|webp|gif)$/i.test(text.trim());
+
 export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
   const { locale, t, site } = chrome;
   const h = t.home;
@@ -50,33 +66,37 @@ export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
   const firstItineraryOfCruise = (cruiseId: number) => page.itineraries.find((i) => i.cruiseId === cruiseId);
   const experiences = page.experiences.slice(0, 3);
   const experienceVerbs = locale === 'vi' ? ['Khám phá', 'Thưởng thức', 'Thư thái'] : ['Discover', 'Savour', 'Restore'];
+  // Slideshow: the CMS homepage banners. The first slide keeps the designed tagline; the others use the
+  // banner's own title and description.
+  const designSlide = { title: h.heroTitle, titleEm: h.heroTitleEm, body: h.heroBody };
+  const heroSlides: HeroSlide[] = (page.banner.length ? page.banner : heroImage ? [{ image: heroImage, title: null, description: null }] : []).map(
+    (banner, i) => ({
+      image: banner.image,
+      ...(i === 0 || isFileName(banner.title) ? designSlide : { ...splitTitle(banner.title as string), body: banner.description ?? null }),
+    }),
+  );
 
   return (
     <>
       <Topbar site={site} t={t} />
       <header className={s.hero}>
-        {heroImage && <Image src={heroImage} alt="" fill preload sizes="100vw" quality={80} className={s.heroImage} />}
-        <div className="container">
-          <SiteNav {...chrome} currentHref={homePath(locale)} />
-          <div className={s.heroCopy}>
-            {/* The keyword line is the H1 (as on the Laravel site); the tagline below is display copy. */}
+        <HeroSlideshow
+          slides={heroSlides}
+          nav={<SiteNav {...chrome} currentHref={homePath(locale)} />}
+          heading={
+            // The keyword line is the H1 (as on the Laravel site); each slide's tagline is display copy.
             <h1 className={s.heroH1}>
               <Eyebrow inverse>{h.heroEyebrow}</Eyebrow>
             </h1>
-            <p className={s.heroTitle}>
-              {h.heroTitle} <em>{h.heroTitleEm}</em>
-            </p>
-            <p className={s.heroBody}>{h.heroBody}</p>
+          }
+          actions={
             <div className={s.heroCtas}>
               <ButtonLink href="#journeys">{h.heroPrimary}</ButtonLink>
               <TextLink href="#fleet" inverse>{h.heroSecondary}</TextLink>
             </div>
-          </div>
-        </div>
-        <p className={s.heroCounter} aria-hidden="true">
-          <span>01</span>
-          <span>{h.heroCounter}</span>
-        </p>
+          }
+          labels={h.heroSlides}
+        />
         <div className={s.glance}>
           <div className="container">
             <dl className={s.glanceGrid} aria-label={h.glanceLabel}>

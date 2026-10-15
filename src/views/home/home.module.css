@@ -15,7 +15,26 @@
   color: var(--color-neutral-white);
   background: #133e42;
 }
-.heroImage { z-index: -2; object-fit: cover; object-position: center 45%; filter: saturate(0.8) contrast(1.03); }
+.heroStage { position: absolute; inset: 0; overflow: hidden; }
+.heroImage {
+  z-index: -2;
+  object-fit: cover;
+  object-position: center 45%;
+  filter: saturate(0.8) contrast(1.03);
+  opacity: 0;
+  transition: opacity 1.4s var(--motion-easing-standard);
+}
+.heroImageActive { opacity: 1; animation: heroDrift 9s var(--motion-easing-out) both; }
+@keyframes heroDrift { from { transform: scale(1.06); } to { transform: scale(1); } }
+.heroSlides { display: grid; }
+.heroSlide {
+  grid-area: 1 / 1;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(14px);
+  transition: opacity 0.6s var(--motion-easing-standard), transform 0.8s var(--motion-easing-out), visibility 0s linear 0.6s;
+}
+.heroSlideActive { opacity: 1; visibility: visible; transform: none; transition-delay: 0.25s, 0.25s, 0s; }
 .hero::before {
   content: '';
   position: absolute;
@@ -40,20 +59,57 @@
 }
 .heroBody { max-width: 440px; margin: 0 0 36px; color: #eaeee8; font-size: var(--font-size-base); line-height: 1.9; }
 .heroCtas { display: flex; flex-wrap: wrap; gap: 18px 24px; align-items: center; }
-.heroCounter {
+/* Vertical slide nav on the right edge of the hero. */
+.heroNav {
   position: absolute;
-  right: 48px;
-  bottom: 140px;
+  top: 50%;
+  right: max(var(--space-gutter), calc((100vw - var(--size-container)) / 2 - 24px));
+  z-index: 2;
   display: flex;
-  gap: 10px;
-  align-items: center;
-  font-size: var(--font-size-label);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #e8e6dd;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-4);
+  transform: translateY(-38%);
 }
-.heroCounter::before { content: ''; order: 1; width: 45px; height: 1px; background: rgba(255, 255, 255, 0.7); }
-.heroCounter span:last-child { order: 2; }
+.heroNav ol { display: flex; flex-direction: column; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.heroNav ol button {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 6px 0;
+  border: 0;
+  background: none;
+  color: rgba(255, 255, 255, 0.55);
+  cursor: pointer;
+  transition: color var(--motion-duration-fast);
+}
+.heroNav ol button:hover, .heroNav ol button:focus-visible { color: var(--color-neutral-white); }
+.heroNavNum { font-family: var(--font-family-serif); font-size: var(--font-size-md); letter-spacing: 0.04em; }
+.heroNavTrack { position: relative; width: 2px; height: 46px; overflow: hidden; background: rgba(255, 255, 255, 0.28); }
+.heroNavFill { position: absolute; inset: 0; background: var(--text-inverse-accent); transform-origin: top; animation: heroProgress linear forwards; }
+@keyframes heroProgress { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+.heroNavActive { color: var(--color-neutral-white) !important; }
+.heroNavActive .heroNavNum { color: var(--text-inverse-accent); }
+.heroNavTotal { color: rgba(255, 255, 255, 0.6); font-size: var(--font-size-label); letter-spacing: 0.18em; }
+.heroNavPause {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  margin-right: -16px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--color-neutral-white);
+  cursor: pointer;
+  transition: background var(--motion-duration-fast), border-color var(--motion-duration-fast);
+}
+.heroNavPause:hover { border-color: var(--text-inverse-accent); background: rgba(255, 255, 255, 0.08); }
+.heroNavPause svg { width: 14px; height: 14px; fill: none; }
+@media (prefers-reduced-motion: reduce) {
+  .heroImageActive { animation: none; }
+  .heroImage, .heroSlide { transition: none; }
+}
 
 /* Facts strip overlapping the bottom of the hero. */
 .glance { position: absolute; left: 0; right: 0; bottom: -68px; z-index: 4; }
@@ -327,7 +383,6 @@
 }
 @media (max-width: 900px) {
   .hero { height: 790px; min-height: 690px; }
-  .heroCounter { display: none; }
   .glance { bottom: -133px; }
   .glanceGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .glanceCell:nth-child(n + 3) { border-top: 1px solid var(--border-default); }
@@ -406,3 +461,16 @@
 @media (max-width: 600px) {
   .journeyCard, .roomCard { flex-basis: 86%; }
 }
+
+/* Tablet & mobile: the slide nav runs horizontally along the bottom of the hero copy. */
+@media (max-width: 900px) {
+  .heroNav { top: calc(var(--size-nav-height-mobile) + 26px); right: var(--space-gutter); bottom: auto; flex-direction: row; align-items: center; gap: var(--space-3); transform: none; }
+  .heroNav ol { flex-direction: row; gap: 12px; }
+  .heroNav ol button { gap: 8px; padding: 4px 0; }
+  .heroNavNum { font-size: var(--font-size-sm); }
+  .heroNavTrack { width: 30px; height: 2px; }
+  .heroNavFill { transform-origin: left; animation-name: heroProgressX; }
+  .heroNavTotal { display: none; }
+  .heroNavPause { width: 30px; height: 30px; margin-right: 0; }
+}
+@keyframes heroProgressX { from { transform: scaleX(0); } to { transform: scaleX(1); } }
