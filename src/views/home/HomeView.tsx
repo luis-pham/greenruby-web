@@ -11,6 +11,7 @@ import { siteInfo } from '@/lib/site-info';
 import { absoluteImageUrl, absoluteUrl, siteUrl } from '@/lib/site-url';
 import { cabinPath } from '@/views/cabin/CabinView';
 import { Carousel } from './Carousel';
+import { FacilityIcon } from './FacilityIcon';
 import { JourneyTabs } from './JourneyTabs';
 import s from './home.module.css';
 
@@ -272,7 +273,7 @@ export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
                 {page.services.slice(0, 4).map((service, i, all) => (
                   <li key={service.id} className={s.facility}>
                     <span className={s.facilityNumber}>{pad(i + 1)} — {pad(all.length)}</span>
-                    <span className={s.facilityMark} aria-hidden="true" />
+                    <FacilityIcon name={service.name} className={s.facilityIcon} />
                     <h3>{service.name}</h3>
                     {service.description && <p>{service.description}</p>}
                   </li>
