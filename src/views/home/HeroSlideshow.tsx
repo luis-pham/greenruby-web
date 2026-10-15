@@ -8,7 +8,8 @@ export type HeroSlide = { image: string; title: string; titleEm: string | null; 
 
 const INTERVAL = 7000;
 const pad = (n: number) => String(n).padStart(2, '0');
-const fill = (template: string, n: number, title: string) => template.replace('{n}', pad(n)).replace('{title}', title);
+const fullTitle = (slide: HeroSlide) => (slide.titleEm ? `${slide.title} ${slide.titleEm}` : slide.title);
+const fill = (template: string, n: number, slide: HeroSlide) => template.replace('{n}', pad(n)).replace('{title}', fullTitle(slide));
 
 /**
  * Homepage hero: CMS banners as a cross-fading slideshow with a vertical slide nav on the right.
@@ -100,7 +101,7 @@ export function HeroSlideshow({
                 className={`${s.heroSlide} ${i === active ? s.heroSlideActive : ''}`}
                 role="group"
                 aria-roledescription="slide"
-                aria-label={fill(labels.slide, i + 1, slide.title)}
+                aria-label={fill(labels.slide, i + 1, slide)}
                 aria-hidden={i !== active}
                 inert={i !== active}
               >
@@ -130,7 +131,7 @@ export function HeroSlideshow({
                   type="button"
                   className={i === active ? s.heroNavActive : undefined}
                   aria-current={i === active ? 'true' : undefined}
-                  aria-label={fill(labels.slide, i + 1, slide.title)}
+                  aria-label={fill(labels.slide, i + 1, slide)}
                   onClick={() => go(i)}
                 >
                   <span className={s.heroNavNum}>{pad(i + 1)}</span>
