@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { Suspense } from 'react';
-import { PageIntro, SiteFooter, type Chrome, type Crumb } from '@/components/layout';
+import { Breadcrumb, SiteFooter, SolidHeader, type Chrome, type Crumb } from '@/components/layout';
 import { ORGANIZATION_ID } from '@/lib/organization';
 import { DEFAULT_SOCIAL_IMAGE } from '@/lib/seo';
 import { siteInfo } from '@/lib/site-info';
@@ -69,7 +69,7 @@ export function BlogListView({ chrome, list, search }: { chrome: Chrome; list: A
             {m.heroTitle} <em>{m.heroTitleEm}</em>
           </>
         );
-  const heroLead = search ? (search.keyword ? m.categoryLead : m.searchHint) : category ? (category.description ?? m.categoryLead) : m.heroLead;
+  const heroLead = search ? (search.keyword ? m.categoryLead : m.searchHint) : category ? (category.description ?? m.categoryLead) : m.listIntro;
   const eyebrow = [search ? m.searchEyebrow : m.heroEyebrow, page > 1 ? m.page(page) : null].filter(Boolean).join(' · ');
 
   const pageHref = (n: number) => {
@@ -90,27 +90,21 @@ export function BlogListView({ chrome, list, search }: { chrome: Chrome; list: A
 
   return (
     <>
-      <PageIntro
-        chrome={chrome}
-        currentHref={blogHref}
-        crumbs={crumbs}
-        eyebrow={eyebrow}
-        title={heroTitle}
-        lead={heroLead}
-        actions={<ButtonLink href="#stories">{m.heroCta}</ButtonLink>}
-      />
+      <SolidHeader chrome={chrome} currentHref={blogHref} />
 
       <main>
         <section className={s.journal} id="stories" aria-labelledby="stories-title">
           <div className="container">
+            {/* The listing opens the page (no separate intro): breadcrumb, then the page H1. */}
+            <div className={s.journalCrumbs}>
+              <Breadcrumb items={crumbs} label={t.breadcrumb.label} onLight />
+            </div>
             <div className={s.sectionHead}>
               <div>
-                <Eyebrow>{m.listEyebrow}</Eyebrow>
-                <h2 className={s.heading} id="stories-title">
-                  {m.listTitle} <em>{m.listTitleEm}</em>
-                </h2>
+                <Eyebrow>{eyebrow}</Eyebrow>
+                <h1 className={s.heading} id="stories-title">{heroTitle}</h1>
               </div>
-              <p className={s.desc}>{m.listIntro}</p>
+              <p className={s.desc}>{heroLead}</p>
             </div>
 
             <div className={s.browseBar}>

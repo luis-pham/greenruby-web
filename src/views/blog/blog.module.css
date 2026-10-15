@@ -60,7 +60,8 @@
 /* ---------- Ribbon ---------- */
 
 /* ---------- Listing ---------- */
-.journal { padding: 116px 0 120px; }
+.journal { padding: var(--space-12) 0 120px; }
+.journalCrumbs { margin-bottom: var(--space-14); }
 .browseBar {
   display: flex;
   justify-content: space-between;
