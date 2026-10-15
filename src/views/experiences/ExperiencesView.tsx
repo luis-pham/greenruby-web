@@ -94,7 +94,7 @@ export function ExperiencesView({ list, chrome, m }: { list: ExperienceList; chr
         lead={m.heroBody}
         actions={
           <>
-            <ButtonLink href="#collection">{m.heroPrimary}</ButtonLink>
+            <ButtonLink href={signature.length > 0 ? '#signature-title' : '#collection'}>{m.heroPrimary}</ButtonLink>
             <TextLink href="#rhythm">{m.heroSecondary}</TextLink>
           </>
         }
@@ -121,9 +121,10 @@ export function ExperiencesView({ list, chrome, m }: { list: ExperienceList; chr
         {signature.length > 0 && (
           <section className={s.signature} id="signature" aria-labelledby="signature-title">
             <div className="container">
-              <Intro eyebrow={m.signatureEyebrow} body={m.signatureBody}>
-                <Heading id="signature-title" title={m.signatureTitle} em={m.signatureTitleEm} />
-              </Intro>
+              {/* Only the label: the hero already introduces the experiences (one large heading per opening). */}
+              <h2 className={s.signatureLabel} id="signature-title">
+                <Eyebrow>{m.signatureEyebrow}</Eyebrow>
+              </h2>
               <div className={s.signatureGrid}>
                 {signature.map((item) => (
                   <ExperienceCard

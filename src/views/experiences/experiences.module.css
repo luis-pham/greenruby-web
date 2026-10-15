@@ -106,7 +106,8 @@
 .stripItem strong { font: var(--font-weight-regular) 25px / 1.2 var(--font-family-serif); color: var(--text-heading); }
 
 /* ---------- Cards ---------- */
-.signature { padding: 115px 0 55px; }
+.signature { padding: var(--space-18) 0 55px; }
+.signatureLabel { margin: 0 0 var(--space-8); font: inherit; letter-spacing: normal; scroll-margin-top: var(--space-8); }
 .signatureGrid,
 .collectionGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; align-items: stretch; }
 .card {
@@ -378,7 +379,7 @@
   .stripItem:nth-child(3) { grid-column: span 2; border-left: 0; border-top: 1px solid var(--border-default); padding-left: 0; }
   .stripIcon { display: none; }
   .stripItem strong { font-size: 20px; }
-  .signature { padding: 80px 0 22px; }
+  .signature { padding: var(--space-12) 0 22px; }
   .sectionIntro { grid-template-columns: 1fr; gap: 6px; margin-bottom: 33px; }
   .heading { font-size: 43px; }
   .signatureGrid,
