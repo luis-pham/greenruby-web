@@ -3,7 +3,6 @@ import { PageIntro, SiteFooter, type Chrome } from '@/components/layout';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SmartLink, TextLink } from '@/components/ui';
 import { experiencePath, homePath, sectionPath } from '@/lib/i18n';
-import { siteInfo } from '@/lib/site-info';
 import { absoluteImageUrl, absoluteUrl } from '@/lib/site-url';
 import { categoryKey, galleryPath, placeItems, type Gallery } from './data';
 import { GalleryGrid } from './GalleryGrid';
@@ -22,9 +21,8 @@ const mediaFile = (src: string) => (/^https?:\/\//.test(src) ? src : `${mediaOri
 const HERO_IMAGE = '/upload/2026/06/08/green-ruby-cruises-halong-bay-1.jpg';
 
 export function GalleryView({ gallery, chrome }: { gallery: Gallery; chrome: Chrome }) {
-  const { locale, t, site } = chrome;
+  const { locale, t } = chrome;
   const g = galleryMessages[locale];
-  const info = siteInfo(site);
   const hubPath = sectionPath(locale, 'gallery');
   const { pagination, categories, canonicalCategorySlug: current } = gallery;
   const category = categories.find((c) => c.slug === current) ?? null;
@@ -35,7 +33,6 @@ export function GalleryView({ gallery, chrome }: { gallery: Gallery; chrome: Chr
   const altOf = (item: (typeof placed)[number]) =>
     item.alt ?? (item.category && item.indexInCategory ? g.photoAlt(item.category.name, item.indexInCategory, item.category.count) : g.photoAltGeneric);
   const pageHref = (page: number) => galleryPath(locale, current, page);
-  const bridge = g.bridgeBody(info.name);
 
   return (
     <>
@@ -49,48 +46,22 @@ export function GalleryView({ gallery, chrome }: { gallery: Gallery; chrome: Chr
         ]}
         eyebrow={g.heroEyebrow}
         title={<>{g.heroTitle} <em>{g.heroTitleEm}</em></>}
-        lead={g.heroBody}
+        lead={key ? g.categoryCopy[key] : g.heroBody}
         actions={
           <>
-            <ButtonLink href="#collection">{g.heroPrimary}</ButtonLink>
+            <ButtonLink href="#collection-title">{g.heroPrimary}</ButtonLink>
             {tours.length > 0 && <TextLink href="#virtual">{g.heroSecondary}</TextLink>}
           </>
         }
       />
 
       <main>
-        <section className={s.bridge} aria-label={g.bridgeLabel}>
-          <div className={cx('container', s.bridgeLayout)}>
-            <div className={s.bridgeSide}>
-              <span className={s.bridgeGlyph} aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="2.7" y="5.5" width="18.6" height="14" rx="1.5" />
-                  <circle cx="9" cy="10" r="1.4" />
-                  <path d="m5.5 17 4-4 2.6 2.6 3.5-4.4 3 5.8" />
-                </svg>
-              </span>
-              <p>
-                <span className={s.bridgeKicker}>{g.bridgeKicker}</span>
-                <span className={s.bridgeTitle}>{g.bridgeTitle}</span>
-              </p>
-            </div>
-            <p className={s.bridgeCopy}>
-              {bridge[0]}<strong>{bridge[1]}</strong>{bridge[2]}
-            </p>
-          </div>
-        </section>
-
         <section className={s.gallery} id="collection" aria-labelledby="collection-title">
           <div className="container">
-            <div className={s.head}>
-              <div>
-                <Eyebrow>{g.listEyebrow}</Eyebrow>
-                <h2 className={s.heading} id="collection-title">
-                  {category ? category.name : <>{g.listTitle} <em>{g.listTitleEm}</em></>}
-                </h2>
-              </div>
-              <p>{key ? g.categoryCopy[key] : g.listBody}</p>
-            </div>
+            {/* Just the label: the hero introduces the gallery; filters and photos follow straight away. */}
+            <h2 className={s.collectionLabel} id="collection-title">
+              <Eyebrow>{category ? `${g.listEyebrow} · ${category.name}` : g.listEyebrow}</Eyebrow>
+            </h2>
 
             {categories.length > 1 && (
               <nav className={s.filters} aria-label={g.filterLabel}>
