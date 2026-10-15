@@ -6,7 +6,7 @@ import s from './home.module.css';
 
 export type HeroSlide = { image: string; title: string; titleEm: string | null; body: string | null };
 
-const INTERVAL = 4500;
+const INTERVAL = 2500;
 const pad = (n: number) => String(n).padStart(2, '0');
 const fullTitle = (slide: HeroSlide) => (slide.titleEm ? `${slide.title} ${slide.titleEm}` : slide.title);
 const fill = (template: string, n: number, slide: HeroSlide) => template.replace('{n}', pad(n)).replace('{title}', fullTitle(slide));
@@ -14,7 +14,8 @@ const fill = (template: string, n: number, slide: HeroSlide) => template.replace
 /**
  * Homepage hero: CMS banners as a cross-fading slideshow with a vertical slide nav on the right.
  * Every slide's copy is server-rendered (crawlers see all of it); inactive slides are inert.
- * Autoplay pauses on hover/focus, when the tab is hidden, and is off for reduced-motion users.
+ * Autoplay pauses on keyboard focus, when the tab is hidden or via the pause button, and is off for
+ * reduced-motion users. (Not on hover: the pointer usually rests over the hero, which froze the slideshow.)
  */
 export function HeroSlideshow({
   slides,
@@ -65,8 +66,6 @@ export function HeroSlideshow({
       role="region"
       aria-roledescription="carousel"
       aria-label={labels.region}
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
       onFocusCapture={() => setPaused(true)}
       onBlurCapture={() => setPaused(false)}
       onTouchStart={(e) => (touchX.current = e.touches[0].clientX)}
