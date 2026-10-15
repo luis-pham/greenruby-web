@@ -14,6 +14,7 @@ import { articlePath, blogPath } from './paths';
 import { formatDate, linked, pad } from './shared';
 import { Toc } from './Toc';
 import { prepareContent, readingMinutes, withHeadingIds } from './headings';
+import { normalizeArticleHtml } from './normalize';
 import s from './article.module.css';
 
 export function ArticleView({ article, chrome }: { article: Article; chrome: Chrome }) {
@@ -25,7 +26,7 @@ export function ArticleView({ article, chrome }: { article: Article; chrome: Chr
   const url = absoluteUrl(path);
   const category = article.category;
   const trail = category && 'breadcrumb' in category ? category.breadcrumb : category ? [{ slug: category.slug, name: category.name }] : [];
-  const { html: withIds, toc } = withHeadingIds(article.contentHtml ?? '');
+  const { html: withIds, toc } = withHeadingIds(normalizeArticleHtml(article.contentHtml ?? ''));
   const html = prepareContent(withIds, s.tableWrap);
   const minutes = readingMinutes(`${article.leadHtml ?? ''} ${article.contentHtml ?? ''}`);
   // The sub-title is the deck under the headline; without one the lead takes its place.

@@ -148,6 +148,45 @@
 .prose tr:nth-child(even) td { background: var(--bg-page); }
 .prose pre { overflow-x: auto; padding: 16px; background: var(--bg-page); font-size: var(--font-size-xs); }
 
+/* Editor media (TinyMCE templates and plugins; their class names come from the CMS, hence :global) */
+.prose a:has(> img) { display: block; text-decoration: none; }
+.prose img[style*='float: left'], .prose img[style*='float:left'] { margin: 6px 28px 16px 0; }
+.prose img[style*='float: right'], .prose img[style*='float:right'] { margin: 6px 0 16px 28px; }
+.prose figure img { display: block; margin: 0 auto; }
+.prose figcaption,
+.prose :global(.box-media .caption) {
+  display: block;
+  margin-top: 12px;
+  color: var(--text-muted);
+  font-size: var(--font-size-xs);
+  font-style: italic;
+  line-height: 1.6;
+  text-align: center;
+}
+.prose :global(.box-media) { margin: 32px 0; }
+.prose :global(.box-media .content) { display: block; }
+.prose :global(.box-media-left) { float: left; width: 46%; margin: 6px 30px 18px 0; }
+.prose :global(.box-media-right) { float: right; width: 46%; margin: 6px 0 18px 30px; }
+.prose :global(.box-quote) {
+  margin: 35px 0 39px;
+  padding: 29px 35px 31px;
+  border-left: 3px solid var(--action-primary);
+  background: var(--color-green-50);
+  color: var(--text-heading);
+  font-family: var(--font-family-serif);
+  font-size: var(--font-size-lg);
+  font-style: italic;
+  line-height: 1.6;
+}
+.prose :global(.embed-iframe) { position: relative; margin: 30px 0; overflow: hidden; background: var(--bg-inverse); aspect-ratio: 16 / 9; }
+.prose :global(.embed-iframe.iframe-4-3) { aspect-ratio: 4 / 3; }
+.prose :global(.embed-iframe.iframe-3-2) { aspect-ratio: 3 / 2; }
+.prose :global(.embed-iframe.iframe-1-1) { aspect-ratio: 1 / 1; }
+.prose :global(.embed-iframe) iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.prose video { display: block; width: 100%; height: auto; margin: 30px 0; background: var(--bg-inverse); }
+.prose audio { display: block; width: 100%; margin: 24px 0; }
+.prose::after { content: ''; display: block; clear: both; }
+
 .end {
   display: flex;
   justify-content: space-between;
@@ -251,6 +290,10 @@
   .prose h1, .prose h2 { margin: 48px 0 20px; font-size: 31px; }
   .prose h3 { font-size: 23px; }
   .prose blockquote { margin: 29px 0; padding: 24px; }
+  .prose :global(.box-quote) { margin: 29px 0; padding: 24px; font-size: var(--font-size-md); }
+  /* No floats on phones: media takes the full width. */
+  .prose :global(.box-media-left), .prose :global(.box-media-right) { float: none; width: auto; margin: 28px 0; }
+  .prose img[style*='float'] { float: none !important; width: auto !important; margin: 16px 0; }
   .end { flex-direction: column; align-items: flex-start; gap: 18px; padding-bottom: 45px; }
   .related { padding: 70px 0; }
   .relatedHead { display: block; }
