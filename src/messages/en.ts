@@ -158,6 +158,8 @@ const en = {
     vessel: (n: number) => `Vessel ${String(n).padStart(2, '0')}`,
     vesselLength: 'Vessel length',
     guestCapacity: 'Guest capacity',
+    cabins: 'Private cabins',
+    decks: 'Decks',
     explore: (name: string) => `Explore ${name}`,
     bayJourneys: (bay: string) => `${bay} journeys`,
     storyEyebrow: 'The Green Ruby philosophy',

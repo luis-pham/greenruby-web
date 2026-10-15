@@ -178,8 +178,11 @@ export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
                           {cruise.length != null && (
                             <div><dt>{h.vesselLength}</dt><dd>{cruise.length}<small> m</small></dd></div>
                           )}
-                          {cruise.capacity != null && (
-                            <div><dt>{h.guestCapacity}</dt><dd>{cruise.capacity}</dd></div>
+                          {cruise.totalCabin != null && (
+                            <div><dt>{h.cabins}</dt><dd>{cruise.totalCabin}</dd></div>
+                          )}
+                          {cruise.totalFloor != null && (
+                            <div><dt>{h.decks}</dt><dd>{cruise.totalFloor}</dd></div>
                           )}
                           {cruise.starRating != null && (
                             <div><dt>★</dt><dd>{cruise.starRating}</dd></div>

@@ -160,6 +160,8 @@ const vi: Messages = {
     vessel: (n: number) => `Du thuyền ${String(n).padStart(2, '0')}`,
     vesselLength: 'Chiều dài tàu',
     guestCapacity: 'Sức chứa',
+    cabins: 'Cabin riêng',
+    decks: 'Tầng',
     explore: (name: string) => `Khám phá ${name}`,
     bayJourneys: (bay: string) => `Hành trình ${bay.replace(/^Vịnh /, 'vịnh ')}`,
     storyEyebrow: 'Triết lý Green Ruby',

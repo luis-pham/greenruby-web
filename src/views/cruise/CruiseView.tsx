@@ -327,6 +327,7 @@ export function CruiseView({ cruise, index, chrome }: { cruise: Cruise; index: n
           additionalProperty: [
             cruise.length != null && { '@type': 'PropertyValue', name: 'Length', value: cruise.length, unitCode: 'MTR', unitText: 'm' },
             cruise.totalFloor != null && { '@type': 'PropertyValue', name: 'Decks', value: cruise.totalFloor },
+            cruise.totalCabin != null && { '@type': 'PropertyValue', name: 'Cabins', value: cruise.totalCabin },
             cruise.capacity != null && { '@type': 'PropertyValue', name: 'Capacity', value: cruise.capacity, unitText: 'guests' },
             cruise.cabins.length > 0 && { '@type': 'PropertyValue', name: 'Cabin categories', value: cruise.cabins.length },
           ].filter(Boolean),

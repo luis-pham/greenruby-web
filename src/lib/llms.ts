@@ -97,6 +97,7 @@ function shipFacts(c: Core['cruises'][number], t: Core['t']) {
     c.bay && t.home.bays[c.bay],
     c.length && `${c.length} m long`,
     c.totalFloor && `${c.totalFloor} decks`,
+    c.totalCabin && `${c.totalCabin} cabins`,
     c.capacity && `up to ${c.capacity} guests`,
     c.cabins.length > 0 && `${c.cabins.length} cabin categories`,
     c.yearBuilt && `built ${c.yearBuilt}`,
