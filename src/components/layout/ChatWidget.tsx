@@ -63,7 +63,7 @@ function AiIcon() {
 
 /**
  * Floating "chat with us" bubble in the bottom-right corner (same pattern as grandpioneers.com):
- * the button opens a stack of contact channels — Zalo, Facebook Messenger, WhatsApp and AI support.
+ * the button opens a stack of contact icons — Zalo, Facebook Messenger, WhatsApp and AI support.
  * Channels without a link from the CMS are shown as "soon" (AI) or left out.
  */
 export function ChatWidget({
@@ -109,15 +109,11 @@ export function ChatWidget({
         {channels.map((c, i) => (
           <li key={c.key} style={{ transitionDelay: `${(channels.length - 1 - i) * 40}ms` }}>
             {c.href ? (
-              <a className={s.channel} href={c.href} target="_blank" rel="noopener" onClick={() => setOpen(false)}>
-                <span className={s.label}>{c.label}</span>
+              <a className={s.channel} href={c.href} target="_blank" rel="noopener" aria-label={c.label} title={c.label} onClick={() => setOpen(false)}>
                 <span className={s.icon}>{c.icon}</span>
               </a>
             ) : (
-              <span className={cx(s.channel, s.disabled)} aria-disabled="true">
-                <span className={s.label}>
-                  {c.label} <span className={s.soon}>{labels.soon}</span>
-                </span>
+              <span className={cx(s.channel, s.disabled)} role="img" aria-label={`${c.label} (${labels.soon})`} title={`${c.label} · ${labels.soon}`}>
                 <span className={s.icon}>{c.icon}</span>
               </span>
             )}
