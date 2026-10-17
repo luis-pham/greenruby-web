@@ -7,9 +7,9 @@ import { homePath, sectionPath, type Locale, type Section } from '@/lib/i18n';
 import { navLinks, siteInfo, type NavLink } from '@/lib/site-info';
 import { absoluteUrl } from '@/lib/site-url';
 import type { Messages } from '@/messages';
-import { FlagGB, FlagVN } from './Flags';
 import { ChatWidget } from './ChatWidget';
 import { CookieConsent } from './CookieConsent';
+import { LanguageSwitcher } from './LanguageSwitcher';
 import { MobileMenu } from './MobileMenu';
 import { SOCIAL_LABELS, SocialIcon } from './SocialIcon';
 import s from './layout.module.css';
@@ -65,8 +65,6 @@ export function Topbar({ site, t }: Pick<Chrome, 'site' | 't'>) {
   );
 }
 
-const LANGUAGE_NAMES = { en: 'English', vi: 'Tiếng Việt' } as const;
-
 /**
  * Viewport width below which the desktop menu collapses into the menu button. The header spans the
  * 1300px content column (so the logo lines up with the page); a CMS menu too long for it always
@@ -90,30 +88,22 @@ function Chevron() {
   );
 }
 
-function LanguageFlags({ locale, alternateHref, uid }: { locale: Locale; alternateHref: string; uid: string }) {
-  const other: Locale = locale === 'en' ? 'vi' : 'en';
-  const flag = (l: Locale) => (l === 'en' ? <FlagGB uid={uid} /> : <FlagVN />);
-  return (
-    <span className={s.flags}>
-      <span className={cx(s.flag, s.flagCurrent)} title={LANGUAGE_NAMES[locale]} aria-current="true">
-        {flag(locale)}
-        <span className="sr-only">{LANGUAGE_NAMES[locale]}</span>
-      </span>
-      <a className={s.flag} href={alternateHref} hrefLang={other} lang={other} title={LANGUAGE_NAMES[other]}>
-        {flag(other)}
-        <span className="sr-only">{LANGUAGE_NAMES[other]}</span>
-      </a>
-    </span>
-  );
-}
-
 /** Sections linked from the footer only, so the header menu stays short. */
 const FOOTER_ONLY: Section[] = ['gallery', 'blog', 'aboutUs', 'faq'];
+
+/** E-Brochure (PDF on Google Drive), placed before Contact in the header menu. */
+const BROCHURE_URL = 'https://drive.google.com/file/d/1wDUL4OYRuE-q541sdpgi9ioLYj7BHjhM/view?usp=sharing';
+
+function withBrochure(links: NavLink[], label: string, contactHref: string): NavLink[] {
+  const brochure: NavLink = { label, href: BROCHURE_URL, external: true, children: [] };
+  const at = links.findIndex((link) => link.href === contactHref);
+  return at === -1 ? [...links, brochure] : [...links.slice(0, at), brochure, ...links.slice(at)];
+}
 
 export function SiteNav({ locale, site, t, alternateHref, currentHref }: Chrome & { currentHref?: string }) {
   const footerOnly = FOOTER_ONLY.map((section) => sectionPath(locale, section));
   const inHeader = (link: NavLink) => !footerOnly.some((path) => link.href === path || link.href.startsWith(`${path}/`));
-  const links = navLinks(site.menus.primary).filter(inHeader);
+  const links = withBrochure(navLinks(site.menus.primary).filter(inHeader), t.nav.brochure, sectionPath(locale, 'contact'));
   // The brand already links home, so the home item is left out of the desktop menu.
   const desktopLinks = links.filter((link) => link.href !== homePath(locale));
   const collapseAt = menuBreakpoint(desktopLinks);
@@ -145,7 +135,7 @@ export function SiteNav({ locale, site, t, alternateHref, currentHref }: Chrome 
         ))}
       </ul>
       <div className={s.navEnd}>
-        <LanguageFlags locale={locale} alternateHref={alternateHref} uid="nav" />
+        <LanguageSwitcher locale={locale} alternateHref={alternateHref} label={t.nav.language} />
         <SmartLink className={s.navBook} href={sectionPath(locale, 'booking')}>
           {t.nav.book} <span aria-hidden="true">↗︎</span>
         </SmartLink>
@@ -162,10 +152,6 @@ export function SiteNav({ locale, site, t, alternateHref, currentHref }: Chrome 
               )}
             </div>
           ))}
-          <a className={s.mobileLanguage} href={alternateHref} hrefLang={locale === 'en' ? 'vi' : 'en'}>
-            <span className={s.flag}>{locale === 'en' ? <FlagVN /> : <FlagGB uid="mobile" />}</span>
-            {LANGUAGE_NAMES[locale === 'en' ? 'vi' : 'en']}
-          </a>
           <SmartLink href={sectionPath(locale, 'booking')}>{t.nav.book} ↗︎</SmartLink>
         </MobileMenu>
       </div>

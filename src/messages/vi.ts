@@ -13,6 +13,8 @@ const vi: Messages = {
     openMenu: 'Mở menu',
     closeMenu: 'Đóng menu',
     switchLanguage: 'English',
+    brochure: 'E-Brochure',
+    language: 'Ngôn ngữ',
   },
   footer: {
     statement: 'Nơi vịnh vẫn hoang sơ — và trải nghiệm không đánh đổi điều gì.',

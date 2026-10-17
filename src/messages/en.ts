@@ -11,6 +11,8 @@ const en = {
     openMenu: 'Open menu',
     closeMenu: 'Close menu',
     switchLanguage: 'Tiếng Việt',
+    brochure: 'E-Brochure',
+    language: 'Language',
   },
   footer: {
     statement: 'Where the bay stays wild — and the experience doesn’t compromise.',
