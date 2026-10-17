@@ -8,6 +8,7 @@ import { navLinks, siteInfo, type NavLink } from '@/lib/site-info';
 import { absoluteUrl } from '@/lib/site-url';
 import type { Messages } from '@/messages';
 import { FlagGB, FlagVN } from './Flags';
+import { ChatWidget } from './ChatWidget';
 import { CookieConsent } from './CookieConsent';
 import { MobileMenu } from './MobileMenu';
 import { SOCIAL_LABELS, SocialIcon } from './SocialIcon';
@@ -415,6 +416,13 @@ export function SiteFooter({ locale, site, t }: Pick<Chrome, 'locale' | 'site' |
           </nav>
           <span>{t.footer.bays}</span>
         </div>
+        <ChatWidget
+          zaloHref={info.zaloHref}
+          messengerHref={info.messengerHref}
+          whatsappHref={info.whatsappHref}
+          aiHref={info.aiChatHref}
+          labels={t.chat}
+        />
         <CookieConsent gtmId={info.gtmId} labels={t.cookies} policyHref={sectionPath(locale, 'cookiePolicy')} />
         {(info.hotlineHref || info.email || info.address) && (
           <address className={s.footerContact}>

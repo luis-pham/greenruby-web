@@ -54,6 +54,15 @@ const en = {
     decline: 'Decline',
     learnMore: 'Read our cookie policy',
   },
+  chat: {
+    open: 'Chat with us',
+    close: 'Close chat options',
+    zalo: 'Zalo',
+    messenger: 'Facebook Messenger',
+    whatsapp: 'WhatsApp',
+    ai: 'AI Support',
+    soon: 'Soon',
+  },
   breadcrumb: { home: 'Home', label: 'Breadcrumb' },
   cabin: {
     eyebrowFallback: 'Private sanctuary',

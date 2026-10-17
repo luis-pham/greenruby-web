@@ -56,6 +56,15 @@ const vi: Messages = {
     decline: 'Từ chối',
     learnMore: 'Xem chính sách cookie',
   },
+  chat: {
+    open: 'Chat với chúng tôi',
+    close: 'Đóng lựa chọn chat',
+    zalo: 'Zalo',
+    messenger: 'Facebook Messenger',
+    whatsapp: 'WhatsApp',
+    ai: 'Hỗ trợ AI',
+    soon: 'Sắp có',
+  },
   breadcrumb: { home: 'Trang chủ', label: 'Đường dẫn' },
   cabin: {
     eyebrowFallback: 'Không gian riêng',

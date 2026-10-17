@@ -5,6 +5,11 @@ export type SiteInfo = {
   hotline: string | null;
   hotlineHref: string | null;
   whatsappHref: string | null;
+  /** Floating chat bubble links: Zalo (ad_config "zalo", else the hotline number) and Messenger (from the Facebook page). */
+  zaloHref: string | null;
+  messengerHref: string | null;
+  /** AI support chat (ad_config "ai-chat-url"); shown as "soon" until set. */
+  aiChatHref: string | null;
   email: string | null;
   address: string | null;
   socials: { name: string; url: string }[];
@@ -29,6 +34,22 @@ const telHref = (phone: string | null | undefined) => {
   return digits ? `tel:${digits}` : null;
 };
 
+/** "zalo" may be a full link or a phone number; zalo.me takes the local form (0xxxxxxxxx). */
+const zaloHref = (value: string | null | undefined) => {
+  const v = value?.trim();
+  if (!v) return null;
+  if (/^https?:\/\//.test(v)) return v;
+  const digits = v.replace(/\D/g, '').replace(/^84/, '0');
+  return digits ? `https://zalo.me/${digits}` : null;
+};
+
+/** https://www.facebook.com/<page> -> https://m.me/<page>; other Facebook URLs (profile.php?id=) are kept as-is. */
+const messengerHref = (facebook: string | null | undefined) => {
+  if (!facebook) return null;
+  const match = facebook.match(/facebook\.com\/([A-Za-z0-9.\-_]+)\/?$/);
+  return match && match[1] !== 'profile.php' ? `https://m.me/${match[1]}` : facebook;
+};
+
 /** Normalizes the raw ad_config map into the few values the layout needs. */
 export function siteInfo(site: Site): SiteInfo {
   const c = site.config;
@@ -38,6 +59,9 @@ export function siteInfo(site: Site): SiteInfo {
     hotline: c['hotline'] || null,
     hotlineHref: telHref(c['hotline']),
     whatsappHref: whatsapp ? `https://wa.me/${whatsapp}` : null,
+    zaloHref: zaloHref(c['zalo'] || c['hotline']),
+    messengerHref: messengerHref(c['facebook']),
+    aiChatHref: /^https?:\/\//.test(c['ai-chat-url'] ?? '') ? (c['ai-chat-url'] as string) : null,
     email: c['email'] || null,
     address: c['address'] || null,
     socials: SOCIAL_KEYS.flatMap((name) => (c[name] ? [{ name, url: c[name] as string }] : [])),
