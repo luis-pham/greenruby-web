@@ -11,6 +11,7 @@ import { siteInfo } from '@/lib/site-info';
 import { absoluteImageUrl, absoluteUrl } from '@/lib/site-url';
 import cabinStyles from '@/views/cabin/cabin.module.css';
 import { cabinPath } from '@/views/cabin/CabinView';
+import { cabinHighlights, cabinTier } from '@/views/home/cabin-card';
 import { Carousel } from '@/views/home/Carousel';
 import homeStyles from '@/views/home/home.module.css';
 import s from './cruise.module.css';
@@ -130,7 +131,7 @@ export function CruiseView({ cruise, index, chrome }: { cruise: Cruise; index: n
         </section>
 
         {cruise.cabins.length > 0 && (
-          <section className={cx(s.section, s.suites)} id="suites" aria-labelledby="suites-title">
+          <section className={s.section} id="suites" aria-labelledby="suites-title">
             <div className="container">
               <Head id="suites-title" eyebrow={c.suitesEyebrow} title={c.suitesTitle} em={c.suitesTitleEm} body={c.suitesBody} />
               <Carousel label={t.home.suitesCollection} count={cruise.cabins.length} caption={t.home.suitesCollection} previous={t.home.previous} next={t.home.next}>
@@ -139,14 +140,18 @@ export function CruiseView({ cruise, index, chrome }: { cruise: Cruise; index: n
                     <div className={homeStyles.roomImg}>
                       {cabin.image && <Image src={cabin.image} alt={cabin.name} fill sizes="(max-width: 600px) 100vw, (max-width: 1160px) 50vw, 33vw" />}
                     </div>
+                    {/* Same card as the homepage "Rooms with a different view" carousel. */}
                     <div className={homeStyles.roomContent}>
-                      <p className={homeStyles.roomOverline}>
-                        <span>{cabin.view ?? cabin.cabinClass}</span>
-                        {cabin.area != null && <span>{cabin.area} m²</span>}
+                      <p className={homeStyles.roomMeta}>
+                        <span className={homeStyles.roomTier}>{cabinTier(cabin, locale) ?? cruise.name}</span>
+                        {cabin.area != null && <span className={homeStyles.roomArea}>{cabin.area} m²</span>}
                       </p>
                       <h3><SmartLink href={cabinPath(locale, cabin)}>{cabin.name}</SmartLink></h3>
-                      {cabin.summary && <p>{cabin.summary}</p>}
-                      <TextLink href={cabinPath(locale, cabin)}>{t.home.discoverSuite}</TextLink>
+                      <p className={homeStyles.roomHighlights}>{cabinHighlights(cabin, locale).join(' · ')}</p>
+                      <p className={homeStyles.roomSummary}>{cabin.summary}</p>
+                      <div className={homeStyles.roomCta}>
+                        <TextLink href={cabinPath(locale, cabin)}>{t.home.discoverSuite}</TextLink>
+                      </div>
                     </div>
                   </article>
                 ))}

@@ -20,7 +20,6 @@
 .introMain img, .introSecondary img { object-fit: cover; }
 
 /* Suites */
-.suites { background: var(--bg-surface); }
 
 /* Onboard */
 .onboard { overflow: hidden; background: #0e332e; color: var(--color-neutral-white); }
