@@ -9,13 +9,25 @@ import { CruiseView } from './CruiseView';
 
 type Params = { params: Promise<{ file: string }> };
 
-// app_cruise has no seo_title column yet, so the API falls back to the bare ship name.
+// app_cruise has no seo_* columns yet, so the API falls back to the bare ship name and summary.
 // Keyed by CMS cruise id (ids differ per language). GR1 sails Ha Long Bay, GR2 Lan Ha Bay.
-const SEO_TITLES: Record<number, string> = {
-  3: 'Green Ruby 1 | Luxury Ha Long Bay Cruise, 46 Cabins',
-  4: 'Green Ruby 2 | Quiet Luxury Cruise on Lan Ha Bay',
-  1: 'Green Ruby 1 | Du Thuyền Hạng Sang Vịnh Hạ Long',
-  2: 'Green Ruby 2 | Du Thuyền Sang Trọng Vịnh Lan Hạ',
+const SEO: Record<number, { title: string; description: string }> = {
+  3: {
+    title: 'Green Ruby 1 | Luxury Ha Long Bay Cruise, 46 Cabins',
+    description: 'Green Ruby 1: a 46-cabin eco-luxury cruise on Ha Long Bay with a 120 m² suite, solar-assisted power and seawater cooling. Pre-book now.',
+  },
+  4: {
+    title: 'Green Ruby 2 | Quiet Luxury Cruise on Lan Ha Bay',
+    description: 'Green Ruby 2: a 46-cabin eco-luxury cruise on the quieter Lan Ha Bay, with Jacuzzi suites, kayaking beside the ship and fewer crowds. Pre-book now.',
+  },
+  1: {
+    title: 'Green Ruby 1 | Du Thuyền Hạng Sang Vịnh Hạ Long',
+    description: 'Green Ruby 1: du thuyền eco-luxury 46 cabin trên Vịnh Hạ Long, suite rộng 120 m², hỗ trợ năng lượng mặt trời và làm mát bằng nước biển.',
+  },
+  2: {
+    title: 'Green Ruby 2 | Du Thuyền Sang Trọng Vịnh Lan Hạ',
+    description: 'Green Ruby 2: du thuyền eco-luxury 46 cabin trên Vịnh Lan Hạ yên tĩnh, suite Jacuzzi, chèo kayak ngay cạnh tàu, tránh xa đám đông.',
+  },
 };
 
 async function load(locale: Locale, file: string) {
@@ -41,8 +53,8 @@ export function cruiseRoute(locale: Locale) {
     return pageMetadata({
       locale,
       site: siteInfo(site),
-      title: SEO_TITLES[cruise.id] ?? cruise.seo.title ?? cruise.name,
-      description: cruise.seo.description ?? cruise.summary ?? undefined,
+      title: SEO[cruise.id]?.title ?? cruise.seo.title ?? cruise.name,
+      description: SEO[cruise.id]?.description ?? cruise.seo.description ?? cruise.summary ?? undefined,
       path: canonicalPath,
       alternatePath: alternateOf(cruise),
       image: cruise.cover ?? cruise.image,

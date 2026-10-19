@@ -71,8 +71,8 @@ export function faqRoute(locale: Locale) {
       locale,
       site: siteInfo(site),
       title: title ?? t.metaTitle,
-      // The API only has the site-wide default description, so every listing gets its own.
-      description: `${list.group ? t.categoryDescription(list.group.name) : t.metaDescription}${page > 1 ? t.pageSuffix(page) : ''}`,
+      // CMS seo_description (group / app_page "faq") when set, else our own per-listing default.
+      description: `${list.seo.description ?? (list.group ? t.categoryDescription(list.group.name) : t.metaDescription)}${page > 1 ? t.pageSuffix(page) : ''}`,
       path: canonicalPath,
       alternatePath: alternate.exact ? alternate.href : undefined,
     });

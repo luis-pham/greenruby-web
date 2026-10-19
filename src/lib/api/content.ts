@@ -85,7 +85,7 @@ export async function getCruise(id: number, locale: Locale) {
 const pageSeoSchema = z.object({ seo: z.object({ title: z.string().nullable(), description: z.string().nullable() }) });
 
 /** SEO title/description an editor set for a hub page in the CMS (GET /pages/{code}, CONTENT_API.md 4.10). */
-export async function getPageSeo(code: 'contact' | 'booking', locale: Locale) {
+export async function getPageSeo(code: 'contact' | 'booking' | 'eco-dashboard', locale: Locale) {
   'use cache';
   cacheLife('hours');
   cacheTag('content', 'pages', `page:${code}`);

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { getHomepage, getSite } from '@/lib/api/content';
+import { getHomepage, getPageSeo, getSite } from '@/lib/api/content';
 import { sectionPath, type Locale } from '@/lib/i18n';
 import { pageMetadata } from '@/lib/seo';
 import { siteInfo } from '@/lib/site-info';
@@ -17,13 +17,14 @@ export function ecoDashboardRoute(locale: Locale) {
   const other: Locale = locale === 'en' ? 'vi' : 'en';
 
   async function generateMetadata(): Promise<Metadata> {
-    const [site, image] = await Promise.all([getSite(locale), heroImage(locale)]);
+    const [site, image, seo] = await Promise.all([getSite(locale), heroImage(locale), getPageSeo('eco-dashboard', locale)]);
     const m = ecoMessages[locale];
     return pageMetadata({
       locale,
       site: siteInfo(site),
-      title: m.metaTitle,
-      description: m.metaDescription,
+      // Admin "Quản lý cấu hình trang → Báo cáo sinh thái"; messages until the CMS has a value.
+      title: seo.title || m.metaTitle,
+      description: seo.description || m.metaDescription,
       path: sectionPath(locale, 'ecoDashboard'),
       alternatePath: sectionPath(other, 'ecoDashboard'),
       image,
