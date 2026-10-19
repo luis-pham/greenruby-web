@@ -146,3 +146,6 @@
 
 /* Hero booking bar: voyage + departure date + CTA (same as the cruise page). */
 .heroBooking { flex-basis: 100%; width: 100%; margin-top: 22px; }
+
+/* H1 second line (keyword H1 above, the brand line in italics). */
+.titleTag { display: block; margin-top: 0.3em; color: var(--text-inverse-accent); font-size: 0.34em; font-style: italic; line-height: 1.25; letter-spacing: 0; word-spacing: normal; }

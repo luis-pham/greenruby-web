@@ -46,7 +46,7 @@ export function ItinerariesView({
         imageAlt=""
         crumbs={[{ label: t.breadcrumb.home, href: homePath(locale) }, { label: l.breadcrumb, href: path }]}
         eyebrow={l.heroEyebrow}
-        title={<>{l.heroTitle} <em>{l.heroTitleEm}</em></>}
+        title={<>{l.h1}<span className={s.titleTag}>{l.heroTitle} {l.heroTitleEm}</span></>}
         description={l.heroBody}
         actions={
           <>

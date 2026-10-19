@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { Booking } from '@/components/booking';
+import { JournalLink } from '@/components/journal/JournalLink';
 import { PageHero, SiteFooter, type Chrome } from '@/components/layout';
 import { organizationRef } from '@/lib/organization';
 import { JsonLd } from '@/components/seo/JsonLd';
@@ -225,6 +226,8 @@ export function CruiseView({ cruise, index, chrome }: { cruise: Cruise; index: n
                     </li>
                   ))}
                 </ul>
+                <p className={s.body}><TextLink href={sectionPath(locale, 'ecoDashboard')}>{t.footer.links.ecoDashboard}</TextLink></p>
+                <JournalLink locale={locale} />
               </div>
             </div>
           </section>

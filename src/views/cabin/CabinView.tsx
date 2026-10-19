@@ -153,7 +153,7 @@ export function CabinView({ cabin, cruise, chrome }: { cabin: Cabin; cruise: Cru
                     )}
                     <div className={s.voyageBody}>
                       <p className={s.voyageMeta}>{[bayName, t.itinerary.durationLabel(v.duration)].filter(Boolean).join(' · ')}</p>
-                      <h3>{v.name}</h3>
+                      <h3><SmartLink href={itineraryPath(locale, v.slug, v.cruiseId, v.itineraryId)}>{v.name}</SmartLink></h3>
                       {v.destinations.length > 0 && <p className={s.voyageRoute}>{v.destinations.join(' · ')}</p>}
                       <TextLink href={itineraryPath(locale, v.slug, v.cruiseId, v.itineraryId)}>{c.voyageCta}</TextLink>
                     </div>

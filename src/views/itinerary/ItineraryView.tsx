@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { Booking } from '@/components/booking';
+import { JournalLink } from '@/components/journal/JournalLink';
 import { PageHero, SiteFooter, type Chrome } from '@/components/layout';
 import { FaqList } from '@/components/sections/Faq';
 import { organizationRef } from '@/lib/organization';
@@ -88,6 +89,7 @@ export function ItineraryView({ itinerary: it, chrome }: { itinerary: Itinerary;
                 it.description && <p className={s.body}>{it.description}</p>
               )}
               <p className={s.introDecor}>{pad(it.duration)} <small>{d.daysToRemember}</small></p>
+              <JournalLink locale={locale} />
             </div>
             <aside className={s.quoteCard}>
               <span>{it.name}</span>

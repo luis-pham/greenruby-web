@@ -129,7 +129,7 @@ export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
               <div className={s.glanceCell}>
                 <dt>{h.glance.commitment}</dt>
                 <dd>
-                  <strong className={s.glanceTitle}>{h.glance.commitmentTitle}</strong>
+                  <strong className={s.glanceTitle}><SmartLink href={sectionPath(locale, 'ecoDashboard')}>{h.glance.commitmentTitle}</SmartLink></strong>
                   <span className={s.glanceDetail}>{h.glance.commitmentDetail}</span>
                 </dd>
               </div>

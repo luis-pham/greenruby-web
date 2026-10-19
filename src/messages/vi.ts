@@ -146,7 +146,7 @@ const vi: Messages = {
     metaTitle: 'Du thuyền sinh thái cao cấp vịnh Hạ Long & Lan Hạ',
     metaDescription:
       'Green Ruby Cruises: hành trình du thuyền sinh thái cao cấp trên vịnh Hạ Long và vịnh Lan Hạ. Hai du thuyền, phòng suite riêng tư và lịch trình được chăm chút.',
-    heroEyebrow: 'Du thuyền Eco-Luxury Vịnh Hạ Long & Lan Hạ',
+    heroEyebrow: 'Du thuyền hạng sang Vịnh Hạ Long & Lan Hạ',
     heroTitle: 'Nơi vịnh biển trở thành',
     heroTitleEm: 'của riêng bạn.',
     heroBody:
@@ -242,6 +242,7 @@ const vi: Messages = {
     metaDescription: 'So sánh các lịch trình du thuyền Green Ruby trên vịnh Hạ Long và vịnh Lan Hạ: 2 ngày 1 đêm hoặc 3 ngày 2 đêm, kèm lịch trình chi tiết, dịch vụ bao gồm và ngày khởi hành.',
     breadcrumb: 'Hành trình',
     heroEyebrow: 'Hành trình chọn lọc · Vịnh Hạ Long & Lan Hạ',
+    h1: 'Lịch trình du thuyền Hạ Long & Lan Hạ',
     heroTitle: 'Mỗi hành trình mang',
     heroTitleEm: 'một câu chuyện riêng.',
     heroBody: 'Từ những đỉnh đá vôi biểu tượng đến các đầm nước yên bình, khám phá những hành trình được chăm chút để lưu giữ mãi.',

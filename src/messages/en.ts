@@ -145,7 +145,7 @@ const en = {
     metaTitle: 'Eco-Luxury Cruises in Ha Long & Lan Ha Bay',
     metaDescription:
       'Green Ruby Cruises: eco-luxury voyages through Ha Long Bay and Lan Ha Bay. Two vessels, private suites and thoughtfully designed itineraries.',
-    heroEyebrow: 'Ha Long Bay & Lan Ha Bay Eco-Luxury Cruises',
+    heroEyebrow: 'Luxury Eco Cruises on Ha Long Bay & Lan Ha Bay',
     heroTitle: 'Where the bay becomes',
     heroTitleEm: 'yours.',
     heroBody:
@@ -241,6 +241,7 @@ const en = {
     metaDescription: 'Compare Green Ruby cruise itineraries on Ha Long Bay and Lan Ha Bay: 2 days / 1 night or 3 days / 2 nights, with daily schedules, inclusions and departures.',
     breadcrumb: 'Itineraries',
     heroEyebrow: 'Handcrafted journeys · Ha Long & Lan Ha Bay',
+    h1: 'Ha Long & Lan Ha Bay Cruise Itineraries',
     heroTitle: 'Every journey has its',
     heroTitleEm: 'own story.',
     heroBody: 'From iconic limestone peaks to quiet lagoons, discover a collection of beautifully considered journeys made to be remembered.',
