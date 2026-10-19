@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { Booking } from '@/components/booking';
 import { PageHero, SiteFooter, type Chrome } from '@/components/layout';
 import { FaqList } from '@/components/sections/Faq';
 import { JsonLd } from '@/components/seo/JsonLd';
@@ -51,6 +52,9 @@ export function ItinerariesView({
           <>
             <ButtonLink href="#journeys">{l.heroPrimary}</ButtonLink>
             {durations.length > 1 && <TextLink href="#compare" inverse>{l.heroSecondary}</TextLink>}
+            <div className={s.heroBooking}>
+              <Booking locale={locale} site={chrome.site} scope="all" layout="bar" />
+            </div>
           </>
         }
       />
@@ -227,6 +231,7 @@ export function ItinerariesView({
             </div>
           </div>
         </section>
+        <Booking locale={locale} site={chrome.site} scope="all" layout="mobile" />
       </main>
 
       <SiteFooter {...chrome} />

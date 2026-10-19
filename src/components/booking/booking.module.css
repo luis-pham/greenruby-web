@@ -135,6 +135,7 @@
   font: 14px var(--font-family-sans);
   white-space: nowrap;
 }
+.barFixed { padding: 0 12px; border: 1px solid var(--border-default); background: var(--bg-surface-alt); color: var(--text-heading); overflow: hidden; text-overflow: ellipsis; }
 .barValue strong { font: var(--font-weight-regular) 22px/1 var(--font-family-serif); }
 .barValue:not(:has(strong)) { color: var(--text-body); }
 .popover { position: absolute; top: calc(100% + 8px); left: 0; z-index: var(--z-overlay); width: 300px; padding: 4px 14px 14px; background: var(--bg-surface); box-shadow: var(--shadow-lg); }

@@ -208,12 +208,20 @@ export function BookingBar({ locale, data, cabinId }: Omit<Props, 'contact'>) {
   return (
     <div className={s.bar} ref={wrap} role="search" aria-label={t.regionLabel}>
       {data.demo && <span className={s.demo}>{t.demo}</span>}
-      <div className={s.barField}>
-        <label htmlFor={ids.voyage}>{t.voyage}</label>
-        <select id={ids.voyage} value={optionIndex} onChange={(e) => select(Number(e.target.value))}>
-          {data.options.map((o, i) => <option key={i} value={i}>{optionLabel(o, t, data.options)}</option>)}
-        </select>
-      </div>
+      {data.options.length > 1 ? (
+        <div className={s.barField}>
+          <label htmlFor={ids.voyage}>{t.voyage}</label>
+          <select id={ids.voyage} value={optionIndex} onChange={(e) => select(Number(e.target.value))}>
+            {data.options.map((o, i) => <option key={i} value={i}>{optionLabel(o, t, data.options)}</option>)}
+          </select>
+        </div>
+      ) : (
+        // Itinerary page: the voyage is fixed.
+        <div className={s.barField}>
+          <span className={s.barLabel}>{t.voyage}</span>
+          <span className={cx(s.barValue, s.barFixed)}>{option ? `${option.cruiseName ?? ''} · ${t.durationShort(option.duration)}` : ''}</span>
+        </div>
+      )}
       <div className={s.barField}>
         <label htmlFor={ids.date}>{t.date}</label>
         <button id={ids.date} type="button" className={s.barDate} aria-expanded={open} disabled={!hasDates} onClick={() => setOpen((v) => !v)}>
