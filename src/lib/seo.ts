@@ -58,10 +58,14 @@ export function pageMetadata({
   // twitter:site / creator from the X profile in the CMS socials (ad_config "twitter").
   const xHandle = site.socials.find((x) => x.name === 'twitter')?.url.match(/(?:x|twitter)\.com\/@?([A-Za-z0-9_]+)/)?.[1];
 
+  // hreflang only links indexable pages: a noindex page (legal, booking, empty blog category) declares none,
+  // otherwise its counterpart's hreflang set points at a noindex URL ("noindex return links").
+  const indexable = !(noIndex || site.noIndex);
+
   return {
     title: fullTitle,
     description,
-    alternates: { canonical: url, languages },
+    alternates: { canonical: url, ...(indexable && { languages }) },
     openGraph: {
       type: 'website',
       siteName: site.name,

@@ -69,7 +69,10 @@ async function listAlternate(locale: Locale, list: ArticleList): Promise<string 
   // The API answers an other-language category slug with a redirect to its counterpart.
   const counterpart = await listArticles(other(locale), list.category.slug, 1);
   if (!counterpart) return null;
-  return isRedirect(counterpart) ? blogPath(other(locale), counterpart.redirect.category) : blogPath(other(locale), counterpart.category?.slug);
+  const target = isRedirect(counterpart) ? await listArticles(other(locale), counterpart.redirect.category, 1) : counterpart;
+  // Only pair with an indexable listing: an empty counterpart category is noindex.
+  if (!target || isRedirect(target) || target.noIndex) return null;
+  return blogPath(other(locale), target.category?.slug);
 }
 
 const articleAlternate = (article: Article) =>
