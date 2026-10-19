@@ -11,8 +11,10 @@ export async function proxy(request: NextRequest) {
     const res = await fetch(url, { signal: AbortSignal.timeout(1500) });
     const { canonical } = (await res.json()) as { canonical: string | null };
     if (canonical && canonical !== pathname) {
-      // Relative Location, like the pages' own redirects: behind Nginx request.url may carry the internal host.
-      return new NextResponse(null, { status: 308, headers: { Location: canonical + request.nextUrl.search } });
+      // Proxy redirects must be absolute. Behind Nginx, rebuild the public origin from the forwarded headers.
+      const proto = request.headers.get('x-forwarded-proto')?.split(',')[0] ?? request.nextUrl.protocol.replace(':', '');
+      const host = request.headers.get('x-forwarded-host') ?? request.headers.get('host') ?? request.nextUrl.host;
+      return NextResponse.redirect(`${proto}://${host}${canonical}${request.nextUrl.search}`, 308);
     }
   } catch {
     // fall through
