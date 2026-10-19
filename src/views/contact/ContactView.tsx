@@ -1,5 +1,5 @@
 import { SiteFooter, SolidHeader, Breadcrumb, type Chrome } from '@/components/layout';
-import { organizationSchema } from '@/lib/organization';
+import { organizationSchema, MAPS_URL } from '@/lib/organization';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SectionHeading } from '@/components/ui';
 import { homePath, sectionPath } from '@/lib/i18n';
@@ -37,7 +37,7 @@ export function ContactView({ chrome }: { chrome: Chrome }) {
   const c = t.contact;
   const info = siteInfo(site);
   const path = sectionPath(locale, 'contact');
-  const mapsHref = info.address ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(info.address)}` : null;
+  const mapsHref = MAPS_URL;
 
   return (
     <>

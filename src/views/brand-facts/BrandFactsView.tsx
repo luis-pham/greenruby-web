@@ -4,7 +4,7 @@ import { JsonLd } from '@/components/seo/JsonLd';
 import { SmartLink } from '@/components/ui';
 import type { Homepage } from '@/lib/api/schemas';
 import { detailPath, homePath, itineraryPath, sectionPath } from '@/lib/i18n';
-import { ORGANIZATION_ID, organizationSchema } from '@/lib/organization';
+import { MAPS_URL, ORGANIZATION_ID, organizationSchema } from '@/lib/organization';
 import { siteInfo } from '@/lib/site-info';
 import { absoluteUrl } from '@/lib/site-url';
 import { CopyButton, FactActions } from './Actions';
@@ -218,6 +218,7 @@ export function BrandFactsView({ chrome, home }: { chrome: Chrome; home: Homepag
                 <h3>{S.departure.place}</h3>
                 <p>{S.departure.address}</p>
                 <p className={s.small}>{S.departure.addressNote}</p>
+                <a className={s.textLink} href={MAPS_URL} target="_blank" rel="noopener">{S.departure.map} ↗</a>
               </div>
               <ul>
                 {S.departure.points.map((p) => <li key={p}>{p}</li>)}

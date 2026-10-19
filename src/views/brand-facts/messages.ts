@@ -104,6 +104,7 @@ const en = {
         'Transfers from Hanoi (about 2.5 hours, pick-up around 08:00) are available on request.',
       ],
       contact: 'Confirm your check-in point',
+      map: 'Open in Google Maps',
     },
     status: {
       label: 'Operating status',
@@ -264,6 +265,7 @@ const vi: Messages = {
         'Có xe đưa đón từ Hà Nội theo yêu cầu (khoảng 2,5 giờ, đón khoảng 08:00).',
       ],
       contact: 'Xác nhận điểm check-in',
+      map: 'Mở trên Google Maps',
     },
     status: {
       label: 'Tình trạng',

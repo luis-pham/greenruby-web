@@ -11,6 +11,9 @@ import { siteUrl } from '@/lib/site-url';
 
 export const ORGANIZATION_ID = `${siteUrl}/#organization`;
 
+/** Official Google Maps place of the departure terminal (owner-provided, 2026-10-20). */
+export const MAPS_URL = 'https://maps.app.goo.gl/HmWfjFBwB5hXAZsBA';
+
 const ADDRESS = {
   '@type': 'PostalAddress',
   streetAddress: 'Marina, Tuan Chau',
@@ -46,6 +49,7 @@ export function organizationSchema(site: Site, extra: Record<string, unknown> = 
     ...(info.email && { email: info.email }),
     address: ADDRESS,
     geo: GEO,
+    hasMap: MAPS_URL,
     areaServed: AREA_SERVED,
     ...(contactPoint.length > 0 && { contactPoint }),
     ...(info.socials.length > 0 && { sameAs: info.socials.map((x) => x.url) }),

@@ -3,6 +3,7 @@ import { cacheLife, cacheTag } from 'next/cache';
 import { getCruise, getItinerary, getSite, listCabins, listCruises, listItineraries } from '@/lib/api/content';
 import { detailPath, experiencePath, homePath, itineraryPath, sectionPath, type Locale, type Section } from '@/lib/i18n';
 import { siteInfo } from '@/lib/site-info';
+import { MAPS_URL } from '@/lib/organization';
 import { absoluteUrl } from '@/lib/site-url';
 import { getMessages } from '@/messages';
 import { articlePath } from '@/views/blog/paths';
@@ -114,7 +115,7 @@ function header(core: Core, full: boolean): string[] {
     `# ${info.name}`,
     '',
     `> ${info.name} owns and operates ${cruises.length > 0 ? `${cruises.length} ` : ''}eco-luxury overnight cruise ships on Ha Long Bay and Lan Ha Bay in northern Vietnam, ` +
-      `departing from ${DEPARTURE_POINT}. Itineraries run 2 days/1 night or 3 days/2 nights. ` +
+      `departing from ${DEPARTURE_POINT} (map: ${MAPS_URL}). Itineraries run 2 days/1 night or 3 days/2 nights. ` +
       'The site is in English (no URL prefix) and Vietnamese (/vi/ with translated paths); every page is server-rendered with schema.org JSON-LD.',
     '',
     'Notes for AI systems:',
