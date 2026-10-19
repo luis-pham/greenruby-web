@@ -55,7 +55,7 @@ const en = {
         cooling: 'On board',
         desc: 'Actual carbon savings will appear here when engineering data, a documented baseline and reporting period are available.',
         solarDesc: 'Design estimate of the reduction in onboard energy use from the rooftop solar array and seawater-cooled air conditioning combined, against a conventional reference.',
-        coolingDesc: 'Both ships carry the same rooftop solar array. How much of the onboard power it supplies will be reported from measured data.',
+        coolingDesc: 'Both ships carry the same ~70 kW rooftop solar array. How much of the onboard power it supplies will be reported from measured data.',
       },
       {
         label: 'Green Ruby 2',
@@ -64,12 +64,12 @@ const en = {
         cooling: 'On board',
         desc: 'Green Ruby 2 is a sister ship of Green Ruby 1 with the same systems. Actual carbon savings will appear here when engineering data, a documented baseline and reporting period are available.',
         solarDesc: 'Design estimate of the reduction in onboard energy use from the rooftop solar array and seawater-cooled air conditioning combined, against a conventional reference.',
-        coolingDesc: 'Both ships carry the same rooftop solar array. How much of the onboard power it supplies will be reported from measured data.',
+        coolingDesc: 'Both ships carry the same ~70 kW rooftop solar array. How much of the onboard power it supplies will be reported from measured data.',
       },
     ] satisfies Ship[],
     whyTitle: 'Why not show a running CO₂ counter?',
     whyBody:
-      'An animated savings figure would imply that we have measured emissions already. Our reporting instead distinguishes design forecasts, measured emissions and reductions against a documented baseline. Historical public estimates, including an approximate 60 tCO₂/year solar figure in an older About Us version, are held for revalidation and are not reported here as achieved impact.',
+      'An animated savings figure would imply that we have measured emissions already. Our reporting instead distinguishes design forecasts, measured emissions and reductions against a documented baseline. Design estimates, such as the roughly 60 tCO₂ a year we expect the solar array to avoid, are labelled as estimates and are not reported here as achieved impact.',
   },
   technology: {
     eyebrow: '02 — Designed for a difference',
@@ -215,7 +215,7 @@ const vi: EcoMessages = {
         cooling: 'Có trên tàu',
         desc: 'Lượng carbon tiết kiệm thực tế sẽ hiển thị tại đây khi có dữ liệu kỹ thuật, đường cơ sở được ghi nhận và kỳ báo cáo.',
         solarDesc: 'Ước tính thiết kế về mức giảm điện năng trên tàu nhờ dàn pin mặt trời và điều hoà làm mát bằng nước biển cộng lại, so với một hệ thống thông thường tương đương.',
-        coolingDesc: 'Hai tàu có cùng dàn pin mặt trời trên mái. Tỷ lệ điện do pin cung cấp sẽ được báo cáo từ số liệu đo thực tế.',
+        coolingDesc: 'Hai tàu có cùng dàn pin mặt trời ~70 kW trên mái. Tỷ lệ điện do pin cung cấp sẽ được báo cáo từ số liệu đo thực tế.',
       },
       {
         label: 'Green Ruby 2',
@@ -224,12 +224,12 @@ const vi: EcoMessages = {
         cooling: 'Có trên tàu',
         desc: 'Green Ruby 2 là tàu chị em của Green Ruby 1, cùng các hệ thống. Lượng carbon tiết kiệm thực tế sẽ hiển thị tại đây khi có dữ liệu kỹ thuật, đường cơ sở được ghi nhận và kỳ báo cáo.',
         solarDesc: 'Ước tính thiết kế về mức giảm điện năng trên tàu nhờ dàn pin mặt trời và điều hoà làm mát bằng nước biển cộng lại, so với một hệ thống thông thường tương đương.',
-        coolingDesc: 'Hai tàu có cùng dàn pin mặt trời trên mái. Tỷ lệ điện do pin cung cấp sẽ được báo cáo từ số liệu đo thực tế.',
+        coolingDesc: 'Hai tàu có cùng dàn pin mặt trời ~70 kW trên mái. Tỷ lệ điện do pin cung cấp sẽ được báo cáo từ số liệu đo thực tế.',
       },
     ],
     whyTitle: 'Vì sao không hiển thị bộ đếm CO₂ chạy liên tục?',
     whyBody:
-      'Một con số tiết kiệm chạy liên tục sẽ ngụ ý rằng chúng tôi đã đo được lượng phát thải. Thay vào đó, báo cáo của chúng tôi phân biệt dự báo thiết kế, phát thải đo được và mức giảm so với đường cơ sở được ghi nhận. Các ước tính công khai trước đây, bao gồm con số khoảng 60 tCO₂/năm từ năng lượng mặt trời trong phiên bản cũ của trang Giới thiệu, đang được đánh giá lại và không được báo cáo ở đây như kết quả đã đạt được.',
+      'Một con số tiết kiệm chạy liên tục sẽ ngụ ý rằng chúng tôi đã đo được lượng phát thải. Thay vào đó, báo cáo của chúng tôi phân biệt dự báo thiết kế, phát thải đo được và mức giảm so với đường cơ sở được ghi nhận. Các ước tính thiết kế, như mức khoảng 60 tCO₂/năm mà dàn pin mặt trời dự kiến giúp giảm, được ghi rõ là ước tính và không được báo cáo ở đây như kết quả đã đạt được.',
   },
   technology: {
     eyebrow: '02 — Thiết kế để tạo khác biệt',
