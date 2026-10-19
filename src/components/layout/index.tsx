@@ -279,7 +279,7 @@ export function PageHero({
     <>
       <Topbar site={chrome.site} t={chrome.t} />
       <header className={cx(s.hero, compact && s.heroCompact)}>
-        {image && <Image src={image} alt={imageAlt} fill preload sizes="100vw" quality={85} className={s.heroImage} />}
+        {image && <Image src={image} alt={imageAlt} fill preload sizes="100vw" quality={75} className={s.heroImage} />}
         <div className="container">
           <SiteNav {...chrome} currentHref={currentHref} />
           <div className={s.heroBody}>

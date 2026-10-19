@@ -45,8 +45,9 @@ export function GalleryView({ gallery, chrome }: { gallery: Gallery; chrome: Chr
           ...(category ? [{ label: category.name, href: galleryPath(locale, category.slug) }] : []),
         ]}
         eyebrow={g.heroEyebrow}
-        title={<>{g.heroTitle} <em>{g.heroTitleEm}</em></>}
-        lead={key ? g.categoryCopy[key] : g.heroBody}
+        // Category pages: their own H1 (CMS "SEO danh mục" title without the brand) and a fuller lead.
+        title={category ? (category.seo?.title?.split(' | ')[0] ?? category.name) : <>{g.heroTitle} <em>{g.heroTitleEm}</em></>}
+        lead={key ? [g.categoryCopy[key], category?.seo?.description].filter(Boolean).join(' ') : g.heroBody}
         actions={
           <>
             <ButtonLink href="#collection-title">{g.heroPrimary}</ButtonLink>
@@ -186,7 +187,7 @@ export function GalleryView({ gallery, chrome }: { gallery: Gallery; chrome: Chr
                   return (
                     <article key={exp.id} className={s.moment}>
                       <SmartLink href={url} className={s.momentVisual} tabIndex={-1} aria-hidden="true">
-                        {image && <Image src={image} alt="" fill sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw" />}
+                        {image && <Image src={image} alt={exp.name} fill sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw" />}
                       </SmartLink>
                       <span className={s.momentIndex}>{pad(i + 1)} / {exp.group?.name ?? g.momentFallbackTag}</span>
                       <h3><SmartLink href={url}>{exp.name}</SmartLink></h3>

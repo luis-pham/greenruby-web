@@ -47,8 +47,8 @@ export function pageMetadata({
         [other]: absoluteUrl(alternatePath),
         'x-default': absoluteUrl(locale === 'en' ? path : alternatePath),
       }
-    : // No exact counterpart in the other language: declare the page's own language only (as the Laravel site did).
-      { [locale]: url };
+    : // No exact counterpart in the other language: the page's own language, which is also the default.
+      { [locale]: url, 'x-default': url };
   // Pages without their own image share the Laravel site's default social card (frontend.organizationLogoSocial).
   // Social cards are JPEG (fm=jpg): /thumbnail serves WebP by default, which LinkedIn and some chat apps don't preview.
   const images = image

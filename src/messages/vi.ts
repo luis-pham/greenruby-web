@@ -615,7 +615,7 @@ const vi: Messages = {
     title: 'Cùng lên kế hoạch cho',
     titleEm: 'một chuyến đi đẹp.',
     intro:
-      'Dù là một dịp đặc biệt, một hạng phòng bạn yêu thích hay câu hỏi về việc di chuyển, đội ngũ đặt chỗ luôn sẵn lòng hỗ trợ.',
+      'Dù là một dịp đặc biệt, một hạng phòng bạn yêu thích hay câu hỏi về việc di chuyển, đội ngũ đặt chỗ luôn sẵn lòng hỗ trợ. Chúng tôi lên kế hoạch cho mọi hành trình Green Ruby trên Vịnh Hạ Long và Lan Hạ: ngày đi và hạng phòng, xe đón từ Hà Nội, yêu cầu ăn uống, thuê trọn tàu và các dịp kỷ niệm trên tàu.',
     formEyebrow: 'Gửi lời nhắn',
     formHeading: 'Kể cho chúng tôi về chuyến đi của bạn.',
     fields: {

@@ -78,10 +78,11 @@ export function BlogListView({ chrome, list, search }: { chrome: Chrome; list: A
     return `${searchPath(locale)}?${query}`;
   };
 
-  const filters = filterCategories(list);
+  // Empty categories are noindex: don't link them from the filter bar or topics (unless you are on one).
   const activeSlug = search ? search.category : (category?.slug ?? null);
+  const filters = filterCategories(list).filter((n) => n.count > 0 || n.slug === activeSlug);
   const formCategory = search ? search.category : (category?.slug ?? null);
-  const topics = list.categories.slice(0, 5);
+  const topics = list.categories.filter((n) => n.count > 0).slice(0, 5);
   const knownImages = linked(locale, [...list.featured, ...list.items, ...list.popular]);
   const topicImage = (node: CategoryNode, i: number) =>
     knownImages.find((a) => a.image && (a.category.id === node.id || node.children.some((c) => c.id === a.category.id)))?.image ?? PHOTOS.topics[i % PHOTOS.topics.length];
@@ -136,6 +137,7 @@ export function BlogListView({ chrome, list, search }: { chrome: Chrome; list: A
               </span>
             </p>
 
+            {(feature || grid.length > 0) && <h2 className="sr-only">{m.latest}</h2>}
             {feature && <FeatureCard article={feature} locale={locale} />}
 
             {grid.length > 0 && (

@@ -615,7 +615,7 @@ const en = {
     title: 'Let’s plan something',
     titleEm: 'beautiful.',
     intro:
-      'Whether it is a special occasion, a particular suite or a question about your arrival, our reservations team would be delighted to help.',
+      'Whether it is a special occasion, a particular suite or a question about your arrival, our reservations team would be delighted to help. We plan every Green Ruby voyage on Ha Long Bay and Lan Ha Bay: dates and cabins, transfers from Hanoi, dietary requests, private charters and celebrations on board.',
     formEyebrow: 'Send us a message',
     formHeading: 'Tell us about your journey.',
     fields: {

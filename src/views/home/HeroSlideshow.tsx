@@ -85,7 +85,7 @@ export function HeroSlideshow({
             fill
             preload={i === 0}
             sizes="100vw"
-            quality={80}
+            quality={75}
             className={`${s.heroImage} ${i === active ? s.heroImageActive : ''}`}
           />
         ))}

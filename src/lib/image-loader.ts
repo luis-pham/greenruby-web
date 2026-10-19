@@ -10,5 +10,5 @@ const mediaOrigin = process.env.NEXT_PUBLIC_MEDIA_ORIGIN ?? '';
 export default function thumbnailLoader({ src, width, quality }: ImageLoaderProps): string {
   if (/^https?:\/\//.test(src) || src.endsWith('.svg')) return src;
   const path = src.startsWith('/') ? src : `/${src}`;
-  return `${mediaOrigin}/thumbnail${path}?w=${width}&q=${quality ?? 80}`;
+  return `${mediaOrigin}/thumbnail${path}?w=${width}&q=${quality ?? 75}`;
 }
