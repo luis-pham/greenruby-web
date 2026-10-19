@@ -9,6 +9,15 @@ import { CruiseView } from './CruiseView';
 
 type Params = { params: Promise<{ file: string }> };
 
+// app_cruise has no seo_title column yet, so the API falls back to the bare ship name.
+// Keyed by CMS cruise id (ids differ per language). GR1 sails Ha Long Bay, GR2 Lan Ha Bay.
+const SEO_TITLES: Record<number, string> = {
+  3: 'Green Ruby 1 – Luxury Ha Long Bay Cruise, 46 Cabins',
+  4: 'Green Ruby 2 – Quiet Luxury Cruise on Lan Ha Bay',
+  1: 'Green Ruby 1 – Du Thuyền Hạng Sang Vịnh Hạ Long',
+  2: 'Green Ruby 2 – Du Thuyền Sang Trọng Vịnh Lan Hạ',
+};
+
 async function load(locale: Locale, file: string) {
   const parsed = parseDetailFile(file);
   const cruise = parsed ? await getCruise(parsed.id, locale) : null;
@@ -32,7 +41,7 @@ export function cruiseRoute(locale: Locale) {
     return pageMetadata({
       locale,
       site: siteInfo(site),
-      title: cruise.seo.title ?? cruise.name,
+      title: SEO_TITLES[cruise.id] ?? cruise.seo.title ?? cruise.name,
       description: cruise.seo.description ?? cruise.summary ?? undefined,
       path: canonicalPath,
       alternatePath: alternateOf(cruise),
