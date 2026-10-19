@@ -188,7 +188,7 @@
 
 .noResults { padding: 71px 25px; background: var(--bg-surface); border: 1px solid var(--border-default); text-align: center; }
 .smallMark { color: var(--color-gold-200); font: var(--font-weight-regular) 55px/1 var(--font-family-serif); }
-.noResults h3 { margin: 18px 0 10px; font-size: clamp(28px, 2.6vw, 35px); }
+.noResults h3, .noResultsTitle { margin: 18px 0 10px; font-size: clamp(28px, 2.6vw, 35px); }
 .noResults p { max-width: 440px; margin: 0 auto 23px; color: var(--text-muted); font-size: var(--font-size-sm); line-height: 1.85; }
 
 .pagination { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px; margin-top: 48px; font-size: var(--font-size-xs); font-weight: var(--font-weight-bold); letter-spacing: 0.08em; }

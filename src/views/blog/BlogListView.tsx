@@ -153,7 +153,7 @@ export function BlogListView({ chrome, list, search }: { chrome: Chrome; list: A
             {shown === 0 && (
               <div className={s.noResults}>
                 <div className={s.smallMark} aria-hidden="true">{m.emptyMark}</div>
-                <h3>{search ? (search.keyword ? m.searchNoResultsTitle : m.searchEmptyTitle) : m.emptyTitle}</h3>
+                <h2 className={s.noResultsTitle}>{search ? (search.keyword ? m.searchNoResultsTitle : m.searchEmptyTitle) : m.emptyTitle}</h2>
                 <p>{search ? (search.keyword ? m.searchNoResults : m.searchHint) : category ? m.emptyBody : m.emptyBodyAll}</p>
                 {category || search ? (
                   <ButtonLink href={blogHref} variant="dark">{m.emptyCtaAll}</ButtonLink>
