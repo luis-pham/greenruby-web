@@ -66,8 +66,10 @@ export function CabinView({ cabin, cruise, chrome }: { cabin: Cabin; cruise: Cru
         subtitle={cabin.summary}
         actions={
           <>
-            <ButtonLink href={bookingUrl}>{c.checkAvailability}</ButtonLink>
             <TextLink href={cruiseUrl} inverse>{`${c.discoverShip} ${cabin.cruise.name}`}</TextLink>
+            <div className={s.heroBooking}>
+              <Booking locale={locale} site={chrome.site} scope={{ cruiseId: cabin.cruise.id }} cabinId={cabin.id} layout="bar" />
+            </div>
           </>
         }
       />
@@ -128,9 +130,6 @@ export function CabinView({ cabin, cruise, chrome }: { cabin: Cabin; cruise: Cru
                   <div className={s.glanceRow}><dt>{c.glance.suitableFor}</dt><dd>{cabin.suitableFor.map((a) => a.name).join(', ')}</dd></div>
                 )}
               </dl>
-              <div className={s.glanceBooking}>
-                <Booking locale={locale} site={chrome.site} scope={{ cruiseId: cabin.cruise.id }} cabinId={cabin.id} layout="panel" />
-              </div>
             </aside>
           </div>
         </section>
