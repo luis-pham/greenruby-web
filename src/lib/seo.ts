@@ -55,6 +55,9 @@ export function pageMetadata({
     ? [{ url: `${absoluteImageUrl(image, 1200, 630)}&fm=jpg`, width: 1200, height: 630, alt: fullTitle }]
     : [{ url: absoluteUrl(DEFAULT_SOCIAL_IMAGE), width: 1200, height: 627, alt: fullTitle }];
 
+  // twitter:site / creator from the X profile in the CMS socials (ad_config "twitter").
+  const xHandle = site.socials.find((x) => x.name === 'twitter')?.url.match(/(?:x|twitter)\.com\/@?([A-Za-z0-9_]+)/)?.[1];
+
   return {
     title: fullTitle,
     description,
@@ -69,7 +72,13 @@ export function pageMetadata({
       ...(alternatePath && { alternateLocale: other === 'vi' ? 'vi_VN' : 'en_US' }),
       images,
     },
-    twitter: { card: 'summary_large_image', title: fullTitle, description, images: images.map((i) => i.url) },
+    twitter: {
+      card: 'summary_large_image',
+      title: fullTitle,
+      description,
+      images: images.map((i) => i.url),
+      ...(xHandle && { site: `@${xHandle}`, creator: `@${xHandle}` }),
+    },
     robots: noIndex || site.noIndex ? { index: false, follow: true } : undefined,
     ...(site.icon && { icons: { icon: site.icon, apple: site.icon } }),
   };
