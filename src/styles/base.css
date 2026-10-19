@@ -54,3 +54,8 @@ html:root {
   --font-family-serif: var(--font-playfair), Georgia, serif;
   --font-family-sans: var(--font-dm-sans), Arial, sans-serif;
 }
+
+/* Mobile booking bar (components/booking) is fixed to the bottom: keep the footer clear of it. */
+@media (max-width: 900px) {
+  html[data-booking-bar] body { padding-bottom: 72px; }
+}

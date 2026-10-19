@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { Booking } from '@/components/booking';
 import { PageHero, SiteFooter, type Chrome } from '@/components/layout';
 import { FaqList } from '@/components/sections/Faq';
 import { organizationRef } from '@/lib/organization';
@@ -140,10 +141,8 @@ export function ItineraryView({ itinerary: it, chrome }: { itinerary: Itinerary;
                       </a>
                     ))}
                   </nav>
-                  <div className={s.sideCard}>
-                    <h3>{d.sideTitle}</h3>
-                    <p>{d.sideBody}</p>
-                    <ButtonLink href={bookingUrl} variant="dark">{d.checkAvailability}</ButtonLink>
+                  <div className={s.sideBooking}>
+                    <Booking locale={locale} site={site} scope={{ itinerary: { cruiseId: it.cruiseId, itineraryId: it.itineraryId } }} layout="panel" />
                   </div>
                 </aside>
                 <div>
@@ -270,6 +269,7 @@ export function ItineraryView({ itinerary: it, chrome }: { itinerary: Itinerary;
             </div>
           </div>
         </section>
+        <Booking locale={locale} site={site} scope={{ itinerary: { cruiseId: it.cruiseId, itineraryId: it.itineraryId } }} layout="mobile" />
       </main>
 
       <SiteFooter {...chrome} />

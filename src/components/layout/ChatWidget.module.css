@@ -101,3 +101,8 @@ a.channel:focus-visible .icon { outline: 2px solid var(--action-primary); outlin
   .toggle::after { animation: none; }
   .channels li, .toggle { transition: none; }
 }
+
+/* Pages with the mobile booking bar (components/booking) set html[data-booking-bar]: sit above it. */
+@media (max-width: 900px) {
+  :global(html[data-booking-bar]) .widget { bottom: calc(76px + env(safe-area-inset-bottom)); }
+}

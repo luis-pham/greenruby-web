@@ -50,6 +50,7 @@
 .dayNav a { display: flex; align-items: center; gap: 16px; padding: 17px 8px; border-bottom: 1px solid #dfe2d9; color: var(--text-muted); font-size: 13px; transition: color var(--motion-duration-fast), background var(--motion-duration-fast); }
 .dayNav a:hover { color: var(--text-heading); background: #ebe9df; }
 .dayNav a span { font: var(--font-weight-regular) 27px var(--font-family-serif); }
+.sideBooking { position: sticky; top: 24px; margin-top: 28px; }
 .sideCard { padding: 26px 24px; background: var(--bg-surface); border-top: 2px solid var(--action-primary); }
 .sideCard h3 { margin: 0 0 8px; font-size: 22px; }
 .sideCard p { margin: 0 0 18px; color: var(--text-muted); font-size: 13px; line-height: 1.7; }
@@ -135,7 +136,7 @@
   .dayNav { flex-direction: row; gap: 7px; }
   .dayNav a { flex: 1; justify-content: center; border: 1px solid #dadbd1; padding: 12px; }
   .dayNav a small { display: none; }
-  .sideCard { display: none; }
+  .sideCard, .sideBooking { display: none; }
   .inclusionsGrid { gap: 18px; }
   .faqLayout { gap: 45px; }
 }

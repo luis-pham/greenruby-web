@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { Booking } from '@/components/booking';
 import { PageHero, SiteFooter, type Chrome } from '@/components/layout';
 import { organizationRef } from '@/lib/organization';
 import { JsonLd } from '@/components/seo/JsonLd';
@@ -69,6 +70,11 @@ export function CruiseView({ cruise, index, chrome }: { cruise: Cruise; index: n
           <>
             {cruise.cabins.length > 0 && <ButtonLink href="#suites">{c.exploreSuites}</ButtonLink>}
             {cruise.itineraries.length > 0 && <TextLink href="#journeys" inverse>{c.discoverJourneys}</TextLink>}
+            {cruise.itineraries.length > 0 && (
+              <div className={cabinStyles.heroBooking}>
+                <Booking locale={locale} site={site} scope={{ cruiseId: cruise.id }} layout="bar" />
+              </div>
+            )}
           </>
         }
       />
@@ -305,6 +311,7 @@ export function CruiseView({ cruise, index, chrome }: { cruise: Cruise; index: n
             </div>
           </div>
         </section>
+        {cruise.itineraries.length > 0 && <Booking locale={locale} site={site} scope={{ cruiseId: cruise.id }} layout="mobile" />}
       </main>
 
       <SiteFooter {...chrome} />

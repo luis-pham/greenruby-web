@@ -1,3 +1,4 @@
+import { Booking } from '@/components/booking';
 import Image from 'next/image';
 import type { ReactNode } from 'react';
 import { SiteFooter, SiteNav, Topbar, type Chrome } from '@/components/layout';
@@ -94,6 +95,9 @@ export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
             <div className={s.heroCtas}>
               <ButtonLink href="#journeys">{h.heroPrimary}</ButtonLink>
               <TextLink href="#fleet" inverse>{h.heroSecondary}</TextLink>
+              <div className={s.heroBooking}>
+                <Booking locale={locale} site={site} scope="all" layout="bar" />
+              </div>
             </div>
           }
           labels={h.heroSlides}

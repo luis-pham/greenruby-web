@@ -67,6 +67,7 @@
 .glanceRow dt { color: var(--text-muted); font-size: var(--font-size-label); font-weight: var(--font-weight-bold); letter-spacing: 0.12em; text-transform: uppercase; padding-top: 2px; }
 .glanceRow dd { margin: 0; color: var(--text-heading); line-height: 1.6; }
 .glance .glanceCta { margin-top: 24px; width: 100%; }
+.glanceBooking { margin: 24px -32px -30px; }
 
 /* ---------- The space (rooms) ---------- */
 .rooms { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 0 40px; }
@@ -160,7 +161,11 @@
   .factValue { font-size: 22px; }
   .subnav { margin-top: 28px; gap: 28px; }
   .glance { padding: 28px 22px; }
+  .glanceBooking { margin: 24px -22px -28px; }
   .glanceRow { grid-template-columns: 1fr; gap: 4px; }
   .cards { grid-template-columns: 1fr; }
   .galleryItem, .galleryItem:first-child { grid-column: span 12; }
 }
+
+/* Cruise page hero: booking bar under the hero links (CruiseView reuses this module). */
+.heroBooking { flex-basis: 100%; width: 100%; margin-top: 28px; }

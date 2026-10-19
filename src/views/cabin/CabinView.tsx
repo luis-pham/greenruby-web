@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { Booking } from '@/components/booking';
 import { PageHero, SiteFooter, type Chrome } from '@/components/layout';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, SectionHeading, SmartLink, TextLink } from '@/components/ui';
@@ -123,7 +124,9 @@ export function CabinView({ cabin, chrome }: { cabin: Cabin; chrome: Chrome }) {
                   <div className={s.glanceRow}><dt>{c.glance.suitableFor}</dt><dd>{cabin.suitableFor.map((a) => a.name).join(', ')}</dd></div>
                 )}
               </dl>
-              <ButtonLink href={bookingUrl} variant="dark" className={s.glanceCta}>{c.checkAvailability}</ButtonLink>
+              <div className={s.glanceBooking}>
+                <Booking locale={locale} site={chrome.site} scope={{ cruiseId: cabin.cruise.id }} cabinId={cabin.id} layout="panel" />
+              </div>
             </aside>
           </div>
         </section>
@@ -262,6 +265,7 @@ export function CabinView({ cabin, chrome }: { cabin: Cabin; chrome: Chrome }) {
             </div>
           </div>
         </section>
+        <Booking locale={locale} site={chrome.site} scope={{ cruiseId: cabin.cruise.id }} cabinId={cabin.id} layout="mobile" />
       </main>
 
       <SiteFooter {...chrome} />
