@@ -76,7 +76,7 @@ export function AboutView({
   const community = c.enviromentList ?? [];
   const stats = [
     { value: c.statisticWastewaterTreated, suffix: '%', label: m.impact.wastewater },
-    { value: c.statisticReducedAnnually, suffix: '+', label: m.impact.co2 },
+    { value: c.statisticReducedAnnually, suffix: '', label: m.impact.co2 },
     { value: c.statisticRenewableSolarPower, suffix: ' kW', label: m.impact.solar },
   ].filter((x) => x.value != null && String(x.value).trim() !== '');
   const ctaImage = c.ecoFeaturedImage ?? banner?.src ?? null;

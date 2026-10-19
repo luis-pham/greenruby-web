@@ -61,8 +61,8 @@ const en = {
   impact: {
     eyebrow: 'Our impact',
     wastewater: 'Wastewater treated',
-    co2: 'Tons of CO₂ reduced annually',
-    solar: 'Renewable solar power',
+    co2: 'Tonnes of CO₂ avoided a year (solar, estimate)',
+    solar: 'Rooftop solar array',
   },
   community: {
     eyebrow: 'Beyond the vessel',
@@ -95,10 +95,10 @@ const en = {
     secondary: 'Talk to our team',
   },
   honest: {
-    solar: 'Solar panels are designed to help power lighting, water heating and onboard systems during daylight hours. Savings will be reported once they have been measured in operation.',
-    water: 'Onboard biological wastewater treatment is designed to process wastewater before discharge, with the aim of protecting the delicate marine habitats of the bay.',
+    solar: 'A ~70 kW rooftop solar array helps power lighting, water heating and onboard systems by day. With seawater-cooled air conditioning, it is designed to cut onboard energy use by around 40%; measured savings will be reported once we are sailing.',
+    water: '100% of wastewater goes through biological treatment on board before it is discharged, to protect the delicate marine habitats of the bay.',
     plastic: 'Refillable bottles, bulk guest amenities and reduced-plastic supplier packaging are part of our plan for everyday operations on board.',
-    energy: 'Heat recovery is designed to reuse energy from engines and generators for water heating and climate control, rather than letting it go to waste.',
+    energy: 'A heat recovery system reuses waste heat from the engines and generators for water heating and climate control, rather than letting it go to waste.',
     local: 'We aim to source provisions from local fishermen and farmers wherever we can, and to give priority to local talent when recruiting and training our crew.',
     cleanup: "We plan shoreline cleanups that guests can join, alongside onboard talks about the bay's ecosystem and how travellers can lighten their impact.",
     culture: 'We hope to support environmental learning in local schools, pathways into maritime careers for young people, and collaborations that keep the crafts and traditions of the bay alive.',
@@ -164,8 +164,8 @@ const vi: AboutMessages = {
   impact: {
     eyebrow: 'Tác động',
     wastewater: 'Nước thải được xử lý',
-    co2: 'Tấn CO₂ giảm mỗi năm',
-    solar: 'Điện mặt trời tái tạo',
+    co2: 'Tấn CO₂ giảm mỗi năm (pin mặt trời, ước tính)',
+    solar: 'Dàn pin mặt trời trên mái',
   },
   community: {
     eyebrow: 'Vượt ra ngoài con tàu',
@@ -198,10 +198,10 @@ const vi: AboutMessages = {
     secondary: 'Trao đổi với chúng tôi',
   },
   honest: {
-    solar: 'Hệ thống pin mặt trời được thiết kế để hỗ trợ cấp điện cho chiếu sáng, đun nước nóng và các hệ thống trên tàu vào ban ngày. Mức tiết kiệm sẽ được công bố sau khi đo đạc trong thực tế vận hành.',
-    water: 'Hệ thống xử lý nước thải sinh học trên tàu được thiết kế để xử lý nước thải trước khi xả, nhằm bảo vệ hệ sinh thái biển nhạy cảm của vịnh.',
+    solar: 'Dàn pin mặt trời ~70 kW trên mái hỗ trợ cấp điện cho chiếu sáng, đun nước nóng và các hệ thống trên tàu vào ban ngày. Cùng với điều hoà làm mát bằng nước biển, mức giảm điện năng ước tính khoảng 40%; số đo thực tế sẽ được công bố khi tàu vận hành.',
+    water: '100% nước thải được xử lý qua hệ thống sinh học trên tàu trước khi xả ra ngoài, để bảo vệ hệ sinh thái biển nhạy cảm của vịnh.',
     plastic: 'Bình nước dùng nhiều lần, đồ dùng phòng tắm dạng chai lớn và bao bì ít nhựa từ nhà cung cấp là một phần trong kế hoạch vận hành hằng ngày trên tàu.',
-    energy: 'Hệ thống thu hồi nhiệt được thiết kế để tận dụng năng lượng từ động cơ và máy phát cho việc đun nước nóng và điều hòa, thay vì để lãng phí.',
+    energy: 'Hệ thống thu hồi nhiệt tận dụng nhiệt thải từ động cơ và máy phát để đun nước nóng và điều hoà, thay vì để lãng phí.',
     local: 'Chúng tôi hướng tới việc mua thực phẩm từ ngư dân và nông dân địa phương khi có thể, đồng thời ưu tiên tuyển dụng và đào tạo nhân sự tại chỗ.',
     cleanup: 'Chúng tôi dự kiến tổ chức các buổi làm sạch bờ biển để du khách cùng tham gia, cùng những buổi trò chuyện trên tàu về hệ sinh thái của vịnh và cách giảm tác động khi du lịch.',
     culture: 'Chúng tôi mong muốn hỗ trợ giáo dục môi trường tại các trường học địa phương, mở lối vào nghề đi biển cho người trẻ và những hợp tác giúp gìn giữ nghề thủ công cùng truyền thống của vùng vịnh.',
