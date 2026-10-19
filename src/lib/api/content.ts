@@ -63,7 +63,8 @@ export async function listItineraries(locale: Locale) {
 export async function getItinerary(cruiseId: number, itineraryId: number, locale: Locale) {
   'use cache';
   cacheLife('hours');
-  cacheTag('content', 'itineraries', `itinerary:${itineraryId}`, `cruise:${cruiseId}`, 'cabins', 'services', 'experiences');
+  // 'faqs': itinerary pages show FAQs picked in the itinerary form; editing an FAQ must refresh them.
+  cacheTag('content', 'itineraries', `itinerary:${itineraryId}`, `cruise:${cruiseId}`, 'cabins', 'services', 'experiences', 'faqs');
   return getContent(`/itineraries/${cruiseId}/${itineraryId}`, { lang: locale }, itinerarySchema);
 }
 
