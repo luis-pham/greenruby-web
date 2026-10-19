@@ -259,12 +259,20 @@ a.langOption:focus-visible { color: var(--text-inverse-accent); background: rgba
   letter-spacing: -0.055em;
 }
 .heroTitle em { color: var(--text-inverse-accent); }
+/* Detail pages (cruise, cabin, itinerary): a readable lead under the serif H1, never more than 3 lines
+   (the full text is repeated in the intro section below). */
 .heroSubtitle {
-  margin: 0 0 21px;
-  max-width: 640px;
-  font-family: var(--font-family-serif);
-  font-size: clamp(22px, 2.4vw, 34px);
-  line-height: 1.3;
+  display: -webkit-box;
+  margin: 0 0 26px;
+  max-width: 560px;
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.88);
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-md);
+  line-height: 1.7;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
 }
 .heroDescription { margin: 0 0 31px; max-width: 480px; color: var(--color-green-100); font-size: 14px; line-height: 1.9; }
 .heroActions { display: flex; align-items: center; gap: 27px; flex-wrap: wrap; }
@@ -379,7 +387,7 @@ a.langOption:focus-visible { color: var(--text-inverse-accent); background: rgba
   .heroBody { padding-top: 72px; padding-bottom: 109px; }
   .breadcrumb ol { margin-bottom: 40px; }
   .heroTitle { font-size: clamp(46px, 12vw, 72px); line-height: 1.06; }
-  .heroSubtitle { font-size: 24px; }
+  .heroSubtitle { font-size: 16px; }
   .heroDescription { font-size: 13px; }
   .heroActions { align-items: flex-start; gap: 17px; }
 }

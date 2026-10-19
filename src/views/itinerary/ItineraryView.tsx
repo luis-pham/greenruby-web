@@ -41,7 +41,7 @@ export function ItineraryView({ itinerary: it, chrome }: { itinerary: Itinerary;
         ]}
         eyebrow={[bayName, it.cruise.name, d.durationLabel(it.duration)].filter(Boolean).join(' · ')}
         title={it.name}
-        description={it.description}
+        subtitle={it.description}
         actions={
           <>
             <TextLink href="#schedule" inverse>{d.exploreDays(it.duration)}</TextLink>
