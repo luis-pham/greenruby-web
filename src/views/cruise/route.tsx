@@ -12,10 +12,10 @@ type Params = { params: Promise<{ file: string }> };
 // app_cruise has no seo_title column yet, so the API falls back to the bare ship name.
 // Keyed by CMS cruise id (ids differ per language). GR1 sails Ha Long Bay, GR2 Lan Ha Bay.
 const SEO_TITLES: Record<number, string> = {
-  3: 'Green Ruby 1 – Luxury Ha Long Bay Cruise, 46 Cabins',
-  4: 'Green Ruby 2 – Quiet Luxury Cruise on Lan Ha Bay',
-  1: 'Green Ruby 1 – Du Thuyền Hạng Sang Vịnh Hạ Long',
-  2: 'Green Ruby 2 – Du Thuyền Sang Trọng Vịnh Lan Hạ',
+  3: 'Green Ruby 1 | Luxury Ha Long Bay Cruise, 46 Cabins',
+  4: 'Green Ruby 2 | Quiet Luxury Cruise on Lan Ha Bay',
+  1: 'Green Ruby 1 | Du Thuyền Hạng Sang Vịnh Hạ Long',
+  2: 'Green Ruby 2 | Du Thuyền Sang Trọng Vịnh Lan Hạ',
 };
 
 async function load(locale: Locale, file: string) {
