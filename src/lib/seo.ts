@@ -50,9 +50,10 @@ export function pageMetadata({
     : // No exact counterpart in the other language: declare the page's own language only (as the Laravel site did).
       { [locale]: url };
   // Pages without their own image share the Laravel site's default social card (frontend.organizationLogoSocial).
+  // Social cards are JPEG (fm=jpg): /thumbnail serves WebP by default, which LinkedIn and some chat apps don't preview.
   const images = image
-    ? [{ url: absoluteImageUrl(image, 1200, 630), width: 1200, height: 630 }]
-    : [{ url: absoluteUrl(DEFAULT_SOCIAL_IMAGE), width: 1200, height: 627 }];
+    ? [{ url: `${absoluteImageUrl(image, 1200, 630)}&fm=jpg`, width: 1200, height: 630, alt: fullTitle }]
+    : [{ url: absoluteUrl(DEFAULT_SOCIAL_IMAGE), width: 1200, height: 627, alt: fullTitle }];
 
   return {
     title: fullTitle,
@@ -65,6 +66,7 @@ export function pageMetadata({
       description,
       url,
       locale: locale === 'vi' ? 'vi_VN' : 'en_US',
+      ...(alternatePath && { alternateLocale: other === 'vi' ? 'vi_VN' : 'en_US' }),
       images,
     },
     twitter: { card: 'summary_large_image', title: fullTitle, description, images: images.map((i) => i.url) },
