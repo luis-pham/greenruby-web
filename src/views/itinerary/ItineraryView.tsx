@@ -44,7 +44,7 @@ export function ItineraryView({ itinerary: it, chrome }: { itinerary: Itinerary;
         description={it.description}
         actions={
           <>
-            <ButtonLink href="#schedule">{d.exploreDays(it.duration)}</ButtonLink>
+            <TextLink href="#schedule" inverse>{d.exploreDays(it.duration)}</TextLink>
             <div className={s.heroBooking}>
               <Booking locale={locale} site={site} scope={{ itinerary: { cruiseId: it.cruiseId, itineraryId: it.itineraryId } }} layout="bar" />
             </div>

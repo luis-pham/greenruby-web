@@ -502,4 +502,4 @@
 @keyframes heroProgressX { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
 /* Hero search: voyage + departure date + CTA into the booking wizard. */
-.heroBooking { flex-basis: 100%; width: 100%; margin-top: 30px; }
+.heroBooking { flex-basis: 100%; width: 100%; margin-top: 22px; }

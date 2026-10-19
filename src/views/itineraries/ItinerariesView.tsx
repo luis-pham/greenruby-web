@@ -50,7 +50,7 @@ export function ItinerariesView({
         description={l.heroBody}
         actions={
           <>
-            <ButtonLink href="#journeys">{l.heroPrimary}</ButtonLink>
+            <TextLink href="#journeys" inverse>{l.heroPrimary}</TextLink>
             {durations.length > 1 && <TextLink href="#compare" inverse>{l.heroSecondary}</TextLink>}
             <div className={s.heroBooking}>
               <Booking locale={locale} site={chrome.site} scope="all" layout="bar" />

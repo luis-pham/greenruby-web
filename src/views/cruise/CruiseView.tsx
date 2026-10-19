@@ -68,7 +68,7 @@ export function CruiseView({ cruise, index, chrome }: { cruise: Cruise; index: n
         subtitle={cruise.summary}
         actions={
           <>
-            {cruise.cabins.length > 0 && <ButtonLink href="#suites">{c.exploreSuites}</ButtonLink>}
+            {cruise.cabins.length > 0 && <TextLink href="#suites" inverse>{c.exploreSuites}</TextLink>}
             {cruise.itineraries.length > 0 && <TextLink href="#journeys" inverse>{c.discoverJourneys}</TextLink>}
             {cruise.itineraries.length > 0 && (
               <div className={cabinStyles.heroBooking}>

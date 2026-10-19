@@ -93,7 +93,7 @@ export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
           }
           actions={
             <div className={s.heroCtas}>
-              <ButtonLink href="#journeys">{h.heroPrimary}</ButtonLink>
+              {/* The booking bar below is the hero's one call to action; the vessels link stays as a quiet alternative. */}
               <TextLink href="#fleet" inverse>{h.heroSecondary}</TextLink>
               <div className={s.heroBooking}>
                 <Booking locale={locale} site={site} scope="all" layout="bar" />
