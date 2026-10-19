@@ -36,6 +36,9 @@ export function organizationSchema(site: Site, extra: Record<string, unknown> = 
     '@type': ['Organization', 'LocalBusiness'],
     '@id': ORGANIZATION_ID,
     name: info.name,
+    // Registered company behind the brand (owner-confirmed 2026-10-20).
+    legalName: 'TPX JOINT STOCK COMPANY',
+    taxID: '5702096485',
     url: siteUrl,
     ...(info.logo && { logo: `${siteUrl}${info.logo}` }),
     ...(description && { description }),

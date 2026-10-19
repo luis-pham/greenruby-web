@@ -43,6 +43,7 @@ const vi: Messages = {
       greenTechnology: 'Công nghệ xanh',
       greenGlobe: 'Green Globe',
       ecoDashboard: 'Bảng điều khiển Eco',
+      brandFacts: 'Thông tin doanh nghiệp',
     },
     copyright: 'Bản quyền © 2026 Green Ruby Cruises. Mọi quyền được bảo lưu.',
     privacy: 'Quyền riêng tư',

@@ -23,6 +23,7 @@ const segments = {
   paymentMethods: { en: 'payment-methods', vi: 'phuong-thuc-thanh-toan' },
   cookiePolicy: { en: 'cookie-policy', vi: 'chinh-sach-cookie' },
   ecoDashboard: { en: 'eco-dashboard', vi: 'bao-cao-sinh-thai' },
+  brandFacts: { en: 'about-us/brand-facts', vi: 'gioi-thieu/thong-tin-thuong-hieu' },
 } as const;
 
 export type Section = keyof typeof segments;

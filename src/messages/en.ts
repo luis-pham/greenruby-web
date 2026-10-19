@@ -41,6 +41,7 @@ const en = {
       greenTechnology: 'Green Technology',
       greenGlobe: 'Green Globe',
       ecoDashboard: 'Eco Dashboard',
+      brandFacts: 'Company & fleet facts',
     },
     copyright: 'Copyright © 2026 Green Ruby Cruises. All rights reserved.',
     privacy: 'Privacy',

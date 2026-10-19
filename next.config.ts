@@ -17,6 +17,8 @@ const nextConfig: NextConfig = {
     return [
       { source: '/en', destination: '/', permanent: true },
       { source: '/en/:path*', destination: '/:path*', permanent: true },
+      // Early drafts of the brand facts page used /about/brand-facts.
+      { source: '/about/brand-facts', destination: '/about-us/brand-facts', permanent: true },
     ];
   },
   async rewrites() {

@@ -317,6 +317,7 @@ function footerColumns(locale: Locale, t: Messages): { title: string; links: Foo
       title: t.footer.columns.about,
       links: [
         { label: f.aboutUs, href: p('aboutUs') },
+        { label: f.brandFacts, href: p('brandFacts') },
         { label: f.contactUs, href: p('contact') },
         { label: f.blog, href: p('blog') },
         { label: f.gallery, href: p('gallery') },
