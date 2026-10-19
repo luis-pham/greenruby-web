@@ -179,9 +179,10 @@ export function CruiseView({ cruise, index, chrome }: { cruise: Cruise; index: n
                   ))}
                 </ul>
               </div>
-              {cruise.amenities.length > 0 && (
+              {/* Four featured spaces above; every other space and amenity is still listed here. */}
+              {cruise.facilities.length + cruise.amenities.length > 4 && (
                 <div className={s.onboardExtra}>
-                  <p><strong>{c.alsoOnBoard}:</strong> {cruise.amenities.map((a) => a.name).join(' · ')}</p>
+                  <p><strong>{c.alsoOnBoard}:</strong> {[...cruise.facilities.slice(4).map((f) => f.name), ...cruise.amenities.map((a) => a.name)].join(' · ')}</p>
                   {cruise.services.included.length + cruise.services.optional.length > 0 && (
                     <TextLink href="#services" inverse>{c.tabs.services}</TextLink>
                   )}
