@@ -225,7 +225,16 @@ export function BookingBar({ locale, data, cabinId }: Omit<Props, 'contact'>) {
           </div>
         )}
       </div>
-      <div className={s.barPrice}><Price option={option} locale={locale} t={t} /></div>
+      <div className={s.barField}>
+        <span className={s.barLabel}>{option?.fromPrice ? t.from : t.priceLabel}</span>
+        <span className={s.barValue}>
+          {option?.fromPrice ? (
+            <><strong>{formatMoney(option.fromPrice, option.currency, locale)}</strong> {t.perCabin}</>
+          ) : (
+            t.onRequest
+          )}
+        </span>
+      </div>
       <a href={bookingHref(locale, option, cabinId, date)} className={s.cta} onClick={() => track(option, date, cabinId)}>
         {hasDates ? t.check : t.request} <span aria-hidden="true">→</span>
       </a>

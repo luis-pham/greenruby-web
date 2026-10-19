@@ -113,7 +113,7 @@
 }
 .bar > .demo { position: absolute; top: -28px; left: 0; margin: 0; background: var(--bg-surface); }
 .barField { position: relative; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
-.barField label { color: var(--text-muted); font-size: var(--font-size-label); font-weight: var(--font-weight-semibold); letter-spacing: 0.12em; text-transform: uppercase; }
+.barField label, .barLabel { color: var(--text-muted); font-size: var(--font-size-label); font-weight: var(--font-weight-semibold); letter-spacing: 0.12em; text-transform: uppercase; }
 .barField select, .barDate {
   width: 100%;
   min-height: var(--size-control-sm);
@@ -126,7 +126,17 @@
   cursor: pointer;
 }
 .barDate:disabled { color: var(--text-muted); cursor: default; }
-.barPrice .price strong { font-size: 22px; }
+.barValue {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: var(--size-control-sm);
+  color: var(--text-heading);
+  font: 14px var(--font-family-sans);
+  white-space: nowrap;
+}
+.barValue strong { font: var(--font-weight-regular) 22px/1 var(--font-family-serif); }
+.barValue:not(:has(strong)) { color: var(--text-body); }
 .popover { position: absolute; top: calc(100% + 8px); left: 0; z-index: var(--z-overlay); width: 300px; padding: 4px 14px 14px; background: var(--bg-surface); box-shadow: var(--shadow-lg); }
 
 /* Mobile sticky bar + sheet */
@@ -158,7 +168,6 @@
 
 @media (max-width: 900px) {
   .bar { grid-template-columns: 1fr 1fr; }
-  .barPrice { grid-column: 1; }
   .bar .cta { grid-column: 2; }
   .mobileBar {
     position: fixed;
@@ -179,7 +188,7 @@
 }
 @media (max-width: 560px) {
   .bar { grid-template-columns: 1fr; padding: 14px; }
-  .barPrice, .bar .cta { grid-column: auto; }
+  .bar .cta { grid-column: auto; }
   .bar .cta { width: 100%; }
   .popover { width: min(300px, calc(100vw - 60px)); }
 }
