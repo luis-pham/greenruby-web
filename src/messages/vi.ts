@@ -69,6 +69,16 @@ const vi: Messages = {
   },
   breadcrumb: { home: 'Trang chủ', label: 'Đường dẫn' },
   cabin: {
+    titleTag: (ship: string, bay: string | null) => (bay ? `trên ${ship} · ${bay}` : `trên ${ship}`),
+    voyagesEyebrow: 'Hành trình cùng phòng này',
+    voyagesHeading: (ship: string) => `Trên ${ship}`,
+    bayIntro: {
+      'ha-long': (cabin: string, ship: string) =>
+        `Trên ${ship}, ${cabin} đưa bạn khám phá Vịnh Hạ Long, di sản UNESCO: chèo kayak hoặc đi thuyền nan qua Hang Luồn, ngắm toàn cảnh vịnh từ đảo Ti Tốp, thăm Hang Sửng Sốt, và ngắm núi đá vôi ngay từ cửa sổ phòng giữa các chuyến tham quan.`,
+      'lan-ha': (cabin: string, ship: string) =>
+        `Trên ${ship}, ${cabin} đưa bạn đến Vịnh Lan Hạ yên tĩnh phía nam Hạ Long: chèo kayak khu Hang Sáng – Hang Tối, buổi sáng ở đầm Ao Ếch và, với hành trình 3 ngày, làng Việt Hải cùng bãi cát trắng, tránh xa những tuyến tàu đông đúc.`,
+    } as Record<string, (cabin: string, ship: string) => string>,
+    voyageCta: 'Xem lịch trình',
     eyebrowFallback: 'Không gian riêng',
     checkAvailability: 'Kiểm tra phòng trống',
     discoverShip: 'Khám phá',
@@ -343,6 +353,7 @@ const vi: Messages = {
     enquire: 'Liên hệ đội ngũ',
   },
   cruise: {
+    titleTag: { 'ha-long': 'Du thuyền hạng sang Vịnh Hạ Long', 'lan-ha': 'Du thuyền sang trọng Vịnh Lan Hạ' } as Record<string, string>,
     vessel: 'Du thuyền',
     exploreSuites: 'Khám phá các phòng',
     discoverJourneys: 'Xem hành trình',

@@ -64,7 +64,7 @@ export function CruiseView({ cruise, index, chrome }: { cruise: Cruise; index: n
         imageAlt={cruise.name}
         crumbs={[{ label: t.breadcrumb.home, href: homePath(locale) }, { label: cruise.name, href: url }]}
         eyebrow={[`${c.vessel} ${pad(index)}`, bayName].filter(Boolean).join(' · ')}
-        title={cruise.name}
+        title={<>{cruise.name}{cruise.bay && c.titleTag[cruise.bay] && <span className={cabinStyles.titleTag}>{c.titleTag[cruise.bay]}</span>}</>}
         subtitle={cruise.summary}
         actions={
           <>

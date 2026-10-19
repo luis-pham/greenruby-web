@@ -3,8 +3,8 @@ import { Booking } from '@/components/booking';
 import { PageHero, SiteFooter, type Chrome } from '@/components/layout';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, SectionHeading, SmartLink, TextLink } from '@/components/ui';
-import type { Cabin, CabinSummary } from '@/lib/api/schemas';
-import { detailPath, homePath, sectionPath, type Locale } from '@/lib/i18n';
+import type { Cabin, CabinSummary, Cruise } from '@/lib/api/schemas';
+import { detailPath, homePath, itineraryPath, sectionPath, type Locale } from '@/lib/i18n';
 import { absoluteImageUrl, absoluteUrl } from '@/lib/site-url';
 import s from './cabin.module.css';
 
@@ -22,9 +22,12 @@ function formatPrice(value: number, currency: 'USD' | 'VND', locale: Locale) {
 
 const pad = (n: number) => String(n).padStart(2, '0');
 
-export function CabinView({ cabin, chrome }: { cabin: Cabin; chrome: Chrome }) {
+export function CabinView({ cabin, cruise, chrome }: { cabin: Cabin; cruise: Cruise | null; chrome: Chrome }) {
   const { locale, t } = chrome;
   const c = t.cabin;
+  const bay = cruise?.bay ?? null;
+  const bayName = bay ? t.home.bays[bay] : null;
+  const voyages = cruise?.itineraries ?? [];
   const url = cabinPath(locale, cabin);
   const cruiseUrl = detailPath(locale, 'cruise', cabin.cruise.slug, cabin.cruise.id);
   const bookingUrl = `${sectionPath(locale, 'booking')}?cabin_id=${cabin.id}`;
@@ -39,6 +42,7 @@ export function CabinView({ cabin, chrome }: { cabin: Cabin; chrome: Chrome }) {
 
   const tabs = [
     { id: 'overview', label: c.tabs.overview, show: true },
+    { id: 'voyages', label: t.cruise.tabs.journeys, show: voyages.length > 0 },
     { id: 'space', label: c.tabs.space, show: cabin.rooms.length > 0 },
     { id: 'amenities', label: c.tabs.amenities, show: cabin.amenities.length > 0 },
     { id: 'gallery', label: c.tabs.gallery, show: photos.length > 1 },
@@ -58,7 +62,7 @@ export function CabinView({ cabin, chrome }: { cabin: Cabin; chrome: Chrome }) {
           { label: cabin.name, href: url },
         ]}
         eyebrow={[cabin.cabinClass, cabin.cruise.name].filter(Boolean).join(' · ') || c.eyebrowFallback}
-        title={cabin.name}
+        title={<>{cabin.name}<span className={s.titleTag}>{c.titleTag(cabin.cruise.name, bayName)}</span></>}
         subtitle={cabin.summary}
         actions={
           <>
@@ -130,6 +134,36 @@ export function CabinView({ cabin, chrome }: { cabin: Cabin; chrome: Chrome }) {
             </aside>
           </div>
         </section>
+
+        {voyages.length > 0 && (
+          <section className={cx(s.section, s.alt)} id="voyages" aria-labelledby="voyages-title">
+            <div className="container">
+              <SectionHeading
+                id="voyages-title"
+                eyebrow={c.voyagesEyebrow}
+                title={c.voyagesHeading(cabin.cruise.name)}
+                description={bay && c.bayIntro[bay] ? c.bayIntro[bay](cabin.name, cabin.cruise.name) : undefined}
+              />
+              <ul className={s.voyageGrid}>
+                {voyages.map((v) => (
+                  <li key={`${v.cruiseId}-${v.itineraryId}`} className={s.voyageCard}>
+                    {v.image && (
+                      <div className={s.voyageImage}>
+                        <Image src={v.image} alt={`${v.name} – ${cabin.cruise.name}`} fill sizes="(max-width: 700px) 100vw, 50vw" />
+                      </div>
+                    )}
+                    <div className={s.voyageBody}>
+                      <p className={s.voyageMeta}>{[bayName, t.itinerary.durationLabel(v.duration)].filter(Boolean).join(' · ')}</p>
+                      <h3>{v.name}</h3>
+                      {v.destinations.length > 0 && <p className={s.voyageRoute}>{v.destinations.join(' · ')}</p>}
+                      <TextLink href={itineraryPath(locale, v.slug, v.cruiseId, v.itineraryId)}>{c.voyageCta}</TextLink>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        )}
 
         {cabin.rooms.length > 0 && (
           <section className={cx(s.section, s.surface)} id="space" aria-labelledby="space-title">

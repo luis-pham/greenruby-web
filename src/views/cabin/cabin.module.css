@@ -169,3 +169,18 @@
 
 /* Cruise page hero: booking bar under the hero links (CruiseView reuses this module). */
 .heroBooking { flex-basis: 100%; width: 100%; margin-top: 22px; }
+
+/* H1 second line: ship + bay (keyword, and it tells the GR1/GR2 copies of a suite apart). */
+.titleTag { display: block; margin-top: 0.3em; color: var(--text-inverse-accent); font-size: 0.34em; font-style: italic; line-height: 1.25; letter-spacing: 0; word-spacing: normal; }
+
+/* "Sail this suite": the ship's bay and its voyages, linking cabin -> itinerary. */
+.voyageGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; margin: 40px 0 0; padding: 0; list-style: none; }
+.voyageCard { display: grid; grid-template-columns: 0.9fr 1.1fr; background: var(--bg-surface); border-top: 2px solid var(--action-primary); }
+.voyageImage { position: relative; min-height: 220px; }
+.voyageImage img { object-fit: cover; }
+.voyageBody { padding: 26px 24px; }
+.voyageMeta { margin: 0 0 8px; color: var(--text-accent); font-size: var(--font-size-label); font-weight: var(--font-weight-semibold); letter-spacing: 0.12em; text-transform: uppercase; }
+.voyageBody h3 { margin: 0 0 10px; font-size: 22px; line-height: 1.25; }
+.voyageRoute { margin: 0 0 16px; color: var(--text-muted); font-size: 13px; line-height: 1.6; }
+@media (max-width: 900px) { .voyageGrid { grid-template-columns: 1fr; } }
+@media (max-width: 560px) { .voyageCard { grid-template-columns: 1fr; } .voyageImage { min-height: 200px; } }

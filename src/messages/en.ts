@@ -67,6 +67,17 @@ const en = {
   },
   breadcrumb: { home: 'Home', label: 'Breadcrumb' },
   cabin: {
+    // H1 second line and the ship/bay section (unique per ship, so GR1/GR2 copies of a suite differ).
+    titleTag: (ship: string, bay: string | null) => (bay ? `on ${ship} · ${bay}` : `on ${ship}`),
+    voyagesEyebrow: 'Sail this suite',
+    voyagesHeading: (ship: string) => `Aboard ${ship}`,
+    bayIntro: {
+      'ha-long': (cabin: string, ship: string) =>
+        `On ${ship} the ${cabin} sails Ha Long Bay, the UNESCO-listed heart of the region: Luon Cave by kayak or bamboo boat, the panorama from Ti Top Island and Sung Sot Cave, with the limestone karsts framed by your windows between excursions.`,
+      'lan-ha': (cabin: string, ship: string) =>
+        `On ${ship} the ${cabin} sails the quieter Lan Ha Bay, south of Ha Long: kayaking through the Dark & Bright Cave area, mornings at Ao Ech Lagoon and, on the three-day voyage, Viet Hai village and a white-sand beach, away from the busiest routes.`,
+    } as Record<string, (cabin: string, ship: string) => string>,
+    voyageCta: 'View itinerary',
     eyebrowFallback: 'Private sanctuary',
     checkAvailability: 'Check availability',
     discoverShip: 'Discover',
@@ -341,6 +352,8 @@ const en = {
     enquire: 'Enquire with our team',
   },
   cruise: {
+    // H1 second line: the keyword the ship ranks for.
+    titleTag: { 'ha-long': 'Luxury cruise on Ha Long Bay', 'lan-ha': 'Quiet luxury cruise on Lan Ha Bay' } as Record<string, string>,
     vessel: 'Vessel',
     exploreSuites: 'Explore the suites',
     discoverJourneys: 'Discover our journeys',

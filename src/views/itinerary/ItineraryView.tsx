@@ -156,7 +156,7 @@ export function ItineraryView({ itinerary: it, chrome }: { itinerary: Itinerary;
                           <h3 id={`day-${day.day}-title`}>{day.title ?? d.day(day.day)}</h3>
                         </div>
                         <div className={s.dayImage}>
-                          {photoAt(i + 1) && <Image src={photoAt(i + 1) as string} alt="" fill sizes="(max-width: 600px) 100vw, 30vw" />}
+                          {photoAt(i + 1) && <Image src={photoAt(i + 1) as string} alt={`${day.title ?? d.day(day.day)} – ${it.name}`} fill sizes="(max-width: 600px) 100vw, 30vw" />}
                         </div>
                       </div>
                       <ol className={s.timeline}>

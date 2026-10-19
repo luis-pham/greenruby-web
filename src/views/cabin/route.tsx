@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound, permanentRedirect } from 'next/navigation';
-import { getCabin, getSite, listCabins } from '@/lib/api/content';
+import { getCabin, getCruise, getSite, listCabins } from '@/lib/api/content';
 import { homePath, parseDetailFile, type Locale } from '@/lib/i18n';
 import { pageMetadata } from '@/lib/seo';
 import { siteInfo } from '@/lib/site-info';
@@ -59,8 +59,8 @@ export function cabinRoute(locale: Locale) {
     const { cabin, canonical } = await load(locale, file);
     // Old or mistyped slugs (e.g. after a rename in the CMS) 301 to the canonical URL.
     if (`${canonical.split('/').pop()}` !== file) permanentRedirect(canonical);
-    const [site, alternate] = await Promise.all([getSite(locale), alternateHref(locale, cabin)]);
-    return <CabinView cabin={cabin} chrome={{ locale, site, t: getMessages(locale), alternateHref: alternate.href }} />;
+    const [site, alternate, cruise] = await Promise.all([getSite(locale), alternateHref(locale, cabin), getCruise(cabin.cruise.id, locale)]);
+    return <CabinView cabin={cabin} cruise={cruise} chrome={{ locale, site, t: getMessages(locale), alternateHref: alternate.href }} />;
   }
 
   return { generateStaticParams, generateMetadata, Page };
