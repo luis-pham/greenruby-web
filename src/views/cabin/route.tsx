@@ -44,8 +44,8 @@ export function cabinRoute(locale: Locale) {
     return pageMetadata({
       locale,
       site: siteInfo(site),
-      title: `${cabin.name} · ${cabin.cruise.name}`,
-      description: cabin.summary ?? undefined,
+      title: cabin.seo?.title ?? `${cabin.name} · ${cabin.cruise.name}`,
+      description: cabin.seo?.description ?? cabin.summary ?? undefined,
       path: canonical,
       alternatePath: alternate.exact ? alternate.href : undefined,
       image: cabin.image,

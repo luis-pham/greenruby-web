@@ -34,7 +34,15 @@ export type GalleryItem = z.infer<typeof galleryItemSchema>;
 
 export const gallerySchema = z.object({
   seo: z.object({ title: optionalText, description: optionalText }),
-  categories: z.array(z.object({ slug: z.string(), name: z.string(), count: z.number() })),
+  categories: z.array(
+    z.object({
+      slug: z.string(),
+      name: z.string(),
+      count: z.number(),
+      // "SEO danh mục" section of the gallery page config (null fields = use our defaults).
+      seo: z.object({ title: optionalText, description: optionalText }).optional(),
+    }),
+  ),
   canonicalCategorySlug: z.string().nullable(),
   items: z.array(galleryItemSchema),
   pagination: z.object({ page: z.number(), perPage: z.number(), total: z.number(), lastPage: z.number() }),

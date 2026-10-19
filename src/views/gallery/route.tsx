@@ -66,9 +66,9 @@ export function galleryRoute(locale: Locale) {
     return pageMetadata({
       locale,
       site: siteInfo(site),
-      // Category pages get their own title, so they don't duplicate the hub's.
-      title: `${category ? `${category.name} · ${t.metaTitle}` : base}${page > 1 ? t.pageSuffix(page) : ''}`,
-      description: `${category ? t.categoryDescription(category.name) : (gallery.seo.description ?? t.heroBody)}${page > 1 ? t.pageSuffix(page) : ''}`,
+      // Category pages get their own title (CMS "SEO danh mục", else a default), so they don't duplicate the hub's.
+      title: `${category ? (category.seo?.title ?? `${category.name} · ${t.metaTitle}`) : base}${page > 1 ? t.pageSuffix(page) : ''}`,
+      description: `${category ? (category.seo?.description ?? t.categoryDescription(category.name)) : (gallery.seo.description ?? t.heroBody)}${page > 1 ? t.pageSuffix(page) : ''}`,
       path: canonicalPath,
       alternatePath: alternate.exact ? alternate.href : undefined,
       image: gallery.items.find((i) => i.type === 'image')?.src,

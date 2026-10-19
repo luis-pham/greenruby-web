@@ -65,8 +65,8 @@ export function faqRoute(locale: Locale) {
     const t = faqMessages[locale];
     const page = list.pagination.page;
     const [site, alternate] = await Promise.all([getSite(locale), alternateOf(locale, list)]);
-    // The API title is the group name or "FAQ" and already carries " - Page N".
-    const title = list.group ? list.seo.title : `${t.metaTitle}${page > 1 ? t.pageSuffix(page) : ''}`;
+    // The API title (group / app_page "faq" seo_title, else the group name or "FAQ") already carries " - Page N".
+    const title = list.seo.title ?? `${t.metaTitle}${page > 1 ? t.pageSuffix(page) : ''}`;
     return pageMetadata({
       locale,
       site: siteInfo(site),

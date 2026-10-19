@@ -57,6 +57,8 @@ export const cabinSchema = cabinSummarySchema.extend({
   }),
   cruise: z.object({ id: z.number(), name: z.string(), slug: z.string() }),
   otherCabins: z.array(cabinSummarySchema),
+  // Optional until every Laravel deploy has app_cabin.seo_*; title already falls back to "{cabin} · {ship}".
+  seo: z.object({ title: z.string().nullable(), description: z.string().nullable() }).optional(),
   alternate: z.object({ lang: z.enum(['en', 'vi']), id: z.number() }).nullable(),
   updatedAt: z.string().nullable(),
 });
