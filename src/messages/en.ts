@@ -367,7 +367,7 @@ const en = {
     decks: 'Decks',
     decksCaption: 'Spaces to explore',
     built: 'Year built',
-    builtCaption: 'A new generation',
+    builtCaption: 'In service from 2027 (expected)',
     tabs: { overview: 'Overview', suites: 'Cabins & suites', onboard: 'Life on board', moments: 'Experiences', eco: 'Eco technology', journeys: 'Itineraries', services: 'Services' },
     introEyebrow: (name: string) => `Welcome aboard ${name}`,
     introTitle: 'A beautiful new way to',

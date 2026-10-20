@@ -367,7 +367,7 @@ const vi: Messages = {
     decks: 'Số tầng',
     decksCaption: 'Không gian để khám phá',
     built: 'Năm đóng',
-    builtCaption: 'Thế hệ mới',
+    builtCaption: 'Dự kiến vận hành năm 2027',
     tabs: { overview: 'Tổng quan', suites: 'Phòng nghỉ', onboard: 'Cuộc sống trên tàu', moments: 'Trải nghiệm', eco: 'Công nghệ xanh', journeys: 'Hành trình', services: 'Dịch vụ' },
     introEyebrow: (name: string) => `Chào mừng lên ${name}`,
     introTitle: 'Một cách mới tuyệt đẹp để',
