@@ -55,6 +55,7 @@ export function readingMinutes(html: string | null): number {
 }
 
 const mediaOrigin = process.env.NEXT_PUBLIC_MEDIA_ORIGIN ?? '';
+const INLINE_WIDTHS = [640, 1080, 1520];
 
 /**
  * Final touches on article HTML: CMS images go through the Laravel thumbnail proxy (resized WebP,
@@ -63,7 +64,12 @@ const mediaOrigin = process.env.NEXT_PUBLIC_MEDIA_ORIGIN ?? '';
 export function prepareContent(html: string, tableWrapClass: string): string {
   return html
     .replace(/<img\s([^>]*?)\/?>/gi, (tag, attrs: string) => {
-      const withSrc = attrs.replace(/\bsrc\s*=\s*"(\/upload\/[^"?]+)"/i, (_m, path: string) => `src="${mediaOrigin}/thumbnail${path}?w=1520&q=80"`);
+      const withSrc = attrs.replace(/\bsrc\s*=\s*"(\/upload\/[^"?]+)"/i, (_m, path: string) => {
+        const url = (w: number) => `${mediaOrigin}/thumbnail${path}?w=${w}&q=80`;
+        // Prose column is at most 760px wide: phones get 640/1080, retina desktops 1520.
+        if (/\bsrcset\s*=/i.test(attrs)) return `src="${url(1520)}"`;
+        return `src="${url(1520)}" srcset="${INLINE_WIDTHS.map((w) => `${url(w)} ${w}w`).join(', ')}" sizes="(max-width: 820px) 100vw, 760px"`;
+      });
       return `<img ${withSrc}${/\bloading=/i.test(withSrc) ? '' : ' loading="lazy"'} decoding="async" />`;
     })
     .replace(/<table\b/gi, `<div class="${tableWrapClass}"><table`)

@@ -281,7 +281,7 @@
   .title { margin: 19px 0; font-size: clamp(36px, 10.7vw, 55px); letter-spacing: -0.042em; }
   .deck { font-size: var(--font-size-sm); line-height: 1.84; }
   .meta { gap: 9px; padding-bottom: 29px; }
-  .cover { aspect-ratio: 1.27 / 1; margin-inline: calc(var(--space-gutter) * -1); }
+  .cover { aspect-ratio: 1.27 / 1; }
   .section { padding-top: 41px; }
   .post { font-size: 14px; line-height: 1.86; }
   .opening { font-size: 17px; }

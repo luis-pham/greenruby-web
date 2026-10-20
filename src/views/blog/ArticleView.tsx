@@ -77,7 +77,7 @@ export function ArticleView({ article, chrome }: { article: Article; chrome: Chr
               </div>
               {article.image && (
                 <div className={s.cover}>
-                  <Image src={article.image} alt={article.title} fill preload sizes="(max-width: 1300px) 100vw, 1300px" quality={85} />
+                  <Image src={article.image} alt={article.title} fill preload sizes="(max-width: 600px) 90vw, (max-width: 1300px) 94vw, 1208px" quality={80} />
                 </div>
               )}
             </div>
