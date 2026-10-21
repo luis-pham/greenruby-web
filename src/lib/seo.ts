@@ -17,6 +17,15 @@ function clip(text: string | undefined, max = 160): string | undefined {
   return `${cut.slice(0, cut.lastIndexOf(' ') > 100 ? cut.lastIndexOf(' ') : cut.length).replace(/[\s,;:.\-–—]+$/, '')}…`;
 }
 
+/**
+ * Editor-written titles with "|" are complete ("Green Ruby 1 | Luxury…"), except that a short brand suffix
+ * ("… | Green Ruby", "… - Green Ruby") becomes the full name; titles without one get " | {site name}".
+ */
+export function brandedTitle(title: string, siteName: string): string {
+  const t = title.trim().replace(/\s*[|–—-]\s*Green Ruby\s*$/i, ` | ${siteName}`);
+  return t.includes('|') || t.toLowerCase().includes(siteName.toLowerCase()) ? t : `${t} | ${siteName}`;
+}
+
 export function pageMetadata({
   locale,
   site,
@@ -37,8 +46,7 @@ export function pageMetadata({
   noIndex?: boolean;
 }): Metadata {
   const description = clip(rawDescription);
-  // Editor-written titles ("… | Green Ruby") are complete; names like "Green Ruby 1" still get the brand.
-  const fullTitle = title.includes('|') || title.toLowerCase().includes(site.name.toLowerCase()) ? title : `${title} | ${site.name}`;
+  const fullTitle = brandedTitle(title, site.name);
   const url = absoluteUrl(path);
   const other: Locale = locale === 'en' ? 'vi' : 'en';
   const languages: Record<string, string> | undefined = alternatePath
