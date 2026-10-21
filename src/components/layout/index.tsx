@@ -7,7 +7,7 @@ import { homePath, sectionPath, type Locale, type Section } from '@/lib/i18n';
 import { navLinks, siteInfo, type NavLink } from '@/lib/site-info';
 import { absoluteUrl } from '@/lib/site-url';
 import type { Messages } from '@/messages';
-import { ChatWidget } from './ChatWidget';
+import { ChatWidget, type ChannelKey } from './ChatWidget';
 import { CookieConsent } from './CookieConsent';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { MobileMenu } from './MobileMenu';
@@ -343,6 +343,12 @@ function footerColumns(locale: Locale, t: Messages): { title: string; links: Foo
   ];
 }
 
+/** Chat bubble channels per language: international guests use WhatsApp, Vietnamese guests Zalo and Messenger. */
+const CHAT_CHANNELS: Record<Locale, ChannelKey[]> = {
+  en: ['call', 'whatsapp', 'ai'],
+  vi: ['call', 'zalo', 'messenger', 'ai'],
+};
+
 export function SiteFooter({ locale, site, t }: Pick<Chrome, 'locale' | 'site' | 't'>) {
   const info = siteInfo(site);
   return (
@@ -404,6 +410,8 @@ export function SiteFooter({ locale, site, t }: Pick<Chrome, 'locale' | 'site' |
           <span>{t.footer.bays}</span>
         </div>
         <ChatWidget
+          order={CHAT_CHANNELS[locale]}
+          callHref={info.hotlineHref}
           zaloHref={info.zaloHref}
           messengerHref={info.messengerHref}
           whatsappHref={info.whatsappHref}

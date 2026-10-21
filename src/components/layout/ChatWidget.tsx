@@ -4,9 +4,11 @@ import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { cx } from '@/components/ui';
 import s from './ChatWidget.module.css';
 
-type Labels = { open: string; close: string; zalo: string; messenger: string; whatsapp: string; ai: string; soon: string };
+type Labels = { open: string; close: string; call: string; zalo: string; messenger: string; whatsapp: string; ai: string; soon: string };
 
-type Channel = { key: string; label: string; href: string | null; icon: ReactNode };
+export type ChannelKey = 'call' | 'zalo' | 'messenger' | 'whatsapp' | 'ai';
+
+type Channel = { key: ChannelKey; label: string; href: string | null; icon: ReactNode };
 
 // Brand glyphs: WhatsApp from Simple Icons v16.35.0 (CC0-1.0); Messenger bubble and Zalo wordmark drawn here.
 const WHATSAPP =
@@ -49,6 +51,15 @@ function WhatsAppIcon() {
   );
 }
 
+function CallIcon() {
+  return (
+    <svg viewBox="0 0 48 48" aria-hidden="true">
+      <rect width="48" height="48" rx="24" fill="var(--color-gold-500)" />
+      <path d="M19.3 14.5c-.5-1.2-1.8-1.8-3-1.4l-1.9.6c-1.2.4-2 1.6-1.9 2.9.6 9.5 8.4 17.3 17.9 17.9 1.3.1 2.5-.7 2.9-1.9l.6-1.9c.4-1.2-.2-2.5-1.4-3l-3.6-1.5c-1-.4-2.2-.1-2.9.7l-1.2 1.4a13.1 13.1 0 0 1-6.5-6.5l1.4-1.2c.8-.7 1.1-1.9.7-2.9z" fill="var(--color-green-950)" />
+    </svg>
+  );
+}
+
 /** AI assistant: chat bubble with a sparkle, in the brand green and gold. */
 function AiIcon() {
   return (
@@ -63,16 +74,20 @@ function AiIcon() {
 
 /**
  * Floating "chat with us" bubble in the bottom-right corner (same pattern as grandpioneers.com):
- * the button opens a stack of contact icons — Zalo, Facebook Messenger, WhatsApp and AI support.
+ * the button opens a stack of contact icons, top to bottom in `order` (each language has its own set).
  * Channels without a link from the CMS are shown as "soon" (AI) or left out.
  */
 export function ChatWidget({
+  order,
+  callHref,
   zaloHref,
   messengerHref,
   whatsappHref,
   aiHref,
   labels,
 }: {
+  order: ChannelKey[];
+  callHref: string | null;
   zaloHref: string | null;
   messengerHref: string | null;
   whatsappHref: string | null;
@@ -96,12 +111,14 @@ export function ChatWidget({
     };
   }, [open]);
 
-  const channels: Channel[] = [
+  const all: Channel[] = [
+    { key: 'call', label: labels.call, href: callHref, icon: <CallIcon /> },
     { key: 'zalo', label: labels.zalo, href: zaloHref, icon: <ZaloIcon /> },
     { key: 'messenger', label: labels.messenger, href: messengerHref, icon: <MessengerIcon /> },
     { key: 'whatsapp', label: labels.whatsapp, href: whatsappHref, icon: <WhatsAppIcon /> },
     { key: 'ai', label: labels.ai, href: aiHref, icon: <AiIcon /> },
-  ].filter((c) => c.href || c.key === 'ai');
+  ];
+  const channels = order.flatMap((key) => all.filter((c) => c.key === key && (c.href || c.key === 'ai')));
 
   return (
     <div ref={root} className={cx(s.widget, open && s.open)}>
@@ -109,7 +126,7 @@ export function ChatWidget({
         {channels.map((c, i) => (
           <li key={c.key} style={{ transitionDelay: `${(channels.length - 1 - i) * 40}ms` }}>
             {c.href ? (
-              <a className={s.channel} href={c.href} target="_blank" rel="noopener" aria-label={c.label} title={c.label} onClick={() => setOpen(false)}>
+              <a className={s.channel} href={c.href} {...(c.key === 'call' ? {} : { target: '_blank', rel: 'noopener' })} aria-label={c.label} title={c.label} onClick={() => setOpen(false)}>
                 <span className={s.icon}>{c.icon}</span>
               </a>
             ) : (

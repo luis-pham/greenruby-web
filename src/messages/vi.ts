@@ -62,6 +62,7 @@ const vi: Messages = {
   chat: {
     open: 'Chat với chúng tôi',
     close: 'Đóng lựa chọn chat',
+    call: 'Gọi điện',
     zalo: 'Zalo',
     messenger: 'Facebook Messenger',
     whatsapp: 'WhatsApp',

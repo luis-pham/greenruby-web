@@ -60,6 +60,7 @@ const en = {
   chat: {
     open: 'Chat with us',
     close: 'Close chat options',
+    call: 'Call us',
     zalo: 'Zalo',
     messenger: 'Facebook Messenger',
     whatsapp: 'WhatsApp',
