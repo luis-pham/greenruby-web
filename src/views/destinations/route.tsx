@@ -52,6 +52,9 @@ export function destinationsRoute(locale: Locale) {
 
 type Params = { params: Promise<{ slug: string }> };
 
+/** Never a real destination slug (slugs are lowercase words joined by hyphens). */
+const HIDDEN_PLACEHOLDER = '_hidden';
+
 const alternateOf = (d: Destination) => (d.alternate ? destinationPath(d.alternate.lang, d.alternate.slug) : undefined);
 
 /** Builds the page exports for one language; app/(en)/destinations/[slug] and app/(vi)/vi/dia-diem-tham-quan/[slug] re-export them. */
@@ -60,7 +63,9 @@ export function destinationRoute(locale: Locale) {
 
   async function generateStaticParams() {
     const { items } = await listDestinations(locale);
-    return items.map((d) => ({ slug: d.slug }));
+    // Cache Components rejects an empty list; while the hub is switched off in the CMS there are no
+    // destinations, so prerender one placeholder slug that renders the 404 page.
+    return items.length > 0 ? items.map((d) => ({ slug: d.slug })) : [{ slug: HIDDEN_PLACEHOLDER }];
   }
 
   async function generateMetadata({ params }: Params): Promise<Metadata> {
