@@ -41,6 +41,7 @@
 .lede + .lede { margin-top: 8px; }
 .after { max-width: 720px; margin: 18px 0 0; color: var(--text-muted); font-size: var(--font-size-sm); line-height: 1.8; }
 .block { margin-top: 26px; }
+.block .tableWrap { margin: 12px 0 16px; }
 .block h3, .subhead { margin: 0 0 10px; color: var(--text-heading); font-size: 22px; }
 .subhead { margin-top: 26px; }
 .block p { max-width: 720px; margin: 0 0 10px; color: var(--text-body); font-size: var(--font-size-sm); line-height: 1.8; }

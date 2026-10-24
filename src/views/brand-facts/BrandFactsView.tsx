@@ -29,6 +29,19 @@ function Blocks({ items }: { items: readonly Block[] }) {
     <div key={b.title} className={s.block}>
       <h3>{b.title}</h3>
       <Paras items={b.paras} />
+      {b.table && (
+        <div className={s.tableWrap}>
+          <table className={s.table}>
+            <thead><tr>{b.table.head.map((h) => <th key={h} scope="col">{h}</th>)}</tr></thead>
+            <tbody>
+              {b.table.rows.map(([k, val]) => (
+                <tr key={k}><th scope="row">{k}</th><td>{val}</td></tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+      {b.parasAfter && <Paras items={b.parasAfter} />}
     </div>
   ));
 }
@@ -166,7 +179,7 @@ export function BrandFactsView({ chrome, home }: { chrome: Chrome; home: Homepag
                         <div><b>{value(ship.length, ' m')}</b><span>{S.fleet.rows.length}</span></div>
                       </div>
                       <p className={s.vesselStatus}>{S.fleet.cardStatus || S.fleet.status}</p>
-                      <SmartLink className={s.textLink} href={detailPath(locale, 'cruise', ship.slug, ship.id)}>{S.fleet.vesselPage} →</SmartLink>
+                      <SmartLink className={s.textLink} href={detailPath(locale, 'cruise', ship.slug, ship.id)}>{S.fleet.vesselPage.replace('{name}', ship.name)} →</SmartLink>
                     </div>
                   </article>
                 );
@@ -192,13 +205,21 @@ export function BrandFactsView({ chrome, home }: { chrome: Chrome; home: Homepag
                     <tr><th scope="row">{S.fleet.rows.boarding}</th>{ships.map((x) => <td key={x.id}>{SHIP_BAY[x.name] ? S.fleet.boarding[SHIP_BAY[x.name]] : '—'}</td>)}</tr>
                   )}
                   <tr><th scope="row">{S.fleet.rows.status}</th>{ships.map((x) => <td key={x.id}>{S.fleet.status}</td>)}</tr>
+                  {S.fleet.rows.launch && <tr><th scope="row">{S.fleet.rows.launch}</th>{ships.map((x) => <td key={x.id}>{S.fleet.launch}</td>)}</tr>}
                 </tbody>
               </table>
             </div>
-            <p className={s.note}>
-              {S.fleet.choose} {S.fleet.chooseLink && <SmartLink href={sectionPath(locale, 'itinerary')}>{S.fleet.chooseLink}</SmartLink>}
-            </p>
+            <Paras items={S.fleet.afterTable} className={s.after} />
+            <Blocks items={S.fleet.blocks} />
+            {S.fleet.choose ? (
+              <p className={s.note}>
+                {S.fleet.choose} {S.fleet.chooseLink && <SmartLink href={sectionPath(locale, 'itinerary')}>{S.fleet.chooseLink}</SmartLink>}
+              </p>
+            ) : (
+              S.fleet.chooseLink && <SmartLink className={s.textLink} href={sectionPath(locale, 'itinerary')}>{S.fleet.chooseLink} →</SmartLink>
+            )}
             <p className={s.small}>{S.fleet.note}</p>
+            <Paras items={S.fleet.footnotes} className={s.small} />
           </section>
 
           <section className={s.section} aria-labelledby="itineraries">
@@ -221,7 +242,8 @@ export function BrandFactsView({ chrome, home }: { chrome: Chrome; home: Homepag
                 </tbody>
               </table>
             </div>
-            {S.itineraries.note && <p className={s.small}>{S.itineraries.note}</p>}
+            <Blocks items={S.itineraries.blocks} />
+            <Paras items={S.itineraries.notes} className={s.small} />
           </section>
 
           <section className={s.section} aria-labelledby="cabins">

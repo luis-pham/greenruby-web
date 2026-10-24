@@ -2,11 +2,12 @@ import type { Locale } from '@/lib/i18n';
 
 // Copy for /about-us/brand-facts (design: new_website/green-ruby-brand-facts-v1.html). One public reference
 // for the brand, company, fleet and status, written for guests, travel partners, press and AI assistants.
-// Facts confirmed by the owner on 20 October 2026; vessel and cabin figures come from the CMS.
+// Facts confirmed by the owner on 20 October 2026 (service start February 2027 re-confirmed 25 October);
+// vessel and cabin figures come from the CMS.
 
-/** Last review per language (the Vietnamese copy was rewritten on 24 October 2026). */
+/** Last review per language (owner rewrites: Vietnamese 24 October, English 25 October 2026). */
 export const REVIEWED: Record<Locale, { iso: string; label: string }> = {
-  en: { iso: '2026-10-20', label: '20 October 2026' },
+  en: { iso: '2026-10-25', label: '25 October 2026' },
   vi: { iso: '2026-10-24', label: '24/10/2026' },
 };
 export const LEGAL_NAME = 'TPX JOINT STOCK COMPANY';
@@ -15,22 +16,22 @@ export const TAX_ID = '5702096485';
 type Evidence = 'confirmed' | 'design' | 'estimate' | 'progress' | 'pending';
 /** Label, value, evidence status and an optional badge text that overrides the generic status label. */
 type FactRow = [string, string, Evidence] | [string, string, Evidence, string];
-/** Optional sub-section: an h3 and its paragraphs. */
-type Block = { title: string; paras: string[] };
+/** Optional sub-section: an h3, its paragraphs, an optional two-column table and paragraphs after it. */
+type Block = { title: string; paras: string[]; table?: { head: [string, string]; rows: [string, string][] }; parasAfter?: string[] };
 
 const en = {
-  metaTitle: 'Green Ruby Cruises: Company & Fleet Facts',
+  metaTitle: 'Green Ruby Cruises | Official Company & Fleet Facts',
   metaDescription:
-    'Official facts about Green Ruby Cruises: operating company TPX Joint Stock Company, two 46-cabin sister ships on Ha Long Bay and Lan Ha Bay, routes, check-in, status and sustainability.',
+    'Official information about Green Ruby Cruises, its operator TPX Joint Stock Company, Green Ruby 1 and 2, planned routes, launch dates and sustainability.',
   breadcrumbAbout: 'About us',
   breadcrumb: 'Brand facts',
   eyebrow: 'Official company information',
-  title: 'Green Ruby Cruises:',
-  titleEm: 'company & fleet facts.',
-  lead: 'One public reference for the Green Ruby brand, the company behind it, its two ships, routes, guest check-in, operating status and sustainability disclosures.',
+  title: 'Green Ruby Cruises —',
+  titleEm: 'Official Brand & Fleet Information',
+  lead: "Official information about Green Ruby Cruises, its operating company, two vessels, planned itineraries, guest boarding arrangements and current operating status. This page also provides details of the fleet's environmental systems and certification plans, with clear distinctions between confirmed information, design specifications and estimates.",
   reviewed: 'Last reviewed',
   indexTitle: 'On this page',
-  printLabel: 'Print / save PDF',
+  printLabel: 'Print / Save as PDF',
   copyLink: 'Copy link',
   copied: 'Copied',
   evidence: {
@@ -42,163 +43,278 @@ const en = {
   } satisfies Record<Evidence, string>,
   stats: [
     ['Operating company', LEGAL_NAME],
-    ['Fleet', '2 sister ships'],
-    ['Bays', 'Ha Long & Lan Ha'],
+    ['Fleet', 'Two sister ships'],
+    ['Destinations', 'Ha Long Bay & Lan Ha Bay, Vietnam'],
     ['Expected service start', 'February 2027 (provisional)'],
   ],
   sections: {
     identity: {
       label: 'Company profile',
       title: 'Brand and company',
-      lede: 'Green Ruby Cruises is the brand; TPX Joint Stock Company is the Vietnamese company that operates it.',
+      lede: 'Green Ruby Cruises is a Vietnamese luxury overnight cruise brand operated by TPX Joint Stock Company.',
+      body: [
+        'The brand is developing two cruise programmes: Green Ruby 1 for Ha Long Bay and Green Ruby 2 for Lan Ha Bay. Both are designed to combine overnight accommodation with guided excursions, onboard dining and opportunities to explore the natural and cultural heritage of northern Vietnam.',
+        'The information below identifies the legal company responsible for the brand and distinguishes it from the Green Ruby Cruises trading name.',
+      ] as string[],
       rows: [
         ['Brand name', 'Green Ruby Cruises', 'confirmed'],
         ['Operating company', LEGAL_NAME, 'confirmed'],
-        ['Enterprise registration and tax code', `${TAX_ID} (Vietnam)`, 'confirmed'],
-        ['Business', 'Overnight luxury cruises on Ha Long Bay and Lan Ha Bay', 'confirmed'],
-        ['Country', 'Vietnam (Quang Ninh and Hai Phong)', 'confirmed'],
+        ['Enterprise registration / Tax code', `${TAX_ID} (Vietnam)`, 'confirmed'],
+        ['Business', 'Luxury overnight cruises', 'confirmed'],
+        ['Planned destinations', 'Ha Long Bay, Quang Ninh; Lan Ha Bay, Hai Phong', 'confirmed'],
+        ['Country', 'Vietnam', 'confirmed'],
         ['Official website', 'greenrubycruises.com', 'confirmed'],
       ] as FactRow[],
-      body: [] as string[],
-      note: '',
+      note: 'Green Ruby Cruises is the trading brand. TPX Joint Stock Company is the legal operating entity.',
     },
     fleet: {
       label: 'Fleet',
-      title: 'Green Ruby 1 vs Green Ruby 2',
-      lede: 'The two ships are sister ships built to the same design, with the same four cabin categories and onboard spaces. The difference is the bay each one sails.',
-      body: [] as string[],
+      title: 'Green Ruby 1 and Green Ruby 2',
+      lede: 'The Green Ruby fleet comprises two sister ships developed to the same design, with matching cabin categories and a comparable range of onboard facilities.',
+      body: ['Each vessel is intended to serve a different cruising area. Green Ruby 1 will explore Ha Long Bay, while Green Ruby 2 will operate itineraries in neighbouring Lan Ha Bay.'] as string[],
       /** Short description in each ship card (empty = none). */
-      ships: { 'ha-long': [] as string[], 'lan-ha': [] as string[] },
+      ships: {
+        'ha-long': [
+          'Green Ruby 1 is designed for overnight journeys through Ha Long Bay, including planned visits to Sung Sot Cave, Ti Top Island and Luon Cave.',
+          'Longer itineraries also include sites such as Cua Van Floating Village and Tien Ong Cave.',
+          'The vessel has a published design configuration of 46 cabins across four categories, a length of 121 metres and a stated capacity of 136 guests, subject to final operational verification.',
+        ] as string[],
+        'lan-ha': [
+          'Green Ruby 2 is planned for overnight cruises in Lan Ha Bay, near Cat Ba Island.',
+          'Its itineraries include the Dark & Bright Cave area, with longer programmes extending to Viet Hai Village and other authorised destinations around the Cat Ba Archipelago.',
+          'Built to the same design as Green Ruby 1, the ship has a published configuration of 46 cabins in four categories, a length of 121 metres and a stated capacity of 136 guests, subject to final operational verification.',
+        ] as string[],
+      },
       /** Status line in the ship cards (empty = the table's `status`). */
-      cardStatus: '',
+      cardStatus: 'Operating status: Not yet in service. Expected launch: February 2027 (provisional).',
       thSpec: 'Specification',
       rows: {
-        bay: 'Sails',
+        bay: 'Planned cruising area',
         length: 'Length',
         cabins: 'Cabins',
-        guests: 'Guest capacity',
+        guests: 'Published guest capacity',
         decks: 'Decks',
-        built: 'Year built',
+        built: 'Planned build year',
         categories: 'Cabin categories',
-        boarding: 'Boarding',
-        status: 'Service start',
+        boarding: 'Boarding arrangements',
+        status: 'Operating status',
+        /** Extra row with `launch` (empty label = no row). */
+        launch: 'Expected service start',
       },
       bays: { 'ha-long': 'Ha Long Bay', 'lan-ha': 'Lan Ha Bay' },
-      boarding: { 'ha-long': 'Tender from Tuan Chau to the ship on Ha Long Bay', 'lan-ha': 'Tender from Tuan Chau to Gia Luan Pier (Hai Phong), then on board on Lan Ha Bay' },
-      categories: 'Imperial Suite, Royal Romance Suite, Ocean Breeze Premium, Serenity Deluxe',
-      status: 'Expected February 2027 (provisional)',
-      vesselPage: 'Ship page',
-      note: 'Images on the website may be design renderings until the ships are in service.',
-      choose: 'Choosing between them is choosing the bay: Ha Long Bay for the famous caves and viewpoints, Lan Ha Bay for quieter water, kayaking and fewer boats.',
-      chooseLink: 'Compare the itineraries',
+      boarding: { 'ha-long': 'Transfer from Tuan Chau to the vessel in Ha Long Bay', 'lan-ha': 'Transfer from Tuan Chau to Gia Luan, then embarkation in Lan Ha Bay' },
+      categories: '4',
+      status: 'Pre-launch',
+      launch: 'February 2027 (provisional)',
+      /** "{name}" is replaced by the ship name. */
+      vesselPage: 'Explore {name}',
+      /** Paragraphs right under the spec table. */
+      afterTable: ['Both ships offer the same four cabin categories: Imperial Suite, Royal Romance Suite, Ocean Breeze Premium and Serenity Deluxe.'] as string[],
+      blocks: [
+        {
+          title: 'Choosing your cruise',
+          paras: [
+            'The main difference is the destination.',
+            'Ha Long Bay is known for its established sightseeing routes, large limestone caves and island viewpoints. Lan Ha Bay, beside Cat Ba Island, offers sheltered waterways, limestone scenery and opportunities to visit places such as Viet Hai Village.',
+            'Both bays are part of the UNESCO-listed Ha Long Bay–Cat Ba Archipelago World Heritage Site.',
+          ],
+        },
+      ] as Block[],
+      choose: '',
+      chooseLink: 'Compare all itineraries',
+      note: 'Fleet specifications reflect the published design and development plans. Final technical and operating details will be updated as the vessels complete the required inspections and approvals.',
+      footnotes: ['Some vessel and interior images may be architectural renderings rather than photographs of the completed ships.'] as string[],
     },
     itineraries: {
       label: 'Routes',
       title: 'Itineraries',
-      lede: 'Four overnight itineraries, two on each bay. Stops can change for weather and port-authority instructions.',
-      th: ['Bay', 'Duration', 'Ship', 'Itinerary'],
+      lede: 'Green Ruby Cruises has published four planned overnight itineraries: two in Ha Long Bay aboard Green Ruby 1 and two in Lan Ha Bay aboard Green Ruby 2.',
+      th: ['Destination', 'Duration', 'Vessel', 'Itinerary'],
       nights: (d: number): string => (d >= 3 ? '3 days / 2 nights' : '2 days / 1 night'),
-      body: [] as string[],
+      body: ['Each programme offers a different length of stay and sightseeing route.'] as string[],
       /** One line under each itinerary, by CMS itinerary id. */
       descriptions: {} as Record<number, string>,
-      note: '',
+      blocks: [
+        {
+          title: 'Ha Long Bay itineraries',
+          paras: [
+            "The 2-day/1-night programme focuses on some of the bay's best-known attractions, including Sung Sot Cave, Luon Cave and Ti Top Island.",
+            'The 3-day/2-night itinerary adds time to explore farther into Ha Long Bay, with planned visits to Cua Van Floating Village and Tien Ong Cave.',
+          ],
+        },
+        {
+          title: 'Lan Ha Bay itineraries',
+          paras: [
+            'The 2-day/1-night programme combines an overnight stay with sightseeing in Lan Ha Bay, including the Dark & Bright Cave area.',
+            'The 3-day/2-night programme provides an additional day for planned activities around Cat Ba Island, including a visit to Viet Hai Village.',
+          ],
+        },
+      ] as Block[],
+      notes: [
+        'All itineraries are provisional until regular sailings begin. Stops, excursion options and departure times may change in response to weather, tides, safety requirements and instructions from local authorities.',
+        'Water-based activities, including kayaking, are offered only where and when current regulations permit.',
+      ] as string[],
     },
     cabins: {
       label: 'Accommodation',
       title: 'Cabin categories',
-      lede: 'The same four categories on both ships. The number of cabins in each category per ship has not been published yet.',
-      th: ['Category', 'Area', 'Guests', 'View'],
-      body: [] as string[],
-      notes: [] as string[],
+      lede: 'Green Ruby 1 and Green Ruby 2 share four cabin categories, ranging from Serenity Deluxe to the 120 m² Imperial Suite.',
+      th: ['Cabin category', 'Published area', 'Guest capacity', 'View'],
+      body: ['The published layouts are designed to offer views of the surrounding bay, with different floor areas and accommodation arrangements.'] as string[],
+      notes: [
+        'The number of cabins in each category on each vessel has not yet been published.',
+        'Cabin dimensions and configurations reflect the current published specifications and may be updated following final fit-out and verification.',
+        'For detailed layouts, facilities and booking arrangements, please refer to the individual cabin pages.',
+      ] as string[],
     },
     departure: {
       label: 'Guest arrival',
       title: 'Check-in and boarding',
-      lede: 'Guests of both ships check in at the Green Ruby lounge at Tuan Chau, Ha Long. The legal address of the company is separate from the check-in point.',
+      lede: 'Guests travelling on either Green Ruby vessel are expected to check in at the Green Ruby lounge at Tuan Chau International Passenger Port.',
+      body: ["The company's registered business address is separate from its guest check-in location."] as string[],
       place: 'Tuan Chau International Passenger Port',
-      address: 'No. 27, Terminal Building 2, Tuan Chau International Passenger Port, Tuan Chau, Ha Long, Quang Ninh, Vietnam',
-      addressNote: 'Exact terminal and reporting time are confirmed in each booking confirmation.',
-      points: [
-        'Check-in from about 10:45; tender boarding at about 11:45 (per the published itineraries).',
-        'Green Ruby 1: tender from Tuan Chau to the ship on Ha Long Bay.',
-        'Green Ruby 2: tender from Tuan Chau to Gia Luan Pier (Hai Phong) to board on Lan Ha Bay.',
-        'Transfers from Hanoi (about 2.5 hours, pick-up around 08:00) are available on request.',
-      ],
-      contact: 'Confirm your check-in point',
-      map: 'Open in Google Maps',
-      blocks: [] as Block[],
+      address: 'Planned check-in address: No. 27, Terminal Building 2, Tuan Chau International Passenger Port, Tuan Chau, Quang Ninh, Vietnam.',
+      addressNote: '',
+      points: [] as string[],
+      contact: 'Confirm your check-in arrangements',
+      map: 'View on Google Maps',
+      blocks: [
+        {
+          title: 'Check-in times',
+          paras: [
+            'Based on the published itineraries, guests are expected to arrive for check-in from approximately 10:45 AM, with transfer-boat boarding beginning at around 11:45 AM.',
+            'These times are indicative. The confirmed reporting time and location will be provided in each booking confirmation.',
+          ],
+        },
+        {
+          title: 'Boarding Green Ruby 1',
+          paras: ['Guests check in at Tuan Chau before transferring by tender to Green Ruby 1 at an authorised boarding location in Ha Long Bay.'],
+        },
+        {
+          title: 'Boarding Green Ruby 2',
+          paras: [
+            'Guests check in at Tuan Chau before taking an arranged transfer to the Gia Luan area of Cat Ba Island, where they board Green Ruby 2 for the Lan Ha Bay itinerary.',
+            'Guests are not expected to arrange their own journey to Gia Luan unless instructed otherwise by the reservations team.',
+            'The final boarding arrangements will be confirmed before departure.',
+          ],
+        },
+        {
+          title: 'Transfers from Hanoi',
+          paras: [
+            'Transfers from Hanoi are planned to be available on request.',
+            'The journey typically takes approximately 2.5 hours, depending on the pick-up location and traffic conditions. The published itinerary indicates a pick-up time of around 8:00 AM.',
+            'Transfer availability, collection points and any additional charges must be confirmed with the reservations team.',
+          ],
+        },
+      ] as Block[],
       note: '',
     },
     status: {
       label: 'Operating status',
-      title: 'Service and booking status',
-      lede: 'Published itineraries do not by themselves mean that departures are operating.',
-      cards: [
-        ['Green Ruby 1 · Ha Long Bay', 'Not yet in service', 'Expected to enter service in February 2027. This is a provisional date, not an official one.'],
-        ['Green Ruby 2 · Lan Ha Bay', 'Not yet in service', 'Expected to enter service in February 2027. This is a provisional date, not an official one.'],
-      ],
-      rows: [
-        ['Prices', 'Not yet published; quoted on request', 'pending'],
-        ['Booking requests', 'Accepted through the website and reservations team; a request or quote does not confirm a departure', 'confirmed'],
-        ['Cancellation policy', 'Full refund 30+ days before departure; 50% charge 15–29 days; 75% charge 7–14 days; no refund under 7 days or no-show', 'confirmed'],
-      ] as FactRow[],
-      body: [] as string[],
+      title: 'Operating and booking status',
+      lede: 'Green Ruby 1 and Green Ruby 2 have not yet entered regular passenger service.',
+      body: [
+        'Their planned itineraries have been published to help guests and travel partners explore the programmes and make enquiries ahead of launch.',
+        'The publication of an itinerary does not confirm that a particular departure is operating or available to book.',
+      ] as string[],
       cardsTitle: '',
-      blocks: [] as Block[],
-      cta: 'Booking enquiries',
+      cards: [
+        ['Green Ruby 1 · Ha Long Bay', 'Not yet in service', 'Expected to begin operating from February 2027, subject to final preparations, relevant approvals and confirmation of the departure schedule. This is a provisional launch period, not a confirmed sailing date.'],
+        ['Green Ruby 2 · Lan Ha Bay', 'Not yet in service', 'Expected to begin operating from February 2027, subject to final preparations, relevant approvals and confirmation of the departure schedule. This is a provisional launch period, not a confirmed sailing date.'],
+      ],
+      rows: [] as FactRow[],
+      blocks: [
+        {
+          title: 'Prices and booking enquiries',
+          paras: [
+            'Published prices: Not yet available. Quotations are provided on request.',
+            'Booking enquiries: Guests may submit preferred dates and accommodation requirements through the official website or contact the reservations team directly.',
+            'A booking enquiry or quotation does not guarantee availability or confirm a sailing.',
+            'A reservation becomes confirmed only when the guest receives an official booking confirmation and the applicable booking conditions have been met.',
+          ],
+        },
+        {
+          title: 'Cancellation and refund policy',
+          paras: ['The currently published standard cancellation schedule is:'],
+          table: {
+            head: ['Cancellation before departure', 'Standard terms'],
+            rows: [
+              ['30 days or more', 'Full refund'],
+              ['15–29 days', '50% cancellation charge'],
+              ['7–14 days', '75% cancellation charge'],
+              ['Less than 7 days', 'No refund'],
+              ['No-show', 'No refund'],
+            ],
+          },
+          parasAfter: [
+            'These terms are subject to the conditions agreed at the time of booking. Different arrangements may apply to group bookings, promotional offers or reservations made through third-party travel partners.',
+            'Cancellations initiated by the operator, changes caused by port-authority restrictions and other exceptional circumstances are handled according to the applicable booking terms and consumer protection requirements.',
+            'Guests should review the full cancellation and refund conditions before confirming a reservation.',
+          ],
+        },
+      ] as Block[],
+      cta: 'Contact our reservations team',
     },
     sustainability: {
       label: 'Disclosures',
       title: 'Sustainability and certification',
-      lede: 'Each statement carries its status. Design figures will be replaced by measured data once the ships are operating.',
+      lede: 'Green Ruby Cruises is developing a range of environmental systems intended to reduce energy demand, manage wastewater and limit single-use plastics during onboard operations.',
+      body: [
+        'The vessels are not yet in service. Any performance figures published at this stage are design specifications or preliminary estimates, not results measured during actual cruises.',
+        'Each item below is identified by its current status.',
+      ] as string[],
       rows: [
-        ['Green Globe', 'Certification in progress. Green Ruby is not certified yet', 'progress'],
-        ['Rooftop solar array', 'About 70 kW on each ship', 'design'],
-        ['Air conditioning', 'Cooled with seawater', 'design'],
-        ['Energy use', 'Around 40% less onboard energy from solar and seawater cooling combined', 'estimate'],
-        ['CO₂ from solar', 'About 60 tonnes avoided per ship per year', 'estimate'],
-        ['Wastewater', '100% biologically treated on board before discharge', 'design'],
-        ['Heat recovery', 'Waste heat from engines and generators reused for hot water and climate control', 'design'],
-        ['Single-use plastics', 'Being removed from guest service', 'progress'],
-        ['Hybrid propulsion', 'Not used on Green Ruby ships', 'confirmed'],
-        ['Measured emissions', 'Not yet available', 'pending'],
+        ['Green Globe certification', 'Green Ruby Cruises has registered its interest in Green Globe certification and begun discussions regarding the applicable requirements and potential certification scope for its fleet. Assessment arrangements and the proposed scope are still being clarified. Neither Green Ruby Cruises nor its two vessels currently holds Green Globe certification.', 'progress', 'Preparing for certification'],
+        ['Rooftop solar power', 'Each vessel is designed to accommodate a rooftop solar power system with an estimated installed capacity of approximately 70 kW. Actual installed capacity and energy generation will be confirmed after completion and commissioning.', 'design'],
+        ['Seawater-cooled air conditioning', 'The vessels are designed to use seawater as part of their air-conditioning cooling system, with the aim of improving energy efficiency. Actual energy performance will be evaluated once the systems are operating.', 'design'],
+        ['Estimated energy savings', 'The combined solar power and seawater-cooling systems are estimated to reduce onboard energy consumption by approximately 40% under the design assumptions. This figure has not yet been verified using operational measurements. The final result will depend on factors including operating hours, equipment performance, weather conditions and energy demand.', 'estimate', 'Preliminary design estimate'],
+        ['Estimated CO₂ reductions', "Each vessel's solar power system is estimated to avoid approximately 60 tonnes of CO₂ emissions per year, based on projected electricity generation and the emissions factors used in the calculation. This is a design-stage projection, not a measured or independently verified emissions reduction.", 'estimate', 'Preliminary design estimate'],
+        ['Wastewater treatment', 'Each vessel is designed with an onboard biological wastewater treatment system. The system is intended to collect and treat wastewater within its designed scope before discharge, in accordance with applicable environmental requirements. Treatment performance and compliance will be assessed through the relevant commissioning and operational procedures.', 'design'],
+        ['Waste heat recovery', 'Heat recovery systems are designed to reuse waste heat from engines and generators, including for hot water and selected onboard heating or climate-control needs. Actual heat recovery performance will be assessed after commissioning.', 'design'],
+        ['Single-use plastics', 'Green Ruby Cruises is developing measures to reduce or replace single-use plastic items in guest services. Implementation details and operational results will be updated as the ships enter service.', 'progress', 'Implementation in progress'],
+        ['Hybrid propulsion', 'Green Ruby 1 and Green Ruby 2 are not equipped with hybrid propulsion systems. The planned solar power installations support onboard energy use and should not be described as hybrid propulsion.', 'confirmed', 'Confirmed design information'],
+        ['Measured environmental performance', 'Because neither vessel is operating, Green Ruby Cruises does not yet have sufficient operational data to report measured energy savings, actual emissions reductions or verified wastewater-treatment performance. Environmental performance information will be updated when suitable measurements become available, with the relevant calculation methods and limitations explained.', 'pending', 'Not yet available'],
       ] as FactRow[],
-      body: [] as string[],
-      dashboard: 'Eco dashboard: method and status of each figure',
+      dashboard: 'View our Eco Dashboard — figures, methods and verification status',
     },
     contacts: {
       label: 'Contact',
       title: 'Official contacts and channels',
-      lede: 'Only these channels speak for Green Ruby Cruises. Other listings are added here once their ownership is verified.',
-      website: 'Website',
+      lede: 'The contact details below are the official channels published by Green Ruby Cruises.',
+      body: ['Guests, travel agents and business partners are encouraged to use these channels for reservations, quotations, business enquiries and verification of company information.'] as string[],
+      website: 'Official website',
       email: 'Email',
       hotline: 'Hotline / Zalo',
       address: 'Office',
-      social: 'Social media',
+      social: 'Official social media',
       contactPage: 'Contact page',
       /** Overrides the CMS address in the office row (empty = CMS value). */
-      office: '',
+      office: 'Green Ruby lounge, No. 27, Terminal Building 2, Tuan Chau International Passenger Port, Quang Ninh, Vietnam',
       /** Paragraphs under the contact cards. */
-      after: [] as string[],
+      after: [
+        'Additional platforms and directory listings will be added when their ownership and official status have been verified.',
+        "For payment instructions, booking confirmations or changes to reservations, guests should refer to communications issued through Green Ruby Cruises' official channels.",
+      ] as string[],
     },
     media: {
       label: 'Press and partners',
-      title: 'Brand description',
-      lede: 'Approved wording for travel partners, listings and the press. Please keep the status of dates and certification as written.',
-      boilerplateLabel: 'Approved description (about 90 words)',
+      title: 'For media and travel partners',
+      lede: 'The following description may be used by travel agents, tour operators, directories and media organisations when introducing Green Ruby Cruises.',
+      body: ['Please retain the provisional status of the launch dates and the current certification status when quoting or adapting the information.'] as string[],
+      boilerplateLabel: 'Approved brand description',
       boilerplate:
-        'Green Ruby Cruises is a Vietnamese luxury overnight cruise brand operated by TPX Joint Stock Company. Its two sister ships, Green Ruby 1 on Ha Long Bay and Green Ruby 2 on the quieter Lan Ha Bay, each have 46 cabins in four categories, from Serenity Deluxe to a 120 m² Imperial Suite. The ships are designed with a rooftop solar array, seawater-cooled air conditioning, heat recovery and on-board treatment of all wastewater. Green Globe certification is in progress. Both ships are expected to enter service in February 2027.',
+        'Green Ruby Cruises is a Vietnamese luxury overnight cruise brand operated by TPX Joint Stock Company. Its fleet comprises two sister ships: Green Ruby 1, planned for Ha Long Bay, and Green Ruby 2, planned for Lan Ha Bay. Each vessel is designed with 46 cabins across four categories, including the 120 m² Imperial Suite. The ships incorporate planned solar power, seawater-cooled air conditioning, heat recovery and onboard wastewater treatment systems. Green Ruby is preparing for Green Globe certification but is not yet certified. Both vessels are expected to enter service from February 2027, subject to final confirmation.',
       copy: 'Copy description',
-      filesTitle: '',
+      filesTitle: 'Brand assets and documentation',
       files: [
-        ['Logo and photos', 'Available on request from the reservations team'],
-        ['Fact sheet', 'Print this page or save it as PDF'],
-        ['Corrections', 'Report an inaccurate detail by email'],
+        ['Logo and photography', 'Official logos, approved photographs and other brand materials are available on request. During the pre-launch period, some images may be design renderings. These should not be presented as photographs of completed vessels.'],
+        ['Company fact sheet', "This page provides Green Ruby Cruises' publicly available company and fleet information. It may be printed or saved as a PDF for reference."],
+        ['Information updates and corrections', 'If you find outdated or inaccurate information, please contact hello@greenrubycruises.com with the details so that the relevant information can be reviewed.'],
       ],
     },
   },
-  footerTitle: 'Need to verify a detail about Green Ruby?',
-  footerCta: 'Contact the team',
+  footerTitle: 'Need to verify information about Green Ruby Cruises?',
+  footerCta: 'Contact Green Ruby Cruises',
 };
 
 type Messages = typeof en;
@@ -279,15 +395,20 @@ const vi: Messages = {
         categories: 'Số hạng phòng',
         boarding: '',
         status: 'Tình trạng',
+        launch: '',
       },
       bays: { 'ha-long': 'Vịnh Hạ Long', 'lan-ha': 'Vịnh Lan Hạ' },
       boarding: { 'ha-long': 'Xuồng đưa từ Tuần Châu ra tàu trên vịnh Hạ Long', 'lan-ha': 'Xuồng đưa từ Tuần Châu sang bến Gia Luận (Hải Phòng), lên tàu trên vịnh Lan Hạ' },
       categories: '4',
       status: 'Chưa vận hành',
+      launch: '',
       vesselPage: 'Xem thông tin tàu',
+      afterTable: [],
+      blocks: [],
       note: 'Về hình ảnh: Trong giai đoạn chuẩn bị vận hành, một số hình ảnh tàu và không gian nội thất trên website có thể là ảnh phối cảnh thiết kế. Ảnh thực tế sẽ được cập nhật khi có đủ tư liệu.',
       choose: 'Các thông số nêu trên được công bố theo thiết kế và kế hoạch đội tàu. Thông số chính thức sẽ được cập nhật sau khi hoàn tất các thủ tục, kiểm tra và nghiệm thu liên quan.',
       chooseLink: '',
+      footnotes: [],
     },
     itineraries: {
       label: 'Tuyến',
@@ -302,7 +423,8 @@ const vi: Messages = {
         5: 'Chương trình nghỉ đêm trên vịnh Lan Hạ, kết hợp ngắm cảnh và các hoạt động tham quan phù hợp với điều kiện tại điểm đến.',
         7: 'Hành trình có thêm một ngày khám phá, dự kiến bao gồm làng Việt Hải trên đảo Cát Bà và các địa điểm khác trong khu vực vịnh Lan Hạ.',
       },
-      note: 'Các hành trình đang ở giai đoạn chuẩn bị triển khai. Điểm dừng, hoạt động và thời gian tham quan có thể thay đổi theo điều kiện thời tiết, thủy triều, quy định của cơ quan quản lý và kế hoạch vận hành thực tế.',
+      blocks: [],
+      notes: ['Các hành trình đang ở giai đoạn chuẩn bị triển khai. Điểm dừng, hoạt động và thời gian tham quan có thể thay đổi theo điều kiện thời tiết, thủy triều, quy định của cơ quan quản lý và kế hoạch vận hành thực tế.'],
     },
     cabins: {
       label: 'Phòng nghỉ',
@@ -319,6 +441,7 @@ const vi: Messages = {
       label: 'Đón khách',
       title: 'Địa điểm làm thủ tục và lên tàu',
       lede: 'Theo phương án đón khách dự kiến, hành khách của cả Green Ruby 1 và Green Ruby 2 sẽ làm thủ tục tại phòng chờ Green Ruby thuộc Cảng tàu khách quốc tế Tuần Châu.',
+      body: [],
       place: 'Địa điểm dự kiến',
       address: 'Số 27, Nhà ga số 2, Cảng tàu khách quốc tế Tuần Châu, Quảng Ninh, Việt Nam.',
       addressNote: '',
@@ -405,6 +528,7 @@ const vi: Messages = {
       label: 'Liên hệ',
       title: 'Kênh liên hệ chính thức',
       lede: 'Khách hàng, đại lý du lịch và các đối tác có thể liên hệ Green Ruby Cruises qua những kênh chính thức dưới đây.',
+      body: [],
       website: 'Website',
       email: 'Email',
       hotline: 'Hotline / Zalo',
@@ -421,6 +545,7 @@ const vi: Messages = {
       label: 'Báo chí và đối tác',
       title: 'Thông tin dành cho báo chí và đối tác',
       lede: 'Phần dưới đây cung cấp đoạn giới thiệu ngắn về Green Ruby Cruises để các đơn vị truyền thông, đại lý du lịch và đối tác tham khảo khi giới thiệu thương hiệu.',
+      body: [],
       boilerplateLabel: 'Mô tả thương hiệu chính thức',
       boilerplate: [
         'Green Ruby Cruises là thương hiệu du thuyền nghỉ đêm cao cấp tại Việt Nam, do Công ty Cổ phần TPX vận hành. Đội tàu gồm Green Ruby 1 phục vụ tuyến vịnh Hạ Long và Green Ruby 2 phục vụ tuyến vịnh Lan Hạ, mỗi tàu dự kiến có 46 phòng nghỉ thuộc bốn hạng phòng.',
