@@ -84,7 +84,7 @@ const vi: DestinationMessages = {
   metaTitle: 'Điểm tham quan vịnh Hạ Long và Lan Hạ: hang, đảo, làng chài',
   metaDescription:
     'Những điểm nên đến trên vịnh Hạ Long và vịnh Lan Hạ: hang động, đảo, làng chài, áng nước, kèm lưu ý thực tế, bản đồ và hành trình Green Ruby dự kiến ghé.',
-  breadcrumb: 'Điểm đến',
+  breadcrumb: 'Địa điểm tham quan',
   breadcrumbGuide: 'Cẩm nang du thuyền',
   eyebrow: 'Cẩm nang du thuyền',
   title: 'Điểm đến trên vịnh',

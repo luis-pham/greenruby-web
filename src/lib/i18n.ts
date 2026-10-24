@@ -25,7 +25,7 @@ const segments = {
   ecoDashboard: { en: 'eco-dashboard', vi: 'bao-cao-sinh-thai' },
   brandFacts: { en: 'about-us/brand-facts', vi: 'gioi-thieu/thong-tin-thuong-hieu' },
   // Halong cruise guide (Next.js only; Laravel's SitemapController mirrors these paths).
-  destinations: { en: 'destinations', vi: 'diem-den' },
+  destinations: { en: 'destinations', vi: 'dia-diem-tham-quan' },
   guideFirstTime: { en: 'guides/first-time-halong-bay-cruise', vi: 'cam-nang/lan-dau-di-du-thuyen-ha-long' },
   guideTransfer: { en: 'guides/hanoi-to-halong-bay', vi: 'cam-nang/ha-noi-di-ha-long' },
 } as const;
@@ -50,7 +50,7 @@ export function itineraryPath(locale: Locale, slug: string, cruiseId: number, it
   return `${sectionPath(locale, 'itinerary')}/${slug}-${cruiseId}-${itineraryId}.html`;
 }
 
-/** Destination detail: /destinations/{slug}, /vi/diem-den/{slug} (slugs are set by editors per language). */
+/** Destination detail: /destinations/{slug}, /vi/dia-diem-tham-quan/{slug} (slugs are set by editors per language). */
 export function destinationPath(locale: Locale, slug: string): string {
   return `${sectionPath(locale, 'destinations')}/${slug}`;
 }
@@ -87,7 +87,7 @@ const MIGRATED = [
   /^\/blog(\/|$)/,
   /^\/vi\/blog(\/|$)/,
   /^\/(destinations|guides)(\/|$)/,
-  /^\/vi\/(diem-den|cam-nang)(\/|$)/,
+  /^\/vi\/(dia-diem-tham-quan|cam-nang)(\/|$)/,
 ];
 
 export function isMigratedPath(href: string): boolean {

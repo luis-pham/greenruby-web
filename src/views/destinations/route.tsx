@@ -10,7 +10,7 @@ import { DestinationsView } from './DestinationsView';
 import { DestinationView } from './DestinationView';
 import { destinationMessages } from './messages';
 
-/** Builds the page exports for one language; app/(en)/destinations and app/(vi)/vi/diem-den re-export them. */
+/** Builds the page exports for one language; app/(en)/destinations and app/(vi)/vi/dia-diem-tham-quan re-export them. */
 export function destinationsRoute(locale: Locale) {
   const other: Locale = locale === 'en' ? 'vi' : 'en';
 
@@ -46,7 +46,7 @@ type Params = { params: Promise<{ slug: string }> };
 
 const alternateOf = (d: Destination) => (d.alternate ? destinationPath(d.alternate.lang, d.alternate.slug) : undefined);
 
-/** Builds the page exports for one language; app/(en)/destinations/[slug] and app/(vi)/vi/diem-den/[slug] re-export them. */
+/** Builds the page exports for one language; app/(en)/destinations/[slug] and app/(vi)/vi/dia-diem-tham-quan/[slug] re-export them. */
 export function destinationRoute(locale: Locale) {
   const other: Locale = locale === 'en' ? 'vi' : 'en';
 

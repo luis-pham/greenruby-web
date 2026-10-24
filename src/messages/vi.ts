@@ -38,7 +38,7 @@ const vi: Messages = {
       firstTimeGuide: 'Lần đầu đi du thuyền',
       bestTime: 'Thời điểm đẹp nhất',
       bayComparison: 'Hạ Long hay Lan Hạ',
-      destinations: 'Điểm đến',
+      destinations: 'Địa điểm tham quan',
       transferGuide: 'Hà Nội đi Hạ Long',
       aboutUs: 'Giới thiệu',
       fleetFacts: 'Thông tin đội tàu',

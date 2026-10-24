@@ -51,7 +51,7 @@ const VI_HUBS: [Section, string][] = [
   ['blog', 'Blog'],
   ['guideFirstTime', 'Lần đầu đi du thuyền Hạ Long'],
   ['guideTransfer', 'Hà Nội đi Hạ Long'],
-  ['destinations', 'Điểm đến'],
+  ['destinations', 'Địa điểm tham quan'],
   ['contact', 'Liên hệ'],
   ['booking', 'Đặt chỗ'],
 ];

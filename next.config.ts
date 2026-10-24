@@ -19,6 +19,9 @@ const nextConfig: NextConfig = {
       { source: '/en/:path*', destination: '/:path*', permanent: true },
       // Early drafts of the brand facts page used /about/brand-facts.
       { source: '/about/brand-facts', destination: '/about-us/brand-facts', permanent: true },
+      // VI destinations section renamed 2026-10-24 (Điểm đến → Địa điểm tham quan).
+      { source: '/vi/diem-den', destination: '/vi/dia-diem-tham-quan', permanent: true },
+      { source: '/vi/diem-den/:slug', destination: '/vi/dia-diem-tham-quan/:slug', permanent: true },
     ];
   },
   async rewrites() {
