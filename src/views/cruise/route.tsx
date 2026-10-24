@@ -25,7 +25,7 @@ const SEO: Record<number, { title: string; description: string }> = {
     description: 'Green Ruby 1: du thuyền eco-luxury 46 cabin trên Vịnh Hạ Long, suite rộng 120 m², hỗ trợ năng lượng mặt trời và làm mát bằng nước biển.',
   },
   2: {
-    title: 'Green Ruby 2 | Du Thuyền Sang Trọng Vịnh Lan Hạ',
+    title: 'Green Ruby 2 | Du Thuyền Hạng Sang Yên Tĩnh Vịnh Lan Hạ',
     description: 'Green Ruby 2: du thuyền eco-luxury 46 cabin trên Vịnh Lan Hạ yên tĩnh, suite Jacuzzi, chèo kayak ngay cạnh tàu, tránh xa đám đông.',
   },
 };

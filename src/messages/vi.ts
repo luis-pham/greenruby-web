@@ -17,7 +17,7 @@ const vi: Messages = {
     language: 'Ngôn ngữ',
   },
   footer: {
-    statement: 'Nơi vịnh vẫn hoang sơ — và trải nghiệm không đánh đổi điều gì.',
+    statement: 'Khám phá du thuyền nghỉ đêm hạng sang trên vịnh Hạ Long và vịnh Lan Hạ cùng Green Ruby Cruises.',
     followUs: 'Theo dõi chúng tôi',
     soon: 'Soon',
     columns: {
@@ -156,7 +156,7 @@ const vi: Messages = {
     metaTitle: 'Du thuyền sinh thái cao cấp vịnh Hạ Long & Lan Hạ',
     metaDescription:
       'Green Ruby Cruises: hành trình du thuyền sinh thái cao cấp trên vịnh Hạ Long và vịnh Lan Hạ. Hai du thuyền, phòng suite riêng tư và lịch trình được chăm chút.',
-    heroEyebrow: 'Du thuyền hạng sang Vịnh Hạ Long & Lan Hạ',
+    heroEyebrow: 'Du thuyền Hạ Long & Lan Hạ cao cấp',
     heroTitle: 'Nơi vịnh biển trở thành',
     heroTitleEm: 'của riêng bạn.',
     heroBody:
@@ -364,7 +364,7 @@ const vi: Messages = {
     enquire: 'Liên hệ đội ngũ',
   },
   cruise: {
-    titleTag: { 'ha-long': 'Du thuyền hạng sang Vịnh Hạ Long', 'lan-ha': 'Du thuyền sang trọng Vịnh Lan Hạ' } as Record<string, string>,
+    titleTag: { 'ha-long': 'Du thuyền hạng sang Vịnh Hạ Long', 'lan-ha': 'Du thuyền hạng sang yên tĩnh trên Vịnh Lan Hạ' } as Record<string, string>,
     vessel: 'Du thuyền',
     exploreSuites: 'Khám phá các phòng',
     discoverJourneys: 'Xem hành trình',

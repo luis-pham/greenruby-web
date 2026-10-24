@@ -62,7 +62,7 @@ export function CabinView({ cabin, cruise, chrome }: { cabin: Cabin; cruise: Cru
           { label: cabin.name, href: url },
         ]}
         eyebrow={[cabin.cabinClass, cabin.cruise.name].filter(Boolean).join(' · ') || c.eyebrowFallback}
-        title={<>{cabin.name}<span className={s.titleTag}>{c.titleTag(cabin.cruise.name, bayName)}</span></>}
+        title={<>{cabin.name}{' '}<span className={s.titleTag}>{c.titleTag(cabin.cruise.name, bayName)}</span></>}
         subtitle={cabin.summary}
         actions={
           <>

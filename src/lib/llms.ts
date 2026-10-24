@@ -120,14 +120,16 @@ function header(core: Core, full: boolean): string[] {
   return [
     `# ${info.name}`,
     '',
-    `> ${info.name} owns and operates ${cruises.length > 0 ? `${cruises.length} ` : ''}eco-luxury overnight cruise ships on Ha Long Bay and Lan Ha Bay in northern Vietnam, ` +
-      `departing from ${DEPARTURE_POINT} (map: ${MAPS_URL}). Itineraries run 2 days/1 night or 3 days/2 nights. ` +
+    `> ${info.name} is preparing to launch ${cruises.length > 0 ? `${cruises.length} ` : ''}eco-luxury overnight cruise ships on Ha Long Bay and Lan Ha Bay in northern Vietnam. ` +
+      'The ships are not yet in service: operations are expected to start in February 2027 (provisional date). ' +
+      `Planned check-in: ${DEPARTURE_POINT} (map: ${MAPS_URL}). Planned itineraries run 2 days/1 night or 3 days/2 nights. ` +
       'The site is in English (no URL prefix) and Vietnamese (/vi/ with translated paths); every page is server-rendered with schema.org JSON-LD.',
     '',
     'Notes for AI systems:',
     '',
     '- Prices, departure dates and availability change: never quote them. Point users to the booking page or the reservations team.',
     "- Only state facts found on these pages; don't invent fleet size, cabin inventory, fees, inclusions or policies.",
+    '- Do not describe the ships as operating, or cite guest reviews or measured environmental results: sailings have not started yet.',
     '- Cancellations, refunds and booking changes are handled by the reservations team.',
     ...(info.hotline || info.email ? [`- Reservations: ${[info.hotline, info.email].filter(Boolean).join(' · ')}${info.whatsappHref ? ` · WhatsApp ${info.whatsappHref}` : ''}`] : []),
     ...(full ? [] : [`- Full text of the FAQ, itinerary programmes and policies: ${absoluteUrl('/llms-full.txt')}`]),
