@@ -17,7 +17,7 @@ const SEO: Record<number, { title: string; description: string }> = {
     description: 'Green Ruby 1: a 46-cabin eco-luxury cruise on Ha Long Bay with a 120 m² suite, solar-assisted power and seawater cooling. Pre-book now.',
   },
   4: {
-    title: 'Green Ruby 2 | Quiet Luxury Cruise on Lan Ha Bay',
+    title: 'Green Ruby 2 | Quiet Luxury Lan Ha Bay Cruise, 46 Cabins',
     description: 'Green Ruby 2: a 46-cabin eco-luxury cruise on the quieter Lan Ha Bay, with Jacuzzi suites, kayaking beside the ship and fewer crowds. Pre-book now.',
   },
   1: {
