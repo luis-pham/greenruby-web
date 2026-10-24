@@ -18,7 +18,7 @@ import { POLICIES } from '@/views/legal/policies';
 // data only, so nothing here can drift from the pages; refreshed with the pages' cache tags.
 
 const locale: Locale = 'en';
-const TAGS = ['content', 'site', 'cruises', 'itineraries', 'cabins', 'experiences', 'articles', 'faqs', 'legal'];
+const TAGS = ['content', 'site', 'cruises', 'itineraries', 'cabins', 'experiences', 'articles', 'faqs', 'legal', 'destinations'];
 
 // Where guests board; the same fixed address as the Organization schema (lib/organization.ts).
 const DEPARTURE_POINT = 'Tuan Chau Marina, Ha Long, Quang Ninh, Vietnam';
@@ -32,6 +32,9 @@ const HUBS: [Section, string, string][] = [
   ['ecoDashboard', 'Eco dashboard', 'Sustainability technology, reporting principles and the status of our environmental figures'],
   ['faq', 'FAQ', 'Answers about itineraries, booking and payment, life on board, safety and green technology'],
   ['blog', 'Blog', 'Guides to Ha Long Bay and Lan Ha Bay'],
+  ['guideFirstTime', 'First-time cruise guide', 'Practical guide for a first Halong Bay cruise: which bay, how many nights, inclusions, boarding day, packing'],
+  ['guideTransfer', 'Hanoi to Halong Bay', 'Transfers from Hanoi, Noi Bai, Cat Bi, Van Don and Ninh Binh; Tuan Chau check-in; estimated travel times'],
+  ['destinations', 'Destinations', 'Caves, islands, villages and lagoons of Ha Long Bay and Lan Ha Bay, with planned Green Ruby stops'],
   ['gallery', 'Gallery', 'Photos of the ships, cabins and bays'],
   ['contact', 'Contact', 'Reservations team: form, hotline, WhatsApp, email and address'],
   ['booking', 'Booking', 'Choose a date, itinerary and cabins; prices and availability are confirmed here'],
@@ -46,6 +49,9 @@ const VI_HUBS: [Section, string][] = [
   ['ecoDashboard', 'Báo cáo sinh thái'],
   ['faq', 'Câu hỏi thường gặp'],
   ['blog', 'Blog'],
+  ['guideFirstTime', 'Lần đầu đi du thuyền Hạ Long'],
+  ['guideTransfer', 'Hà Nội đi Hạ Long'],
+  ['destinations', 'Điểm đến'],
   ['contact', 'Liên hệ'],
   ['booking', 'Đặt chỗ'],
 ];

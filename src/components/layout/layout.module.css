@@ -326,6 +326,13 @@ a.langOption:focus-visible { color: var(--text-inverse-accent); background: rgba
   transition: color var(--motion-duration-fast);
 }
 .footerCol a:hover { color: var(--text-inverse-accent); }
+.footerCol a:focus-visible, .footerToggle:focus-visible { outline: 2px solid var(--text-inverse-accent); outline-offset: 3px; }
+.footerToggle { display: none; }
+.footerToggleIcon { position: relative; width: 12px; height: 12px; flex: none; }
+.footerToggleIcon::before,
+.footerToggleIcon::after { content: ''; position: absolute; top: 5px; left: 0; width: 12px; height: 1.5px; background: currentColor; transition: transform var(--motion-duration-fast); }
+.footerToggleIcon::after { transform: rotate(90deg); }
+.footerCol[data-open] .footerToggleIcon::after { transform: rotate(0deg); }
 .footerSoonItem { cursor: default; }
 .soonBadge {
   padding: 3px 6px;
@@ -378,6 +385,32 @@ a.langOption:focus-visible { color: var(--text-inverse-accent); background: rgba
   .heroBody { padding-top: 84px; }
   .footerMain { grid-template-columns: 1fr; gap: var(--space-12); }
   .footerNav { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-10) var(--space-6); }
+}
+/* Phones: the four menus become an accordion. */
+@media (max-width: 600px) {
+  .footerNav { grid-template-columns: 1fr; gap: 0; border-top: 1px solid var(--border-inverse); }
+  .footerCol { border-bottom: 1px solid var(--border-inverse); }
+  .footerCol h2 { margin: 0; }
+  .footerColTitle { display: none; }
+  .footerToggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    min-height: var(--size-control-sm);
+    padding: var(--space-4) 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    letter-spacing: inherit;
+    text-align: left;
+    text-transform: inherit;
+    cursor: pointer;
+  }
+  .footerColBody { display: none; padding-bottom: var(--space-6); }
+  .footerCol[data-open] .footerColBody { display: block; }
+  .footerCol a { display: inline-block; padding: 4px 0; }
 }
 @media (max-width: 600px) {
   .brandLogo { height: 52px; }

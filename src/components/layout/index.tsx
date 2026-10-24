@@ -3,12 +3,14 @@ import type { ReactNode } from 'react';
 import { cx, Eyebrow, SmartLink } from '@/components/ui';
 import { JsonLd } from '@/components/seo/JsonLd';
 import type { Site } from '@/lib/api/schemas';
+import { guideLinks } from '@/lib/guide-links';
 import { homePath, sectionPath, type Locale, type Section } from '@/lib/i18n';
 import { navLinks, siteInfo, type NavLink } from '@/lib/site-info';
 import { absoluteUrl } from '@/lib/site-url';
 import type { Messages } from '@/messages';
 import { ChatWidget, type ChannelKey } from './ChatWidget';
 import { CookieConsent } from './CookieConsent';
+import { FooterColumn } from './FooterColumn';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { MobileMenu } from './MobileMenu';
 import { SOCIAL_LABELS, SocialIcon } from './SocialIcon';
@@ -298,46 +300,54 @@ export function PageHero({
 
 type FooterLink = { label: string; href?: string; soon?: boolean };
 
-/** Footer menus as on the Laravel site (EXPLORE / ABOUT / SUPPORT / SUSTAINABILITY). */
-function footerColumns(locale: Locale, t: Messages): { title: string; links: FooterLink[] }[] {
+/** Four footer menus: Explore, Halong Cruise Guide, About, Support. Every href is a published page. */
+export function footerColumns(locale: Locale, t: Messages, aiChatHref: string | null): { title: string; links: FooterLink[] }[] {
   const f = t.footer.links;
   const p = (section: Section, hash = '') => `${sectionPath(locale, section)}${hash}`;
+  const guide = guideLinks(locale);
   return [
     {
       title: t.footer.columns.explore,
       links: [
         { label: f.ourCruises, href: `${homePath(locale)}#fleet` },
-        { label: f.ourItineraries, href: p('itinerary') },
-        { label: f.ourServices, href: p('services') },
-        { label: f.ourAdventures, href: p('experiences') },
+        { label: f.itineraries, href: p('itinerary') },
+        { label: f.experiences, href: p('experiences') },
+        { label: f.services, href: p('services') },
         { label: f.meetingEvents, href: p('services', '#events') },
+      ],
+    },
+    {
+      title: t.footer.columns.guide,
+      links: [
+        { label: f.travelJournal, href: guide.journal },
+        { label: f.firstTimeGuide, href: guide.firstTime },
+        { label: f.bestTime, href: guide.bestTime },
+        { label: f.bayComparison, href: guide.bayComparison },
+        { label: f.destinations, href: guide.destinations },
+        { label: f.transferGuide, href: guide.transfer },
       ],
     },
     {
       title: t.footer.columns.about,
       links: [
         { label: f.aboutUs, href: p('aboutUs') },
-        { label: f.brandFacts, href: p('brandFacts') },
-        { label: f.contactUs, href: p('contact') },
-        { label: f.blog, href: p('blog') },
+        { label: f.fleetFacts, href: p('brandFacts') },
         { label: f.gallery, href: p('gallery') },
+        { label: f.sustainability, href: p('aboutUs', '#sustainability') },
+        { label: f.greenTechnology, href: p('ecoDashboard', '#technology') },
+        { label: f.greenGlobe, href: p('aboutUs', '#standards') },
+        { label: f.ecoDashboard, href: p('ecoDashboard') },
       ],
     },
     {
       title: t.footer.columns.support,
       links: [
-        { label: f.askAi, soon: true },
+        { label: f.contactUs, href: p('contact') },
         { label: f.faqs, href: p('faq') },
         { label: f.safetyPolicies, href: p('safetyPolicies') },
         { label: f.paymentMethods, href: p('paymentMethods') },
-      ],
-    },
-    {
-      title: t.footer.columns.sustainability,
-      links: [
-        { label: f.greenTechnology, href: p('aboutUs', '#sustainability') },
-        { label: f.greenGlobe, href: p('aboutUs', '#standards') },
-        { label: f.ecoDashboard, href: p('ecoDashboard') },
+        // The AI assistant link comes from the CMS (ad_config "ai-chat-url"); until then it is labelled as coming soon.
+        aiChatHref ? { label: f.askAi, href: aiChatHref } : { label: f.askAi, soon: true },
       ],
     },
   ];
@@ -379,14 +389,15 @@ export function SiteFooter({ locale, site, t }: Pick<Chrome, 'locale' | 'site' |
             )}
           </div>
           <div className={s.footerNav}>
-            {footerColumns(locale, t).map((column) => (
-              <nav key={column.title} className={s.footerCol} aria-label={column.title}>
-                <h2>{column.title}</h2>
+            {footerColumns(locale, t, info.aiChatHref).map((column, i) => (
+              <FooterColumn key={column.title} id={`footer-col-${i}`} title={column.title} toggleLabel={t.footer.toggle}>
                 <ul>
                   {column.links.map((link) => (
                     <li key={link.label}>
                       {link.href ? (
-                        <SmartLink href={link.href}>{link.label}</SmartLink>
+                        <SmartLink href={link.href} {...(/^https?:/.test(link.href) ? { target: '_blank', rel: 'noopener' } : {})}>
+                          {link.label}
+                        </SmartLink>
                       ) : (
                         <span className={s.footerSoonItem} aria-disabled="true">{link.label}</span>
                       )}
@@ -394,7 +405,7 @@ export function SiteFooter({ locale, site, t }: Pick<Chrome, 'locale' | 'site' |
                     </li>
                   ))}
                 </ul>
-              </nav>
+              </FooterColumn>
             ))}
           </div>
         </div>

@@ -4,7 +4,8 @@ import { ORGANIZATION_ID } from '@/lib/organization';
 import { DEFAULT_SOCIAL_IMAGE } from '@/lib/seo';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SmartLink } from '@/components/ui';
-import { homePath, sectionPath } from '@/lib/i18n';
+import { guideLinks } from '@/lib/guide-links';
+import { homePath, sectionPath, type Locale } from '@/lib/i18n';
 import { siteInfo } from '@/lib/site-info';
 import { absoluteImageUrl, absoluteUrl, siteUrl } from '@/lib/site-url';
 import { CopyLink } from './CopyLink';
@@ -16,6 +17,12 @@ import { Toc } from './Toc';
 import { prepareContent, readingMinutes, withHeadingIds } from './headings';
 import { normalizeArticleHtml } from './normalize';
 import s from './article.module.css';
+
+/** Trip-planning guides linked under every article. */
+const PLAN: Record<Locale, { title: string; firstTime: string; transfer: string; destinations: string }> = {
+  en: { title: 'Plan your trip', firstTime: 'First-time cruise guide', transfer: 'Hanoi to Halong Bay', destinations: 'Ha Long Bay attractions' },
+  vi: { title: 'Chuẩn bị chuyến đi', firstTime: 'Lần đầu đi du thuyền', transfer: 'Hà Nội đi Hạ Long', destinations: 'Điểm đến trên vịnh' },
+};
 
 export function ArticleView({ article, chrome }: { article: Article; chrome: Chrome }) {
   const { locale, t, site } = chrome;
@@ -44,6 +51,8 @@ export function ArticleView({ article, chrome }: { article: Article; chrome: Chr
   const related = linked(locale, article.related.length > 0 ? article.related : article.popular.filter((a) => a.id !== article.id)).slice(0, 3);
   const fallbackCards = m.fallbackCards.slice(0, Math.max(0, 3 - related.length));
   const share = encodeURIComponent(url);
+  const guides = guideLinks(locale);
+  const plan = PLAN[locale];
 
   return (
     <>
@@ -107,6 +116,13 @@ export function ArticleView({ article, chrome }: { article: Article; chrome: Chr
                 )}
                 {openingHtml && <div className={s.opening} dangerouslySetInnerHTML={{ __html: openingHtml }} />}
                 {html && <div className={s.prose} dangerouslySetInnerHTML={{ __html: html }} />}
+
+                <nav className={s.planLinks} aria-label={plan.title}>
+                  <span>{plan.title}</span>
+                  <SmartLink href={guides.firstTime}>{plan.firstTime}</SmartLink>
+                  <SmartLink href={guides.transfer}>{plan.transfer}</SmartLink>
+                  <SmartLink href={guides.destinations}>{plan.destinations}</SmartLink>
+                </nav>
 
                 <div className={s.end}>
                   {category ? <SmartLink className={s.tag} href={blogPath(locale, category.slug)}>{category.name}</SmartLink> : <span />}

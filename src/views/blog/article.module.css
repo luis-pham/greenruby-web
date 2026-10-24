@@ -304,3 +304,8 @@
   .bannerInner { grid-template-columns: 1fr; gap: 22px; }
   .bannerActions { align-items: flex-start; }
 }
+
+/* "Plan your trip" links under the article body (guides, transfers, destinations). */
+.planLinks { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 22px; margin: 44px 0 0; padding: 20px 24px; border-left: 2px solid var(--color-gold-500); background: var(--color-green-50); font-size: var(--font-size-sm); }
+.planLinks span { color: var(--text-accent); font-size: var(--font-size-label); font-weight: var(--font-weight-bold); letter-spacing: 0.18em; text-transform: uppercase; }
+.planLinks a { color: var(--text-heading); font-weight: var(--font-weight-semibold); text-decoration: underline; text-decoration-color: var(--color-gold-500); text-underline-offset: 3px; }

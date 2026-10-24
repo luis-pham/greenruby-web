@@ -24,6 +24,10 @@ const segments = {
   cookiePolicy: { en: 'cookie-policy', vi: 'chinh-sach-cookie' },
   ecoDashboard: { en: 'eco-dashboard', vi: 'bao-cao-sinh-thai' },
   brandFacts: { en: 'about-us/brand-facts', vi: 'gioi-thieu/thong-tin-thuong-hieu' },
+  // Halong cruise guide (Next.js only; Laravel's SitemapController mirrors these paths).
+  destinations: { en: 'destinations', vi: 'diem-den' },
+  guideFirstTime: { en: 'guides/first-time-halong-bay-cruise', vi: 'cam-nang/lan-dau-di-du-thuyen-ha-long' },
+  guideTransfer: { en: 'guides/hanoi-to-halong-bay', vi: 'cam-nang/ha-noi-di-ha-long' },
 } as const;
 
 export type Section = keyof typeof segments;
@@ -44,6 +48,11 @@ export function detailPath(locale: Locale, section: 'cruise' | 'cabin', slug: st
 
 export function itineraryPath(locale: Locale, slug: string, cruiseId: number, itineraryId: number): string {
   return `${sectionPath(locale, 'itinerary')}/${slug}-${cruiseId}-${itineraryId}.html`;
+}
+
+/** Destination detail: /destinations/{slug}, /vi/diem-den/{slug} (slugs are set by editors per language). */
+export function destinationPath(locale: Locale, slug: string): string {
+  return `${sectionPath(locale, 'destinations')}/${slug}`;
 }
 
 export function experiencePath(locale: Locale, slug: string, id: number): string {
@@ -77,6 +86,8 @@ const MIGRATED = [
   /^\/vi\/(thu-vien|cau-hoi-thuong-gap)(\/|$)/,
   /^\/blog(\/|$)/,
   /^\/vi\/blog(\/|$)/,
+  /^\/(destinations|guides)(\/|$)/,
+  /^\/vi\/(diem-den|cam-nang)(\/|$)/,
 ];
 
 export function isMigratedPath(href: string): boolean {
