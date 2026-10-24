@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-const menuItem: z.ZodType<MenuItem, z.ZodTypeDef, unknown> = z.lazy(() =>
+const menuItem: z.ZodType<MenuItem, unknown> = z.lazy(() =>
   z.object({
     name: z.string(),
     url: z.string().nullable().default(''),
@@ -14,7 +14,7 @@ export const siteSchema = z.object({
   language: z.object({ code: z.string() }),
   languages: z.array(z.object({ code: z.string(), name: z.string(), isDefault: z.boolean() })),
   // ad_config keys with the -{lang} suffix stripped. Values are raw CMS strings; anything else becomes null.
-  config: z.record(z.unknown().transform((v) => (typeof v === 'string' ? v : v == null ? null : String(v)))),
+  config: z.record(z.string(), z.unknown().transform((v) => (typeof v === 'string' ? v : v == null ? null : String(v)))),
   menus: z.object({
     primary: z.array(menuItem).default([]),
     footer: z.array(menuItem).default([]),

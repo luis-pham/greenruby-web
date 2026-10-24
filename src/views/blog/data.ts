@@ -24,7 +24,7 @@ export const articleSummarySchema = z.object({
 export type ArticleSummary = z.infer<typeof articleSummarySchema>;
 
 export type CategoryNode = { id: number; slug: string; name: string; count: number; children: CategoryNode[] };
-const categoryNodeSchema: z.ZodType<CategoryNode, z.ZodTypeDef, unknown> = z.lazy(() =>
+const categoryNodeSchema: z.ZodType<CategoryNode, unknown> = z.lazy(() =>
   z.object({
     id: z.number(),
     slug: z.string(),
