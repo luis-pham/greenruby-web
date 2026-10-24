@@ -43,7 +43,7 @@ const firstTime: GuideContent = {
             head: ['', 'Ha Long Bay', 'Lan Ha Bay'],
             rows: [
               ['Character', 'The classic core of the UNESCO site; busier routes', 'Off Cat Ba Island; fewer boats, quieter anchorages'],
-              ['Typical highlights', '[Sung Sot Cave](destination:sung-sot-cave), [Ti Top Island](destination:ti-top-island), [Luon Cave](destination:luon-cave)', '[Dark & Bright Cave](destination:dark-and-bright-cave), [Ao Ech Lagoon](destination:ao-ech-lagoon), [Viet Hai Village](destination:viet-hai-village)'],
+              ['Typical highlights', '[Sung Sot Cave](destination:sung-sot-cave), [Ti Top Island](destination:ti-top-island), [Luon Cave](destination:luon-cave)', '[Dark & Bright Cave](destination:dark-bright-cave), [Ao Ech Lagoon](destination:ao-ech-lagoon), [Viet Hai Village](destination:viet-hai-village)'],
               ['Best for', 'First-timers who want the famous sights', 'Kayaking, swimming and a calmer pace'],
               ['Green Ruby ship', 'Green Ruby 1', 'Green Ruby 2'],
             ],

@@ -24,6 +24,7 @@ const nextConfig: NextConfig = {
       { source: '/vi/diem-den/:slug', destination: '/vi/dia-diem-tham-quan/:slug', permanent: true },
       // Destination slug renamed 2026-10-24.
       { source: '/destinations/titop-island', destination: '/destinations/ti-top-island', permanent: true },
+      { source: '/destinations/dark-and-bright-cave', destination: '/destinations/dark-bright-cave', permanent: true },
     ];
   },
   async rewrites() {
