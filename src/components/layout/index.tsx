@@ -300,11 +300,21 @@ export function PageHero({
 
 type FooterLink = { label: string; href?: string; soon?: boolean };
 
-/** Four footer menus: Explore, Halong Cruise Guide, About, Support. Every href is a published page. */
-export function footerColumns(locale: Locale, t: Messages, aiChatHref: string | null): { title: string; links: FooterLink[] }[] {
+/**
+ * Four footer menus: Explore, Halong Cruise Guide, About, Support. Every href is a published page;
+ * hubs switched off in the CMS (hiddenPages) are left out.
+ */
+export function footerColumns(
+  locale: Locale,
+  t: Messages,
+  aiChatHref: string | null,
+  hiddenPages: readonly string[] = [],
+): { title: string; links: FooterLink[] }[] {
   const f = t.footer.links;
   const p = (section: Section, hash = '') => `${sectionPath(locale, section)}${hash}`;
-  const guide = guideLinks(locale);
+  const guide = guideLinks(locale, hiddenPages);
+  const shown = (links: { label: string; href: string | null }[]): FooterLink[] =>
+    links.filter((l): l is FooterLink & { href: string } => l.href !== null);
   return [
     {
       title: t.footer.columns.explore,
@@ -318,14 +328,14 @@ export function footerColumns(locale: Locale, t: Messages, aiChatHref: string | 
     },
     {
       title: t.footer.columns.guide,
-      links: [
+      links: shown([
         { label: f.travelJournal, href: guide.journal },
         { label: f.firstTimeGuide, href: guide.firstTime },
         { label: f.bestTime, href: guide.bestTime },
         { label: f.bayComparison, href: guide.bayComparison },
         { label: f.destinations, href: guide.destinations },
         { label: f.transferGuide, href: guide.transfer },
-      ],
+      ]),
     },
     {
       title: t.footer.columns.about,
@@ -389,7 +399,7 @@ export function SiteFooter({ locale, site, t }: Pick<Chrome, 'locale' | 'site' |
             )}
           </div>
           <div className={s.footerNav}>
-            {footerColumns(locale, t, info.aiChatHref).map((column, i) => (
+            {footerColumns(locale, t, info.aiChatHref, site.hiddenPages).map((column, i) => (
               <FooterColumn key={column.title} id={`footer-col-${i}`} title={column.title} toggleLabel={t.footer.toggle}>
                 <ul>
                   {column.links.map((link) => (

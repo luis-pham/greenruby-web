@@ -2,6 +2,7 @@ import 'server-only';
 import { cacheLife, cacheTag } from 'next/cache';
 import { getCruise, getItinerary, getSite, listCabins, listCruises, listItineraries } from '@/lib/api/content';
 import { detailPath, experiencePath, homePath, itineraryPath, sectionPath, type Locale, type Section } from '@/lib/i18n';
+import { sectionVisible } from '@/lib/guide-links';
 import { siteInfo } from '@/lib/site-info';
 import { MAPS_URL } from '@/lib/organization';
 import { absoluteUrl } from '@/lib/site-url';
@@ -85,8 +86,9 @@ function plain(html: string | null | undefined): string {
 }
 
 async function loadCore() {
-  const [site, itineraries, cabins, cruiseList, experiences, articles] = await Promise.all([
+  const [site, viSite, itineraries, cabins, cruiseList, experiences, articles] = await Promise.all([
     getSite(locale),
+    getSite('vi'),
     listItineraries(locale),
     listCabins(locale),
     listCruises(locale),
@@ -96,7 +98,9 @@ async function loadCore() {
   const cruises = (await Promise.all(cruiseList.map((c) => getCruise(c.id, locale)))).filter((c) => c !== null);
   cruises.sort((a, b) => a.name.localeCompare(b.name, 'en', { numeric: true }));
   const posts = articles && 'items' in articles ? [...articles.featured, ...articles.items].filter((a, i, all) => all.findIndex((b) => b.id === a.id) === i) : [];
-  return { info: siteInfo(site), t: getMessages(locale), itineraries: itineraries.items, cabins, cruises, experiences: experiences.items, posts };
+  // Hubs switched off in the CMS are not listed, per language.
+  const hidden = { en: site.hiddenPages, vi: viSite.hiddenPages };
+  return { info: siteInfo(site), t: getMessages(locale), hidden, itineraries: itineraries.items, cabins, cruises, experiences: experiences.items, posts };
 }
 
 type Core = Awaited<ReturnType<typeof loadCore>>;
@@ -142,14 +146,14 @@ async function buildIndex(): Promise<string> {
   cacheLife('hours');
   cacheTag(...TAGS);
   const core = await loadCore();
-  const { t, itineraries, cabins, cruises, experiences, posts } = core;
+  const { t, hidden, itineraries, cabins, cruises, experiences, posts } = core;
 
   return [
     ...header(core, false),
     '## Main pages',
     '',
     link('Home', homePath(locale), 'Fleet, itineraries, cabins and experiences at a glance'),
-    ...HUBS.map(([section, label, note]) => link(label, sectionPath(locale, section), note)),
+    ...HUBS.filter(([section]) => sectionVisible(section, hidden.en)).map(([section, label, note]) => link(label, sectionPath(locale, section), note)),
     '',
     '## Cruise ships',
     '',
@@ -180,7 +184,7 @@ async function buildIndex(): Promise<string> {
     '## Tiếng Việt',
     '',
     link('Trang chủ', homePath('vi')),
-    ...VI_HUBS.map(([section, label]) => link(label, sectionPath('vi', section))),
+    ...VI_HUBS.filter(([section]) => sectionVisible(section, hidden.vi)).map(([section, label]) => link(label, sectionPath('vi', section))),
     '',
     '## Optional',
     '',

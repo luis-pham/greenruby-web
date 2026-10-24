@@ -29,15 +29,23 @@ export function guideArticlePath(locale: Locale, article: GuideArticle): string 
   return ARTICLES[article][locale];
 }
 
-/** The "Halong Cruise Guide" set, in footer order. */
-export function guideLinks(locale: Locale) {
+/** CMS page code (app_page) of each hub an editor can switch off; see Site.hiddenPages. */
+export const HIDEABLE_PAGES = { guideFirstTime: 'guide-first-time', guideTransfer: 'guide-transfer', destinations: 'destinations' } as const;
+
+/** False when the section is switched off in the CMS for this language (sections without a switch are always shown). */
+export const sectionVisible = (section: string, hiddenPages: readonly string[]) =>
+  !(section in HIDEABLE_PAGES && hiddenPages.includes(HIDEABLE_PAGES[section as keyof typeof HIDEABLE_PAGES]));
+
+/** The "Halong Cruise Guide" set, in footer order. Hubs switched off in the CMS are null (render as text or not at all). */
+export function guideLinks(locale: Locale, hiddenPages: readonly string[] = []) {
+  const hub = (section: keyof typeof HIDEABLE_PAGES) => (sectionVisible(section, hiddenPages) ? sectionPath(locale, section) : null);
   return {
     journal: sectionPath(locale, 'blog'),
-    firstTime: sectionPath(locale, 'guideFirstTime'),
+    firstTime: hub('guideFirstTime'),
     bestTime: guideArticlePath(locale, 'bestTime'),
     bayComparison: guideArticlePath(locale, 'bayComparison'),
-    destinations: sectionPath(locale, 'destinations'),
-    transfer: sectionPath(locale, 'guideTransfer'),
+    destinations: hub('destinations'),
+    transfer: hub('guideTransfer'),
     luxuryPillar: guideArticlePath(locale, 'luxuryPillar'),
   };
 }

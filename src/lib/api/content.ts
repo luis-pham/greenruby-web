@@ -83,13 +83,28 @@ export async function getCruise(id: number, locale: Locale) {
   return getContent(`/cruises/${id}`, { lang: locale }, cruiseSchema);
 }
 
-const pageSeoSchema = z.object({ seo: z.object({ title: z.string().nullable(), description: z.string().nullable() }) });
+const pageSeoSchema = z.object({
+  seo: z.object({ title: z.string().nullable(), description: z.string().nullable() }),
+  visible: z.boolean().default(true),
+});
 
-/** SEO title/description an editor set for a hub page in the CMS (GET /pages/{code}, CONTENT_API.md 4.10). */
-export async function getPageSeo(code: 'contact' | 'booking' | 'eco-dashboard' | 'guide-first-time' | 'guide-transfer', locale: Locale) {
+type PageSeoCode = 'contact' | 'booking' | 'eco-dashboard' | 'guide-first-time' | 'guide-transfer';
+
+async function getPageHead(code: PageSeoCode, locale: Locale) {
   'use cache';
   cacheLife('hours');
   cacheTag('content', 'pages', `page:${code}`);
-  const page = await getContent(`/pages/${code}`, { lang: locale }, pageSeoSchema);
+  return getContent(`/pages/${code}`, { lang: locale }, pageSeoSchema);
+}
+
+/** SEO title/description an editor set for a hub page in the CMS (GET /pages/{code}, CONTENT_API.md 4.10). */
+export async function getPageSeo(code: PageSeoCode, locale: Locale) {
+  const page = await getPageHead(code, locale);
   return page?.seo ?? { title: null, description: null };
+}
+
+/** False when the editor switched the page off in the CMS ("Hiển thị trên website"); the page then 404s. */
+export async function isPageVisible(code: PageSeoCode, locale: Locale) {
+  const page = await getPageHead(code, locale);
+  return page?.visible ?? true;
 }

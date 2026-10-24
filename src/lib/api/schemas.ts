@@ -19,6 +19,8 @@ export const siteSchema = z.object({
     primary: z.array(menuItem).default([]),
     footer: z.array(menuItem).default([]),
   }),
+  /** app_page codes switched off in the CMS ("destinations", "guide-first-time", "guide-transfer"): never linked. */
+  hiddenPages: z.array(z.string()).default([]),
 });
 export type Site = z.infer<typeof siteSchema>;
 

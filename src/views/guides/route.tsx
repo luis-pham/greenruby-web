@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
-import { getPageSeo, getSite, listItineraries } from '@/lib/api/content';
+import { notFound } from 'next/navigation';
+import { getPageSeo, getSite, isPageVisible, listItineraries } from '@/lib/api/content';
 import { guideLinks } from '@/lib/guide-links';
-import { destinationPath, sectionPath, type Locale } from '@/lib/i18n';
+import { destinationPath, homePath, sectionPath, type Locale } from '@/lib/i18n';
 import { MAPS_URL } from '@/lib/organization';
 import { pageMetadata } from '@/lib/seo';
 import { siteInfo } from '@/lib/site-info';
@@ -23,12 +24,12 @@ const GUIDES = {
 type Guide = keyof typeof GUIDES;
 
 /**
- * Link targets used in guide copy. Destination links resolve only to published destinations, so a draft
- * or missing page renders as plain text instead of a broken link.
+ * Link targets used in guide copy. Destination links resolve only to published destinations, and guide
+ * links only to hubs that are switched on, so a hidden or missing page renders as plain text.
  */
-function resolver(locale: Locale, publishedSlugs: Set<string>) {
-  const links: Record<string, string> = {
-    ...guideLinks(locale),
+function resolver(locale: Locale, publishedSlugs: Set<string>, hiddenPages: readonly string[]) {
+  const links: Record<string, string | null> = {
+    ...guideLinks(locale, hiddenPages),
     itineraries: sectionPath(locale, 'itinerary'),
     faq: sectionPath(locale, 'faq'),
     contact: sectionPath(locale, 'contact'),
@@ -51,25 +52,39 @@ export function guideRoute(guide: Guide, locale: Locale) {
   const c = content[locale];
 
   async function generateMetadata(): Promise<Metadata> {
-    const [site, seo] = await Promise.all([getSite(locale), getPageSeo(code, locale)]);
+    const [site, seo, visible, otherVisible] = await Promise.all([
+      getSite(locale),
+      getPageSeo(code, locale),
+      isPageVisible(code, locale),
+      isPageVisible(code, other),
+    ]);
+    if (!visible) return {};
     return pageMetadata({
       locale,
       site: siteInfo(site),
       title: seo.title ?? c.metaTitle,
       description: seo.description ?? c.metaDescription,
       path: sectionPath(locale, guide),
-      alternatePath: sectionPath(other, guide),
+      alternatePath: otherVisible ? sectionPath(other, guide) : undefined,
     });
   }
 
   async function Page() {
-    const [site, destinations, itineraries] = await Promise.all([getSite(locale), listDestinations(locale), listItineraries(locale)]);
+    // Switched off in the CMS ("Hiển thị trên website"): 404 until an editor turns it back on.
+    if (!(await isPageVisible(code, locale))) notFound();
+    const [site, destinations, itineraries, otherVisible] = await Promise.all([
+      getSite(locale),
+      listDestinations(locale),
+      listItineraries(locale),
+      isPageVisible(code, other),
+    ]);
     return (
       <GuideView
-        chrome={{ locale, site, t: getMessages(locale), alternateHref: sectionPath(other, guide) }}
+        // The language switch goes to the other language's home page when its copy of the guide is hidden.
+        chrome={{ locale, site, t: getMessages(locale), alternateHref: otherVisible ? sectionPath(other, guide) : homePath(other) }}
         content={c}
         path={sectionPath(locale, guide)}
-        resolve={resolver(locale, new Set(destinations.items.map((d) => d.slug)))}
+        resolve={resolver(locale, new Set(destinations.items.map((d) => d.slug)), site.hiddenPages)}
         itineraries={itineraries.items}
         bayLabels={destinationMessages[locale].bays}
       />

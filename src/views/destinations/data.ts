@@ -30,7 +30,7 @@ export type Category = DestinationSummary['category'];
 
 const seo = z.object({ title: text, description: text });
 
-export const destinationListSchema = z.object({ seo, items: z.array(destinationSummarySchema) });
+export const destinationListSchema = z.object({ seo, visible: z.boolean().default(true), items: z.array(destinationSummarySchema) });
 
 export const destinationSchema = destinationSummarySchema.extend({
   /** Page H1 (editor's "Tiêu đề trang"); falls back to the name. Cards, map and breadcrumb use the name. */

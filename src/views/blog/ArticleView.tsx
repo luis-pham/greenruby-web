@@ -51,7 +51,7 @@ export function ArticleView({ article, chrome }: { article: Article; chrome: Chr
   const related = linked(locale, article.related.length > 0 ? article.related : article.popular.filter((a) => a.id !== article.id)).slice(0, 3);
   const fallbackCards = m.fallbackCards.slice(0, Math.max(0, 3 - related.length));
   const share = encodeURIComponent(url);
-  const guides = guideLinks(locale);
+  const guides = guideLinks(locale, site.hiddenPages);
   const plan = PLAN[locale];
 
   return (
@@ -119,9 +119,9 @@ export function ArticleView({ article, chrome }: { article: Article; chrome: Chr
 
                 <nav className={s.planLinks} aria-label={plan.title}>
                   <span>{plan.title}</span>
-                  <SmartLink href={guides.firstTime}>{plan.firstTime}</SmartLink>
-                  <SmartLink href={guides.transfer}>{plan.transfer}</SmartLink>
-                  <SmartLink href={guides.destinations}>{plan.destinations}</SmartLink>
+                  {guides.firstTime && <SmartLink href={guides.firstTime}>{plan.firstTime}</SmartLink>}
+                  {guides.transfer && <SmartLink href={guides.transfer}>{plan.transfer}</SmartLink>}
+                  {guides.destinations && <SmartLink href={guides.destinations}>{plan.destinations}</SmartLink>}
                 </nav>
 
                 <div className={s.end}>

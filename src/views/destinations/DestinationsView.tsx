@@ -16,7 +16,7 @@ export function DestinationsView({ chrome, items, itineraries }: { chrome: Chrom
   const { locale, t } = chrome;
   const m = destinationMessages[locale];
   const path = sectionPath(locale, 'destinations');
-  const guides = guideLinks(locale);
+  const guides = guideLinks(locale, chrome.site.hiddenPages);
 
   const cards: CardItem[] = items.map((d) => ({
     slug: d.slug,
@@ -165,7 +165,9 @@ export function DestinationsView({ chrome, items, itineraries }: { chrome: Chrom
                   [guides.transfer, m.guides.transfer],
                   [guides.bestTime, m.guides.bestTime],
                 ] as const
-              ).map(([href, [title, body]]) => (
+              )
+                .filter((g): g is [string, (typeof g)[1]] => g[0] !== null)
+                .map(([href, [title, body]]) => (
                 <li key={href}>
                   <SmartLink href={href}>
                     <strong>{title}</strong>

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getSite, listItineraries } from '@/lib/api/content';
-import { destinationPath, sectionPath, type Locale } from '@/lib/i18n';
+import { destinationPath, homePath, sectionPath, type Locale } from '@/lib/i18n';
 import { pageMetadata } from '@/lib/seo';
 import { siteInfo } from '@/lib/site-info';
 import { getMessages } from '@/messages';
@@ -15,7 +15,8 @@ export function destinationsRoute(locale: Locale) {
   const other: Locale = locale === 'en' ? 'vi' : 'en';
 
   async function generateMetadata(): Promise<Metadata> {
-    const [site, list] = await Promise.all([getSite(locale), listDestinations(locale)]);
+    const [site, list, otherList] = await Promise.all([getSite(locale), listDestinations(locale), listDestinations(other)]);
+    if (!list.visible) return {};
     const m = destinationMessages[locale];
     return pageMetadata({
       locale,
@@ -23,18 +24,25 @@ export function destinationsRoute(locale: Locale) {
       title: list.seo.title ?? m.metaTitle,
       description: list.seo.description ?? m.metaDescription,
       path: sectionPath(locale, 'destinations'),
-      alternatePath: sectionPath(other, 'destinations'),
+      alternatePath: otherList.visible ? sectionPath(other, 'destinations') : undefined,
       image: list.items.find((d) => d.image)?.image?.src ?? null,
     });
   }
 
   async function Page() {
-    const [site, list, itineraries] = await Promise.all([getSite(locale), listDestinations(locale), listItineraries(locale)]);
+    const [site, list, itineraries, otherList] = await Promise.all([
+      getSite(locale),
+      listDestinations(locale),
+      listItineraries(locale),
+      listDestinations(other),
+    ]);
+    // Hub switched off in the CMS ("Hiển thị trên website"); the API then returns no destinations either.
+    if (!list.visible) notFound();
     return (
       <DestinationsView
         items={list.items}
         itineraries={itineraries.items}
-        chrome={{ locale, site, t: getMessages(locale), alternateHref: sectionPath(other, 'destinations') }}
+        chrome={{ locale, site, t: getMessages(locale), alternateHref: otherList.visible ? sectionPath(other, 'destinations') : homePath(other) }}
       />
     );
   }
@@ -76,12 +84,13 @@ export function destinationRoute(locale: Locale) {
     const { slug } = await params;
     const d = await getDestination(slug, locale);
     if (!d) notFound();
-    const site = await getSite(locale);
+    const [site, otherList] = await Promise.all([getSite(locale), listDestinations(other)]);
+    // Without a translation the language switch goes to the other language's hub (home page if that hub is hidden).
+    const fallback = otherList.visible ? sectionPath(other, 'destinations') : homePath(other);
     return (
       <DestinationView
         destination={d}
-        // Without a translation the language switch goes to the other language's hub, never to a missing page.
-        chrome={{ locale, site, t: getMessages(locale), alternateHref: alternateOf(d) ?? sectionPath(other, 'destinations') }}
+        chrome={{ locale, site, t: getMessages(locale), alternateHref: alternateOf(d) ?? fallback }}
       />
     );
   }
