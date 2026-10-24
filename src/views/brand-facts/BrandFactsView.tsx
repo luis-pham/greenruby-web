@@ -8,7 +8,7 @@ import { MAPS_URL, ORGANIZATION_ID, organizationSchema } from '@/lib/organizatio
 import { siteInfo } from '@/lib/site-info';
 import { absoluteUrl } from '@/lib/site-url';
 import { CopyButton, FactActions } from './Actions';
-import { brandFactsMessages, REVIEWED, type Evidence } from './messages';
+import { brandFactsMessages, REVIEWED, type Block, type Evidence, type FactRow } from './messages';
 import s from './brand.module.css';
 
 const SECTIONS = ['identity', 'fleet', 'itineraries', 'cabins', 'departure', 'status', 'sustainability', 'contacts', 'media'] as const;
@@ -19,7 +19,39 @@ function Badge({ evidence, label }: { evidence: Evidence; label: string }) {
   return <span className={s.badge} data-evidence={evidence}>{label}</span>;
 }
 
-function Head({ n, id, label, title, lede }: { n: number; id: string; label: string; title: string; lede: string }) {
+/** Optional paragraphs under a section heading (the Vietnamese page has more prose than the English one). */
+function Paras({ items, className }: { items: readonly string[]; className?: string }) {
+  return items.map((p) => <p key={p} className={className}>{p}</p>);
+}
+
+function Blocks({ items }: { items: readonly Block[] }) {
+  return items.map((b) => (
+    <div key={b.title} className={s.block}>
+      <h3>{b.title}</h3>
+      <Paras items={b.paras} />
+    </div>
+  ));
+}
+
+/** Fact list with evidence badges; long values (whole sentences) are set in body weight. */
+function Facts({ rows, labels, homeHref }: { rows: readonly FactRow[]; labels: Record<Evidence, string>; homeHref: string }) {
+  if (rows.length === 0) return null;
+  return (
+    <dl className={s.facts}>
+      {rows.map(([k, v, e, badge]) => (
+        <div key={k} className={s.fact}>
+          <dt>{k}</dt>
+          <dd data-long={v.length > 90 || undefined}>
+            {v === 'greenrubycruises.com' ? <a href={homeHref}>{v}</a> : v}
+            <Badge evidence={e} label={badge ?? labels[e]} />
+          </dd>
+        </div>
+      ))}
+    </dl>
+  );
+}
+
+function Head({ n, id, label, title, lede, body = [] }: { n: number; id: string; label: string; title: string; lede: string; body?: readonly string[] }) {
   return (
     <div className={s.head}>
       <span className={s.index}>{String(n).padStart(2, '0')}</span>
@@ -27,6 +59,7 @@ function Head({ n, id, label, title, lede }: { n: number; id: string; label: str
         <span className={s.label}>{label}</span>
         <h2 id={id} className={s.title}>{title}</h2>
         <p className={s.lede}>{lede}</p>
+        <Paras items={body} className={s.lede} />
       </div>
     </div>
   );
@@ -41,6 +74,7 @@ export function BrandFactsView({ chrome, home }: { chrome: Chrome; home: Homepag
   const path = sectionPath(locale, 'brandFacts');
   const url = absoluteUrl(path);
 
+  const reviewed = REVIEWED[locale];
   const ships = [...home.cruises].sort((a, b) => a.name.localeCompare(b.name));
   const cabins = CABIN_ORDER.map((name) => home.cabins.find((c) => c.name === name)).filter((c): c is NonNullable<typeof c> => !!c);
   const itineraries = [...home.itineraries].sort((a, b) => (a.bay ?? '').localeCompare(b.bay ?? '') || a.duration - b.duration);
@@ -69,7 +103,7 @@ export function BrandFactsView({ chrome, home }: { chrome: Chrome; home: Homepag
         lead={m.lead}
         meta={
           <span>
-            {m.reviewed}: <time dateTime={REVIEWED.iso}>{REVIEWED[locale]}</time>
+            {m.reviewed}: <time dateTime={reviewed.iso}>{reviewed.label}</time>
           </span>
         }
       />
@@ -108,17 +142,8 @@ export function BrandFactsView({ chrome, home }: { chrome: Chrome; home: Homepag
         <div className={s.content}>
           <section className={s.section} aria-labelledby="identity">
             <Head n={1} id="identity" {...S.identity} />
-            <dl className={s.facts}>
-              {S.identity.rows.map(([k, v, e]) => (
-                <div key={k} className={s.fact}>
-                  <dt>{k}</dt>
-                  <dd>
-                    {v === 'greenrubycruises.com' ? <a href={absoluteUrl(homePath(locale))}>{v}</a> : v}
-                    <Badge evidence={e} label={m.evidence[e]} />
-                  </dd>
-                </div>
-              ))}
-            </dl>
+            <Facts rows={S.identity.rows} labels={m.evidence} homeHref={absoluteUrl(homePath(locale))} />
+            {S.identity.note && <p className={s.small}>{S.identity.note}</p>}
           </section>
 
           <section className={s.section} aria-labelledby="fleet">
@@ -134,12 +159,13 @@ export function BrandFactsView({ chrome, home }: { chrome: Chrome; home: Homepag
                     <div className={s.vesselBody}>
                       <span className={s.label}>{bay ? S.fleet.bays[bay] : ''}</span>
                       <h3>{ship.name}</h3>
+                      {bay && <Paras items={S.fleet.ships[bay]} className={s.vesselText} />}
                       <div className={s.vesselSpecs}>
                         <div><b>{value(ship.totalCabin)}</b><span>{S.fleet.rows.cabins}</span></div>
                         <div><b>{value(ship.capacity)}</b><span>{S.fleet.rows.guests}</span></div>
                         <div><b>{value(ship.length, ' m')}</b><span>{S.fleet.rows.length}</span></div>
                       </div>
-                      <p className={s.vesselStatus}>{S.fleet.status}</p>
+                      <p className={s.vesselStatus}>{S.fleet.cardStatus || S.fleet.status}</p>
                       <SmartLink className={s.textLink} href={detailPath(locale, 'cruise', ship.slug, ship.id)}>{S.fleet.vesselPage} →</SmartLink>
                     </div>
                   </article>
@@ -162,13 +188,15 @@ export function BrandFactsView({ chrome, home }: { chrome: Chrome; home: Homepag
                   <tr><th scope="row">{S.fleet.rows.decks}</th>{ships.map((x) => <td key={x.id}>{value(x.totalFloor)}</td>)}</tr>
                   <tr><th scope="row">{S.fleet.rows.built}</th>{ships.map((x) => <td key={x.id}>2026</td>)}</tr>
                   <tr><th scope="row">{S.fleet.rows.categories}</th>{ships.map((x) => <td key={x.id}>{S.fleet.categories}</td>)}</tr>
-                  <tr><th scope="row">{S.fleet.rows.boarding}</th>{ships.map((x) => <td key={x.id}>{SHIP_BAY[x.name] ? S.fleet.boarding[SHIP_BAY[x.name]] : '—'}</td>)}</tr>
+                  {S.fleet.rows.boarding && (
+                    <tr><th scope="row">{S.fleet.rows.boarding}</th>{ships.map((x) => <td key={x.id}>{SHIP_BAY[x.name] ? S.fleet.boarding[SHIP_BAY[x.name]] : '—'}</td>)}</tr>
+                  )}
                   <tr><th scope="row">{S.fleet.rows.status}</th>{ships.map((x) => <td key={x.id}>{S.fleet.status}</td>)}</tr>
                 </tbody>
               </table>
             </div>
             <p className={s.note}>
-              {S.fleet.choose} <SmartLink href={sectionPath(locale, 'itinerary')}>{S.fleet.chooseLink}</SmartLink>
+              {S.fleet.choose} {S.fleet.chooseLink && <SmartLink href={sectionPath(locale, 'itinerary')}>{S.fleet.chooseLink}</SmartLink>}
             </p>
             <p className={s.small}>{S.fleet.note}</p>
           </section>
@@ -184,12 +212,16 @@ export function BrandFactsView({ chrome, home }: { chrome: Chrome; home: Homepag
                       <td>{it.bay ? S.fleet.bays[it.bay] : '—'}</td>
                       <td>{S.itineraries.nights(it.duration)}</td>
                       <td>{it.cruiseName ?? '—'}</td>
-                      <td><SmartLink href={itineraryPath(locale, it.slug, it.cruiseId, it.itineraryId)}>{it.name}</SmartLink></td>
+                      <td>
+                        <SmartLink href={itineraryPath(locale, it.slug, it.cruiseId, it.itineraryId)}>{it.name}</SmartLink>
+                        {S.itineraries.descriptions[it.itineraryId] && <span className={s.cellNote}>{S.itineraries.descriptions[it.itineraryId]}</span>}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
+            {S.itineraries.note && <p className={s.small}>{S.itineraries.note}</p>}
           </section>
 
           <section className={s.section} aria-labelledby="cabins">
@@ -203,32 +235,38 @@ export function BrandFactsView({ chrome, home }: { chrome: Chrome; home: Homepag
                       <td><SmartLink href={detailPath(locale, 'cabin', c.slug, c.id)}>{c.name}</SmartLink></td>
                       <td>{value(c.area, ' m²')}</td>
                       <td>{value(c.capacity)}</td>
-                      <td>{c.view ?? '—'}</td>
+                      {S.cabins.th.length > 3 && <td>{c.view ?? '—'}</td>}
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
+            <Paras items={S.cabins.notes} className={s.small} />
           </section>
 
           <section className={s.section} aria-labelledby="departure">
             <Head n={5} id="departure" {...S.departure} />
-            <div className={s.location}>
+            <div className={S.departure.points.length > 0 ? s.location : `${s.location} ${s.locationSingle}`}>
               <div>
                 <h3>{S.departure.place}</h3>
                 <p>{S.departure.address}</p>
-                <p className={s.small}>{S.departure.addressNote}</p>
+                {S.departure.addressNote && <p className={s.small}>{S.departure.addressNote}</p>}
                 <a className={s.textLink} href={MAPS_URL} target="_blank" rel="noopener">{S.departure.map} ↗</a>
               </div>
-              <ul>
-                {S.departure.points.map((p) => <li key={p}>{p}</li>)}
-              </ul>
+              {S.departure.points.length > 0 && (
+                <ul>
+                  {S.departure.points.map((p) => <li key={p}>{p}</li>)}
+                </ul>
+              )}
             </div>
+            <Blocks items={S.departure.blocks} />
+            {S.departure.note && <p className={s.small}>{S.departure.note}</p>}
             <SmartLink className={s.textLink} href={sectionPath(locale, 'contact')}>{S.departure.contact} →</SmartLink>
           </section>
 
           <section className={s.section} aria-labelledby="status">
             <Head n={6} id="status" {...S.status} />
+            {S.status.cardsTitle && <h3 className={s.subhead}>{S.status.cardsTitle}</h3>}
             <div className={s.cards}>
               {S.status.cards.map(([k, h, p]) => (
                 <div key={k} className={s.card}>
@@ -238,27 +276,14 @@ export function BrandFactsView({ chrome, home }: { chrome: Chrome; home: Homepag
                 </div>
               ))}
             </div>
-            <dl className={s.facts}>
-              {S.status.rows.map(([k, v, e]) => (
-                <div key={k} className={s.fact}>
-                  <dt>{k}</dt>
-                  <dd>{v}<Badge evidence={e} label={m.evidence[e]} /></dd>
-                </div>
-              ))}
-            </dl>
+            <Facts rows={S.status.rows} labels={m.evidence} homeHref={absoluteUrl(homePath(locale))} />
+            <Blocks items={S.status.blocks} />
             <SmartLink className={s.textLink} href={sectionPath(locale, 'contact')}>{S.status.cta} →</SmartLink>
           </section>
 
           <section className={s.section} aria-labelledby="sustainability">
             <Head n={7} id="sustainability" {...S.sustainability} />
-            <dl className={s.facts}>
-              {S.sustainability.rows.map(([k, v, e]) => (
-                <div key={k} className={s.fact}>
-                  <dt>{k}</dt>
-                  <dd>{v}<Badge evidence={e} label={m.evidence[e]} /></dd>
-                </div>
-              ))}
-            </dl>
+            <Facts rows={S.sustainability.rows} labels={m.evidence} homeHref={absoluteUrl(homePath(locale))} />
             <SmartLink className={s.textLink} href={sectionPath(locale, 'ecoDashboard')}>{S.sustainability.dashboard} →</SmartLink>
           </section>
 
@@ -268,7 +293,7 @@ export function BrandFactsView({ chrome, home }: { chrome: Chrome; home: Homepag
               <div><span>{S.contacts.website}</span><a href={absoluteUrl(homePath(locale))}>greenrubycruises.com</a></div>
               {info.email && <div><span>{S.contacts.email}</span><a href={`mailto:${info.email}`}>{info.email}</a></div>}
               {info.hotline && <div><span>{S.contacts.hotline}</span><a href={info.hotlineHref ?? undefined}>{info.hotline}</a></div>}
-              {info.address && <div><span>{S.contacts.address}</span><strong>{info.address}</strong></div>}
+              {(S.contacts.office || info.address) && <div><span>{S.contacts.address}</span><strong>{S.contacts.office || info.address}</strong></div>}
               <div><span>{S.contacts.contactPage}</span><SmartLink href={sectionPath(locale, 'contact')}>{absoluteUrl(sectionPath(locale, 'contact')).replace(/^https?:\/\//, '')}</SmartLink></div>
               {info.socials.length > 0 && (
                 <div>
@@ -279,15 +304,17 @@ export function BrandFactsView({ chrome, home }: { chrome: Chrome; home: Homepag
                 </div>
               )}
             </div>
+            <Paras items={S.contacts.after} className={s.after} />
           </section>
 
           <section className={s.section} aria-labelledby="media">
             <Head n={9} id="media" {...S.media} />
             <div className={s.boilerplate}>
               <span className={s.label}>{S.media.boilerplateLabel}</span>
-              <p>{S.media.boilerplate}</p>
+              <Paras items={S.media.boilerplate.split('\n\n')} />
               <CopyButton text={S.media.boilerplate} label={S.media.copy} copied={m.copied} className={s.boilerBtn} />
             </div>
+            {S.media.filesTitle && <h3 className={s.subhead}>{S.media.filesTitle}</h3>}
             <div className={s.files}>
               {S.media.files.map(([k, v]) => (
                 <div key={k}>
@@ -297,7 +324,7 @@ export function BrandFactsView({ chrome, home }: { chrome: Chrome; home: Homepag
               ))}
             </div>
             <p className={s.small}>
-              {m.reviewed}: <time dateTime={REVIEWED.iso}>{REVIEWED[locale]}</time>
+              {m.reviewed}: <time dateTime={reviewed.iso}>{reviewed.label}</time>
             </p>
           </section>
         </div>
@@ -324,7 +351,7 @@ export function BrandFactsView({ chrome, home }: { chrome: Chrome; home: Homepag
               name: m.metaTitle,
               description: m.metaDescription,
               inLanguage: locale,
-              dateModified: REVIEWED.iso,
+              dateModified: reviewed.iso,
               about: { '@id': ORGANIZATION_ID },
               mainEntity: { '@id': ORGANIZATION_ID },
             },
