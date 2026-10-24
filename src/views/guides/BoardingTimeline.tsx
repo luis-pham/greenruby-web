@@ -6,6 +6,19 @@ import s from './guide.module.css';
 export type TimelineStep = { time: string; title: string; body: string };
 export type TimelineTab = { key: string; label: string; steps: TimelineStep[] };
 
+/** "Khoảng 08:00": a word prefix sits as a small label above the time so long prefixes fit the column. */
+function StepTime({ time }: { time: string }) {
+  const m = /^(\p{L}{3,})\s+(.+)$/u.exec(time);
+  return m ? (
+    <span className={s.stepTime}>
+      <small>{m[1]}</small>
+      {m[2]}
+    </span>
+  ) : (
+    <span className={s.stepTime}>{time}</span>
+  );
+}
+
 /**
  * Boarding-day timeline with one tab per ship. Both tabs are in the server HTML (inactive ones are
  * hidden), so the full schedule is crawlable; tabs follow the WAI-ARIA tabs pattern.
@@ -45,7 +58,7 @@ export function BoardingTimeline({ tabs, label, note }: { tabs: TimelineTab[]; l
           <ol className={s.steps}>
             {tab.steps.map((step) => (
               <li key={step.time + step.title}>
-                <span className={s.stepTime}>{step.time}</span>
+                <StepTime time={step.time} />
                 <div>
                   <strong>{step.title}</strong>
                   <p>{step.body}</p>

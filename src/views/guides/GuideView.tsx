@@ -35,6 +35,7 @@ export function GuideView({
 
   const renderBlock = (block: Block, key: number) => {
     if ('p' in block) return <p key={key}>{rich(block.p)}</p>;
+    if ('h3' in block) return <h3 key={key}>{block.h3}</h3>;
     if ('ul' in block) return <ul key={key}>{block.ul.map((item, i) => <li key={i}>{rich(item)}</li>)}</ul>;
     if ('ol' in block) return <ol key={key}>{block.ol.map((item, i) => <li key={i}>{rich(item)}</li>)}</ol>;
     if ('note' in block) return <p key={key} className={s.note}>{rich(block.note)}</p>;
@@ -83,6 +84,7 @@ export function GuideView({
                   {it.cruiseName} · {it.bay ? bayLabels[it.bay] : ''} · {c.itineraries!.days(it.duration)}
                 </span>
                 <strong>{it.name}</strong>
+                {c.itineraries!.descriptions?.[`${it.bay}:${it.duration}`] && <small>{c.itineraries!.descriptions[`${it.bay}:${it.duration}`]}</small>}
                 <em>{c.itineraries!.view} ↗︎</em>
               </SmartLink>
             </li>

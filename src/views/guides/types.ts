@@ -9,6 +9,7 @@ export type Rich = string;
 
 export type Block =
   | { p: Rich }
+  | { h3: string }
   | { ul: Rich[] }
   | { ol: Rich[] }
   | { table: { caption?: string; head: string[]; rows: Rich[][] } }
@@ -40,5 +41,6 @@ export type GuideContent = {
     labels: import('./TransferSelector').SelectorLabels;
     origins: import('./TransferSelector').SelectorOrigin[];
   };
-  itineraries?: { title: string; days: (n: number) => string; view: string };
+  /** descriptions: optional one-liner per card, keyed "{bay}:{days}" (e.g. "ha-long:2"). */
+  itineraries?: { title: string; days: (n: number) => string; view: string; descriptions?: Record<string, string> };
 };

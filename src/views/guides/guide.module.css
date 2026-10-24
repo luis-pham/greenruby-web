@@ -23,7 +23,7 @@
 .content { min-width: 0; max-width: 780px; color: var(--text-body); font-size: var(--font-size-base); line-height: var(--font-leading-relaxed); }
 .section { padding-bottom: var(--space-12); margin-bottom: var(--space-12); border-bottom: 1px solid var(--border-default); }
 .section h2 { margin: 0 0 var(--space-6); color: var(--text-heading); font-size: clamp(28px, 3vw, 40px); line-height: 1.2; letter-spacing: var(--font-tracking-heading); scroll-margin-top: 110px; }
-.section h3 { margin: 0 0 var(--space-3); color: var(--text-heading); font-size: var(--font-size-md); }
+.section h3 { margin: var(--space-8) 0 var(--space-3); color: var(--text-heading); font-size: var(--font-size-md); }
 .section p { margin: 0 0 var(--space-5); }
 .section ul, .section ol { margin: 0 0 var(--space-5); padding-left: 20px; }
 .section li { margin: 8px 0; padding-left: 4px; }
@@ -40,6 +40,7 @@
 
 .checklist { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-4); }
 .checklist > div { padding: var(--space-5); background: var(--bg-surface); border: 1px solid var(--border-default); }
+.checklist h3 { margin-top: 0 !important; }
 .checklist ul { list-style: none; margin: 0; padding: 0; font-size: var(--font-size-sm); }
 .checklist li { position: relative; padding-left: 26px; }
 .checklist li::before { content: ''; position: absolute; left: 0; top: 5px; width: 14px; height: 14px; border: 1.5px solid var(--color-gold-500); }
@@ -50,6 +51,7 @@
 .itineraries a:hover { border-color: var(--color-gold-500); }
 .itineraries span { color: var(--text-accent); font-size: var(--font-size-label); font-weight: var(--font-weight-bold); letter-spacing: var(--font-tracking-wide); text-transform: uppercase; }
 .itineraries strong { font-family: var(--font-family-serif); font-size: var(--font-size-md); font-weight: var(--font-weight-regular); }
+.itineraries small { color: var(--text-body); font-size: var(--font-size-xs); line-height: 1.7; }
 .itineraries em { margin-top: auto; color: var(--text-heading); font-size: var(--font-size-xs); font-style: normal; font-weight: var(--font-weight-bold); }
 
 /* Widgets */
@@ -65,6 +67,7 @@
 .steps li:last-child::before { display: none; }
 .steps li::after { content: ''; position: absolute; left: 100px; top: 6px; width: 9px; height: 9px; border-radius: 50%; background: var(--color-gold-500); }
 .stepTime { color: var(--text-heading); font-family: var(--font-family-serif); font-size: var(--font-size-md); white-space: nowrap; }
+.stepTime small { display: block; color: var(--text-muted); font-family: var(--font-family-sans); font-size: 11px; letter-spacing: var(--font-tracking-wide); text-transform: uppercase; }
 .steps strong { display: block; padding-left: var(--space-3); color: var(--text-heading); font-size: var(--font-size-sm); }
 .steps p { margin: 4px 0 0 !important; padding-left: var(--space-3); color: var(--text-body); font-size: var(--font-size-xs); line-height: 1.7; }
 
