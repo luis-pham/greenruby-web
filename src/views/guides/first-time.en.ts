@@ -43,7 +43,7 @@ const firstTime: GuideContent = {
             head: ['', 'Ha Long Bay', 'Lan Ha Bay'],
             rows: [
               ['Character', 'The classic core of the UNESCO site; busier routes', 'Off Cat Ba Island; fewer boats, quieter anchorages'],
-              ['Typical highlights', '[Sung Sot Cave](destination:sung-sot-cave), [Ti Top Island](destination:titop-island), [Luon Cave](destination:luon-cave)', '[Dark & Bright Cave](destination:dark-and-bright-cave), [Ao Ech Lagoon](destination:ao-ech-lagoon), [Viet Hai Village](destination:viet-hai-village)'],
+              ['Typical highlights', '[Sung Sot Cave](destination:sung-sot-cave), [Ti Top Island](destination:ti-top-island), [Luon Cave](destination:luon-cave)', '[Dark & Bright Cave](destination:dark-and-bright-cave), [Ao Ech Lagoon](destination:ao-ech-lagoon), [Viet Hai Village](destination:viet-hai-village)'],
               ['Best for', 'First-timers who want the famous sights', 'Kayaking, swimming and a calmer pace'],
               ['Green Ruby ship', 'Green Ruby 1', 'Green Ruby 2'],
             ],
@@ -163,7 +163,7 @@ const firstTime: GuideContent = {
         { p: '**Weather.** October to April is cooler and drier; May to September is hot and humid and is also the storm season, roughly June to October. When a storm warning is issued, the authorities can suspend all sailings in the bay at short notice. Operators then reschedule or refund under their policy. Mist and low cloud can reduce visibility during winter. See [the best time to visit](bestTime) for month-by-month conditions.' },
         { p: '**Seasickness.** The bays are sheltered by islands and conditions are often relatively calm, although some movement is still possible, especially in strong wind. If you are prone to motion sickness, bring your usual remedy and ask the crew about conditions before departure.' },
         { p: '**Children.** Families are welcome on most cruises. Children wear life jackets for every water activity, and young children usually go in a bamboo boat with an adult rather than a kayak. Check the child policy, bed options and [safety policies](/safety-policies) when booking.' },
-        { p: '**Accessibility.** Boarding involves stepping between a pier, a tender and the ship, and many sights involve steps: [Sung Sot Cave](destination:sung-sot-cave) and the [Ti Top](destination:titop-island) viewpoint have long stairways. Travellers with limited mobility can usually enjoy the cruise from the ship; tell the team your needs before booking so they can advise honestly.' },
+        { p: '**Accessibility.** Boarding involves stepping between a pier, a tender and the ship, and many sights involve steps: [Sung Sot Cave](destination:sung-sot-cave) and the [Ti Top](destination:ti-top-island) viewpoint have long stairways. Travellers with limited mobility can usually enjoy the cruise from the ship; tell the team your needs before booking so they can advise honestly.' },
       ],
     },
     {

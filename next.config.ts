@@ -22,6 +22,8 @@ const nextConfig: NextConfig = {
       // VI destinations section renamed 2026-10-24 (Điểm đến → Địa điểm tham quan).
       { source: '/vi/diem-den', destination: '/vi/dia-diem-tham-quan', permanent: true },
       { source: '/vi/diem-den/:slug', destination: '/vi/dia-diem-tham-quan/:slug', permanent: true },
+      // Destination slug renamed 2026-10-24.
+      { source: '/destinations/titop-island', destination: '/destinations/ti-top-island', permanent: true },
     ];
   },
   async rewrites() {
