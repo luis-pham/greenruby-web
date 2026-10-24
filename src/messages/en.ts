@@ -15,7 +15,7 @@ const en = {
     language: 'Language',
   },
   footer: {
-    statement: 'Where the bay stays wild — and the experience doesn’t compromise.',
+    statement: 'Discover luxury overnight cruises in Halong Bay and Lan Ha Bay, Vietnam, with Green Ruby Cruises.',
     followUs: 'Follow us',
     soon: 'Soon',
     columns: {
