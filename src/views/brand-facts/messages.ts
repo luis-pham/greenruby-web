@@ -411,7 +411,7 @@ const vi: Messages = {
       address: 'Văn phòng liên hệ',
       social: 'Mạng xã hội',
       contactPage: 'Trang liên hệ',
-      office: 'Khu vực Tuần Châu, Quảng Ninh, Việt Nam',
+      office: 'Nhà chờ Green Ruby, Số 27, Nhà ga số 2, Cảng tàu khách quốc tế Tuần Châu, Quảng Ninh, Việt Nam',
       after: [
         'Các tài khoản mạng xã hội chính thức của Green Ruby Cruises được liên kết từ website. Những kênh mới chỉ được bổ sung sau khi quyền quản lý và thông tin tài khoản được xác minh.',
         'Để kiểm tra báo giá, xác nhận đặt chỗ hoặc thông tin thanh toán, khách hàng nên sử dụng website và các kênh liên hệ chính thức nêu trên.',

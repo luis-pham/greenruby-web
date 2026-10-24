@@ -11,8 +11,11 @@ import { siteUrl } from '@/lib/site-url';
 
 export const ORGANIZATION_ID = `${siteUrl}/#organization`;
 
-/** Official Google Maps place of the departure terminal (owner-provided, 2026-10-20). */
-export const MAPS_URL = 'https://maps.app.goo.gl/HmWfjFBwB5hXAZsBA';
+/**
+ * Official Google Maps place "Green Ruby Cruises": the guest lounge at Tuan Chau, which is also the office
+ * (owner-provided 2026-10-25; same place as the 2026-10-20 link, matches GEO below).
+ */
+export const MAPS_URL = 'https://maps.app.goo.gl/5mWzFkiYtQKxnJYMA';
 
 const ADDRESS = {
   '@type': 'PostalAddress',
