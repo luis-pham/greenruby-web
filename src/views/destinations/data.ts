@@ -33,6 +33,8 @@ const seo = z.object({ title: text, description: text });
 export const destinationListSchema = z.object({ seo, items: z.array(destinationSummarySchema) });
 
 export const destinationSchema = destinationSummarySchema.extend({
+  /** Page H1 (editor's "Tiêu đề trang"); falls back to the name. Cards, map and breadcrumb use the name. */
+  heading: text.optional(),
   contentHtml: text,
   facts: z.array(z.object({ label: z.string(), value: z.string() })),
   faq: z.array(z.object({ question: z.string(), answer: z.string() })),

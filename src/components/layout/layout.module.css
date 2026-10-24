@@ -390,22 +390,19 @@ a.langOption:focus-visible { color: var(--text-inverse-accent); background: rgba
 @media (max-width: 600px) {
   .footerNav { grid-template-columns: 1fr; gap: 0; border-top: 1px solid var(--border-inverse); }
   .footerCol { border-bottom: 1px solid var(--border-inverse); }
+  .footerColHead { position: relative; display: flex; align-items: center; min-height: var(--size-control-sm); padding: var(--space-4) 0; }
   .footerCol h2 { margin: 0; }
-  .footerColTitle { display: none; }
+  /* The button covers the whole heading row, so tapping the title toggles the list. */
   .footerToggle {
+    position: absolute;
+    inset: 0;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
-    width: 100%;
-    min-height: var(--size-control-sm);
-    padding: var(--space-4) 0;
+    padding: 0;
     border: 0;
     background: none;
-    color: inherit;
-    font: inherit;
-    letter-spacing: inherit;
-    text-align: left;
-    text-transform: inherit;
+    color: var(--text-inverse);
     cursor: pointer;
   }
   .footerColBody { display: none; padding-bottom: var(--space-6); }

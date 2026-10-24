@@ -31,13 +31,14 @@ export function DestinationView({ chrome, destination: d }: { chrome: Chrome; de
   ];
   const eyebrow = `${m.bays[d.bay]} · ${m.category[d.category]}`;
   const firstItinerary = d.itineraries[0];
+  const heading = d.heading || d.name;
 
   return (
     <>
       {d.image ? (
-        <PageHero chrome={chrome} currentHref={path} image={d.image.src} imageAlt={d.image.alt} crumbs={crumbs} eyebrow={eyebrow} title={d.name} description={d.summary ?? undefined} compact />
+        <PageHero chrome={chrome} currentHref={path} image={d.image.src} imageAlt={d.image.alt} crumbs={crumbs} eyebrow={eyebrow} title={heading} description={d.summary ?? undefined} compact />
       ) : (
-        <PageIntro chrome={chrome} currentHref={path} crumbs={crumbs} eyebrow={eyebrow} title={d.name} lead={d.summary ?? undefined} />
+        <PageIntro chrome={chrome} currentHref={path} crumbs={crumbs} eyebrow={eyebrow} title={heading} lead={d.summary ?? undefined} />
       )}
 
       <main>
