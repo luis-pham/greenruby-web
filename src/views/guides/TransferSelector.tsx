@@ -1,7 +1,7 @@
 'use client';
 
 import { useId, useState } from 'react';
-import { backBy, earliestFlight, leaveBy, ROAD_MINUTES, type Origin } from './transfer';
+import { departureWindow, DISEMBARK, returnWindow, ROAD_MINUTES, type Origin } from './transfer';
 import s from './guide.module.css';
 
 export type SelectorRoute = { mode: string; time: string; notes: string };
@@ -9,22 +9,28 @@ export type SelectorOrigin = { key: Origin; label: string; routes: SelectorRoute
 export type SelectorLabels = {
   title: string;
   origin: string;
-  shuttle: string;
   road: string;
   hours: string;
   minutes: string;
   decimal: string;
-  leaveBy: string;
-  leaveByShuttle: string;
-  returnTitle: string;
-  backBy: string;
-  flightDomestic: string;
-  flightInternational: string;
+  /** Shown instead of a duration where none is published (Cat Bi, Van Don). */
+  roadUnknown: string;
+  depart: string;
+  /** "{from}–{to}" for shared vans (Hanoi only). */
+  departShuttle: string;
+  departNote: string;
+  departUnknown: string;
+  lastDay: string;
+  disembark: string;
+  /** "{origin}", "{from}", "{to}". */
+  returnBack: string;
+  airportAdvice: string;
   table: { mode: string; time: string; notes: string };
   note: string;
 };
 
 const fill = (template: string, values: Record<string, string>) => template.replace(/\{(\w+)\}/g, (_, k) => values[k] ?? '');
+
 /** "2.5–3 hours" (localised decimal) or, under two hours, "50–70 min". */
 function duration([a, b]: [number, number], labels: SelectorLabels): string {
   if (b < 120) return `${a}–${b} ${labels.minutes}`;
@@ -32,12 +38,15 @@ function duration([a, b]: [number, number], labels: SelectorLabels): string {
   return `${h(a)}–${h(b)} ${labels.hours}`;
 }
 
-/** "Where are you starting from?" → realistic options, a leave-by time for check-in, and last-day timings. */
+/** "Where are you starting from?" → options, a suggested departure window and last-day guidance (estimates only). */
 export function TransferSelector({ origins, labels }: { origins: SelectorOrigin[]; labels: SelectorLabels }) {
   const [key, setKey] = useState<Origin>(origins[0].key);
   const id = useId();
   const origin = origins.find((o) => o.key === key) ?? origins[0];
-  const hasShuttle = origin.key === 'hanoi';
+  const road = ROAD_MINUTES[origin.key];
+  const leave = departureWindow(origin.key);
+  const shuttle = origin.key === 'hanoi' ? departureWindow(origin.key, true) : null;
+  const back = returnWindow(origin.key);
   return (
     <div className={s.selector}>
       <fieldset className={s.selectorOrigins}>
@@ -54,28 +63,31 @@ export function TransferSelector({ origins, labels }: { origins: SelectorOrigin[
         <div className={s.selectorFigures}>
           <div>
             <span>{labels.road}</span>
-            <b>{duration(ROAD_MINUTES[origin.key], labels)}</b>
+            {road ? <b>{duration(road, labels)}</b> : <small>{labels.roadUnknown}</small>}
           </div>
           <div>
-            <span>{fill(labels.leaveBy, { origin: origin.label })}</span>
-            <b>{leaveBy(origin.key)}</b>
-            {hasShuttle && <small>{fill(labels.leaveByShuttle, { time: leaveBy(origin.key, true) })}</small>}
-          </div>
-          <div>
-            <span>{labels.returnTitle}</span>
-            {origin.airport ? (
+            <span>{labels.depart}</span>
+            {leave ? (
               <>
-                <b>{earliestFlight(origin.airport, 'domestic')}</b>
-                <small>
-                  {labels.flightDomestic} · {fill(labels.flightInternational, { time: earliestFlight(origin.airport, 'international') })}
-                </small>
+                <b>
+                  {leave[0]}–{leave[1]}
+                </b>
+                <small>{shuttle ? fill(labels.departShuttle, { from: shuttle[0], to: shuttle[1] }) : labels.departNote}</small>
               </>
             ) : (
-              <>
-                <b>{backBy(origin.key)}</b>
-                <small>{fill(labels.backBy, { origin: origin.label })}</small>
-              </>
+              <small>{labels.departUnknown}</small>
             )}
+          </div>
+          <div>
+            <span>{labels.lastDay}</span>
+            <b>
+              {DISEMBARK[0]}–{DISEMBARK[1]}
+            </b>
+            <small>
+              {labels.disembark}
+              {back && !origin.airport && <> {fill(labels.returnBack, { origin: origin.label, from: back[0], to: back[1] })}</>}
+              {origin.airport && <> {labels.airportAdvice}</>}
+            </small>
           </div>
         </div>
 

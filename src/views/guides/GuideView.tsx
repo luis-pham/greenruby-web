@@ -132,14 +132,14 @@ export function GuideView({
               {c.sections.map((section, i) => (
                 <li key={section.id}>
                   <a href={`#${section.id}`}>
-                    <span>{String(i + 1).padStart(2, '0')}</span>
+                    <span aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
                     {section.title}
                   </a>
                 </li>
               ))}
               <li>
                 <a href="#faq">
-                  <span>{String(c.sections.length + 1).padStart(2, '0')}</span>
+                  <span aria-hidden="true">{String(c.sections.length + 1).padStart(2, '0')}</span>
                   {c.faqTitle}
                 </a>
               </li>

@@ -1,23 +1,27 @@
 // Planning maths for the transfer selector. All durations are estimates (ranges in minutes), never
-// schedules: the selector only turns them into "leave by" and "earliest flight" suggestions.
+// schedules. The selector suggests a departure window with a margin; it never states a "latest safe"
+// time or a flight time, and gives no duration where the route has not been checked (Cat Bi, Van Don).
 
-/** Planned check-in at the Tuan Chau lounge (published itineraries: from about 10:45). */
+/** Planned check-in at the Tuan Chau lounge (published itineraries: from about 10:45). Provisional. */
 export const CHECK_IN = '10:45';
-/** Latest planned disembarkation at Tuan Chau on the final day (published itineraries: about 11:00–11:30). */
-export const DISEMBARK = '11:30';
-/** Extra margin on top of the longest estimate. */
-export const BUFFER_MINUTES = 30;
-/** Time to allow at the airport before departure. */
-export const AIRPORT_MINUTES = { domestic: 90, international: 180 } as const;
+/** Planned disembarkation window at Tuan Chau on the final day (published itineraries). Provisional. */
+export const DISEMBARK: [string, string] = ['11:00', '11:30'];
+/** Margin added on top of the longer road estimate: [minimum, recommended]. */
+export const MARGIN_MINUTES: [number, number] = [30, 60];
+/** CAAV guidance: be at the airport at least 2 h (domestic) / 3 h (international) before departure. */
+export const AIRPORT_HOURS = { domestic: 2, international: 3 } as const;
 
 export type Origin = 'hanoi' | 'noibai' | 'catbi' | 'vandon' | 'ninhbinh';
 
-/** Door-to-door road time to Tuan Chau, in minutes [typical, long]. Estimates, see the guide copy. */
-export const ROAD_MINUTES: Record<Origin, [number, number]> = {
+/**
+ * Door-to-door road time to Tuan Chau in minutes [typical, long], or null where we do not publish a
+ * figure because it depends too much on the route and the provider.
+ */
+export const ROAD_MINUTES: Record<Origin, [number, number] | null> = {
   hanoi: [150, 180],
-  noibai: [150, 180],
-  catbi: [50, 70],
-  vandon: [50, 70],
+  noibai: [150, 210],
+  catbi: null,
+  vandon: null,
   ninhbinh: [210, 240],
 };
 
@@ -34,19 +38,24 @@ export function toClock(minutes: number): string {
   return `${String(Math.floor(m / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`;
 }
 
-/** Latest departure from the origin to make the check-in, using the long estimate plus a buffer. */
-export function leaveBy(origin: Origin, shuttle = false): string {
-  const long = ROAD_MINUTES[origin][1] + (shuttle ? SHUTTLE_EXTRA_MINUTES : 0);
-  return toClock(toMinutes(CHECK_IN) - long - BUFFER_MINUTES);
+/** Rounds down to the quarter hour, so suggestions don't look more precise than they are. */
+const quarter = (minutes: number) => Math.floor(minutes / 15) * 15;
+
+/**
+ * Suggested departure window for the 10:45 check-in: the longer road estimate plus the recommended
+ * margin (earlier end) or the minimum margin (later end). Null when no road estimate is published.
+ */
+export function departureWindow(origin: Origin, shuttle = false): [string, string] | null {
+  const road = ROAD_MINUTES[origin];
+  if (!road) return null;
+  const long = road[1] + (shuttle ? SHUTTLE_EXTRA_MINUTES : 0);
+  const checkIn = toMinutes(CHECK_IN);
+  return [toClock(quarter(checkIn - long - MARGIN_MINUTES[1])), toClock(quarter(checkIn - long - MARGIN_MINUTES[0]))];
 }
 
-/** Earliest flight to book on the last day from an airport reached by road from Tuan Chau. */
-export function earliestFlight(airport: Exclude<Origin, 'hanoi' | 'ninhbinh'>, kind: keyof typeof AIRPORT_MINUTES): string {
-  const arrive = toMinutes(DISEMBARK) + ROAD_MINUTES[airport][1] + BUFFER_MINUTES;
-  return toClock(arrive + AIRPORT_MINUTES[kind]);
-}
-
-/** Estimated arrival back in the origin city on the last day. */
-export function backBy(origin: Origin): string {
-  return toClock(toMinutes(DISEMBARK) + ROAD_MINUTES[origin][1]);
+/** Estimated arrival range back at the origin on the last day (earliest disembark + typical, latest + long). */
+export function returnWindow(origin: Origin): [string, string] | null {
+  const road = ROAD_MINUTES[origin];
+  if (!road) return null;
+  return [toClock(toMinutes(DISEMBARK[0]) + road[0]), toClock(toMinutes(DISEMBARK[1]) + road[1])];
 }
