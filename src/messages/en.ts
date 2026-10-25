@@ -49,7 +49,6 @@ const en = {
       faqs: 'FAQs',
       safetyPolicies: 'Safety Policies',
       paymentMethods: 'Payment Methods',
-      askAi: 'Ask AI',
     },
     copyright: 'Copyright © 2026 Green Ruby Cruises. All rights reserved.',
     privacy: 'Privacy',

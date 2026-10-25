@@ -307,7 +307,6 @@ type FooterLink = { label: string; href?: string; soon?: boolean };
 export function footerColumns(
   locale: Locale,
   t: Messages,
-  aiChatHref: string | null,
   hiddenPages: readonly string[] = [],
 ): { title: string; links: FooterLink[] }[] {
   const f = t.footer.links;
@@ -356,8 +355,6 @@ export function footerColumns(
         { label: f.faqs, href: p('faq') },
         { label: f.safetyPolicies, href: p('safetyPolicies') },
         { label: f.paymentMethods, href: p('paymentMethods') },
-        // The AI assistant link comes from the CMS (ad_config "ai-chat-url"); until then it is labelled as coming soon.
-        aiChatHref ? { label: f.askAi, href: aiChatHref } : { label: f.askAi, soon: true },
       ],
     },
   ];
@@ -399,7 +396,7 @@ export function SiteFooter({ locale, site, t }: Pick<Chrome, 'locale' | 'site' |
             )}
           </div>
           <div className={s.footerNav}>
-            {footerColumns(locale, t, info.aiChatHref, site.hiddenPages).map((column, i) => (
+            {footerColumns(locale, t, site.hiddenPages).map((column, i) => (
               <FooterColumn key={column.title} id={`footer-col-${i}`} title={column.title} toggleLabel={t.footer.toggle}>
                 <ul>
                   {column.links.map((link) => (

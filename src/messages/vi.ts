@@ -51,7 +51,6 @@ const vi: Messages = {
       faqs: 'Câu hỏi thường gặp',
       safetyPolicies: 'Chính sách an toàn',
       paymentMethods: 'Phương thức thanh toán',
-      askAi: 'Hỏi AI',
     },
     copyright: 'Bản quyền © 2026 Green Ruby Cruises. Mọi quyền được bảo lưu.',
     privacy: 'Quyền riêng tư',
