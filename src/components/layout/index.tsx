@@ -371,6 +371,8 @@ export function footerColumns(
       title: t.footer.columns.support,
       links: [
         { label: f.contactUs, href: p('contact') },
+        // Same place as in the header (under Contact): guests asking for the brochure are about to enquire.
+        { label: t.nav.brochure, href: BROCHURE_URL },
         { label: f.faqs, href: p('faq') },
         { label: f.safetyPolicies, href: p('safetyPolicies') },
         { label: f.paymentMethods, href: p('paymentMethods') },
@@ -423,6 +425,7 @@ export function SiteFooter({ locale, site, t }: Pick<Chrome, 'locale' | 'site' |
                       {link.href ? (
                         <SmartLink href={link.href} {...(/^https?:/.test(link.href) ? { target: '_blank', rel: 'noopener' } : {})}>
                           {link.label}
+                          {/^https?:/.test(link.href) && <span aria-hidden="true"> ↗︎</span>}
                         </SmartLink>
                       ) : (
                         <span className={s.footerSoonItem} aria-disabled="true">{link.label}</span>
