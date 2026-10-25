@@ -119,6 +119,13 @@ export function CruiseView({ cruise, index, chrome }: { cruise: Cruise; index: n
                 {cruise.experiences.length > 0 && (
                   <div><dt>{c.experiencesCount(cruise.experiences.length)}</dt><dd>{c.experiencesCaption}</dd></div>
                 )}
+                {cruise.bay && c.boarding[cruise.bay] && (
+                  <div><dt>{c.boardingLabel}</dt><dd>{c.boarding[cruise.bay]}</dd></div>
+                )}
+                <div>
+                  <dt>{c.fleetFacts}</dt>
+                  <dd><SmartLink href={`${sectionPath(locale, 'brandFacts')}#fleet`}>{c.fleetFactsLink}</SmartLink></dd>
+                </div>
               </dl>
             </div>
             <div className={s.introVisual}>

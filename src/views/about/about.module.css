@@ -214,3 +214,6 @@
   .standardRow h3 { font-size: 21px; }
   .cta { min-height: 430px; }
 }
+
+/* Links under the transparency intro (eco article, brand facts). */
+.standardsLinks { display: flex; flex-wrap: wrap; gap: 10px 24px; margin: 22px 0 0; }

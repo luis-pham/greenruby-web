@@ -6,6 +6,7 @@ import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SmartLink, TextLink } from '@/components/ui';
 import type { ItinerarySummary } from '@/lib/api/schemas';
 import { homePath, itineraryPath, sectionPath, type Locale } from '@/lib/i18n';
+import { guideLinks } from '@/lib/guide-links';
 import { absoluteUrl } from '@/lib/site-url';
 import { TripFilter } from './TripFilter';
 import s from './itineraries.module.css';
@@ -28,6 +29,8 @@ export function ItinerariesView({
   chrome: Chrome;
 }) {
   const { locale, t } = chrome;
+  // Transfer guide link; null while that guide is switched off in the CMS.
+  const fromHanoi = guideLinks(locale, chrome.site.hiddenPages).transfer;
   const l = t.itineraries;
   const bays = [...new Set(items.map((i) => i.bay).filter((b): b is 'ha-long' | 'lan-ha' => b !== null))];
   const durations = [...new Set(items.map((i) => i.duration))].sort((a, b) => a - b);
@@ -52,6 +55,7 @@ export function ItinerariesView({
           <>
             <TextLink href="#journeys" inverse>{l.heroPrimary}</TextLink>
             {durations.length > 1 && <TextLink href="#compare" inverse>{l.heroSecondary}</TextLink>}
+            {fromHanoi && <TextLink href={fromHanoi} inverse>{l.heroFromHanoi}</TextLink>}
             <div className={s.heroBooking}>
               <Booking locale={locale} site={chrome.site} scope="all" layout="bar" />
             </div>

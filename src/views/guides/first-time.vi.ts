@@ -20,6 +20,7 @@ const firstTime: GuideContent = {
     ['Di chuyển thế nào?', 'Từ Hà Nội đến Tuần Châu thường mất khoảng 2,5–3 giờ bằng ô tô, tùy điểm đón và tình hình giao thông. Xem [hướng dẫn di chuyển](transfer).'],
     ['Khi nào lên tàu?', 'Theo lịch trình dự kiến của Green Ruby, khách làm thủ tục từ khoảng 10:45 và bắt đầu di chuyển ra tàu khoảng 11:45.'],
   ],
+  published: '2026-10-24',
   updated: { iso: '2026-10-24', label: 'Cập nhật ngày 24/10/2026' },
   tocTitle: 'Nội dung',
   sections: [

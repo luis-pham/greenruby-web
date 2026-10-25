@@ -98,6 +98,7 @@ const en = {
     ],
     foot: 'Engineering features describe intended operations, not independently assured performance.',
     footLink: 'Our sustainability philosophy',
+    guideLink: 'How to judge an eco-friendly cruise' as string | null,
   },
   reporting: {
     eyebrow: '03 — From intention to instruments',
@@ -258,6 +259,7 @@ const vi: EcoMessages = {
     ],
     foot: 'Các tính năng kỹ thuật mô tả cách vận hành dự kiến, chưa phải hiệu suất được kiểm chứng độc lập.',
     footLink: 'Triết lý bền vững của chúng tôi',
+    guideLink: null,
   },
   reporting: {
     eyebrow: '03 — Từ ý định đến công cụ đo',

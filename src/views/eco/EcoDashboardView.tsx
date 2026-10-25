@@ -3,6 +3,7 @@ import { Fragment, type ReactNode } from 'react';
 import { Breadcrumb, SiteFooter, SiteNav, Topbar, type Chrome } from '@/components/layout';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, TextLink } from '@/components/ui';
+import { guideArticlePath } from '@/lib/guide-links';
 import { homePath, sectionPath } from '@/lib/i18n';
 import { ORGANIZATION_ID } from '@/lib/organization';
 import { absoluteUrl } from '@/lib/site-url';
@@ -126,6 +127,7 @@ export function EcoDashboardView({ chrome, heroImage }: { chrome: Chrome; heroIm
             <div className={s.techFoot}>
               <span>{m.technology.foot}</span>
               <TextLink href={sectionPath(locale, 'aboutUs')}>{m.technology.footLink}</TextLink>
+              {m.technology.guideLink && <TextLink href={guideArticlePath(locale, 'luxuryPillar')}>{m.technology.guideLink}</TextLink>}
             </div>
           </div>
         </section>

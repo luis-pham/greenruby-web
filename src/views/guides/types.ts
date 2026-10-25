@@ -29,6 +29,8 @@ export type GuideContent = {
   /** Short answers shown under the title ("At a glance"). */
   summaryTitle: string;
   summary: [string, Rich][];
+  /** First publication (schema.org datePublished); `updated` is the last editorial review. */
+  published: string;
   updated: { iso: string; label: string };
   tocTitle: string;
   sections: GuideSection[];

@@ -4,6 +4,7 @@ import { PageHero, SiteFooter, type Chrome } from '@/components/layout';
 import { organizationSchema } from '@/lib/organization';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SmartLink, TextLink } from '@/components/ui';
+import { guideArticlePath } from '@/lib/guide-links';
 import { detailPath, homePath, sectionPath } from '@/lib/i18n';
 import { absoluteImageUrl, absoluteUrl } from '@/lib/site-url';
 import type { AboutCruise, AboutPage } from './data';
@@ -320,6 +321,10 @@ export function AboutView({
                 <Eyebrow>05 — {m.standards.eyebrow}</Eyebrow>
                 <h2 className={s.heading} id="standards-title">{m.standards.title} <em>{m.standards.titleEm}</em></h2>
                 <p className={s.description}>{c.partnerDescription ?? m.standards.body}</p>
+                <p className={s.standardsLinks}>
+                  {m.standards.guide && <TextLink href={guideArticlePath(locale, 'luxuryPillar')}>{m.standards.guide}</TextLink>}
+                  <TextLink href={`${sectionPath(locale, 'brandFacts')}#sustainability`}>{m.standards.facts}</TextLink>
+                </p>
               </div>
               <ul className={s.standardsList} aria-label={m.standards.label}>
                 {credentials.map((cred) => {

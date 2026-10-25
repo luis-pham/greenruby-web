@@ -6,7 +6,8 @@ import { sectionPath, type Locale } from '@/lib/i18n';
  * or unpublished, update it here (the footer links to these on every page).
  */
 const ARTICLES = {
-  // Pillar: EN 221 / VI 240.
+  // Not a translation pair: EN 221 is the eco-luxury guide, VI 240 the "choosing a luxury cruise" guide.
+  // Each language labels the link after its own target (first-time.en.ts / first-time.vi.ts).
   luxuryPillar: {
     en: '/blog/eco-sustainability/the-complete-guide-to-eco-friendly-luxury-cruises-in-ha-long-bay-2026.html',
     vi: '/vi/blog/hanh-trinh/kinh-nghiem-chon-du-thuyen-ha-long-cao-cap.html',

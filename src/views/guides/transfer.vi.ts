@@ -20,6 +20,7 @@ const transfer: GuideContent = {
     ['Check-in Green Ruby', 'Theo kế hoạch, cả hai tàu đón khách tại Tuần Châu, giờ check-in dự kiến khoảng 10:45. Hãy xác nhận giờ và địa điểm chính xác trước ngày đi.'],
     ['Bay về sau chuyến đi', 'Đừng đặt chuyến bay quá sát giờ rời tàu. Hãy dành đủ thời gian cho đường về, các tình huống chậm trễ và thủ tục sân bay.'],
   ],
+  published: '2026-10-24',
   updated: { iso: '2026-10-24', label: 'Cập nhật ngày 24/10/2026' },
   tocTitle: 'Nội dung',
   sections: [

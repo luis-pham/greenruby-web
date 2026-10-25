@@ -22,6 +22,7 @@ const transfer: GuideContent = {
     ['Green Ruby check-in', 'Both Green Ruby vessels are planned to welcome guests at Tuan Chau. The provisional check-in time is around 10:45. Confirm your reporting time and exact location before departure.'],
     ['Flying home after your cruise', 'Avoid booking a flight too close to your scheduled disembarkation. Allow sufficient time for the return transfer, potential delays and airport check-in procedures.'],
   ],
+  published: '2026-10-24',
   updated: { iso: '2026-10-24', label: 'Updated 24 October 2026' },
   tocTitle: 'In this guide',
   sections: [

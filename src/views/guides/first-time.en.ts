@@ -21,6 +21,7 @@ const firstTime: GuideContent = {
     ['Getting there', 'Around 2.5–3 hours by road from Hanoi to Tuan Chau (estimate). See the [transfer guide](transfer).'],
     ['Boarding day', 'Check-in from about 10:45, tender to the ship around 11:45 on Green Ruby’s published plan.'],
   ],
+  published: '2026-10-24',
   updated: { iso: '2026-10-24', label: 'Updated 24 October 2026' },
   tocTitle: 'In this guide',
   sections: [
@@ -216,7 +217,7 @@ const firstTime: GuideContent = {
     links: [
       { href: 'transfer', title: 'Hanoi to Halong Bay', body: 'Transfers, ports and realistic travel times.' },
       { href: 'destinations', title: 'Ha Long Bay attractions', body: 'Caves, islands and villages with practical notes.' },
-      { href: 'luxuryPillar', title: 'Luxury cruises in Ha Long Bay', body: 'What sets a premium cruise apart, in depth.' },
+      { href: 'luxuryPillar', title: 'Eco-friendly luxury cruises in Ha Long Bay', body: 'What makes a cruise genuinely lower-impact, and how to check the claims.' },
     ],
   },
   estimateNote: 'Travel times and durations on this page are estimates, not schedules. Green Ruby’s itineraries are provisional until the ships enter service, expected in February 2027.',

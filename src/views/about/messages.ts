@@ -85,6 +85,9 @@ const en = {
     titleEm: 'transparency.',
     body: "We would rather share the process than imply a certificate has already been granted. Here's where things stand today.",
     label: 'Sustainability credentials',
+    // The eco article exists in English only; Vietnamese readers get the brand facts link.
+    guide: 'What makes a cruise genuinely eco-friendly' as string | null,
+    facts: 'Status of every sustainability figure',
   },
   cta: {
     eyebrow: 'A different way to see the bay',
@@ -188,6 +191,8 @@ const vi: AboutMessages = {
     titleEm: 'sự minh bạch.',
     body: 'Chúng tôi muốn chia sẻ quá trình thay vì ngụ ý rằng một chứng nhận đã được cấp. Đây là hiện trạng của chúng tôi.',
     label: 'Chứng nhận bền vững',
+    guide: null,
+    facts: 'Trạng thái của từng số liệu môi trường',
   },
   cta: {
     eyebrow: 'Một cách khác để ngắm vịnh',

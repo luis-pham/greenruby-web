@@ -193,6 +193,7 @@ export function GuideView({
           inLanguage: locale,
           url: absoluteUrl(path),
           mainEntityOfPage: absoluteUrl(path),
+          datePublished: c.published,
           dateModified: c.updated.iso,
           author: { '@id': ORGANIZATION_ID },
           publisher: { '@id': ORGANIZATION_ID },
