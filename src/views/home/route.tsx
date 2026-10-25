@@ -4,7 +4,6 @@ import { homePath, type Locale } from '@/lib/i18n';
 import { pageMetadata } from '@/lib/seo';
 import { siteInfo } from '@/lib/site-info';
 import { getMessages } from '@/messages';
-import { listDestinations } from '@/views/destinations/data';
 import { HomeView } from './HomeView';
 
 export function homeRoute(locale: Locale) {
@@ -25,7 +24,7 @@ export function homeRoute(locale: Locale) {
   }
 
   async function Page() {
-    const [site, raw, list, destinations] = await Promise.all([getSite(locale), getHomepage(locale), listItineraries(locale), listDestinations(locale)]);
+    const [site, raw, list] = await Promise.all([getSite(locale), getHomepage(locale), listItineraries(locale)]);
     // The homepage config stores a snapshot of each itinerary's ship, which goes stale when an itinerary
     // moves to another ship (links then hit a 308). Take ship, URL parts and bay from the live listing.
     const live = new Map(list.items.map((it) => [it.itineraryId, it]));
@@ -36,8 +35,7 @@ export function homeRoute(locale: Locale) {
         return current ? { ...it, cruiseId: current.cruiseId, cruiseName: current.cruiseName, slug: current.slug, bay: current.bay ?? it.bay } : it;
       }),
     };
-    // Published places as quick links under the guides (none while the hub is switched off).
-    return <HomeView page={page} places={destinations.items} chrome={{ locale, site, t: getMessages(locale), alternateHref: homePath(other) }} />;
+    return <HomeView page={page} chrome={{ locale, site, t: getMessages(locale), alternateHref: homePath(other) }} />;
   }
 
   return { generateMetadata, Page };

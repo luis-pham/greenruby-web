@@ -503,4 +503,3 @@
 
 /* Hero search: voyage + departure date + CTA into the booking wizard. */
 .heroBooking { flex-basis: 100%; width: 100%; margin-top: 22px; }
-.planPlaces { margin-top: var(--space-8, 32px); }

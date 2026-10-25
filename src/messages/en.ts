@@ -87,10 +87,6 @@ const en = {
     shipPlacesLede: 'Planned stops across this ship’s itineraries. Each place has its own guide with access, timing and conditions.',
     experiencePlacesTitle: 'Where it happens',
     destinationExperiencesTitle: 'Experiences here',
-    planEyebrow: 'Travel guide',
-    planTitle: 'Plan your trip',
-    planLede: 'Where to go, how to get there and when: the guides behind a good cruise on Ha Long Bay and Lan Ha Bay.',
-    allGuides: 'All travel guides',
     guideBodies: {
       destinations: 'Caves, islands and villages, and which ones Green Ruby plans to stop at.',
       firstTimeGuide: 'Which bay, how many nights, what is included and how boarding day works.',

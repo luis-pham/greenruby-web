@@ -89,10 +89,6 @@ const vi: Messages = {
     shipPlacesLede: 'Các điểm dừng dự kiến trong các hành trình của tàu. Mỗi địa điểm có trang riêng về cách đi, thời gian và điều kiện.',
     experiencePlacesTitle: 'Diễn ra ở đâu',
     destinationExperiencesTitle: 'Trải nghiệm tại đây',
-    planEyebrow: 'Cẩm nang',
-    planTitle: 'Chuẩn bị chuyến đi',
-    planLede: 'Đi đâu, đi thế nào và đi lúc nào: những cẩm nang giúp chuyến du thuyền Hạ Long, Lan Hạ trọn vẹn.',
-    allGuides: 'Tất cả cẩm nang',
     guideBodies: {
       destinations: 'Hang động, đảo, làng chài và nơi nào Green Ruby dự kiến ghé.',
       firstTimeGuide: 'Chọn vịnh nào, mấy đêm, giá gồm gì và ngày lên tàu ra sao.',
