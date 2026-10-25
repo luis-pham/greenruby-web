@@ -37,7 +37,7 @@ const en = {
       bestTime: 'Best Time to Visit',
       bayComparison: 'Halong vs Lan Ha Bay',
       destinations: 'Destinations',
-      transferGuide: 'Transfer Guide',
+      transferGuide: 'Hanoi to Ha Long Bay',
       aboutUs: 'About Us',
       fleetFacts: 'Fleet Facts',
       gallery: 'Gallery',
