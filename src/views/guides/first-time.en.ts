@@ -10,7 +10,7 @@ const firstTime: GuideContent = {
   metaDescription:
     'Is a Halong Bay cruise worth it, which bay and how many nights, what is included, how boarding day works, what to pack and the mistakes first-timers make.',
   breadcrumb: 'First-time cruise guide',
-  eyebrow: 'Halong Cruise Guide',
+  eyebrow: 'Travel Guide',
   title: 'First Time on a Halong Bay Cruise? A Practical Guide',
   lead: 'Planning your first overnight cruise in Halong Bay or Lan Ha Bay? This guide covers how to choose the right itinerary, what to expect on board, how to prepare for departure and the practical details that can make your trip easier.',
   summaryTitle: 'At a glance',

@@ -3,14 +3,17 @@ import Image from 'next/image';
 import type { ReactNode } from 'react';
 import { SiteFooter, SiteNav, Topbar, type Chrome } from '@/components/layout';
 import { FaqList, faqPageSchema } from '@/components/sections/Faq';
+import { GuideCards, LinkChips, TravelLinksSection } from '@/components/sections/TravelLinks';
+import { travelGuideLinks } from '@/lib/guide-links';
 import { organizationSchema } from '@/lib/organization';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SmartLink, TextLink } from '@/components/ui';
 import type { Homepage } from '@/lib/api/schemas';
-import { detailPath, experiencePath, homePath, itineraryPath, sectionPath } from '@/lib/i18n';
+import { destinationPath, detailPath, experiencePath, homePath, itineraryPath, sectionPath } from '@/lib/i18n';
 import { siteInfo } from '@/lib/site-info';
 import { absoluteImageUrl, absoluteUrl, siteUrl } from '@/lib/site-url';
 import { cabinPath } from '@/views/cabin/CabinView';
+import type { DestinationSummary } from '@/views/destinations/data';
 import { cabinHighlights, cabinTier } from './cabin-card';
 import { Carousel } from './Carousel';
 import { HeroSlideshow, type HeroSlide } from './HeroSlideshow';
@@ -55,7 +58,7 @@ function splitTitle(title: string): { title: string; titleEm: string | null } {
 /** Banner titles editors left as the uploaded file name ("a1ea43d….jpg") are not copy. */
 const isFileName = (text: string | null) => !text || /\.(jpe?g|png|webp|gif)$/i.test(text.trim());
 
-export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
+export function HomeView({ page, chrome, places = [] }: { page: Homepage; chrome: Chrome; places?: DestinationSummary[] }) {
   const { locale, t, site } = chrome;
   const h = t.home;
   const info = siteInfo(site);
@@ -262,6 +265,24 @@ export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
             </div>
           </section>
         )}
+
+        <TravelLinksSection
+          id="plan"
+          tinted
+          eyebrow={t.travel.planEyebrow}
+          title={t.travel.planTitle}
+          lede={t.travel.planLede}
+          more={{ href: sectionPath(locale, 'guides'), label: t.travel.allGuides }}
+        >
+          <GuideCards
+            items={travelGuideLinks(locale, t.footer.links, site.hiddenPages).map(({ key, label, href }) => ({ href, title: label, body: t.travel.guideBodies[key] }))}
+          />
+          {places.length > 0 && (
+            <div className={s.planPlaces}>
+              <LinkChips items={places.map((d) => ({ href: destinationPath(locale, d.slug), label: d.name }))} />
+            </div>
+          )}
+        </TravelLinksSection>
 
         {page.cabins.length > 0 && (
           <section className={s.section} id="suites" aria-labelledby="suites-title">

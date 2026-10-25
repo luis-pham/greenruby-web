@@ -4,7 +4,7 @@ import { PageHero, PageIntro, SiteFooter, type Chrome, type Crumb } from '@/comp
 import { FaqList } from '@/components/sections/Faq';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, TextLink } from '@/components/ui';
-import { destinationPath, homePath, itineraryPath, sectionPath } from '@/lib/i18n';
+import { destinationPath, experiencePath, homePath, itineraryPath, sectionPath } from '@/lib/i18n';
 import { absoluteImageUrl, absoluteUrl } from '@/lib/site-url';
 import type { Destination } from './data';
 import { mapsLink } from './map';
@@ -26,6 +26,7 @@ export function DestinationView({ chrome, destination: d }: { chrome: Chrome; de
   const hub = sectionPath(locale, 'destinations');
   const crumbs: Crumb[] = [
     { label: t.breadcrumb.home, href: homePath(locale) },
+    { label: m.breadcrumbGuide, href: sectionPath(locale, 'guides') },
     { label: m.breadcrumb, href: hub },
     { label: d.name, href: path },
   ];
@@ -126,6 +127,21 @@ export function DestinationView({ chrome, destination: d }: { chrome: Chrome; de
                 <p className={s.sideNote}>{m.detail.planNone}</p>
               )}
             </section>
+
+            {d.experiences.length > 0 && (
+              <section className={s.sideCard} aria-labelledby="experiences-title">
+                <h2 id="experiences-title">{t.travel.destinationExperiencesTitle}</h2>
+                <ul className={s.planList}>
+                  {d.experiences.map((x) => (
+                    <li key={x.id}>
+                      <Link href={experiencePath(locale, x.slug, x.id)}>
+                        <strong>{x.name}</strong>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
           </aside>
         </div>
 

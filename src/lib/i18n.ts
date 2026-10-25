@@ -24,7 +24,8 @@ const segments = {
   cookiePolicy: { en: 'cookie-policy', vi: 'chinh-sach-cookie' },
   ecoDashboard: { en: 'eco-dashboard', vi: 'bao-cao-sinh-thai' },
   brandFacts: { en: 'about-us/brand-facts', vi: 'gioi-thieu/thong-tin-thuong-hieu' },
-  // Halong cruise guide (Next.js only; Laravel's SitemapController mirrors these paths).
+  // Travel guide (Next.js only; Laravel's SitemapController mirrors these paths). `guides` is the hub.
+  guides: { en: 'guides', vi: 'cam-nang' },
   destinations: { en: 'destinations', vi: 'dia-diem-tham-quan' },
   guideFirstTime: { en: 'guides/first-time-halong-bay-cruise', vi: 'cam-nang/lan-dau-di-du-thuyen-ha-long' },
   guideTransfer: { en: 'guides/hanoi-to-halong-bay', vi: 'cam-nang/ha-noi-di-ha-long' },

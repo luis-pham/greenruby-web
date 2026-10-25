@@ -5,7 +5,8 @@ import { destinationPath, homePath, sectionPath, type Locale } from '@/lib/i18n'
 import { pageMetadata } from '@/lib/seo';
 import { siteInfo } from '@/lib/site-info';
 import { getMessages } from '@/messages';
-import { getDestination, listDestinations, type Destination } from './data';
+import { getDestination, listDestinations, livePlacePaths, type Destination } from './data';
+import { unlinkHiddenPlaces } from './links';
 import { DestinationsView } from './DestinationsView';
 import { DestinationView } from './DestinationView';
 import { destinationMessages } from './messages';
@@ -91,12 +92,12 @@ export function destinationRoute(locale: Locale) {
     const { slug } = await params;
     const d = await getDestination(slug, locale);
     if (!d) notFound();
-    const [site, otherList] = await Promise.all([getSite(locale), listDestinations(other)]);
+    const [site, otherList, live] = await Promise.all([getSite(locale), listDestinations(other), livePlacePaths(locale)]);
     // Without a translation the language switch goes to the other language's hub (home page if that hub is hidden).
     const fallback = otherList.visible ? sectionPath(other, 'destinations') : homePath(other);
     return (
       <DestinationView
-        destination={d}
+        destination={{ ...d, contentHtml: unlinkHiddenPlaces(d.contentHtml, live) }}
         chrome={{ locale, site, t: getMessages(locale), alternateHref: alternateOf(d) ?? fallback }}
       />
     );

@@ -5,6 +5,8 @@ import { detailPath, homePath, parseDetailFile, type Locale } from '@/lib/i18n';
 import { pageMetadata } from '@/lib/seo';
 import { siteInfo } from '@/lib/site-info';
 import { getMessages } from '@/messages';
+import { listDestinations } from '@/views/destinations/data';
+import { placesOnItineraries } from '@/views/destinations/links';
 import { CruiseView } from './CruiseView';
 
 type Params = { params: Promise<{ file: string }> };
@@ -68,13 +70,14 @@ export function cruiseRoute(locale: Locale) {
     if (!loaded) notFound();
     const { cruise, canonicalPath } = loaded;
     if (canonicalPath.split('/').pop() !== file) permanentRedirect(canonicalPath);
-    const [site, cruises] = await Promise.all([getSite(locale), listCruises(locale)]);
+    const [site, cruises, destinations] = await Promise.all([getSite(locale), listCruises(locale), listDestinations(locale)]);
     const index = Math.max(1, cruises.findIndex((x) => x.id === cruise.id) + 1);
     const other: Locale = locale === 'en' ? 'vi' : 'en';
     return (
       <CruiseView
         cruise={cruise}
         index={index}
+        places={placesOnItineraries(destinations.items, cruise.itineraries.map((it) => it.itineraryId))}
         chrome={{ locale, site, t: getMessages(locale), alternateHref: alternateOf(cruise) ?? homePath(other) }}
       />
     );

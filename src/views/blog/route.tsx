@@ -5,6 +5,8 @@ import { sectionPath, type Locale } from '@/lib/i18n';
 import { pageMetadata } from '@/lib/seo';
 import { siteInfo } from '@/lib/site-info';
 import { getMessages } from '@/messages';
+import { livePlacePaths } from '@/views/destinations/data';
+import { unlinkHiddenPlaces } from '@/views/destinations/links';
 import { ArticleView } from './ArticleView';
 import { BlogListView } from './BlogListView';
 import { getArticle, getLegacyArticle, isRedirect, listArticles, searchArticles, type Article, type ArticleList, type CategoryNode } from './data';
@@ -123,7 +125,11 @@ async function render(locale: Locale, resolved: Resolved) {
   const t = getMessages(locale);
   if (resolved.kind === 'article') {
     const alternateHref = articleAlternate(resolved.article) ?? sectionPath(other(locale), 'blog');
-    return <ArticleView article={resolved.article} chrome={{ locale, site, t, alternateHref }} />;
+    // Links in the copy to places that are not live yet render as text (no 404 links).
+    const live = await livePlacePaths(locale);
+    const a = resolved.article;
+    const article = { ...a, leadHtml: unlinkHiddenPlaces(a.leadHtml, live), contentHtml: unlinkHiddenPlaces(a.contentHtml, live) };
+    return <ArticleView article={article} chrome={{ locale, site, t, alternateHref }} />;
   }
   const alternateHref = (await listAlternate(locale, resolved.list)) ?? sectionPath(other(locale), 'blog');
   return <BlogListView list={resolved.list} chrome={{ locale, site, t, alternateHref }} />;

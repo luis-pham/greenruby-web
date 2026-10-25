@@ -11,7 +11,7 @@ const transfer: GuideContent = {
   metaDescription:
     'How to get from Hanoi to Halong Bay by private car, shared limousine or bus, transfers from Noi Bai, Cat Bi and Van Don airports, Tuan Chau vs Ha Long cruise port.',
   breadcrumb: 'Hanoi to Halong Bay',
-  eyebrow: 'Halong Cruise Guide',
+  eyebrow: 'Travel Guide',
   title: 'How to Get from Hanoi to Halong Bay: Transfers & Cruise Ports',
   lead: 'Compare the main ways to travel from Hanoi, nearby airports and Ninh Binh to Halong Bay. This guide explains journey times, transport options, the difference between the main cruise ports and what to check before arranging your transfer.',
   summaryTitle: 'Quick answer',

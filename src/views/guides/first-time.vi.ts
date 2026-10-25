@@ -9,7 +9,7 @@ const firstTime: GuideContent = {
   metaDescription:
     'Có nên ngủ đêm trên du thuyền Hạ Long, chọn vịnh nào, đi mấy ngày, giá gồm những gì, ngày lên tàu diễn ra thế nào, cần mang gì và những điều người đi lần đầu hay bỏ sót.',
   breadcrumb: 'Lần đầu đi du thuyền',
-  eyebrow: 'Cẩm nang du thuyền',
+  eyebrow: 'Cẩm nang',
   title: 'Lần đầu đi du thuyền Hạ Long: Những điều nên biết',
   lead: 'Đi du thuyền nghỉ đêm ở Hạ Long hay Lan Hạ có gì khác so với tour trong ngày? Nên chọn vịnh nào, đi mấy đêm, chuẩn bị những gì và cần lưu ý điều gì trước khi lên tàu? Cẩm nang dưới đây sẽ giúp bạn lên kế hoạch cho chuyến đi đầu tiên.',
   summaryTitle: 'Tóm tắt nhanh',

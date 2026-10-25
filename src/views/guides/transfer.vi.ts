@@ -9,7 +9,7 @@ const transfer: GuideContent = {
   metaDescription:
     'Từ Hà Nội đi Hạ Long bằng limousine, xe riêng, tự lái hay xe khách; đi từ sân bay Nội Bài, Cát Bi, Vân Đồn; bến Tuần Châu khác cảng tàu khách quốc tế Hạ Long thế nào.',
   breadcrumb: 'Hà Nội đi Hạ Long',
-  eyebrow: 'Cẩm nang du thuyền',
+  eyebrow: 'Cẩm nang',
   title: 'Từ Hà Nội đi Hạ Long: phương tiện và bến du thuyền',
   lead: 'So sánh các cách đi từ Hà Nội, các sân bay lân cận và Ninh Bình đến bến du thuyền Hạ Long: thời gian di chuyển, phương tiện, khác biệt giữa các cảng và những điều cần kiểm tra trước khi đặt xe.',
   summaryTitle: 'Trả lời nhanh',

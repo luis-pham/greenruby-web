@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import { cx, Eyebrow, SmartLink } from '@/components/ui';
 import { JsonLd } from '@/components/seo/JsonLd';
 import type { Site } from '@/lib/api/schemas';
-import { guideLinks } from '@/lib/guide-links';
+import { guideLinks, travelGuideLinks } from '@/lib/guide-links';
 import { homePath, sectionPath, type Locale, type Section } from '@/lib/i18n';
 import { navLinks, siteInfo, type NavLink } from '@/lib/site-info';
 import { absoluteUrl } from '@/lib/site-url';
@@ -93,19 +93,47 @@ function Chevron() {
 /** Sections linked from the footer only, so the header menu stays short. */
 const FOOTER_ONLY: Section[] = ['gallery', 'blog', 'aboutUs', 'faq'];
 
-/** E-Brochure (PDF on Google Drive), placed before Contact in the header menu. */
+/** E-Brochure (PDF on Google Drive), under Contact in the header menu. */
 const BROCHURE_URL = 'https://drive.google.com/file/d/1wDUL4OYRuE-q541sdpgi9ioLYj7BHjhM/view?usp=sharing';
 
-function withBrochure(links: NavLink[], label: string, contactHref: string): NavLink[] {
-  const brochure: NavLink = { label, href: BROCHURE_URL, external: true, children: [] };
+/**
+ * Adds the code-built items to the CMS menu: "Travel Guide" before Contact (built from guideLinks, so hubs
+ * switched off in the CMS never appear), and the E-Brochure as a Contact sub-item, which keeps the bar short.
+ */
+export function withGuideAndBrochure(
+  links: NavLink[],
+  { contactHref, contactLabel, brochureLabel, guide }: { contactHref: string; contactLabel: string; brochureLabel: string; guide: NavLink },
+): NavLink[] {
+  const brochure: NavLink = { label: brochureLabel, href: BROCHURE_URL, external: true, children: [] };
   const at = links.findIndex((link) => link.href === contactHref);
-  return at === -1 ? [...links, brochure] : [...links.slice(0, at), brochure, ...links.slice(at)];
+  if (at === -1) return [...links, guide, brochure];
+  const contact = links[at];
+  const withBrochure: NavLink = {
+    ...contact,
+    children: [...(contact.children.length ? contact.children : [{ label: contactLabel, href: contact.href, external: false, children: [] }]), brochure],
+  };
+  return [...links.slice(0, at), guide, withBrochure, ...links.slice(at + 1)];
+}
+
+/** Header item for the travel guide hub, with the guide set as its dropdown. */
+function travelGuideItem(locale: Locale, t: Messages, hiddenPages: readonly string[]): NavLink {
+  return {
+    label: t.nav.travelGuide,
+    href: sectionPath(locale, 'guides'),
+    external: false,
+    children: travelGuideLinks(locale, t.footer.links, hiddenPages).map(({ label, href }) => ({ label, href, external: false, children: [] })),
+  };
 }
 
 export function SiteNav({ locale, site, t, alternateHref, currentHref }: Chrome & { currentHref?: string }) {
   const footerOnly = FOOTER_ONLY.map((section) => sectionPath(locale, section));
   const inHeader = (link: NavLink) => !footerOnly.some((path) => link.href === path || link.href.startsWith(`${path}/`));
-  const links = withBrochure(navLinks(site.menus.primary).filter(inHeader), t.nav.brochure, sectionPath(locale, 'contact'));
+  const links = withGuideAndBrochure(navLinks(site.menus.primary).filter(inHeader), {
+    contactHref: sectionPath(locale, 'contact'),
+    contactLabel: t.nav.contactUs,
+    brochureLabel: t.nav.brochure,
+    guide: travelGuideItem(locale, t, site.hiddenPages),
+  });
   // The brand already links home, so the home item is left out of the desktop menu.
   const desktopLinks = links.filter((link) => link.href !== homePath(locale));
   const collapseAt = menuBreakpoint(desktopLinks);
@@ -301,7 +329,7 @@ export function PageHero({
 type FooterLink = { label: string; href?: string; soon?: boolean };
 
 /**
- * Four footer menus: Explore, Halong Cruise Guide, About, Support. Every href is a published page;
+ * Four footer menus: Explore, Travel Guide, About, Support. Every href is a published page;
  * hubs switched off in the CMS (hiddenPages) are left out.
  */
 export function footerColumns(
@@ -312,8 +340,6 @@ export function footerColumns(
   const f = t.footer.links;
   const p = (section: Section, hash = '') => `${sectionPath(locale, section)}${hash}`;
   const guide = guideLinks(locale, hiddenPages);
-  const shown = (links: { label: string; href: string | null }[]): FooterLink[] =>
-    links.filter((l): l is FooterLink & { href: string } => l.href !== null);
   return [
     {
       title: t.footer.columns.explore,
@@ -327,14 +353,7 @@ export function footerColumns(
     },
     {
       title: t.footer.columns.guide,
-      links: shown([
-        { label: f.travelJournal, href: guide.journal },
-        { label: f.firstTimeGuide, href: guide.firstTime },
-        { label: f.bestTime, href: guide.bestTime },
-        { label: f.bayComparison, href: guide.bayComparison },
-        { label: f.destinations, href: guide.destinations },
-        { label: f.transferGuide, href: guide.transfer },
-      ]),
+      links: [{ label: f.allGuides, href: guide.hub }, ...travelGuideLinks(locale, f, hiddenPages).map(({ label, href }) => ({ label, href }))],
     },
     {
       title: t.footer.columns.about,

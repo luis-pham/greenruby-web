@@ -5,6 +5,8 @@ import { experiencePath, parseDetailFile, sectionPath, type Locale } from '@/lib
 import { pageMetadata } from '@/lib/seo';
 import { siteInfo } from '@/lib/site-info';
 import { getMessages } from '@/messages';
+import { listDestinations } from '@/views/destinations/data';
+import { placesForExperience } from '@/views/destinations/links';
 import { getExperience, listExperiences, type Experience } from './data';
 import { ExperiencesView } from './ExperiencesView';
 import { ExperienceView } from './ExperienceView';
@@ -88,7 +90,7 @@ export function experienceRoute(locale: Locale) {
     const { experience, canonicalPath } = loaded;
     // Old or mistyped slugs (e.g. after a rename in the CMS) 301 to the canonical URL, as Laravel does.
     if (canonicalPath.split('/').pop() !== file) permanentRedirect(canonicalPath);
-    const [site, list] = await Promise.all([getSite(locale), listExperiences(locale)]);
+    const [site, list, destinations] = await Promise.all([getSite(locale), listExperiences(locale), listDestinations(locale)]);
     // CMS "related" (same group) first, then the rest of the collection, so the section always has three cards.
     const seen = new Set([experience.id]);
     const more = [...experience.related, ...list.items].filter((item) => !seen.has(item.id) && seen.add(item.id)).slice(0, 3);
@@ -96,6 +98,7 @@ export function experienceRoute(locale: Locale) {
       <ExperienceView
         experience={experience}
         more={more}
+        places={placesForExperience(destinations.items, experience.id)}
         page={list.page}
         m={experienceMessages[locale]}
         chrome={{ locale, site, t: getMessages(locale), alternateHref: alternateOf(experience) ?? sectionPath(other, 'experiences') }}

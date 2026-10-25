@@ -3,6 +3,7 @@ import { Booking } from '@/components/booking';
 import { JournalLink } from '@/components/journal/JournalLink';
 import { PageHero, SiteFooter, type Chrome } from '@/components/layout';
 import { FaqList } from '@/components/sections/Faq';
+import { PlaceCards, TravelLinksSection } from '@/components/sections/TravelLinks';
 import { organizationRef } from '@/lib/organization';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SmartLink, TextLink } from '@/components/ui';
@@ -11,13 +12,15 @@ import { detailPath, experiencePath, homePath, itineraryPath, sectionPath } from
 import { siteInfo } from '@/lib/site-info';
 import { absoluteImageUrl, absoluteUrl } from '@/lib/site-url';
 import { cabinPath } from '@/views/cabin/CabinView';
+import type { DestinationSummary } from '@/views/destinations/data';
+import { placeCard } from '@/views/destinations/cards';
 import { formatDate } from '@/views/itineraries/ItinerariesView';
 import s from './itinerary.module.css';
 
 const pad = (n: number) => String(n).padStart(2, '0');
 const plain = (html: string | null) => (html ?? '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
 
-export function ItineraryView({ itinerary: it, chrome }: { itinerary: Itinerary; chrome: Chrome }) {
+export function ItineraryView({ itinerary: it, chrome, places = [] }: { itinerary: Itinerary; chrome: Chrome; places?: DestinationSummary[] }) {
   const { locale, t, site } = chrome;
   const d = t.itinerary;
   const url = itineraryPath(locale, it.slug, it.cruiseId, it.itineraryId);
@@ -179,6 +182,18 @@ export function ItineraryView({ itinerary: it, chrome }: { itinerary: Itinerary;
               </div>
             </div>
           </section>
+        )}
+
+        {places.length > 0 && (
+          <TravelLinksSection
+            id="places"
+            eyebrow={t.travel.placesEyebrow}
+            title={t.travel.placesTitle}
+            lede={t.travel.placesLede}
+            more={{ href: sectionPath(locale, 'destinations'), label: t.travel.allPlaces }}
+          >
+            <PlaceCards items={places.map((d) => placeCard(locale, d))} />
+          </TravelLinksSection>
         )}
 
         {(it.services.included.length > 0 || it.services.optional.length > 0 || it.importantNotes.length > 0) && (

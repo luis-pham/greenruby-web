@@ -5,6 +5,8 @@ import { itineraryPath, sectionPath, type Locale } from '@/lib/i18n';
 import { pageMetadata } from '@/lib/seo';
 import { siteInfo } from '@/lib/site-info';
 import { getMessages } from '@/messages';
+import { listDestinations } from '@/views/destinations/data';
+import { placesOnItinerary } from '@/views/destinations/links';
 import { ItineraryView } from './ItineraryView';
 
 type Params = { params: Promise<{ file: string }> };
@@ -56,11 +58,12 @@ export function itineraryRoute(locale: Locale) {
     const { itinerary, canonicalPath } = loaded;
     // Wrong slug or a cruise that doesn't sail this bay: 301 to the canonical URL (as Laravel does).
     if (canonicalPath.split('/').pop() !== file) permanentRedirect(canonicalPath);
-    const site = await getSite(locale);
+    const [site, destinations] = await Promise.all([getSite(locale), listDestinations(locale)]);
     const other: Locale = locale === 'en' ? 'vi' : 'en';
     return (
       <ItineraryView
         itinerary={itinerary}
+        places={placesOnItinerary(destinations.items, itinerary.itineraryId)}
         chrome={{ locale, site, t: getMessages(locale), alternateHref: alternateOf(itinerary) ?? sectionPath(other, 'itinerary') }}
       />
     );

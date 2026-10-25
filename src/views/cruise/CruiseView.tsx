@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { Booking } from '@/components/booking';
 import { JournalLink } from '@/components/journal/JournalLink';
 import { PageHero, SiteFooter, type Chrome } from '@/components/layout';
+import { PlaceCards, TravelLinksSection } from '@/components/sections/TravelLinks';
 import { organizationRef } from '@/lib/organization';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SmartLink, TextLink } from '@/components/ui';
@@ -11,6 +12,8 @@ import { siteInfo } from '@/lib/site-info';
 import { absoluteImageUrl, absoluteUrl } from '@/lib/site-url';
 import cabinStyles from '@/views/cabin/cabin.module.css';
 import { cabinPath } from '@/views/cabin/CabinView';
+import { placeCard } from '@/views/destinations/cards';
+import type { DestinationSummary } from '@/views/destinations/data';
 import { cabinHighlights, cabinTier } from '@/views/home/cabin-card';
 import { Carousel } from '@/views/home/Carousel';
 import homeStyles from '@/views/home/home.module.css';
@@ -30,7 +33,7 @@ function Head({ eyebrow, title, em, body, id, inverse }: { eyebrow: string; titl
   );
 }
 
-export function CruiseView({ cruise, index, chrome }: { cruise: Cruise; index: number; chrome: Chrome }) {
+export function CruiseView({ cruise, index, chrome, places = [] }: { cruise: Cruise; index: number; chrome: Chrome; places?: DestinationSummary[] }) {
   const { locale, t, site } = chrome;
   const c = t.cruise;
   const url = detailPath(locale, 'cruise', cruise.slug, cruise.id);
@@ -286,6 +289,18 @@ export function CruiseView({ cruise, index, chrome }: { cruise: Cruise; index: n
               </p>
             </div>
           </section>
+        )}
+
+        {places.length > 0 && (
+          <TravelLinksSection
+            id="places"
+            eyebrow={t.travel.shipPlacesEyebrow}
+            title={t.travel.shipPlacesTitle(cruise.name)}
+            lede={t.travel.shipPlacesLede}
+            more={{ href: sectionPath(locale, 'destinations'), label: t.travel.allPlaces }}
+          >
+            <PlaceCards items={places.map((d) => placeCard(locale, d))} />
+          </TravelLinksSection>
         )}
 
         {cruise.services.included.length + cruise.services.optional.length > 0 && (

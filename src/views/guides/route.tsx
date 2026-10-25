@@ -9,9 +9,13 @@ import { siteInfo } from '@/lib/site-info';
 import { getMessages } from '@/messages';
 import { listDestinations } from '@/views/destinations/data';
 import { destinationMessages } from '@/views/destinations/messages';
+import { listArticles } from '@/views/blog/data';
+import { articlePath } from '@/views/blog/paths';
 import firstTimeEn from './first-time.en';
 import firstTimeVi from './first-time.vi';
 import { GuideView } from './GuideView';
+import { HubView, type HubCruise } from './HubView';
+import { hubMessages } from './hub-messages';
 import transferEn from './transfer.en';
 import transferVi from './transfer.vi';
 import type { GuideContent } from './types';
@@ -87,6 +91,52 @@ export function guideRoute(guide: Guide, locale: Locale) {
         resolve={resolver(locale, new Set(destinations.items.map((d) => d.slug)), site.hiddenPages)}
         itineraries={itineraries.items}
         bayLabels={destinationMessages[locale].bays}
+      />
+    );
+  }
+
+  return { generateMetadata, Page };
+}
+
+/** /guides and /vi/cam-nang: the travel guide hub (navigation page, always on; it links only to what is live). */
+export function hubRoute(locale: Locale) {
+  const other: Locale = locale === 'en' ? 'vi' : 'en';
+  const m = hubMessages[locale];
+
+  async function generateMetadata(): Promise<Metadata> {
+    const site = await getSite(locale);
+    return pageMetadata({
+      locale,
+      site: siteInfo(site),
+      title: m.metaTitle,
+      description: m.metaDescription,
+      path: sectionPath(locale, 'guides'),
+      alternatePath: sectionPath(other, 'guides'),
+    });
+  }
+
+  async function Page() {
+    const [site, destinations, itineraries, list] = await Promise.all([
+      getSite(locale),
+      listDestinations(locale),
+      listItineraries(locale),
+      listArticles(locale, null, 1),
+    ]);
+    // Ships from the live itinerary listing (each once), with the bay they sail.
+    const cruises = new Map<number, HubCruise>();
+    for (const it of itineraries.items) {
+      if (!cruises.has(it.cruiseId) && it.cruiseSlug && it.cruiseName) cruises.set(it.cruiseId, { id: it.cruiseId, slug: it.cruiseSlug, name: it.cruiseName, bay: it.bay });
+    }
+    const articles = list && !('redirect' in list) ? [...list.featured, ...list.items] : [];
+    const seen = new Set<number>();
+    return (
+      <HubView
+        chrome={{ locale, site, t: getMessages(locale), alternateHref: sectionPath(other, 'guides') }}
+        places={destinations.items}
+        cruises={[...cruises.values()]}
+        articles={articles
+          .filter((a) => a.category && !seen.has(a.id) && seen.add(a.id))
+          .map((a) => ({ href: articlePath(locale, a.category!.slug, a.slug), title: a.title, category: a.category!.name }))}
       />
     );
   }

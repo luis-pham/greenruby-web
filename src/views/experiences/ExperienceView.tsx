@@ -1,10 +1,13 @@
 import Image from 'next/image';
 import type { ReactNode } from 'react';
 import { Breadcrumb, SiteFooter, SiteNav, Topbar, type Chrome } from '@/components/layout';
+import { PlaceCards, TravelLinksSection } from '@/components/sections/TravelLinks';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SmartLink, TextLink } from '@/components/ui';
 import { homePath, sectionPath } from '@/lib/i18n';
 import { absoluteImageUrl, absoluteUrl } from '@/lib/site-url';
+import { placeCard } from '@/views/destinations/cards';
+import type { DestinationSummary } from '@/views/destinations/data';
 import type { Experience, ExperienceList, ExperienceSummary } from './data';
 import type { ExperienceMessages } from './messages';
 import { PhotoJournal, type Photo } from './PhotoJournal';
@@ -36,8 +39,11 @@ export function ExperienceView({
   page,
   chrome,
   m,
+  places = [],
 }: {
   experience: Experience;
+  /** Published destinations where this experience takes place (CMS relation). */
+  places?: DestinationSummary[];
   /** Up to three other experiences (CMS "related" first, then the rest of the list). */
   more: ExperienceSummary[];
   page: ExperienceList['page'];
@@ -110,6 +116,7 @@ export function ExperienceView({
     { id: 'experience', label: m.sections.moment },
     ...(photos.length > 0 ? [{ id: 'photos', label: m.sections.photos }] : []),
     { id: 'participation', label: m.sections.good },
+    ...(places.length > 0 ? [{ id: 'where', label: t.travel.experiencePlacesTitle }] : []),
     ...(more.length > 0 ? [{ id: 'more', label: m.sections.more }] : []),
   ];
 
@@ -296,6 +303,12 @@ export function ExperienceView({
             </div>
           </div>
         </section>
+
+        {places.length > 0 && (
+          <TravelLinksSection id="where" title={t.travel.experiencePlacesTitle} more={{ href: sectionPath(locale, 'destinations'), label: t.travel.allPlaces }}>
+            <PlaceCards items={places.map((d) => placeCard(locale, d))} />
+          </TravelLinksSection>
+        )}
 
         {more.length > 0 && (
           <section className={s.related} id="more" aria-labelledby="more-title">

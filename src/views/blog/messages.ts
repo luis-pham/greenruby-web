@@ -4,8 +4,8 @@ import type { Locale, Section } from '@/lib/i18n';
 // and green-ruby-blog-detail-v1.html). Kept here instead of src/messages to avoid merge conflicts.
 
 const en = {
-  metaTitle: 'Blog',
-  breadcrumb: 'Journal',
+  metaTitle: 'Travel Journal',
+  breadcrumb: 'Travel Journal',
   page: (n: number) => `Page ${n}`,
   heroEyebrow: 'The Green Ruby Journal',
   heroTitle: 'Stories from',
@@ -100,8 +100,8 @@ const en = {
 export type BlogMessages = typeof en;
 
 const vi: BlogMessages = {
-  metaTitle: 'Blog',
-  breadcrumb: 'Blog',
+  metaTitle: 'Nhật ký hành trình',
+  breadcrumb: 'Nhật ký hành trình',
   page: (n) => `Trang ${n}`,
   heroEyebrow: 'Cẩm nang Green Ruby',
   heroTitle: 'Những câu chuyện',

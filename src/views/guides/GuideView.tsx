@@ -3,7 +3,7 @@ import { FaqList } from '@/components/sections/Faq';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { SmartLink, TextLink } from '@/components/ui';
 import type { ItinerarySummary } from '@/lib/api/schemas';
-import { homePath, itineraryPath } from '@/lib/i18n';
+import { homePath, itineraryPath, sectionPath } from '@/lib/i18n';
 import { ORGANIZATION_ID } from '@/lib/organization';
 import { absoluteUrl } from '@/lib/site-url';
 import { BoardingTimeline } from './BoardingTimeline';
@@ -102,6 +102,7 @@ export function GuideView({
         currentHref={path}
         crumbs={[
           { label: t.breadcrumb.home, href: homePath(locale) },
+          { label: t.nav.travelGuide, href: sectionPath(locale, 'guides') },
           { label: c.breadcrumb, href: path },
         ]}
         eyebrow={c.eyebrow}

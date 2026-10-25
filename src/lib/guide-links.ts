@@ -1,4 +1,4 @@
-import { sectionPath, type Locale } from '@/lib/i18n';
+import { sectionPath, type Locale } from './i18n.ts';
 
 /**
  * Travel Journal articles the guides and the footer link to. Article slugs are explicit CMS fields
@@ -37,10 +37,11 @@ export const HIDEABLE_PAGES = { guideFirstTime: 'guide-first-time', guideTransfe
 export const sectionVisible = (section: string, hiddenPages: readonly string[]) =>
   !(section in HIDEABLE_PAGES && hiddenPages.includes(HIDEABLE_PAGES[section as keyof typeof HIDEABLE_PAGES]));
 
-/** The "Halong Cruise Guide" set, in footer order. Hubs switched off in the CMS are null (render as text or not at all). */
+/** The Travel Guide set. Hubs switched off in the CMS are null (render as text or not at all). */
 export function guideLinks(locale: Locale, hiddenPages: readonly string[] = []) {
   const hub = (section: keyof typeof HIDEABLE_PAGES) => (sectionVisible(section, hiddenPages) ? sectionPath(locale, section) : null);
   return {
+    hub: sectionPath(locale, 'guides'),
     journal: sectionPath(locale, 'blog'),
     firstTime: hub('guideFirstTime'),
     bestTime: guideArticlePath(locale, 'bestTime'),
@@ -49,4 +50,37 @@ export function guideLinks(locale: Locale, hiddenPages: readonly string[] = []) 
     transfer: hub('guideTransfer'),
     luxuryPillar: guideArticlePath(locale, 'luxuryPillar'),
   };
+}
+
+export type TravelGuideLabels = {
+  destinations: string;
+  firstTimeGuide: string;
+  transferGuide: string;
+  bestTime: string;
+  bayComparison: string;
+  travelJournal: string;
+};
+
+/**
+ * The Travel Guide menu (header dropdown, footer column, guides hub), in one order everywhere: places,
+ * the two planning guides, the two guide articles, the journal. Hubs switched off in the CMS are left out.
+ */
+export function travelGuideLinks(
+  locale: Locale,
+  labels: TravelGuideLabels,
+  hiddenPages: readonly string[] = [],
+): { key: keyof TravelGuideLabels; label: string; href: string }[] {
+  const g = guideLinks(locale, hiddenPages);
+  const hrefs: Record<keyof TravelGuideLabels, string | null> = {
+    destinations: g.destinations,
+    firstTimeGuide: g.firstTime,
+    transferGuide: g.transfer,
+    bestTime: g.bestTime,
+    bayComparison: g.bayComparison,
+    travelJournal: g.journal,
+  };
+  return (Object.keys(hrefs) as (keyof TravelGuideLabels)[]).flatMap((key) => {
+    const href = hrefs[key];
+    return href ? [{ key, label: labels[key], href }] : [];
+  });
 }

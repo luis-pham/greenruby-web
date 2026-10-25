@@ -2,7 +2,7 @@ import 'server-only';
 import { cacheLife, cacheTag } from 'next/cache';
 import { z } from 'zod';
 import { getContent } from '@/lib/api/client';
-import type { Locale } from '@/lib/i18n';
+import { destinationPath, sectionPath, type Locale } from '@/lib/i18n';
 
 // Schemas and cached readers for GET /destinations and GET /destinations/{slug}
 // (cms-develop app/Services/Content/DestinationContentService.php). Only published rows are served.
@@ -23,6 +23,8 @@ export const destinationSummarySchema = z.object({
   isGreenRubyStop: z.boolean(),
   /** Itineraries (of this language) that plan to stop here. */
   itineraryIds: z.array(z.number()),
+  /** Experiences that take place here (editor's choice); absent on a CMS without the relation. */
+  experienceIds: z.array(z.number()).default([]),
 });
 export type DestinationSummary = z.infer<typeof destinationSummarySchema>;
 export type Bay = DestinationSummary['bay'];
@@ -51,6 +53,7 @@ export const destinationSchema = destinationSummarySchema.extend({
     }),
   ),
   related: z.array(destinationSummarySchema),
+  experiences: z.array(z.object({ id: z.number(), slug: z.string(), name: z.string() })).default([]),
   seo,
   alternate: z.object({ lang: z.enum(['en', 'vi']), slug: z.string() }).nullable(),
   factCheckedAt: text,
@@ -72,4 +75,10 @@ export async function getDestination(slug: string, locale: Locale) {
   cacheLife('hours');
   cacheTag('content', 'destinations', `destination:${slug}`);
   return getContent(`/destinations/${encodeURIComponent(slug)}`, { lang: locale }, destinationSchema);
+}
+
+/** Paths of the destination pages that are live in this language: the hub when it is on, and each published place. */
+export async function livePlacePaths(locale: Locale): Promise<Set<string>> {
+  const list = await listDestinations(locale);
+  return new Set(list.visible ? [sectionPath(locale, 'destinations'), ...list.items.map((d) => destinationPath(locale, d.slug))] : []);
 }

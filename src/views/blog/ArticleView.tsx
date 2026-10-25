@@ -19,9 +19,9 @@ import { normalizeArticleHtml } from './normalize';
 import s from './article.module.css';
 
 /** Trip-planning guides linked under every article. */
-const PLAN: Record<Locale, { title: string; firstTime: string; transfer: string; destinations: string }> = {
-  en: { title: 'Plan your trip', firstTime: 'First-time cruise guide', transfer: 'Hanoi to Halong Bay', destinations: 'Ha Long Bay attractions' },
-  vi: { title: 'Chuẩn bị chuyến đi', firstTime: 'Lần đầu đi du thuyền', transfer: 'Hà Nội đi Hạ Long', destinations: 'Điểm đến trên vịnh' },
+const PLAN: Record<Locale, { title: string; firstTime: string; transfer: string; destinations: string; hub: string }> = {
+  en: { title: 'Plan your trip', firstTime: 'First-time cruise guide', transfer: 'Hanoi to Ha Long Bay', destinations: 'Places to visit', hub: 'All travel guides' },
+  vi: { title: 'Chuẩn bị chuyến đi', firstTime: 'Lần đầu đi du thuyền', transfer: 'Hà Nội đi Hạ Long', destinations: 'Địa điểm tham quan', hub: 'Tất cả cẩm nang' },
 };
 
 export function ArticleView({ article, chrome }: { article: Article; chrome: Chrome }) {
@@ -122,6 +122,7 @@ export function ArticleView({ article, chrome }: { article: Article; chrome: Chr
                   {guides.firstTime && <SmartLink href={guides.firstTime}>{plan.firstTime}</SmartLink>}
                   {guides.transfer && <SmartLink href={guides.transfer}>{plan.transfer}</SmartLink>}
                   {guides.destinations && <SmartLink href={guides.destinations}>{plan.destinations}</SmartLink>}
+                  <SmartLink href={guides.hub}>{plan.hub}</SmartLink>
                 </nav>
 
                 <div className={s.end}>

@@ -126,3 +126,8 @@
   .layout { display: block; padding: 0; }
   .steps [role='tabpanel'][hidden] { display: block; }
 }
+
+/* Travel guide hub */
+.hubGroup + .hubGroup { margin-top: var(--space-8); }
+.hubGroup h3 { margin: 0 0 var(--space-3); color: var(--text-heading); font-size: var(--font-size-lg); }
+.hubJournal { padding: var(--space-10) 0 var(--space-section-y); }

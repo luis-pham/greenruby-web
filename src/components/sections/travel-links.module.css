@@ -1,0 +1,37 @@
+/* Travel guide cross-links (itinerary, cruise, experience, destination, home, guides hub), on semantic tokens. */
+
+.section { padding: var(--space-section-y) 0; border-top: 1px solid var(--border-default); }
+.tinted { background: var(--bg-surface-alt); }
+.head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: var(--space-4) var(--space-10); margin-bottom: var(--space-10); }
+.head h2 { margin: var(--space-3) 0 0; color: var(--text-heading); font-size: var(--font-size-2xl); line-height: var(--font-leading-tight); letter-spacing: var(--font-tracking-heading); }
+.head p { max-width: var(--size-copy); margin: 0; color: var(--text-muted); font-size: var(--font-size-sm); line-height: var(--font-leading-relaxed); }
+.more { margin: var(--space-8) 0 0; }
+
+.label { display: block; color: var(--text-accent); font-size: var(--font-size-label); font-weight: var(--font-weight-bold); letter-spacing: var(--font-tracking-wider); text-transform: uppercase; }
+
+.places { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-5); margin: 0; padding: 0; list-style: none; }
+.place { display: flex; flex-direction: column; height: 100%; border: 1px solid var(--border-default); background: var(--bg-surface); color: inherit; text-decoration: none; }
+.place:hover { border-color: var(--color-gold-500); }
+.placePhoto { position: relative; display: block; aspect-ratio: 4 / 3; overflow: hidden; background: linear-gradient(135deg, #557b6e, #234a46 55%, #bdad84); }
+.placePhoto img { object-fit: cover; }
+.placeBody { display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-5); }
+.placeBody strong { color: var(--text-heading); font-family: var(--font-family-serif); font-size: var(--font-size-lg); font-weight: var(--font-weight-regular); }
+.summary { display: -webkit-box; overflow: hidden; color: var(--text-muted); font-size: var(--font-size-xs); line-height: 1.7; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
+
+.guides { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-5); margin: 0; padding: 0; list-style: none; }
+.guide { display: flex; flex-direction: column; gap: var(--space-2); height: 100%; padding: var(--space-6); border: 1px solid var(--border-default); background: var(--bg-surface); text-decoration: none; }
+.guide:hover { border-color: var(--color-gold-500); }
+.guide strong { color: var(--text-heading); font-family: var(--font-family-serif); font-size: var(--font-size-md); font-weight: var(--font-weight-regular); }
+.guide span { color: var(--text-muted); font-size: var(--font-size-xs); line-height: 1.7; }
+
+.chips { display: flex; flex-wrap: wrap; gap: var(--space-2); margin: 0; padding: 0; list-style: none; }
+.chips a { display: inline-block; padding: 6px 12px; border: 1px solid var(--border-default); color: var(--text-heading); font-size: var(--font-size-xs); text-decoration: none; }
+.chips a:hover { border-color: var(--color-gold-500); background: var(--color-green-50); }
+
+@media (max-width: 1100px) {
+  .places { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .guides { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 640px) {
+  .places, .guides { grid-template-columns: 1fr; }
+}

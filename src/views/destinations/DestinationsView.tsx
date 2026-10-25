@@ -69,6 +69,7 @@ export function DestinationsView({ chrome, items, itineraries, cruises }: { chro
         currentHref={path}
         crumbs={[
           { label: t.breadcrumb.home, href: homePath(locale) },
+          { label: m.breadcrumbGuide, href: sectionPath(locale, 'guides') },
           { label: m.breadcrumb, href: path },
         ]}
         eyebrow={m.eyebrow}
