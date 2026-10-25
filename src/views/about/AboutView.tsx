@@ -152,17 +152,20 @@ export function AboutView({
           </div>
         </section>
 
+        {/* Same quote break as /experiences: ruled band on the page background, gold asterisk. */}
         <section className={s.statement} aria-label={m.statement.index}>
-          <div className={cx('container', s.statementInner)}>
-            <span className={s.statementIndex}>{m.statement.index}</span>
-            <div>
-              <blockquote>
-                {m.statement.line1}
-                <br />
-                {m.statement.line2} <em>{m.statement.em}</em>
-              </blockquote>
-              <p className={s.statementFooter}>{m.statement.footer}</p>
-            </div>
+          <div className="container">
+            <figure className={s.statementInner}>
+              <div>
+                <blockquote>
+                  <p>
+                    “{m.statement.line1} {m.statement.line2} <em>{m.statement.em}</em>”
+                  </p>
+                </blockquote>
+                <figcaption className={s.statementFooter}>{m.statement.footer}</figcaption>
+              </div>
+              <span className={s.statementMark} aria-hidden="true">✳</span>
+            </figure>
           </div>
         </section>
 

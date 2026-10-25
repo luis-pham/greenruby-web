@@ -66,13 +66,28 @@
 .storyCaption { position: absolute; z-index: 1; right: 18px; bottom: 20px; left: 18px; color: var(--color-neutral-white); font-size: var(--font-size-label); font-weight: var(--font-weight-bold); letter-spacing: 0.15em; text-align: right; text-transform: uppercase; text-shadow: 0 1px 7px rgba(0, 0, 0, 0.6); }
 
 /* ---------- Statement ---------- */
-.statement { position: relative; overflow: hidden; background: #113831; color: var(--color-neutral-white); }
-.statement::after { content: '✦'; position: absolute; right: -25px; bottom: -165px; color: rgba(255, 255, 255, 0.03); font: var(--font-weight-regular) 490px/1 var(--font-family-serif); pointer-events: none; }
-.statementInner { display: grid; grid-template-columns: 0.35fr 1.65fr; gap: 70px; align-items: start; padding-top: 101px; padding-bottom: 101px; }
-.statementIndex { padding-top: 20px; color: var(--text-inverse-accent); font-size: var(--font-size-label); font-weight: var(--font-weight-bold); letter-spacing: 0.2em; text-transform: uppercase; }
-.statement blockquote { max-width: 920px; margin: 0; font: var(--font-weight-regular) clamp(36px, 4.4vw, 67px)/1.29 var(--font-family-serif); letter-spacing: -0.036em; }
-.statement blockquote em { color: var(--text-inverse-accent); }
-.statementFooter { margin-top: 28px; color: #bccdc4; font-size: var(--font-size-label); letter-spacing: 0.14em; text-transform: uppercase; }
+.statement { padding: 85px 0 90px; }
+.statementInner {
+  margin: 0;
+  padding: 41px 0;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 70px;
+  border-top: 1px solid var(--border-strong);
+  border-bottom: 1px solid var(--border-strong);
+}
+.statement blockquote { margin: 0; }
+.statement blockquote p {
+  max-width: 920px;
+  margin: 0;
+  font: var(--font-weight-regular) clamp(23px, 2.3vw, 34px) / 1.48 var(--font-family-serif);
+  letter-spacing: -0.024em;
+  color: var(--text-heading);
+}
+.statement blockquote em { color: var(--text-accent); }
+.statementFooter { margin-top: 18px; color: var(--text-muted); font-size: var(--font-size-label); letter-spacing: 0.14em; text-transform: uppercase; }
+.statementMark { font-family: var(--font-family-serif); font-size: 75px; line-height: 1; color: var(--action-primary); }
 
 /* ---------- Technology ---------- */
 .technology { background: var(--bg-surface); }
@@ -165,7 +180,6 @@
   .storyGrid { grid-template-columns: 1fr; gap: 58px; }
   .storyCopy .description, .lead { max-width: 730px; }
   .storyVisual { width: 100%; max-width: 720px; height: 490px; }
-  .statementInner { grid-template-columns: 1fr; gap: 10px; }
   .sectionHeading { grid-template-columns: 1fr; gap: 13px; }
   .sectionHeading .description { max-width: 620px; }
   .impactGrid { grid-template-columns: repeat(2, 1fr); row-gap: 27px; }
@@ -193,9 +207,10 @@
   .storyMain { width: 87%; }
   .storySecondary { width: 47%; border-width: 6px; }
   .stamp { top: 4px; left: 0; width: 80px; height: 80px; border-width: 4px; font-size: 7px; }
-  .statementInner { padding-top: 75px; padding-bottom: 75px; }
-  .statement blockquote { font-size: clamp(32px, 8.5vw, 54px); }
-  .statement::after { font-size: 300px; bottom: -110px; }
+  .statement { padding: 60px 0 66px; }
+  .statementInner { gap: 15px; }
+  .statement blockquote p { font-size: 23px; }
+  .statementMark { font-size: 45px; }
   .techGrid { grid-template-columns: 1fr; gap: 21px; }
   .techPhoto { aspect-ratio: 1.45 / 1; }
   .techInfo { padding: 27px 24px; }

@@ -43,8 +43,8 @@ const en = {
   },
   statement: {
     index: 'The Green Ruby point of view',
-    line1: "True luxury isn't having more.",
-    line2: "It's discovering",
+    line1: 'True luxury isn’t having more.',
+    line2: 'It’s discovering',
     em: 'what matters.',
     footer: 'Room to breathe. Space to connect. A bay worth protecting.',
   },
