@@ -149,6 +149,34 @@
 .route li a { display: inline-block; padding: 6px 12px; border: 1px solid var(--border-default); color: var(--text-heading); font-size: var(--font-size-xs); text-decoration: none; }
 .route li a:hover { border-color: var(--color-gold-500); background: var(--color-green-50); }
 
+/* Things to do */
+.todoGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-5); }
+.todo { display: flex; flex-direction: column; gap: var(--space-3); padding: var(--space-6) var(--space-7); background: var(--bg-surface); border: 1px solid var(--border-default); }
+.todo h3 { margin: 0; color: var(--text-heading); font-size: var(--font-size-lg); }
+.todo p { margin: 0; color: var(--text-body); font-size: var(--font-size-sm); line-height: var(--font-leading-relaxed); }
+.todo ul { display: flex; flex-wrap: wrap; gap: var(--space-2); margin: 0; padding: 0; list-style: none; }
+.todo li a { display: inline-block; padding: 6px 12px; border: 1px solid var(--border-default); color: var(--text-heading); font-size: var(--font-size-xs); text-decoration: none; }
+.todo li a:hover { border-color: var(--color-gold-500); background: var(--color-green-50); }
+.todo .todoNote { padding-left: var(--space-3); border-left: 2px solid var(--color-gold-500); color: var(--text-muted); font-size: var(--font-size-xs); }
+
+/* Other places (not Green Ruby stops) */
+.others { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-5); }
+.other { display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-6) var(--space-7); background: var(--bg-surface); border: 1px dashed var(--border-strong); scroll-margin-top: 96px; }
+.other h3 { margin: 0; color: var(--text-heading); font-size: var(--font-size-lg); }
+.other p { margin: 0; color: var(--text-body); font-size: var(--font-size-sm); line-height: var(--font-leading-relaxed); }
+.otherTag { align-self: flex-start; padding: 3px 10px; border: 1px solid var(--border-default); color: var(--text-muted); font-size: 11px; font-weight: var(--font-weight-bold); letter-spacing: var(--font-tracking-wider); text-transform: uppercase; }
+.other .otherRoute, .other .otherSources { color: var(--text-muted); font-size: var(--font-size-xs); }
+.otherSources a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+
+/* Cave table */
+.tableWrap { overflow-x: auto; border: 1px solid var(--border-default); background: var(--bg-surface); }
+.table { width: 100%; min-width: 620px; border-collapse: collapse; font-size: var(--font-size-sm); }
+.table th, .table td { padding: var(--space-4) var(--space-5); border-bottom: 1px solid var(--border-default); text-align: left; vertical-align: top; line-height: 1.6; }
+.table thead th { color: var(--text-muted); font-size: var(--font-size-label); font-weight: var(--font-weight-bold); letter-spacing: var(--font-tracking-wider); text-transform: uppercase; }
+.table tbody th { color: var(--text-heading); font-weight: var(--font-weight-regular); }
+.table a { color: var(--text-heading); text-decoration: underline; text-decoration-color: var(--color-gold-500); text-underline-offset: 3px; }
+.table tbody tr:last-child > * { border-bottom: 0; }
+
 /* Planning notes */
 .planGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-5); margin: 0; }
 .planGrid > div { padding: var(--space-6); border-top: 2px solid var(--color-gold-500); background: var(--bg-surface); }
@@ -206,7 +234,7 @@
 @media (max-width: 900px) {
   .bayGrid { grid-template-columns: 1fr 1fr; }
   .bayCompare { grid-column: 1 / -1; padding-bottom: 0; }
-  .routes, .planGrid { grid-template-columns: 1fr; }
+  .routes, .planGrid, .others { grid-template-columns: 1fr; }
   .detail { grid-template-columns: minmax(0, 1fr); gap: var(--space-10); padding-top: var(--space-10); }
   /* Facts and the Green Ruby plan first on narrow screens: they answer the quick questions. */
   .detailSide { position: static; order: -1; }

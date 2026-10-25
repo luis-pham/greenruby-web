@@ -2,15 +2,15 @@ import type { Locale } from '@/lib/i18n';
 import type { Bay, Category } from './data';
 
 const en = {
-  metaTitle: 'Halong Bay Attractions: Caves, Islands & Villages to Visit',
+  metaTitle: 'Things to Do in Ha Long Bay: Caves, Islands & Villages',
   metaDescription:
-    'Places to visit in Ha Long Bay and Lan Ha Bay: caves, islands, floating villages and lagoons, with practical notes, a map and which Green Ruby cruise plans to stop.',
+    'Caves, islands, beaches and fishing villages in Ha Long Bay and Lan Ha Bay: where Green Ruby cruises plan to stop, and other places to explore.',
   breadcrumb: 'Destinations',
   breadcrumbGuide: 'Halong Cruise Guide',
   eyebrow: 'Halong Cruise Guide',
-  title: 'Ha Long Bay & Lan Ha Bay',
-  titleEm: 'attractions',
-  lead: 'Caves, islands, fishing villages and lagoons across the two bays, with what each visit involves, how you get there and which places are on Green Ruby’s planned routes.',
+  title: 'Things to do in',
+  titleEm: 'Ha Long Bay & Lan Ha Bay',
+  lead: 'Caves, islands, beaches and fishing villages across the two bays: what each visit involves, which places are on Green Ruby’s planned routes, and which you would visit another way.',
   bays: { 'ha-long': 'Ha Long Bay', 'lan-ha': 'Lan Ha Bay' } satisfies Record<Bay, string>,
   bayIntro: {
     'ha-long': 'The classic bay of the UNESCO site: large show caves and island viewpoints, busier routes. Sailed by Green Ruby 1.',
@@ -33,6 +33,41 @@ const en = {
   },
   stop: 'Planned Green Ruby stop',
   regional: 'Regional attraction',
+  thingsToDo: {
+    title: 'What there is to do',
+    lede: 'The main kinds of visit in the two bays. Each place has its own guide with access, timing and conditions.',
+    groups: {
+      cave: ['Caves', 'Walk-through show caves with steps, and low water-level passages you go through by kayak or small boat.'],
+      island: ['Islands & beaches', 'Island viewpoints reached by steps, and small beaches where swimming is allowed only when conditions permit.'],
+      village: ['Fishing villages & local life', 'A former floating village whose residents moved ashore in 2014, and a farming village on Cat Ba Island reached by boat and bicycle or electric cart.'],
+      lagoon: ['Lagoons, kayaks & small boats', 'Sheltered water among the islets, seen by kayak, bamboo boat or rowing boat depending on the bay and local rules.'],
+    } as Record<Exclude<Category, 'other'>, [string, string]>,
+    cavesLink: 'Compare the caves',
+    kayakNote: 'Kayaking in Lan Ha Bay is temporarily suspended under local regulations (status as of October 2026), so Lan Ha stops are seen by boat. In Ha Long Bay, Luon Cave is visited by kayak or bamboo boat.',
+    onboard: ['Activities on board', 'Cooking, morning exercise and other activities on the ship itself are described on the Experiences page.'],
+    onboardLink: 'See onboard experiences',
+  },
+  stops: {
+    title: 'Green Ruby cruise stops',
+    lede: 'Places on Green Ruby’s published itineraries. Planned stops, not guaranteed: weather, tides and local rules decide on the day.',
+  },
+  others: {
+    title: 'Other places to explore',
+    lede: 'Well-known places in the bays that are not on a Green Ruby itinerary. Green Ruby cruises do not stop here; you can visit them separately on Ha Long Bay day sightseeing boats.',
+    notStop: 'Not a Green Ruby stop',
+    source: 'Source',
+    route: 'Visited on Ha Long Bay sightseeing route VHL1 (from Tuan Chau or Ha Long International Cruise Port)',
+  },
+  caves: {
+    title: 'Caves of Ha Long Bay and Lan Ha Bay',
+    lede: 'How each cave is visited and whether it is on a Green Ruby itinerary.',
+    cave: 'Cave',
+    bay: 'Bay',
+    visit: 'How you visit',
+    greenRuby: 'On Green Ruby',
+    none: 'Not a Green Ruby stop',
+  },
+  cruises: { title: 'The ships', lede: 'Green Ruby 1 sails Ha Long Bay, Green Ruby 2 sails Lan Ha Bay.' },
   stopNote: 'Green Ruby stops are taken from the published itineraries, which remain provisional until sailings begin (expected February 2027). Other regional attractions are not part of a Green Ruby route.',
   readMore: 'Read the guide',
   map: {
@@ -81,15 +116,15 @@ const en = {
 export type DestinationMessages = typeof en;
 
 const vi: DestinationMessages = {
-  metaTitle: 'Điểm tham quan vịnh Hạ Long và Lan Hạ: hang, đảo, làng chài',
+  metaTitle: 'Địa điểm tham quan Hạ Long & Lan Hạ: hang, đảo, làng chài',
   metaDescription:
-    'Những điểm nên đến trên vịnh Hạ Long và vịnh Lan Hạ: hang động, đảo, làng chài, áng nước, kèm lưu ý thực tế, bản đồ và hành trình Green Ruby dự kiến ghé.',
+    'Hang động, đảo, bãi tắm, làng chài trên vịnh Hạ Long và Lan Hạ: nơi du thuyền Green Ruby dự kiến ghé và những nơi khác bạn có thể tự khám phá.',
   breadcrumb: 'Địa điểm tham quan',
   breadcrumbGuide: 'Cẩm nang du thuyền',
   eyebrow: 'Cẩm nang du thuyền',
-  title: 'Điểm đến trên vịnh',
-  titleEm: 'Hạ Long & Lan Hạ',
-  lead: 'Hang động, đảo, làng chài và áng nước trên hai vịnh: mỗi nơi tham quan thế nào, đến bằng cách nào và nơi nào nằm trong hành trình dự kiến của Green Ruby.',
+  title: 'Địa điểm tham quan',
+  titleEm: 'vịnh Hạ Long & Lan Hạ',
+  lead: 'Hang động, đảo, bãi tắm và làng chài trên hai vịnh: mỗi nơi tham quan thế nào, nơi nào nằm trong hành trình dự kiến của Green Ruby và nơi nào bạn cần đi theo cách khác.',
   bays: { 'ha-long': 'Vịnh Hạ Long', 'lan-ha': 'Vịnh Lan Hạ' },
   bayIntro: {
     'ha-long': 'Vùng lõi di sản UNESCO: hang động lớn, đảo có điểm ngắm cảnh, tuyến tàu đông hơn. Green Ruby 1 khai thác vịnh này.',
@@ -112,6 +147,41 @@ const vi: DestinationMessages = {
   },
   stop: 'Green Ruby dự kiến ghé',
   regional: 'Điểm tham quan trong vùng',
+  thingsToDo: {
+    title: 'Có gì để trải nghiệm',
+    lede: 'Các kiểu tham quan chính trên hai vịnh. Mỗi địa điểm có trang riêng với cách đi, thời gian và điều kiện.',
+    groups: {
+      cave: ['Hang động', 'Hang lớn đi bộ tham quan, phải leo bậc; và những lối hang sát mặt nước đi qua bằng kayak hoặc thuyền nhỏ.'],
+      island: ['Đảo & bãi tắm', 'Đảo có điểm ngắm cảnh phải leo bậc, và bãi tắm nhỏ chỉ được tắm khi điều kiện cho phép.'],
+      village: ['Làng chài & đời sống địa phương', 'Làng chài nổi cũ, cư dân đã lên bờ định cư từ năm 2014; và làng quê trên đảo Cát Bà, đến bằng tàu rồi đi xe đạp hoặc xe điện.'],
+      lagoon: ['Áng nước, kayak & thuyền nhỏ', 'Vùng nước kín gió giữa các đảo đá, tham quan bằng kayak, đò nan hoặc thuyền chèo tùy vịnh và quy định địa phương.'],
+    },
+    cavesLink: 'So sánh các hang',
+    kayakNote: 'Chèo kayak trên vịnh Lan Hạ đang tạm dừng theo quy định địa phương (cập nhật tháng 10/2026), các điểm ở Lan Hạ tham quan bằng thuyền. Trên vịnh Hạ Long, hang Luồn tham quan bằng kayak hoặc đò nan.',
+    onboard: ['Hoạt động trên tàu', 'Lớp nấu ăn, tập buổi sáng và các hoạt động khác ngay trên du thuyền có ở trang Hoạt động trải nghiệm.'],
+    onboardLink: 'Xem hoạt động trên tàu',
+  },
+  stops: {
+    title: 'Điểm ghé của du thuyền Green Ruby',
+    lede: 'Các địa điểm trong hành trình Green Ruby đã công bố. Đây là điểm dự kiến, không cam kết: thời tiết, thủy triều và quy định địa phương quyết định trong ngày.',
+  },
+  others: {
+    title: 'Những nơi khác để khám phá',
+    lede: 'Các điểm nổi tiếng trên vịnh không nằm trong hành trình Green Ruby. Du thuyền Green Ruby không ghé những nơi này; bạn có thể đi riêng bằng tàu tham quan vịnh Hạ Long trong ngày.',
+    notStop: 'Green Ruby không ghé',
+    source: 'Nguồn',
+    route: 'Tham quan theo tuyến VHL1 của vịnh Hạ Long (xuất phát từ cảng tàu khách quốc tế Tuần Châu hoặc Hạ Long)',
+  },
+  caves: {
+    title: 'Hang động vịnh Hạ Long và Lan Hạ',
+    lede: 'Mỗi hang tham quan bằng cách nào và có nằm trong hành trình Green Ruby không.',
+    cave: 'Hang',
+    bay: 'Vịnh',
+    visit: 'Cách tham quan',
+    greenRuby: 'Hành trình Green Ruby',
+    none: 'Green Ruby không ghé',
+  },
+  cruises: { title: 'Du thuyền', lede: 'Green Ruby 1 khai thác vịnh Hạ Long, Green Ruby 2 khai thác vịnh Lan Hạ.' },
   stopNote: 'Điểm ghé của Green Ruby lấy theo các hành trình đã công bố, có thể điều chỉnh trước khi tàu chính thức hoạt động (dự kiến tháng 2/2027). Các điểm tham quan khác trong vùng không thuộc hành trình Green Ruby.',
   readMore: 'Xem chi tiết',
   map: {
@@ -158,3 +228,80 @@ const vi: DestinationMessages = {
 };
 
 export const destinationMessages: Record<Locale, DestinationMessages> = { en, vi };
+
+/**
+ * How each cave is visited, by destination slug of each language (for the hub's cave table). Taken from the
+ * destination pages' facts; update with them.
+ */
+export const caveVisit: Record<Locale, Record<string, string>> = {
+  en: {
+    'sung-sot-cave': 'On foot, with steps and uneven paths; about 45–60 minutes',
+    'luon-cave': 'By kayak or bamboo boat through a water-level tunnel',
+    'tien-ong-cave': 'On foot after a short walk; archaeological displays',
+    'dark-bright-cave': 'By rowing boat (kayaking suspended in Lan Ha Bay)',
+  },
+  vi: {
+    'hang-sung-sot': 'Đi bộ, nhiều bậc và lối đi không bằng phẳng; khoảng 45–60 phút',
+    'hang-luon': 'Đi kayak hoặc đò nan qua lối hang sát mặt nước',
+    'hang-tien-ong': 'Đi bộ một đoạn ngắn; có trưng bày khảo cổ',
+    'hang-sang-toi': 'Đi thuyền chèo (kayak trên vịnh Lan Hạ đang tạm dừng)',
+  },
+};
+
+/**
+ * Places worth knowing that are not Green Ruby stops and have no page of their own (no thin pages): shown on the
+ * hub only, each with an official source. Both are on Ha Long Bay sightseeing route VHL1, not on a Green Ruby route.
+ */
+export type OtherPlace = { key: string; name: string; bay: Bay; category: Category; summary: string; visit: string; sources: { title: string; url: string }[] };
+
+const VHL1 = 'https://halongbay.com.vn/tours/1-hanh-trinh-vhl1-cang-tau-dong-thien-cung-hang-dau-go-hon-cho-da-hang-ba-hang-hon-dinh-huong-hon-trong-mai';
+const QN = 'https://www.quangninh.gov.vn/Sites/en-us/Trang/ChiTietBVGioiThieu.aspx?bvid=138';
+
+export const otherPlaces: Record<Locale, OtherPlace[]> = {
+  en: [
+    {
+      key: 'thien-cung',
+      name: 'Thien Cung Cave',
+      bay: 'ha-long',
+      category: 'cave',
+      summary: 'The “Heavenly Palace” cave on Dau Go Island, at the western edge of the World Heritage area: about 20 m above sea level, with a floor of around 3,000 m² and bright white stalactites and stalagmites.',
+      visit: 'On foot, about 20 m above sea level',
+      sources: [{ title: 'Ha Long Bay Management Board: route VHL1', url: VHL1 }],
+    },
+    {
+      key: 'dau-go',
+      name: 'Dau Go Cave',
+      bay: 'ha-long',
+      category: 'cave',
+      summary: 'Also on Dau Go Island and one of the first caves discovered in Ha Long Bay. Its three large chambers hold many stalactites and stalagmites; French visitors in the late 19th century called it the Grotte des Merveilles. The name means “wooden stakes”.',
+      visit: 'On foot, through three chambers',
+      sources: [
+        { title: 'Ha Long Bay Management Board: route VHL1', url: VHL1 },
+        { title: 'Quang Ninh Provincial Portal: tourism resources', url: QN },
+      ],
+    },
+  ],
+  vi: [
+    {
+      key: 'thien-cung',
+      name: 'Động Thiên Cung',
+      bay: 'ha-long',
+      category: 'cave',
+      summary: '“Cung điện trên trời” nằm trên đảo Đầu Gỗ, điểm cực tây của khu di sản: ở độ cao khoảng 20 m so với mực nước biển, diện tích nền khoảng 3.000 m², hệ thống nhũ đá trắng sáng.',
+      visit: 'Đi bộ, ở độ cao khoảng 20 m',
+      sources: [{ title: 'Ban Quản lý vịnh Hạ Long: hành trình VHL1', url: VHL1 }],
+    },
+    {
+      key: 'dau-go',
+      name: 'Hang Đầu Gỗ',
+      bay: 'ha-long',
+      category: 'cave',
+      summary: 'Cũng trên đảo Đầu Gỗ, là một trong những hang được phát hiện sớm nhất trên vịnh Hạ Long và từng đón Chủ tịch Hồ Chí Minh đến thăm. Hang có ba ngăn lớn với nhiều nhũ đá; du khách Pháp cuối thế kỷ 19 gọi là Grotte des Merveilles.',
+      visit: 'Đi bộ qua ba ngăn hang',
+      sources: [
+        { title: 'Ban Quản lý vịnh Hạ Long: hành trình VHL1', url: VHL1 },
+        { title: 'Cổng thông tin tỉnh Quảng Ninh: tài nguyên du lịch', url: QN },
+      ],
+    },
+  ],
+};

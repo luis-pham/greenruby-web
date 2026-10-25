@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { getSite, listItineraries } from '@/lib/api/content';
+import { getSite, listCruises, listItineraries } from '@/lib/api/content';
 import { destinationPath, homePath, sectionPath, type Locale } from '@/lib/i18n';
 import { pageMetadata } from '@/lib/seo';
 import { siteInfo } from '@/lib/site-info';
@@ -30,11 +30,12 @@ export function destinationsRoute(locale: Locale) {
   }
 
   async function Page() {
-    const [site, list, itineraries, otherList] = await Promise.all([
+    const [site, list, itineraries, otherList, cruises] = await Promise.all([
       getSite(locale),
       listDestinations(locale),
       listItineraries(locale),
       listDestinations(other),
+      listCruises(locale),
     ]);
     // Hub switched off in the CMS ("Hiển thị trên website"); the API then returns no destinations either.
     if (!list.visible) notFound();
@@ -42,6 +43,7 @@ export function destinationsRoute(locale: Locale) {
       <DestinationsView
         items={list.items}
         itineraries={itineraries.items}
+        cruises={cruises.map(({ id, slug, name }) => ({ id, slug, name }))}
         chrome={{ locale, site, t: getMessages(locale), alternateHref: otherList.visible ? sectionPath(other, 'destinations') : homePath(other) }}
       />
     );
