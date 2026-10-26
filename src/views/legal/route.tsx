@@ -4,6 +4,8 @@ import { sectionPath, type Locale } from '@/lib/i18n';
 import { pageMetadata } from '@/lib/seo';
 import { siteInfo } from '@/lib/site-info';
 import { getMessages } from '@/messages';
+import { bookingTerms, bookingTermsLinked } from './booking-terms';
+import { BookingTermsView } from './BookingTermsView';
 import { cookiePolicy } from './cookie-policy';
 import { CookiePolicyView } from './CookiePolicyView';
 import { getLegal, type LegalPageKey } from './data';
@@ -90,6 +92,37 @@ export function cookiePolicyRoute(locale: Locale) {
       <CookiePolicyView
         legal={legal}
         chrome={{ locale, site, t: getMessages(locale), alternateHref: sectionPath(other, 'cookiePolicy') }}
+      />
+    );
+  }
+
+  return { generateMetadata, Page };
+}
+
+export function bookingTermsRoute(locale: Locale) {
+  const other: Locale = locale === 'en' ? 'vi' : 'en';
+
+  async function generateMetadata(): Promise<Metadata> {
+    const site = await getSite(locale);
+    const copy = bookingTerms[locale];
+    return pageMetadata({
+      locale,
+      site: siteInfo(site),
+      title: copy.seoTitle,
+      description: copy.seoDescription,
+      path: sectionPath(locale, 'bookingTerms'),
+      alternatePath: sectionPath(other, 'bookingTerms'),
+      // Indexable only once TPX approves the terms; until then the draft stays out of search (and the sitemap).
+      noIndex: !bookingTermsLinked(),
+    });
+  }
+
+  async function Page() {
+    const [site, legal] = await Promise.all([getSite(locale), getLegal(locale)]);
+    return (
+      <BookingTermsView
+        legal={legal}
+        chrome={{ locale, site, t: getMessages(locale), alternateHref: sectionPath(other, 'bookingTerms') }}
       />
     );
   }

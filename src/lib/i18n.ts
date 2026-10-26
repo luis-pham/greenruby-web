@@ -22,6 +22,7 @@ const segments = {
   termsAndConditions: { en: 'terms-and-conditions', vi: 'dieu-khoan-dieu-kien' },
   paymentMethods: { en: 'payment-methods', vi: 'phuong-thuc-thanh-toan' },
   cookiePolicy: { en: 'cookie-policy', vi: 'chinh-sach-cookie' },
+  bookingTerms: { en: 'booking-terms-and-conditions', vi: 'dieu-khoan-dat-tour' },
   ecoDashboard: { en: 'eco-dashboard', vi: 'bao-cao-sinh-thai' },
   brandFacts: { en: 'about-us/brand-facts', vi: 'gioi-thieu/thong-tin-thuong-hieu' },
   // Travel guide (Next.js only; Laravel's SitemapController mirrors these paths). `guides` is the hub.
@@ -77,8 +78,8 @@ const MIGRATED = [
   /^\/vi\/du-thuyen\//,
   /^\/booking$/,
   /^\/vi\/booking$/,
-  /^\/(legal|safety-policies|terms-and-conditions|privacy-policy|payment-methods|cookie-policy)$/,
-  /^\/vi\/(phap-ly|chinh-sach-an-toan|dieu-khoan-dieu-kien|chinh-sach-bao-mat|phuong-thuc-thanh-toan|chinh-sach-cookie)$/,
+  /^\/(legal|safety-policies|terms-and-conditions|privacy-policy|payment-methods|cookie-policy|booking-terms-and-conditions)$/,
+  /^\/vi\/(phap-ly|chinh-sach-an-toan|dieu-khoan-dieu-kien|chinh-sach-bao-mat|phuong-thuc-thanh-toan|chinh-sach-cookie|dieu-khoan-dat-tour)$/,
   /^\/(services|about-us|eco-dashboard)$/,
   /^\/vi\/(dich-vu|gioi-thieu|bao-cao-sinh-thai)$/,
   /^\/experiences(\/|$)/,

@@ -7,6 +7,7 @@ import { guideLinks, travelGuideLinks } from '@/lib/guide-links';
 import { homePath, sectionPath, type Locale, type Section } from '@/lib/i18n';
 import { navLinks, siteInfo, type NavLink } from '@/lib/site-info';
 import { absoluteUrl } from '@/lib/site-url';
+import { bookingTermsLinked } from '@/views/legal/booking-terms';
 import type { Messages } from '@/messages';
 import { ChatWidget, type ChannelKey } from './ChatWidget';
 import { CookieConsent } from './CookieConsent';
@@ -445,6 +446,12 @@ export function SiteFooter({ locale, site, t }: Pick<Chrome, 'locale' | 'site' |
             <span aria-hidden="true">|</span>
             <SmartLink href={sectionPath(locale, 'termsAndConditions')}>{t.footer.terms}</SmartLink>
             <span aria-hidden="true">|</span>
+            {bookingTermsLinked() && (
+              <>
+                <SmartLink href={sectionPath(locale, 'bookingTerms')}>{t.footer.bookingTerms}</SmartLink>
+                <span aria-hidden="true">|</span>
+              </>
+            )}
             <SmartLink href={sectionPath(locale, 'cookiePolicy')}>{t.footer.cookies}</SmartLink>
           </nav>
           <span>{t.footer.bays}</span>

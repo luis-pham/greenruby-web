@@ -1,5 +1,5 @@
 import type { Amenity, Cabin, Itinerary, ItineraryDetail, ServerBooking } from './api';
-import type { Outcome, PaymentMethod } from './payment';
+import type { BookingPolicy, Outcome, PaymentMethod, PaymentPlan } from './payment';
 import { guestLimits, toCabinPricing, type GuestType, type Guests } from './pricing';
 
 export type Step = 1 | 2 | 3 | 4;
@@ -39,6 +39,11 @@ export type State = {
   guest: { fullName: string; phone: string; email: string };
   confirmation: Confirmation;
   method: PaymentMethod;
+  /** GET /api/booking/policy; null until loaded, or when it failed (then the page behaves as before). */
+  policy: BookingPolicy | null;
+  /** The guest's choice; the server falls back to full payment when a deposit is not allowed. */
+  paymentPlan: PaymentPlan;
+  termsAccepted: boolean;
 
   errors: Record<string, string>;
   submitting: 'idle' | 'sending' | 'redirecting';
@@ -72,6 +77,9 @@ export function initialState(defaultMethod: PaymentMethod): State {
     guest: { fullName: '', phone: '', email: '' },
     confirmation: 'direct',
     method: defaultMethod,
+    policy: null,
+    paymentPlan: 'deposit',
+    termsAccepted: false,
     errors: {},
     submitting: 'idle',
     submitError: null,
@@ -97,6 +105,9 @@ export type Action =
   | { type: 'setGuestField'; field: keyof State['guest']; value: string }
   | { type: 'setConfirmation'; value: Confirmation }
   | { type: 'setMethod'; value: PaymentMethod }
+  | { type: 'policyLoaded'; policy: BookingPolicy | null }
+  | { type: 'setPlan'; value: PaymentPlan }
+  | { type: 'setTermsAccepted'; value: boolean }
   | { type: 'goTo'; step: Step }
   | { type: 'setErrors'; errors: Record<string, string> }
   | { type: 'submit'; mode: 'sending' | 'redirecting' }
@@ -221,6 +232,12 @@ export function reducer(state: State, action: Action): State {
       return { ...state, confirmation: action.value, submitError: null };
     case 'setMethod':
       return { ...state, method: action.value, submitError: null };
+    case 'policyLoaded':
+      return { ...state, policy: action.policy };
+    case 'setPlan':
+      return { ...state, paymentPlan: action.value, submitError: null };
+    case 'setTermsAccepted':
+      return { ...state, termsAccepted: action.value, submitError: null, errors: without(state.errors, 'terms') };
 
     case 'goTo':
       return { ...state, step: action.step, errors: {}, submitError: null };

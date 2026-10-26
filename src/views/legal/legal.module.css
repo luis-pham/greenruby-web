@@ -219,6 +219,19 @@
 .finalCta p { color: #b9ccc0; font-size: var(--font-size-sm); }
 .finalActions { display: flex; flex-shrink: 0; align-items: center; gap: 13px; }
 
+/* Booking terms: wide tables scroll inside their box, never the page */
+.prose [data-table] { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.prose td { font-size: var(--font-size-xs); line-height: 1.7; vertical-align: top; }
+.termsMeta { display: flex; flex-direction: column; gap: 4px; margin: 18px 0; color: #6c7469; font-size: var(--font-size-xs); line-height: 1.7; }
+.termsMeta strong { color: var(--text-heading); }
+.glance { margin-top: 30px; padding: 26px 28px; border: 1px solid #e4e5db; background: var(--bg-surface); }
+.glance h3 { margin: 0 0 14px; font-size: 21px; }
+.glance dl { display: grid; margin: 0; }
+.glance dl > div { display: grid; grid-template-columns: minmax(150px, 0.4fr) 1fr; gap: 16px; padding: 11px 0; border-top: 1px solid #f0efe9; }
+.glance dt { color: var(--text-heading); font-size: var(--font-size-xs); font-weight: var(--font-weight-bold); }
+.glance dd { margin: 0; color: #66756b; font-size: var(--font-size-xs); line-height: 1.7; }
+.glance a { display: inline-block; margin-top: 14px; color: var(--text-heading); font-size: var(--font-size-xs); text-decoration: underline; text-underline-offset: 3px; }
+
 @media (max-width: 1160px) {
   .heroGrid { gap: 40px; }
   .jumpCard { gap: 10px; padding: 22px 14px; }
@@ -258,6 +271,8 @@
 }
 
 @media (max-width: 600px) {
+  .glance { padding: 20px; }
+  .glance dl > div { grid-template-columns: 1fr; gap: 2px; }
   .heroGrid { grid-template-columns: 1fr; gap: 32px; padding-top: 29px; padding-bottom: 78px; }
   .heroTitle { margin: 16px 0 19px; font-size: clamp(42px, 11vw, 65px); }
   .heroIntro { font-size: var(--font-size-sm); }

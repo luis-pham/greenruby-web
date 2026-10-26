@@ -7,13 +7,15 @@ import type { Locale } from '@/lib/i18n';
 import { bookingApi, type ServerBooking } from './api';
 import { fmt, normalizeQueryDate, payloadFromState, summaryFromBooking, summaryFromState, type T } from './model';
 import {
-  buildInquiryBooking,
+  buildInquiryBody,
   buildPaymentInitBody,
   classifyInitFailure,
   clearPaymentAccess,
+  effectivePlan,
   methodSupportsCurrency,
   outcomeFromStatus,
   parseReturnParams,
+  planOptions,
   pollPaymentStatus,
   readPaymentAccess,
   storePaymentAccess,
@@ -61,6 +63,11 @@ export type WizardProps = {
   homeHref: string;
   bookingHref: string;
   privacyHref: string;
+  /**
+   * Booking Terms page (legal/booking-terms.ts). Step 2 links to it once published; the acceptance
+   * checkbox appears whenever the server requires acceptance, and `version` is what the guest accepts.
+   */
+  terms: { href: string; published: boolean; version: string | null };
   image: string;
 };
 
@@ -69,7 +76,7 @@ export type WizardProps = {
  * 4 review and submit. Also handles the return from a payment gateway (?result=&tx=&token=).
  * Reads the URL with useSearchParams, so it renders in the browser below a <Suspense> boundary.
  */
-export function BookingWizard({ locale, t, contact, homeHref, bookingHref, privacyHref, image }: WizardProps) {
+export function BookingWizard({ locale, t, contact, homeHref, bookingHref, privacyHref, terms, image }: WizardProps) {
   const params = useSearchParams();
   const currency = currencyForLocale(locale);
   const [state, dispatch] = useReducer(reducer, currency, (c) => initialState(c === 'vnd' ? 'sepay' : 'stripe'));
@@ -106,6 +113,7 @@ export function BookingWizard({ locale, t, contact, homeHref, bookingHref, priva
     return () => void (alive.current = false);
 
     function boot() {
+      bookingApi.policy().then((policy) => alive.current && dispatch({ type: 'policyLoaded', policy }));
       const cabinId = params.get('cabin_id');
       const cruiseId = params.get('cruise_id');
       const itineraryId = params.get('itinerary_id');
@@ -216,18 +224,40 @@ export function BookingWizard({ locale, t, contact, homeHref, bookingHref, priva
     if (state.step < 4) go((state.step + 1) as Step);
   }
 
+  /** Message for a refused submit; `fallback` when the refusal is not about terms or the departure date. */
+  function failureMessage(data: Record<string, unknown> | null, fallback: string): string {
+    const failure = classifyInitFailure(data);
+    if (failure === 'usd_only') return t.errors.currencyUsdOnly;
+    if (failure === 'vnd_only') return t.errors.currencyVndOnly;
+    if (failure === 'amount') return t.errors.amountFailed;
+    if (failure === 'terms') return t.errors.termsRequired;
+    if (failure === 'termsUpdated') return t.errors.termsUpdated;
+    if (failure === 'departure') return t.errors.departureInvalid;
+    if (failure === 'unavailable') return t.errors.bookingUnavailable;
+    return fallback;
+  }
+
   async function submit() {
     const payload = payloadFromState(state, t, currency);
     if (!payload.full_name) return dispatch({ type: 'submitFailed', message: t.errors.fullNameRequired });
 
+    // Rule 8: explicit acceptance before the booking is confirmed or paid (only once the server requires it).
+    const termsRequired = state.policy?.termsRequired === true;
+    if (termsRequired && !state.termsAccepted) {
+      dispatch({ type: 'setErrors', errors: { terms: t.errors.termsRequired } });
+      document.getElementById('booking-terms-accept')?.focus();
+      return;
+    }
+    const acceptance = termsRequired ? ({ accepted: true, version: terms.version, locale } as const) : undefined;
+
     if (state.confirmation === 'inquiry') {
       dispatch({ type: 'submit', mode: 'sending' });
       try {
-        const { ok, data } = await bookingApi.inquiry(buildInquiryBooking(payload, currency));
+        const { ok, data } = await bookingApi.inquiry(buildInquiryBody(payload, currency, acceptance));
         if (ok && data?.success) {
           dispatch({ type: 'outcome', outcome: 'success', reference: typeof data.code === 'string' ? data.code : null });
         } else {
-          dispatch({ type: 'submitFailed', message: t.errors.inquiryFailed });
+          dispatch({ type: 'submitFailed', message: failureMessage(data, t.errors.inquiryFailed) });
         }
       } catch {
         dispatch({ type: 'submitFailed', message: t.errors.connection });
@@ -241,7 +271,14 @@ export function BookingWizard({ locale, t, contact, homeHref, bookingHref, priva
     }
     dispatch({ type: 'submit', mode: 'sending' });
     try {
-      const body = buildPaymentInitBody({ method: state.method, booking: payload, currency, returnBase: window.location.origin + window.location.pathname });
+      const body = buildPaymentInitBody({
+        method: state.method,
+        booking: payload,
+        currency,
+        returnBase: window.location.origin + window.location.pathname,
+        plan: effectivePlan(planOptions(state.policy, state.date), state.paymentPlan),
+        terms: acceptance,
+      });
       const { ok, data } = await bookingApi.initPayment(body);
       if (ok && data?.success && typeof data.payment_url === 'string') {
         if (typeof data.internal_tx_id === 'string') storePaymentAccess(session(), data.internal_tx_id, typeof data.status_token === 'string' ? data.status_token : null);
@@ -249,10 +286,7 @@ export function BookingWizard({ locale, t, contact, homeHref, bookingHref, priva
         window.location.href = data.payment_url;
         return;
       }
-      const failure = classifyInitFailure(data);
-      const message =
-        failure === 'usd_only' ? t.errors.currencyUsdOnly : failure === 'vnd_only' ? t.errors.currencyVndOnly : failure === 'amount' ? t.errors.amountFailed : t.errors.paymentFailed;
-      dispatch({ type: 'submitFailed', message });
+      dispatch({ type: 'submitFailed', message: failureMessage(data, t.errors.paymentFailed) });
     } catch {
       dispatch({ type: 'submitFailed', message: t.errors.connection });
     }
@@ -284,6 +318,8 @@ export function BookingWizard({ locale, t, contact, homeHref, bookingHref, priva
                 outcome={state.outcome}
                 checking={state.checking}
                 reference={summary.code}
+                booking={state.serverBooking}
+                locale={locale}
                 homeHref={homeHref}
                 bookingHref={bookingHref}
               />
@@ -311,9 +347,9 @@ export function BookingWizard({ locale, t, contact, homeHref, bookingHref, priva
                 </div>
 
                 {state.step === 1 && <StepBookingInfo {...props} routeImage={image} />}
-                {state.step === 2 && <StepGuest {...props} privacyHref={privacyHref} />}
+                {state.step === 2 && <StepGuest {...props} privacyHref={privacyHref} termsHref={terms.published ? terms.href : undefined} />}
                 {state.step === 3 && <StepConfirmation {...props} />}
-                {state.step === 4 && <StepReview {...props} />}
+                {state.step === 4 && <StepReview {...props} termsHref={terms.href} privacyHref={privacyHref} />}
 
                 <div aria-live="assertive" className={s.liveRegion}>
                   {errorList.length > 0 && (

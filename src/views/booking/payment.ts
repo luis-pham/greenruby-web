@@ -116,12 +116,85 @@ export function buildInquiryBooking(payload: BookingPayload, currency: Currency)
   return { ...payload, currency };
 }
 
+/** Body for POST /api/booking/inquiry; `terms` only when the policy requires acceptance. */
+export function buildInquiryBody(payload: BookingPayload, currency: Currency, terms?: TermsAcceptance) {
+  return { booking: buildInquiryBooking(payload, currency), ...(terms ? { terms } : {}) };
+}
+
+// ---------------------------------------------------------------------------------------------
+// Booking policy: deposit or full payment and Booking Terms acceptance (GET /api/booking/policy).
+// The server decides and charges; these helpers only explain the choice to the guest. With both
+// switches off (the default until TPX approves) the page sends exactly what it sent before.
+
+export type PaymentPlan = 'deposit' | 'full';
+
+export type BookingPolicy = {
+  depositEnabled: boolean;
+  depositPercent: number;
+  balanceDaysBefore: number;
+  termsRequired: boolean;
+  termsVersion: string | null;
+  /** Vietnam calendar date on the server, Y-m-d: the deposit rule counts days from it. */
+  today: string;
+};
+
+export function parsePolicy(data: Record<string, unknown> | null): BookingPolicy | null {
+  if (!data?.success || typeof data.today !== 'string') return null;
+  return {
+    depositEnabled: data.deposit_enabled === true,
+    depositPercent: Number(data.deposit_percent) || 30,
+    balanceDaysBefore: Number(data.balance_days_before) || 30,
+    termsRequired: data.terms_required === true,
+    termsVersion: typeof data.terms_version === 'string' ? data.terms_version : null,
+    today: data.today,
+  };
+}
+
+const DAY = 86_400_000;
+const utc = (ymd: string) => Date.UTC(Number(ymd.slice(0, 4)), Number(ymd.slice(5, 7)) - 1, Number(ymd.slice(8, 10)));
+
+export function daysBetween(from: string, to: string): number {
+  return Math.round((utc(to) - utc(from)) / DAY);
+}
+
+/** Y-m-d, `days` before `ymd`. */
+export function dateBefore(ymd: string, days: number): string {
+  return new Date(utc(ymd) - days * DAY).toISOString().slice(0, 10);
+}
+
+/**
+ * Plans the guest may choose, the default first; null while deposits are off (full payment, as before).
+ * Same rule as PaymentPlan::options(): a deposit only when departing more than `balanceDaysBefore` days out.
+ */
+export function planOptions(policy: BookingPolicy | null, departureDate: string): PaymentPlan[] | null {
+  if (!policy?.depositEnabled || !/^\d{4}-\d{2}-\d{2}$/.test(departureDate)) return null;
+  return daysBetween(policy.today, departureDate) > policy.balanceDaysBefore ? ['deposit', 'full'] : ['full'];
+}
+
+/** The plan that will be charged: the guest's choice when allowed, otherwise the default. */
+export function effectivePlan(options: PaymentPlan[] | null, requested: PaymentPlan): PaymentPlan | undefined {
+  if (!options) return undefined;
+  return options.includes(requested) ? requested : options[0];
+}
+
+/** Same rounding as PaymentPlan::amounts(): the deposit is rounded, the balance is the exact remainder. */
+export function splitAmount(total: number, currency: Currency, plan: PaymentPlan, percent: number): { dueNow: number; balance: number } {
+  if (plan !== 'deposit') return { dueNow: total, balance: 0 };
+  const factor = currency === 'vnd' ? 1 : 100;
+  const dueNow = Math.round((total * percent) / 100 * factor) / factor;
+  return { dueNow, balance: Math.round((total - dueNow) * factor) / factor };
+}
+
+export type TermsAcceptance = { accepted: true; version: string | null; locale: 'en' | 'vi' };
+
 export type PaymentInitBody = {
   method: PaymentMethod;
   amount: number;
   return_base: string;
   booking: BookingPayload;
   currency?: Currency;
+  payment_plan?: PaymentPlan;
+  terms?: TermsAcceptance;
 };
 
 /**
@@ -129,7 +202,15 @@ export type PaymentInitBody = {
  * charges what BookingPricer computes. `currency` is only sent when no cabin carries an id, as before.
  * The gateway callback redirects to `return_base?token=…&result=…&tx=…&method=…`.
  */
-export function buildPaymentInitBody(args: { method: PaymentMethod; booking: BookingPayload; currency: Currency; returnBase: string }): PaymentInitBody {
+export function buildPaymentInitBody(args: {
+  method: PaymentMethod;
+  booking: BookingPayload;
+  currency: Currency;
+  returnBase: string;
+  /** Only when the policy offers a choice; omitted, the request is the same as before deposits existed. */
+  plan?: PaymentPlan;
+  terms?: TermsAcceptance;
+}): PaymentInitBody {
   const body: PaymentInitBody = {
     method: args.method,
     amount: Math.max(1, args.booking.total_amount),
@@ -137,6 +218,8 @@ export function buildPaymentInitBody(args: { method: PaymentMethod; booking: Boo
     booking: args.booking,
   };
   if (!args.booking.cabins.some((c) => c.cabin_id)) body.currency = args.currency;
+  if (args.plan) body.payment_plan = args.plan;
+  if (args.terms) body.terms = args.terms;
   return body;
 }
 
@@ -145,12 +228,16 @@ export function methodSupportsCurrency(method: PaymentMethod, currency: Currency
   return method === 'sepay' ? currency === 'vnd' : currency === 'usd';
 }
 
-export type InitFailure = 'usd_only' | 'vnd_only' | 'amount' | 'generic';
+export type InitFailure = 'usd_only' | 'vnd_only' | 'amount' | 'terms' | 'termsUpdated' | 'departure' | 'unavailable' | 'generic';
 
-/** Maps a failed /api/payment/init response to a message key. */
+/** Maps a failed /api/payment/init (or /api/booking/inquiry) response to a message key. */
 export function classifyInitFailure(data: Record<string, unknown> | null): InitFailure {
   if (data?.code === 'currency_method_mismatch' && (data.reason === 'usd_only' || data.reason === 'vnd_only')) return data.reason;
   if (data?.code === 'amount_calculation_failed') return 'amount';
+  if (data?.code === 'terms_required') return 'terms';
+  if (data?.code === 'terms_version_mismatch') return 'termsUpdated';
+  if (data?.code === 'terms_not_configured') return 'unavailable';
+  if (typeof data?.code === 'string' && data.code.startsWith('departure_date_')) return 'departure';
   return 'generic';
 }
 

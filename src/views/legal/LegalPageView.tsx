@@ -2,6 +2,7 @@ import { Fragment } from 'react';
 import type { Chrome } from '@/components/layout';
 import { cx, Eyebrow } from '@/components/ui';
 import { homePath, sectionPath } from '@/lib/i18n';
+import { bookingTerms, bookingTermsLinked } from './booking-terms';
 import type { Legal, LegalPageKey } from './data';
 import { ContactPanel, LegalShell, LegalSidebar, MobileToc, PendingNotice, PolicyHtml, RelatedLinks, SectionTop, type TocItem } from './LegalLayout';
 import { legalMessages } from './messages';
@@ -95,6 +96,7 @@ export function LegalPageView({ chrome, legal, page }: { chrome: Chrome; legal: 
                   eyebrow: m.related,
                   label: legal.pages[p.page].title,
                 })),
+                ...(bookingTermsLinked() ? [{ href: sectionPath(locale, 'bookingTerms'), eyebrow: m.related, label: bookingTerms[locale].title }] : []),
                 { href: hubPath, eyebrow: m.guestInformation, label: m.hubLink },
               ]}
             />

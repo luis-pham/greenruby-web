@@ -100,6 +100,11 @@ fieldset.block { display: block; }
 .fieldError { margin: 0; color: var(--text-danger); font-size: var(--font-size-xs); }
 .fieldError p { margin: 0 0 4px; }
 .note { margin-top: 17px; padding: 15px 18px; border-left: 3px solid var(--action-primary); background: var(--bg-page); color: var(--text-muted); font-size: var(--font-size-xs); line-height: 1.6; }
+/* Booking Terms acceptance (step 4), shown only when the server requires it */
+.termsAccept { display: grid; grid-template-columns: auto 1fr; gap: 6px 12px; align-items: start; margin-top: 20px; padding: 16px 18px; border: 1px solid var(--border-default); text-align: left; font-size: var(--font-size-xs); line-height: 1.65; }
+.termsAccept input { width: 18px; height: 18px; margin: 2px 0 0; accent-color: var(--action-primary); }
+.termsAccept a { color: var(--text-heading); text-decoration: underline; text-underline-offset: 3px; }
+.termsError { grid-column: 1 / -1; margin: 0; color: #a3341f; font-weight: var(--font-weight-bold); }
 .linkButton { padding: 0; border: 0; background: none; color: var(--text-heading); font: inherit; text-decoration: underline; cursor: pointer; }
 
 /* ---------- Voyage ---------- */

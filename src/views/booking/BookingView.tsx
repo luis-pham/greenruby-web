@@ -2,6 +2,7 @@ import { Suspense } from 'react';
 import { PageIntro, SiteFooter, type Chrome } from '@/components/layout';
 import { homePath, sectionPath } from '@/lib/i18n';
 import { siteInfo } from '@/lib/site-info';
+import { bookingTermsLinked, bookingTermsVersion } from '@/views/legal/booking-terms';
 import { BookingWizard } from './BookingWizard';
 import { StepsBar } from './StepsBar';
 import s from './booking.module.css';
@@ -51,6 +52,7 @@ export function BookingView({ chrome }: { chrome: Chrome }) {
           homeHref={homePath(locale)}
           bookingHref={path}
           privacyHref={sectionPath(locale, 'privacyPolicy')}
+          terms={{ href: sectionPath(locale, 'bookingTerms'), published: bookingTermsLinked(), version: bookingTermsVersion() }}
           image={HERO_IMAGE}
         />
       </Suspense>

@@ -5,7 +5,7 @@
  */
 
 import type { Locale } from '@/lib/i18n';
-import type { BookingPayload, PaymentInitBody } from './payment';
+import { parsePolicy, type BookingPayload, type BookingPolicy, type PaymentInitBody, type TermsAcceptance } from './payment';
 
 export type Itinerary = {
   /** "{itineraryId}-{cruiseId}", sent back as booking.itinerary_id. */
@@ -54,6 +54,11 @@ export type ServerBooking = {
   guests_total?: number;
   currency?: string;
   total_amount?: number;
+  /** Only for bookings made with deposits switched on. */
+  payment_plan?: 'deposit' | 'full';
+  amount_paid?: number;
+  balance_amount?: number;
+  balance_due_date?: string | null;
   cabins?: { cabin_name: string; quantity?: number; adults?: number; children_6_12?: number; children_2_5?: number; infants?: number; total_price?: number }[];
   amenities?: { amenity_name: string; quantity?: number; total_price?: number }[];
 };
@@ -126,8 +131,17 @@ export const bookingApi = {
     return { cruise_id: Number(data.cruise_id) || 0, itinerary_id: Number(data.itinerary_id) || 0, date: String(data.date) };
   },
 
-  inquiry(booking: BookingPayload & { currency: string }) {
-    return postJson('/api/booking/inquiry', { booking });
+  /** Deposit and terms switches; null when the server does not have the endpoint yet or it fails. */
+  async policy(signal?: AbortSignal): Promise<BookingPolicy | null> {
+    try {
+      return parsePolicy(await getJson('/api/booking/policy', {}, signal));
+    } catch {
+      return null;
+    }
+  },
+
+  inquiry(body: { booking: BookingPayload & { currency: string }; terms?: TermsAcceptance }) {
+    return postJson('/api/booking/inquiry', body);
   },
 
   initPayment(body: PaymentInitBody) {

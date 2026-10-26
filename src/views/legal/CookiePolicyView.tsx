@@ -3,6 +3,7 @@ import type { Chrome } from '@/components/layout';
 import { CookieSettingsButton } from '@/components/layout/CookieConsent';
 import { cx, Eyebrow } from '@/components/ui';
 import { homePath, sectionPath } from '@/lib/i18n';
+import { bookingTerms, bookingTermsLinked } from './booking-terms';
 import { cookiePolicy } from './cookie-policy';
 import type { Legal } from './data';
 import { ContactPanel, LegalShell, LegalSidebar, MobileToc, PolicyHtml, RelatedLinks, SectionTop, type TocItem } from './LegalLayout';
@@ -72,6 +73,7 @@ export function CookiePolicyView({ chrome, legal }: { chrome: Chrome; legal: Leg
             <RelatedLinks
               items={[
                 ...POLICIES.map((p) => ({ href: sectionPath(locale, p.page), eyebrow: m.related, label: legal.pages[p.page].title })),
+                ...(bookingTermsLinked() ? [{ href: sectionPath(locale, 'bookingTerms'), eyebrow: m.related, label: bookingTerms[locale].title }] : []),
                 { href: hubPath, eyebrow: m.guestInformation, label: m.hubLink },
               ]}
             />
