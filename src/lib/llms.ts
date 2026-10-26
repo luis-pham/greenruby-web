@@ -8,6 +8,7 @@ import { MAPS_URL } from '@/lib/organization';
 import { absoluteUrl } from '@/lib/site-url';
 import { getMessages } from '@/messages';
 import { articlePath } from '@/views/blog/paths';
+import { bookingTermsLinked } from '@/views/legal/booking-terms';
 import { listArticles } from '@/views/blog/data';
 import { listExperiences } from '@/views/experiences/data';
 import { getFaqs, type FaqEntry } from '@/views/faq/data';
@@ -182,6 +183,7 @@ async function buildIndex(): Promise<string> {
     '',
     ...POLICIES.map((p) => link(POLICY_LABELS[p.page], sectionPath(locale, p.page))),
     link('Cookie policy', sectionPath(locale, 'cookiePolicy')),
+    ...(bookingTermsLinked() ? [link('Booking terms and conditions', sectionPath(locale, 'bookingTerms'))] : []),
     '',
     '## Tiếng Việt',
     '',

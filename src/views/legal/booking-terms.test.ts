@@ -111,7 +111,8 @@ test('draft terms are not linked or dated until approved', () => {
   assert.equal(bookingTermsLinked('draft'), false);
   assert.equal(bookingTermsLinked('published'), true);
   if (BOOKING_TERMS.status === 'draft') assert.equal(BOOKING_TERMS.effectiveDate, null);
-  else assert.ok(BOOKING_TERMS.effectiveDate, 'a published version needs its approved effective date');
+  // Published before the first paid online booking: no date yet, the page states the rule (decision 1).
+  if (BOOKING_TERMS.effectiveDate) assert.match(BOOKING_TERMS.effectiveDate, /^\d{4}-\d{2}-\d{2}$/);
 });
 
 test('metadata stays within search-result lengths', () => {

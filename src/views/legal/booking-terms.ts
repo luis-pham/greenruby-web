@@ -5,17 +5,19 @@ import type { Locale } from '@/lib/i18n';
 // Commercial terms follow TPX's management decisions of 27/10/2026: 30% deposit or optional full payment more
 // than 45 days out, full payment otherwise, balance by D-30 with notice and a 48-hour cure period, retention of at
 // most the deposit on non-payment, refunds approved by Finance, team bookings through a secure link, groups by contract.
-// Still a draft until TPX approves; open points: docs/booking-terms-review.md.
+// Published 27/10/2026 at the owner's request, pending the lawyer's review (docs/booking-terms-review.md).
 
 /**
- * Publication control. While "draft": the page is reachable but marked as a draft, noindex, out of the sitemap,
- * and nothing on the site links to it. Set "published" (with the approved effective date) only after TPX
- * approval; the footer, related-policy and booking-step links then appear (see bookingTermsLinked).
+ * Publication control. "draft": reachable but marked as a draft, noindex, out of the sitemap and not linked.
+ * "published": indexable, in the footer, related-policy cards and booking step 2.
+ * `effectiveDate` stays null until the first date Green Ruby accepts binding, paid online bookings (TPX
+ * decision 1); the page then states that rule instead of a date. Terms acceptance in the booking flow needs
+ * the date, because it is the version guests accept (bookingTermsVersion, CMS BOOKING_TERMS_VERSION).
  */
 export const BOOKING_TERMS: { status: 'draft' | 'published'; effectiveDate: string | null; updated: string } = {
-  status: 'draft',
+  status: 'published',
   effectiveDate: null,
-  updated: '2026-10-26',
+  updated: '2026-10-27',
 };
 
 export const bookingTermsLinked = (status: 'draft' | 'published' = BOOKING_TERMS.status) => status === 'published';
