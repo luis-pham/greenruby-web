@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { mapsLink, project, staticMap } from './map.ts';
+import { mapsLink, project, staticMap, tileAllowed } from './map.ts';
 
 test('project: Greenwich/equator is the centre of the world', () => {
   const { x, y } = project({ lat: 0, lng: 0 }, 1);
@@ -25,7 +25,12 @@ test('staticMap: every pin is inside the view and tiles cover it', () => {
   const minLeft = Math.min(...map.tiles.map((t) => t.left));
   const maxRight = Math.max(...map.tiles.map((t) => t.left + t.size));
   assert.ok(minLeft <= 0 && maxRight >= 100);
-  assert.ok(map.tiles.every((t) => t.url.startsWith('https://tile.openstreetmap.org/13/')));
+  assert.ok(map.tiles.every((t) => t.url.startsWith('/map-tiles/13/')));
+  // Every tile the map asks for is one the proxy serves.
+  for (const t of map.tiles) {
+    const [z, x, y] = t.url.replace('/map-tiles/', '').replace('.png', '').split('/').map(Number);
+    assert.ok(tileAllowed(z, x, y), t.url);
+  }
 });
 
 test('staticMap: zooms out for far-apart points and returns null without points', () => {
@@ -36,4 +41,12 @@ test('staticMap: zooms out for far-apart points and returns null without points'
 
 test('mapsLink uses 6 decimals', () => {
   assert.equal(mapsLink({ lat: 20.8, lng: 107.1 }), 'https://www.google.com/maps/search/?api=1&query=20.800000,107.100000');
+});
+
+test('tileAllowed: only the bays region at the zoom levels the map uses', () => {
+  assert.ok(tileAllowed(13, 6531, 3610)); // Ha Long Bay
+  assert.ok(!tileAllowed(13, 0, 0)); // elsewhere in the world
+  assert.ok(!tileAllowed(14, 13062, 7220)); // zoom the map never uses
+  assert.ok(!tileAllowed(7, 101, 56));
+  assert.ok(!tileAllowed(13.5, 6531, 3610));
 });

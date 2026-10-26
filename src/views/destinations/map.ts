@@ -2,7 +2,26 @@
 // so the map renders as plain HTML (tiles as <img>, pins as links) with no map library or client JS.
 
 export const TILE_SIZE = 256;
-export const TILE_URL = 'https://tile.openstreetmap.org';
+/**
+ * Tiles are served from our own domain (app/map-tiles), which fetches and caches them from OpenStreetMap:
+ * some Vietnamese networks resolve openstreetmap.org to 127.0.0.1, so tiles loaded straight from OSM
+ * never appear for those visitors.
+ */
+export const TILE_URL = '/map-tiles';
+export const TILE_UPSTREAM = 'https://tile.openstreetmap.org';
+
+/** Zoom levels staticMap can choose (minZoom..maxZoom below). */
+export const TILE_ZOOMS = { min: 8, max: 13 } as const;
+/** Area the proxy serves: northern Vietnam from Hanoi to the bays, so it never becomes an open tile proxy. */
+export const TILE_AREA = { north: 21.6, south: 20.0, west: 105.4, east: 108.2 } as const;
+
+/** True when tile z/x/y lies (at least partly) inside TILE_AREA at an allowed zoom. */
+export function tileAllowed(z: number, x: number, y: number): boolean {
+  if (![z, x, y].every(Number.isInteger) || z < TILE_ZOOMS.min || z > TILE_ZOOMS.max) return false;
+  const nw = project({ lat: TILE_AREA.north, lng: TILE_AREA.west }, z);
+  const se = project({ lat: TILE_AREA.south, lng: TILE_AREA.east }, z);
+  return x >= Math.floor(nw.x / TILE_SIZE) && x <= Math.floor(se.x / TILE_SIZE) && y >= Math.floor(nw.y / TILE_SIZE) && y <= Math.floor(se.y / TILE_SIZE);
+}
 
 export type LatLng = { lat: number; lng: number };
 export type MapTile = { url: string; left: number; top: number; size: number };
@@ -24,7 +43,7 @@ export function project({ lat, lng }: LatLng, zoom: number): { x: number; y: num
  * the tiles covering that view, and pin positions. Positions and sizes are percentages of the view,
  * so the map scales with its container.
  */
-export function staticMap(points: LatLng[], { width = 960, height = 600, maxZoom = 13, minZoom = 8, fill = 0.78 } = {}): StaticMap | null {
+export function staticMap(points: LatLng[], { width = 960, height = 600, maxZoom = TILE_ZOOMS.max, minZoom = TILE_ZOOMS.min, fill = 0.78 } = {}): StaticMap | null {
   if (points.length === 0) return null;
   let zoom = maxZoom;
   for (; zoom > minZoom; zoom--) {
