@@ -131,3 +131,10 @@
 .hubGroup + .hubGroup { margin-top: var(--space-8); }
 .hubGroup h3 { margin: 0 0 var(--space-3); color: var(--text-heading); font-size: var(--font-size-lg); }
 .hubJournal { padding: var(--space-10) 0 var(--space-section-y); }
+
+/* Sources (after the FAQ) */
+.sources { margin-bottom: var(--space-12); color: var(--text-muted); font-size: var(--font-size-xs); line-height: 1.75; }
+.sources h2 { margin: 0 0 var(--space-4); color: var(--text-heading); font-size: var(--font-size-lg); }
+.sources ul { margin: 0; padding-left: 18px; }
+.sources li { margin: 6px 0; }
+.sources a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }

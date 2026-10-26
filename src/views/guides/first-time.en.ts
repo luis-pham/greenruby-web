@@ -17,12 +17,12 @@ const firstTime: GuideContent = {
   summary: [
     ['Worth it?', 'Yes, if you stay at least one night: the bay is at its best at sunset and early morning, after the day boats leave.'],
     ['How long?', '**2 days 1 night** for a first visit; **3 days 2 nights** to reach quieter areas and slow down.'],
-    ['Which bay?', '**Ha Long Bay** for the classic caves and viewpoints; **Lan Ha Bay** for quieter water and kayaking.'],
+    ['Which bay?', '**Ha Long Bay** for the classic caves and viewpoints; **Lan Ha Bay** for quieter water, Cat Ba village life and beaches.'],
     ['Getting there', 'Around 2.5–3 hours by road from Hanoi to Tuan Chau (estimate). See the [transfer guide](transfer).'],
     ['Boarding day', 'Check-in from about 10:45, tender to the ship around 11:45 on Green Ruby’s published plan.'],
   ],
   published: '2026-10-24',
-  updated: { iso: '2026-10-24', label: 'Updated 24 October 2026' },
+  updated: { iso: '2026-10-26', label: 'Updated 26 October 2026' },
   tocTitle: 'In this guide',
   sections: [
     {
@@ -45,7 +45,7 @@ const firstTime: GuideContent = {
             rows: [
               ['Character', 'The classic core of the UNESCO site; busier routes', 'Off Cat Ba Island; fewer boats, quieter anchorages'],
               ['Typical highlights', '[Sung Sot Cave](destination:sung-sot-cave), [Ti Top Island](destination:ti-top-island), [Luon Cave](destination:luon-cave)', '[Dark & Bright Cave](destination:dark-bright-cave), [Ao Ech Lagoon](destination:ao-ech-lagoon), [Viet Hai Village](destination:viet-hai-village)'],
-              ['Best for', 'First-timers who want the famous sights', 'Kayaking, swimming and a calmer pace'],
+              ['Best for', 'First-timers who want the famous sights', 'A calmer pace, village visits and beaches (Lan Ha kayaking is temporarily suspended)'],
               ['Green Ruby ship', 'Green Ruby 1', 'Green Ruby 2'],
             ],
           },
@@ -212,6 +212,11 @@ const firstTime: GuideContent = {
     { q: 'Can cruises be cancelled because of the weather?', a: 'Yes. During storm warnings, mostly between June and October, the authorities can suspend sailings at short notice. The operator then reschedules or refunds under its policy.' },
     { q: 'What time do I need to arrive?', a: 'On Green Ruby’s published plan, check-in at the Tuan Chau lounge starts at about 10:45 and the tender leaves around 11:45. Confirm the final time and place with the reservations team before departure.' },
   ],
+  sourcesTitle: 'Sources',
+  sources: [
+    { title: 'UNESCO World Heritage Centre: Ha Long Bay – Cat Ba Archipelago', url: 'https://whc.unesco.org/en/list/672' },
+    { title: 'Tuoi Tre News (20 July 2025): Ha Long Bay tourist boats banned from departing as Typhoon Wipha nears', url: 'https://news.tuoitre.vn/ha-long-bay-tourist-boats-banned-from-departing-as-typhoon-wipha-nears-103250720163544717.htm' },
+  ],
   related: {
     title: 'Keep planning',
     links: [
@@ -246,7 +251,7 @@ const firstTime: GuideContent = {
           { time: '≈ 11:45', title: 'Tender to Gia Luan Pier', body: 'The tender crosses to Gia Luan Pier on Cat Ba Island (Hai Phong), where you board Green Ruby 2 on Lan Ha Bay.' },
           { time: '≈ 12:30', title: 'Safety briefing and cabins', body: 'Briefing in the restaurant, then keys and time to settle in.' },
           { time: '≈ 13:00', title: 'Lunch while sailing', body: 'Lunch as the ship heads into Lan Ha Bay.' },
-          { time: '≈ 15:00–15:30', title: 'First excursion', body: 'Dark & Bright Cave by kayak or bamboo boat.' },
+          { time: '≈ 15:00–15:30', title: 'First excursion', body: 'Dark & Bright Cave by bamboo boat (kayaking temporarily suspended under local regulations as of October 2026).' },
         ],
       },
     ],

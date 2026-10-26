@@ -4,8 +4,9 @@ import { JsonLd } from '@/components/seo/JsonLd';
 import { SmartLink, TextLink } from '@/components/ui';
 import type { ItinerarySummary } from '@/lib/api/schemas';
 import { homePath, itineraryPath, sectionPath } from '@/lib/i18n';
-import { ORGANIZATION_ID } from '@/lib/organization';
-import { absoluteUrl } from '@/lib/site-url';
+import { organizationRef } from '@/lib/organization';
+import { siteInfo } from '@/lib/site-info';
+import { absoluteUrl, siteUrl } from '@/lib/site-url';
 import { BoardingTimeline } from './BoardingTimeline';
 import { plainText, RichText, type LinkResolver } from './Rich';
 import { TransferSelector } from './TransferSelector';
@@ -31,6 +32,7 @@ export function GuideView({
   bayLabels: Record<string, string>;
 }) {
   const { locale, t } = chrome;
+  const info = siteInfo(chrome.site);
   const rich = (text: string) => <RichText text={text} resolve={resolve} />;
 
   const renderBlock = (block: Block, key: number) => {
@@ -161,6 +163,21 @@ export function GuideView({
             <FaqList items={c.faq.map((f) => ({ question: f.q, answerHtml: `<p>${escapeHtml(plainText(f.a))}</p>` }))} />
           </section>
 
+          {c.sources && c.sources.length > 0 && (
+            <section className={s.sources} aria-labelledby="sources">
+              <h2 id="sources">{c.sourcesTitle}</h2>
+              <ul>
+                {c.sources.map((src) => (
+                  <li key={src.url}>
+                    <a href={src.url} target="_blank" rel="noopener">
+                      {src.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
           <p className={s.estimate}>{c.estimateNote}</p>
         </article>
       </main>
@@ -196,8 +213,10 @@ export function GuideView({
           mainEntityOfPage: absoluteUrl(path),
           datePublished: c.published,
           dateModified: c.updated.iso,
-          author: { '@id': ORGANIZATION_ID },
-          publisher: { '@id': ORGANIZATION_ID },
+          // The Organization node is not on this page, so the reference carries its name, URL and logo.
+          author: organizationRef(info.name),
+          publisher: { ...organizationRef(info.name), ...(info.logo && { logo: { '@type': 'ImageObject', url: `${siteUrl}${info.logo}` } }) },
+          ...(c.sources && c.sources.length > 0 && { citation: c.sources.map((src) => ({ '@type': 'CreativeWork', name: src.title, url: src.url })) }),
         }}
       />
       <SiteFooter locale={locale} site={chrome.site} t={t} />

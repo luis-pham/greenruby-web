@@ -179,6 +179,16 @@
 .voyageBody { padding: 26px 24px; }
 .voyageMeta { margin: 0 0 8px; color: var(--text-accent); font-size: var(--font-size-label); font-weight: var(--font-weight-semibold); letter-spacing: 0.12em; text-transform: uppercase; }
 .voyageBody h3 { margin: 0 0 10px; font-size: 22px; line-height: 1.25; }
+.boarding { margin-top: 48px; padding: 32px 36px; background: var(--bg-surface); border: 1px solid var(--border-default); }
+.boarding h3 { margin: 0 0 20px; font-size: 26px; line-height: 1.25; }
+.boarding dl { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px 32px; margin: 0; }
+.boarding dt { color: var(--text-accent); font-size: var(--font-size-label); font-weight: var(--font-weight-semibold); letter-spacing: 0.12em; text-transform: uppercase; }
+.boarding dd { margin: 6px 0 0; color: var(--text-body); font-size: 15px; line-height: 1.6; }
+.boardingPlaces { margin-top: 24px; }
+.boardingPlaces p { margin: 0 0 10px; color: var(--text-heading); font-weight: var(--font-weight-semibold); }
+.boardingNote { margin: 22px 0 0; color: var(--text-muted); font-size: 13px; line-height: 1.6; }
+.boardingLinks { display: flex; flex-wrap: wrap; gap: 12px 28px; margin: 18px 0 0; }
+@media (max-width: 640px) { .boarding { padding: 24px 20px; } }
 .voyageRoute { margin: 0 0 16px; color: var(--text-muted); font-size: 13px; line-height: 1.6; }
 @media (max-width: 900px) { .voyageGrid { grid-template-columns: 1fr; } }
 @media (max-width: 560px) { .voyageCard { grid-template-columns: 1fr; } .voyageImage { min-height: 200px; } }

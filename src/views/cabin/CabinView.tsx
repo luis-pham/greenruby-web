@@ -4,6 +4,8 @@ import { PageHero, SiteFooter, type Chrome } from '@/components/layout';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, SectionHeading, SmartLink, TextLink } from '@/components/ui';
 import type { Cabin, CabinSummary, Cruise } from '@/lib/api/schemas';
+import { LinkChips } from '@/components/sections/TravelLinks';
+import { guideLinks } from '@/lib/guide-links';
 import { detailPath, homePath, itineraryPath, sectionPath, type Locale } from '@/lib/i18n';
 import { absoluteImageUrl, absoluteUrl } from '@/lib/site-url';
 import s from './cabin.module.css';
@@ -22,12 +24,24 @@ function formatPrice(value: number, currency: 'USD' | 'VND', locale: Locale) {
 
 const pad = (n: number) => String(n).padStart(2, '0');
 
-export function CabinView({ cabin, cruise, chrome }: { cabin: Cabin; cruise: Cruise | null; chrome: Chrome }) {
+export function CabinView({
+  cabin,
+  cruise,
+  chrome,
+  places = [],
+}: {
+  cabin: Cabin;
+  cruise: Cruise | null;
+  chrome: Chrome;
+  /** Published destinations on this ship's itineraries. */
+  places?: { href: string; label: string }[];
+}) {
   const { locale, t } = chrome;
   const c = t.cabin;
   const bay = cruise?.bay ?? null;
   const bayName = bay ? t.home.bays[bay] : null;
   const voyages = cruise?.itineraries ?? [];
+  const guides = guideLinks(locale, chrome.site.hiddenPages);
   const url = cabinPath(locale, cabin);
   const cruiseUrl = detailPath(locale, 'cruise', cabin.cruise.slug, cabin.cruise.id);
   const bookingUrl = `${sectionPath(locale, 'booking')}?cabin_id=${cabin.id}`;
@@ -160,6 +174,31 @@ export function CabinView({ cabin, cruise, chrome }: { cabin: Cabin; cruise: Cru
                   </li>
                 ))}
               </ul>
+
+              {bay && c.boarding.byBay[bay] && (
+                // What really differs between the GR1 and GR2 copy of a cabin: ship, bay, boarding route, places.
+                <div className={s.boarding}>
+                  <h3>{c.boarding.title(cabin.cruise.name)}</h3>
+                  <dl>
+                    <div><dt>{c.boarding.ship}</dt><dd><SmartLink href={cruiseUrl}>{cabin.cruise.name}</SmartLink></dd></div>
+                    <div><dt>{c.boarding.bay}</dt><dd>{bayName}</dd></div>
+                    <div><dt>{c.boarding.checkIn}</dt><dd>{c.boarding.byBay[bay].checkIn}</dd></div>
+                    <div><dt>{c.boarding.board}</dt><dd>{c.boarding.byBay[bay].board}</dd></div>
+                    <div><dt>{c.boarding.back}</dt><dd>{c.boarding.byBay[bay].back}</dd></div>
+                  </dl>
+                  {places.length > 0 && (
+                    <div className={s.boardingPlaces}>
+                      <p>{c.boarding.places}</p>
+                      <LinkChips items={places} />
+                    </div>
+                  )}
+                  <p className={s.boardingNote}>{c.boarding.note}</p>
+                  <p className={s.boardingLinks}>
+                    {guides.transfer && <TextLink href={`${guides.transfer}#${locale === 'vi' ? 'hai-tau' : 'ships'}`}>{c.boarding.howTo}</TextLink>}
+                    <TextLink href={`${sectionPath(locale, 'brandFacts')}`}>{c.boarding.compare}</TextLink>
+                  </p>
+                </div>
+              )}
             </div>
           </section>
         )}

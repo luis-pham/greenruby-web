@@ -1,10 +1,12 @@
 import type { Metadata } from 'next';
 import { notFound, permanentRedirect } from 'next/navigation';
 import { getCabin, getCruise, getSite, listCabins } from '@/lib/api/content';
-import { homePath, parseDetailFile, type Locale } from '@/lib/i18n';
+import { destinationPath, homePath, parseDetailFile, type Locale } from '@/lib/i18n';
 import { pageMetadata } from '@/lib/seo';
 import { siteInfo } from '@/lib/site-info';
 import { getMessages } from '@/messages';
+import { listDestinations } from '@/views/destinations/data';
+import { placesOnItineraries } from '@/views/destinations/links';
 import { CabinView, cabinPath } from './CabinView';
 
 type Params = { params: Promise<{ file: string }> };
@@ -59,8 +61,22 @@ export function cabinRoute(locale: Locale) {
     const { cabin, canonical } = await load(locale, file);
     // Old or mistyped slugs (e.g. after a rename in the CMS) 301 to the canonical URL.
     if (`${canonical.split('/').pop()}` !== file) permanentRedirect(canonical);
-    const [site, alternate, cruise] = await Promise.all([getSite(locale), alternateHref(locale, cabin), getCruise(cabin.cruise.id, locale)]);
-    return <CabinView cabin={cabin} cruise={cruise} chrome={{ locale, site, t: getMessages(locale), alternateHref: alternate.href }} />;
+    const [site, alternate, cruise, destinations] = await Promise.all([
+      getSite(locale),
+      alternateHref(locale, cabin),
+      getCruise(cabin.cruise.id, locale),
+      listDestinations(locale),
+    ]);
+    // Published places on this ship's itineraries (CMS relation), for the boarding-day block.
+    const places = placesOnItineraries(destinations.items, (cruise?.itineraries ?? []).map((it) => it.itineraryId));
+    return (
+      <CabinView
+        cabin={cabin}
+        cruise={cruise}
+        places={places.map((d) => ({ href: destinationPath(locale, d.slug), label: d.name }))}
+        chrome={{ locale, site, t: getMessages(locale), alternateHref: alternate.href }}
+      />
+    );
   }
 
   return { generateStaticParams, generateMetadata, Page };

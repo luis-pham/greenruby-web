@@ -23,7 +23,7 @@ const transfer: GuideContent = {
     ['Flying home after your cruise', 'Avoid booking a flight too close to your scheduled disembarkation. Allow sufficient time for the return transfer, potential delays and airport check-in procedures.'],
   ],
   published: '2026-10-24',
-  updated: { iso: '2026-10-24', label: 'Updated 24 October 2026' },
+  updated: { iso: '2026-10-26', label: 'Updated 26 October 2026' },
   tocTitle: 'In this guide',
   sections: [
     {
@@ -197,6 +197,12 @@ const transfer: GuideContent = {
     { q: 'Which airport is closest to Halong Bay?', a: 'Cat Bi Airport in Hai Phong and Van Don Airport in Quang Ninh are both alternatives to Noi Bai Airport in Hanoi. The most convenient choice depends on your flight options, cruise departure point and onward transfer.' },
     { q: 'Can I go straight from Noi Bai Airport to my cruise?', a: 'Yes, provided your flight arrives early enough and you can reach the check-in location on time. However, flight delays, immigration and baggage collection can make same-day connections risky. Arriving the previous day is generally safer.' },
     { q: 'Where do Green Ruby cruises depart from?', a: 'Both Green Ruby 1 and Green Ruby 2 are planned to welcome guests at the Green Ruby lounge at Tuan Chau International Passenger Port. Boarding arrangements differ between the two vessels. Your final booking confirmation will provide the exact location, reporting time and transfer instructions.' },
+  ],
+  sourcesTitle: 'Sources',
+  sources: [
+    { title: 'Ha Long Bay Management Board: sightseeing route VHL1 (departures from Tuan Chau or Ha Long International Cruise Port)', url: 'https://halongbay.com.vn/tours/1-hanh-trinh-vhl1-cang-tau-dong-thien-cung-hang-dau-go-hon-cho-da-hang-ba-hang-hon-dinh-huong-hon-trong-mai' },
+    { title: 'VietNamNet: Noi Bai advises arriving two hours before domestic and three hours before international flights', url: 'https://vietnamnet.vn/en/125-000-travelers-expected-at-hanoi-airport-as-holiday-rush-begins-2549423.html' },
+    { title: 'Tuoi Tre News (20 July 2025): Ha Long Bay tourist boats banned from departing as Typhoon Wipha nears', url: 'https://news.tuoitre.vn/ha-long-bay-tourist-boats-banned-from-departing-as-typhoon-wipha-nears-103250720163544717.htm' },
   ],
   related: {
     title: 'Keep planning',

@@ -16,12 +16,12 @@ const firstTime: GuideContent = {
   summary: [
     ['Có nên đi du thuyền nghỉ đêm?', 'Có, nếu bạn muốn dành nhiều thời gian trên vịnh, ngắm hoàng hôn và đón bình minh ngay trên tàu.'],
     ['Nên đi mấy ngày?', '**2 ngày 1 đêm** phù hợp với người đi lần đầu; **3 ngày 2 đêm** dành cho những ai muốn nghỉ dưỡng lâu hơn và khám phá thêm các điểm tham quan.'],
-    ['Chọn vịnh nào?', '**Hạ Long** nổi bật với các hang động và danh thắng nổi tiếng; **Lan Hạ** phù hợp nếu bạn thích không gian yên tĩnh, chèo kayak và tắm biển.'],
+    ['Chọn vịnh nào?', '**Hạ Long** nổi bật với các hang động và danh thắng nổi tiếng; **Lan Hạ** phù hợp nếu bạn thích không gian yên tĩnh, làng quê Cát Bà và bãi tắm.'],
     ['Di chuyển thế nào?', 'Từ Hà Nội đến Tuần Châu thường mất khoảng 2,5–3 giờ bằng ô tô, tùy điểm đón và tình hình giao thông. Xem [hướng dẫn di chuyển](transfer).'],
     ['Khi nào lên tàu?', 'Theo lịch trình dự kiến của Green Ruby, khách làm thủ tục từ khoảng 10:45 và bắt đầu di chuyển ra tàu khoảng 11:45.'],
   ],
   published: '2026-10-24',
-  updated: { iso: '2026-10-24', label: 'Cập nhật ngày 24/10/2026' },
+  updated: { iso: '2026-10-26', label: 'Cập nhật ngày 26/10/2026' },
   tocTitle: 'Nội dung',
   sections: [
     {
@@ -44,9 +44,9 @@ const firstTime: GuideContent = {
           table: {
             head: ['Tiêu chí', 'Vịnh Hạ Long', 'Vịnh Lan Hạ'],
             rows: [
-              ['Đặc điểm', 'Có nhiều tuyến tham quan nổi tiếng, thường đông tàu hơn tại các điểm chính', 'Nằm gần đảo Cát Bà, có nhiều khu vực yên tĩnh và các điểm chèo kayak'],
+              ['Đặc điểm', 'Có nhiều tuyến tham quan nổi tiếng, thường đông tàu hơn tại các điểm chính', 'Nằm gần đảo Cát Bà, có nhiều khu vực yên tĩnh; chèo kayak đang tạm dừng theo quy định địa phương'],
               ['Điểm tham quan tiêu biểu', '[Hang Sửng Sốt](destination:hang-sung-sot), [đảo Ti Tốp](destination:dao-ti-top), [hang Luồn](destination:hang-luon)', '[Hang Sáng Tối](destination:hang-sang-toi), [Ao Ếch](destination:ao-ech), [làng Việt Hải](destination:lang-viet-hai)'],
-              ['Phù hợp với', 'Người lần đầu đến Hạ Long, muốn khám phá những danh thắng nổi tiếng', 'Người thích chèo kayak, tắm biển và không gian nghỉ dưỡng yên tĩnh'],
+              ['Phù hợp với', 'Người lần đầu đến Hạ Long, muốn khám phá những danh thắng nổi tiếng', 'Người thích không gian nghỉ dưỡng yên tĩnh, làng quê và bãi tắm'],
               ['Du thuyền Green Ruby dự kiến', '[Green Ruby 1](/vi/du-thuyen/green-ruby-1-1.html)', '[Green Ruby 2](/vi/du-thuyen/green-ruby-2-2.html)'],
             ],
           },
@@ -244,6 +244,11 @@ const firstTime: GuideContent = {
     { q: 'Thời tiết xấu thì du thuyền có bị hủy không?', a: 'Có thể. Khi thời tiết nguy hiểm, cơ quan chức năng có thể tạm dừng hoạt động của tàu du lịch. Chính sách hoàn tiền, đổi ngày hoặc chuyển sang dịch vụ khác sẽ phụ thuộc vào điều khoản đặt chỗ của từng hãng.' },
     { q: 'Mấy giờ phải có mặt ở bến?', a: 'Giờ làm thủ tục tùy theo từng hãng và hành trình. Với Green Ruby, thời gian dự kiến là khoảng 10:45 tại phòng chờ Tuần Châu. Bạn cần xác nhận lại giờ và địa điểm chính thức trước ngày khởi hành.' },
   ],
+  sourcesTitle: 'Nguồn tham khảo',
+  sources: [
+    { title: 'Trung tâm Di sản Thế giới UNESCO: Vịnh Hạ Long – Quần đảo Cát Bà (tiếng Anh)', url: 'https://whc.unesco.org/en/list/672' },
+    { title: 'Báo VTC News (20/7/2025): Tạm dừng tất cả tour du lịch trên vịnh Hạ Long trước giờ bão Wipha đổ bộ', url: 'https://vtcnews.vn/tam-dung-tat-ca-tour-du-lich-tren-vinh-ha-long-truoc-gio-bao-wipha-do-bo-ar955340.html' },
+  ],
   related: {
     title: 'Tìm hiểu thêm trước chuyến đi',
     links: [
@@ -278,7 +283,7 @@ const firstTime: GuideContent = {
           { time: 'Khoảng 11:45', title: 'Di chuyển đến Gia Luận', body: 'Xuồng trung chuyển đưa khách sang khu vực bến Gia Luận (Cát Bà, Hải Phòng) để lên tàu Green Ruby 2 trên vịnh Lan Hạ.' },
           { time: 'Khoảng 12:30', title: 'Hướng dẫn an toàn và nhận phòng', body: 'Nhân viên phổ biến các quy định an toàn và hướng dẫn khách về cabin.' },
           { time: 'Khoảng 13:00', title: 'Ăn trưa', body: 'Thưởng thức bữa trưa khi du thuyền tiến vào vịnh Lan Hạ.' },
-          { time: 'Khoảng 15:00–15:30', title: 'Tham quan hang Sáng Tối', body: 'Chèo kayak hoặc đi thuyền nan khám phá khu vực hang Sáng Tối.' },
+          { time: 'Khoảng 15:00–15:30', title: 'Tham quan hang Sáng Tối', body: 'Đi thuyền nan khám phá khu vực hang Sáng Tối (chèo kayak đang tạm dừng theo quy định địa phương, cập nhật tháng 10/2026).' },
         ],
       },
     ],
@@ -290,7 +295,7 @@ const firstTime: GuideContent = {
     descriptions: {
       'ha-long:2': 'Hành trình dự kiến đưa du khách đến hang Luồn, đảo Ti Tốp và hang Sửng Sốt, kết hợp các hoạt động chèo kayak, tham quan và nghỉ đêm trên vịnh.',
       'ha-long:3': 'Có thêm một ngày khám phá các điểm đến như làng chài Cửa Vạn, hang Tiên Ông và trang trại ngọc trai theo chương trình dự kiến.',
-      'lan-ha:2': 'Hành trình dự kiến bao gồm khu vực hang Sáng Tối và Ao Ếch, phù hợp với du khách yêu thích chèo kayak và không gian yên tĩnh.',
+      'lan-ha:2': 'Hành trình dự kiến bao gồm khu vực hang Sáng Tối và Ao Ếch, phù hợp với du khách yêu thích không gian yên tĩnh.',
       'lan-ha:3': 'Dành thêm thời gian khám phá làng Việt Hải trên đảo Cát Bà và tham gia các hoạt động nghỉ dưỡng, tham quan theo chương trình.',
     },
   },

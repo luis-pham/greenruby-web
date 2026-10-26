@@ -36,6 +36,9 @@ export type GuideContent = {
   sections: GuideSection[];
   faqTitle: string;
   faq: { q: string; a: Rich }[];
+  /** Published sources for the guide's factual statements (shown after the FAQ, and as schema.org citation). */
+  sources?: { title: string; url: string }[];
+  sourcesTitle?: string;
   related: { title: string; links: { href: string; title: string; body: string }[] };
   estimateNote: string;
   timeline?: { label: string; note: string; tabs: { key: string; label: string; steps: { time: string; title: string; body: string }[] }[] };

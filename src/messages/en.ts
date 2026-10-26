@@ -104,11 +104,35 @@ const en = {
     voyagesHeading: (ship: string) => `Aboard ${ship}`,
     bayIntro: {
       'ha-long': (cabin: string, ship: string) =>
-        `On ${ship} the ${cabin} sails Ha Long Bay, the UNESCO-listed heart of the region: Luon Cave by kayak or bamboo boat, the panorama from Ti Top Island and Sung Sot Cave, with the limestone karsts framed by your windows between excursions.`,
+        `On ${ship} the ${cabin} sails Ha Long Bay, the classic core of the UNESCO site: Luon Cave by kayak or bamboo boat and the view from Ti Top Island on the first afternoon, Sung Sot Cave on the last morning and, on the three-day voyage, Cua Van, Tien Ong Cave and a pearl farm by day boat.`,
       'lan-ha': (cabin: string, ship: string) =>
-        `On ${ship} the ${cabin} sails the quieter Lan Ha Bay, south of Ha Long: kayaking through the Dark & Bright Cave area, mornings at Ao Ech Lagoon and, on the three-day voyage, Viet Hai village and a white-sand beach, away from the busiest routes.`,
+        `On ${ship} the ${cabin} sails the quieter Lan Ha Bay, south of Ha Long off Cat Ba Island: the Dark & Bright Cave area by bamboo boat, a morning at Ao Ech Lagoon and, on the three-day voyage, Viet Hai village and a white-sand beach by day boat. Kayaking in Lan Ha Bay is temporarily suspended under local regulations as of October 2026.`,
     } as Record<string, (cabin: string, ship: string) => string>,
     voyageCta: 'View itinerary',
+    boarding: {
+      title: (ship: string) => `Boarding day on ${ship}`,
+      ship: 'Ship',
+      bay: 'Bay',
+      checkIn: 'Check-in',
+      board: 'Boarding',
+      back: 'Back on shore',
+      places: 'Places on the way',
+      note: 'Planned arrangements from the published itineraries; times are provisional until sailings begin (expected February 2027).',
+      howTo: 'How boarding day works',
+      compare: 'Compare Green Ruby 1 and Green Ruby 2',
+      byBay: {
+        'ha-long': {
+          checkIn: 'Green Ruby lounge at Tuan Chau, from about 10:45',
+          board: 'Tender from Tuan Chau to the ship at anchor in Ha Long Bay, around 11:45',
+          back: 'Brunch on board as the ship returns; back at Tuan Chau late morning',
+        },
+        'lan-ha': {
+          checkIn: 'Green Ruby lounge at Tuan Chau, from about 10:45',
+          board: 'Tender from Tuan Chau to Gia Luan Pier on Cat Ba Island (Hai Phong) around 11:45, then on board in Lan Ha Bay',
+          back: 'Brunch on board, then back at Tuan Chau around 11:00',
+        },
+      } as Record<string, { checkIn: string; board: string; back: string }>,
+    },
     eyebrowFallback: 'Private sanctuary',
     checkAvailability: 'Check availability',
     discoverShip: 'Discover',

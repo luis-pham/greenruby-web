@@ -105,11 +105,35 @@ const vi: Messages = {
     voyagesHeading: (ship: string) => `Trên ${ship}`,
     bayIntro: {
       'ha-long': (cabin: string, ship: string) =>
-        `Trên ${ship}, ${cabin} đưa bạn khám phá Vịnh Hạ Long, di sản UNESCO: chèo kayak hoặc đi thuyền nan qua Hang Luồn, ngắm toàn cảnh vịnh từ đảo Ti Tốp, thăm Hang Sửng Sốt, và ngắm núi đá vôi ngay từ cửa sổ phòng giữa các chuyến tham quan.`,
+        `Trên ${ship}, ${cabin} đưa bạn khám phá vịnh Hạ Long, vùng lõi di sản UNESCO: chiều ngày đầu chèo kayak hoặc đi thuyền nan qua Hang Luồn và ngắm toàn cảnh vịnh từ đảo Ti Tốp, sáng cuối thăm Hang Sửng Sốt; với hành trình 3 ngày, thêm làng chài Cửa Vạn, Hang Tiên Ông và trại ngọc trai bằng tàu ngày.`,
       'lan-ha': (cabin: string, ship: string) =>
-        `Trên ${ship}, ${cabin} đưa bạn đến Vịnh Lan Hạ yên tĩnh phía nam Hạ Long: chèo kayak khu Hang Sáng – Hang Tối, buổi sáng ở đầm Ao Ếch và, với hành trình 3 ngày, làng Việt Hải cùng bãi cát trắng, tránh xa những tuyến tàu đông đúc.`,
+        `Trên ${ship}, ${cabin} đưa bạn đến vịnh Lan Hạ yên tĩnh, phía nam Hạ Long, ngoài khơi đảo Cát Bà: đi thuyền nan khu Hang Sáng – Hang Tối, buổi sáng ở Ao Ếch; với hành trình 3 ngày, thêm làng Việt Hải và bãi cát trắng bằng tàu ngày. Chèo kayak trên vịnh Lan Hạ đang tạm dừng theo quy định địa phương (cập nhật tháng 10/2026).`,
     } as Record<string, (cabin: string, ship: string) => string>,
     voyageCta: 'Xem lịch trình',
+    boarding: {
+      title: (ship: string) => `Ngày lên tàu ${ship}`,
+      ship: 'Tàu',
+      bay: 'Vịnh',
+      checkIn: 'Check-in',
+      board: 'Lên tàu',
+      back: 'Về bến',
+      places: 'Điểm tham quan trên đường đi',
+      note: 'Sắp xếp dự kiến theo các hành trình đã công bố; giờ giấc có thể điều chỉnh trước khi tàu chính thức hoạt động (dự kiến tháng 2/2027).',
+      howTo: 'Ngày lên tàu diễn ra thế nào',
+      compare: 'So sánh Green Ruby 1 và Green Ruby 2',
+      byBay: {
+        'ha-long': {
+          checkIn: 'Phòng chờ Green Ruby tại Tuần Châu, từ khoảng 10:45',
+          board: 'Xuồng từ Tuần Châu ra tàu đang neo trên vịnh Hạ Long, khoảng 11:45',
+          back: 'Ăn brunch trên tàu khi tàu quay về; về Tuần Châu cuối buổi sáng',
+        },
+        'lan-ha': {
+          checkIn: 'Phòng chờ Green Ruby tại Tuần Châu, từ khoảng 10:45',
+          board: 'Xuồng từ Tuần Châu sang bến Gia Luận trên đảo Cát Bà (Hải Phòng) khoảng 11:45, rồi lên tàu ở vịnh Lan Hạ',
+          back: 'Ăn brunch trên tàu, về Tuần Châu khoảng 11:00',
+        },
+      },
+    },
     eyebrowFallback: 'Không gian riêng',
     checkAvailability: 'Kiểm tra phòng trống',
     discoverShip: 'Khám phá',

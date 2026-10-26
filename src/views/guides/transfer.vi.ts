@@ -21,7 +21,7 @@ const transfer: GuideContent = {
     ['Bay về sau chuyến đi', 'Đừng đặt chuyến bay quá sát giờ rời tàu. Hãy dành đủ thời gian cho đường về, các tình huống chậm trễ và thủ tục sân bay.'],
   ],
   published: '2026-10-24',
-  updated: { iso: '2026-10-24', label: 'Cập nhật ngày 24/10/2026' },
+  updated: { iso: '2026-10-26', label: 'Cập nhật ngày 26/10/2026' },
   tocTitle: 'Nội dung',
   sections: [
     {
@@ -184,6 +184,12 @@ const transfer: GuideContent = {
     { q: 'Sân bay nào gần Hạ Long nhất?', a: 'Cát Bi (Hải Phòng) và Vân Đồn (Quảng Ninh) đều là lựa chọn thay cho Nội Bài (Hà Nội). Sân bay thuận tiện nhất tùy vào lịch bay, điểm khởi hành của du thuyền và phương tiện di chuyển tiếp theo.' },
     { q: 'Tự lái xe đi Hạ Long có tiện không?', a: 'Đường cao tốc thuận tiện, thời gian tương đương xe riêng. Điều cần lo trước là chỗ gửi xe gần bến trong suốt chuyến đi; hãy hỏi đội ngũ đặt chỗ trước ngày đi.' },
     { q: 'Du thuyền Green Ruby xuất phát từ đâu?', a: 'Theo kế hoạch, cả Green Ruby 1 và Green Ruby 2 đón khách tại phòng chờ Green Ruby ở Cảng tàu khách quốc tế Tuần Châu; cách lên tàu của hai tàu khác nhau. Xác nhận đặt chỗ sẽ ghi rõ địa điểm, giờ có mặt và hướng dẫn di chuyển.' },
+  ],
+  sourcesTitle: 'Nguồn tham khảo',
+  sources: [
+    { title: 'Ban Quản lý vịnh Hạ Long: hành trình VHL1 (xuất phát từ Cảng tàu khách quốc tế Tuần Châu hoặc Hạ Long)', url: 'https://halongbay.com.vn/tours/1-hanh-trinh-vhl1-cang-tau-dong-thien-cung-hang-dau-go-hon-cho-da-hang-ba-hang-hon-dinh-huong-hon-trong-mai' },
+    { title: 'VietnamPlus/TTXVN (22/4/2022): Cảng Nội Bài khuyến nghị có mặt trước giờ bay 2 giờ (nội địa), 3 giờ (quốc tế)', url: 'https://www.vietnamplus.vn/luu-y-hanh-khach-qua-san-bay-noi-bai-dip-cao-diem-nghi-le-post786190.vnp' },
+    { title: 'Báo VTC News (20/7/2025): Tạm dừng tất cả tour du lịch trên vịnh Hạ Long trước giờ bão Wipha đổ bộ', url: 'https://vtcnews.vn/tam-dung-tat-ca-tour-du-lich-tren-vinh-ha-long-truoc-gio-bao-wipha-do-bo-ar955340.html' },
   ],
   related: {
     title: 'Chuẩn bị tiếp',
