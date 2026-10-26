@@ -28,7 +28,7 @@ test('staticMap: every pin is inside the view and tiles cover it', () => {
   assert.ok(map.tiles.every((t) => t.url.startsWith('/map-tiles/13/')));
   // Every tile the map asks for is one the proxy serves.
   for (const t of map.tiles) {
-    const [z, x, y] = t.url.replace('/map-tiles/', '').replace('.png', '').split('/').map(Number);
+    const [z, x, y] = t.url.replace('/map-tiles/', '').split('/').map(Number);
     assert.ok(tileAllowed(z, x, y), t.url);
   }
 });

@@ -5,7 +5,7 @@ export const TILE_SIZE = 256;
 /**
  * Tiles are served from our own domain (app/map-tiles), which fetches and caches them from OpenStreetMap:
  * some Vietnamese networks resolve openstreetmap.org to 127.0.0.1, so tiles loaded straight from OSM
- * never appear for those visitors.
+ * never appear for those visitors. No ".png" in our URL: Nginx sends *.png paths to Laravel.
  */
 export const TILE_URL = '/map-tiles';
 export const TILE_UPSTREAM = 'https://tile.openstreetmap.org';
@@ -63,7 +63,7 @@ export function staticMap(points: LatLng[], { width = 960, height = 600, maxZoom
     for (let tx = Math.floor(x0 / TILE_SIZE); tx <= Math.floor((x0 + width) / TILE_SIZE); tx++) {
       if (ty < 0 || ty > max) continue;
       tiles.push({
-        url: `${TILE_URL}/${zoom}/${((tx % (max + 1)) + max + 1) % (max + 1)}/${ty}.png`,
+        url: `${TILE_URL}/${zoom}/${((tx % (max + 1)) + max + 1) % (max + 1)}/${ty}`,
         left: ((tx * TILE_SIZE - x0) / width) * 100,
         top: ((ty * TILE_SIZE - y0) / height) * 100,
         size: (TILE_SIZE / width) * 100,

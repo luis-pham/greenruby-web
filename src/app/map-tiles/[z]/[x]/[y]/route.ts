@@ -1,7 +1,7 @@
 import { TILE_UPSTREAM, tileAllowed } from '@/views/destinations/map';
 
 /**
- * /map-tiles/{z}/{x}/{y}.png: OpenStreetMap tiles for the destinations map, served from our domain (some
+ * /map-tiles/{z}/{x}/{y} (no .png: Nginx routes *.png to Laravel): OpenStreetMap tiles for the destinations map, served from our domain (some
  * Vietnamese networks block openstreetmap.org). Limited to the bays region, cached in memory and by browsers,
  * with an identifying User-Agent as the OSM tile usage policy asks. Attribution stays on the map.
  */
@@ -14,13 +14,12 @@ const pngResponse = (body: ArrayBuffer) =>
     headers: { 'Content-Type': 'image/png', 'Cache-Control': `public, max-age=${WEEK}, stale-while-revalidate=${4 * WEEK}` },
   });
 
-export async function GET(_req: Request, { params }: { params: Promise<{ z: string; x: string; file: string }> }) {
-  const { z, x, file } = await params;
-  const m = /^(\d+)\.png$/.exec(file);
-  if (!/^\d+$/.test(z) || !/^\d+$/.test(x) || !m || !tileAllowed(Number(z), Number(x), Number(m[1]))) {
+export async function GET(_req: Request, { params }: { params: Promise<{ z: string; x: string; y: string }> }) {
+  const { z, x, y } = await params;
+  if (![z, x, y].every((v) => /^\d+$/.test(v)) || !tileAllowed(Number(z), Number(x), Number(y))) {
     return new Response('Not found', { status: 404 });
   }
-  const key = `${z}/${x}/${m[1]}`;
+  const key = `${z}/${x}/${y}`;
   const hit = cache.get(key);
   if (hit && Date.now() - hit.at < WEEK * 1000) return pngResponse(hit.body);
 
