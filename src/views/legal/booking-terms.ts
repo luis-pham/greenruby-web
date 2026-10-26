@@ -2,8 +2,9 @@ import type { Locale } from '@/lib/i18n';
 
 // Booking Terms & Conditions (/booking-terms-and-conditions, /vi/dieu-khoan-dat-tour). Kept in code like the
 // cookie policy: a long, structured legal text, EN and VI with the same 20 sections and the same anchors.
-// Commercial terms follow TPX's rules of 27/10/2026 (30% deposit or optional full payment more than 30 days out,
-// full payment within 30 days, balance 30 days before, cancellation schedule, weather options, payment methods).
+// Commercial terms follow TPX's management decisions of 27/10/2026: 30% deposit or optional full payment more
+// than 45 days out, full payment otherwise, balance by D-30 with notice and a 48-hour cure period, retention of at
+// most the deposit on non-payment, refunds approved by Finance, team bookings through a secure link, groups by contract.
 // Still a draft until TPX approves; open points: docs/booking-terms-review.md.
 
 /**
@@ -71,7 +72,7 @@ const en: BookingTermsCopy = {
   draftBody:
     'These Booking Terms & Conditions are awaiting approval and do not yet apply to any reservation. Until an effective date is published here, the terms in your booking confirmation apply.',
   effectiveLabel: 'Effective date',
-  effectivePending: 'To be confirmed',
+  effectivePending: 'The date Green Ruby Cruises first accepts paid online bookings (to be announced)',
   operator: 'Green Ruby Cruises is operated by TPX JOINT STOCK COMPANY · Vietnam enterprise / tax registration no. 5702096485',
   introHeading: 'Before you confirm your reservation.',
   introHtml:
@@ -80,9 +81,9 @@ const en: BookingTermsCopy = {
   glance: {
     title: 'At a glance',
     items: [
-      ['More than 30 days before departure', '30% deposit, or full payment if you prefer'],
+      ['More than 45 days before departure', '30% deposit, or full payment if you prefer'],
       ['Balance', 'The remaining 70%, no later than 30 calendar days before departure'],
-      ['30 days or less before departure', 'Full payment at booking'],
+      ['45 days or less before departure', 'Full payment at booking'],
       ['Payment methods', 'Card (Stripe) or PayPal in USD; bank transfer by VietQR (SePay) in VND'],
       ['Confirmed when', 'We have accepted the booking and received the deposit or full payment'],
       ['Changes', 'Up to two amendments; a new date is treated as a cancellation and a new booking'],
@@ -126,7 +127,10 @@ const en: BookingTermsCopy = {
         '<p>A reservation becomes confirmed when Green Ruby Cruises has accepted the booking and received the required deposit or full payment, or has expressly agreed to alternative payment arrangements in writing.</p>' +
         '<p>Guests are responsible for checking their booking details and promptly reporting any errors.</p>' +
         '<h3>2.3 Bookings made for other guests</h3>' +
-        '<p>Anyone making a reservation on behalf of other passengers must have their authorisation and ensure that all passengers receive the relevant booking conditions.</p>',
+        '<p>Anyone making a reservation on behalf of other passengers must have their authorisation and ensure that all passengers receive the relevant booking conditions.</p>' +
+        '<h3>2.4 Bookings arranged with our reservations team</h3>' +
+        '<p>Bookings arranged by phone, email or message with our reservations team follow the same deposit and payment rules as bookings made on our website.</p>' +
+        '<p>We will send you a secure link to review the booking, accept these terms yourself and pay. The booking is confirmed once the payment has been received.</p>',
     },
     {
       id: 'rates',
@@ -153,9 +157,9 @@ const en: BookingTermsCopy = {
       title: 'Deposit and Payment',
       html: () =>
         '<h3>4.1 Deposit requirements</h3>' +
-        '<p>For bookings made <strong>more than 30 calendar days before departure</strong>, a deposit of <strong>30% of the total booking value</strong> secures the reservation. You may instead choose to pay the full amount at the time of booking.</p>' +
+        '<p>For bookings made <strong>more than 45 calendar days before departure</strong>, a deposit of <strong>30% of the total booking value</strong> secures the reservation. You may instead choose to pay the full amount at the time of booking.</p>' +
         '<p>Where a deposit is paid, the remaining 70% must be paid no later than <strong>30 calendar days before departure</strong>.</p>' +
-        '<p>For bookings made 30 calendar days or less before departure, full payment is required at the time of booking.</p>' +
+        '<p>For bookings made 45 calendar days or less before departure, full payment is required at the time of booking.</p>' +
         '<p>Different payment schedules may apply to group reservations, private charters and special promotional offers where clearly stated and accepted before confirmation.</p>' +
         '<h3>4.2 Accepted payment methods</h3>' +
         '<p>Online payments are accepted through the following providers:</p>' +
@@ -165,14 +169,16 @@ const en: BookingTermsCopy = {
           '<strong>Bank transfer by VietQR</strong>, processed by SePay, in Vietnamese dong (VND).',
         ]) +
         '<p>For reservations confirmed by our reservations team, payment instructions will be sent using one of these methods through an official Green Ruby Cruises channel.</p>' +
-        '<p>Onboard extras not included in your booking, such as additional drinks or spa treatments, can be paid in cash or by card at check-out at the end of the cruise.</p>' +
+        '<p>Onboard extras not included in your booking, such as additional drinks or spa treatments, can be paid in cash (VND or USD) or by card at check-out at the end of the cruise.</p>' +
         '<h3>4.3 Currency and transaction charges</h3>' +
         '<p>Payments must be made in the currency specified in the booking confirmation or payment instructions: US dollars for bookings made on the English website, Vietnamese dong for bookings made on the Vietnamese website.</p>' +
         '<p>Where currency conversion applies, the final amount may depend on the exchange rate and charges imposed by the guest’s bank or payment provider.</p>' +
         '<p>Any additional transaction or processing charges payable by the guest will be disclosed, where known, before payment and will comply with applicable law.</p>' +
-        '<h3>4.4 Late or incomplete payment</h3>' +
-        '<p>If payment is not received by the agreed deadline, Green Ruby Cruises may contact the guest and request settlement within an additional reasonable period.</p>' +
-        '<p>Failure to complete payment after written notice may result in cancellation of the reservation, subject to the applicable cancellation conditions and legal requirements.</p>',
+        '<h3>4.4 Balance payment and late payment</h3>' +
+        '<p>About 45 days before departure we will email you a secure link to pay the balance, followed by reminders. The balance must be received no later than <strong>30 calendar days before departure</strong>.</p>' +
+        '<p>If the balance has not been received by then, we will send you a written notice and allow a further <strong>48 hours</strong> to pay. We never cancel a booking automatically.</p>' +
+        '<p>If the balance is still not received after that period, Green Ruby Cruises may cancel the booking. In that case we may retain up to the deposit already received (at most 30% of the total booking value), and no further cancellation charge will be claimed.</p>' +
+        '<p>This does not affect your own right to cancel under section 5, or any refund due to you under these terms.</p>',
     },
     {
       id: 'cancellation',
@@ -214,6 +220,7 @@ const en: BookingTermsCopy = {
         '<p>Refunds will generally be processed through the original payment method where reasonably possible.</p>' +
         '<p>The refund amount will be based on the amount actually received for the affected reservation, taking into account applicable cancellation charges and any services already provided.</p>' +
         '<p>Any non-refundable third-party expenses may be deducted only where properly disclosed, contractually permitted and legally applicable.</p>' +
+        '<p>Refunds are approved by our finance team and recorded against your booking. Card and PayPal payments are refunded to the original payment method. Payments made by bank transfer are refunded by bank transfer, for which we will ask you for the account details.</p>' +
         '<p>Refund processing times depend on the payment method and the receiving financial institution. Guests will be informed of the expected processing period when their refund is confirmed.</p>' +
         '<p>Green Ruby Cruises will not withhold any refund required by applicable consumer protection laws.</p>',
     },
@@ -271,9 +278,9 @@ const en: BookingTermsCopy = {
       id: 'check-in',
       title: 'Check-in and Embarkation',
       html: () =>
-        '<p>The designated check-in location is the Green Ruby Cruises reception lounge at Tuan Chau International Passenger Port, unless otherwise stated in the booking confirmation.</p>' +
+        '<p>Check-in for both Green Ruby 1 and Green Ruby 2 takes place at the Green Ruby Lounge, No. 27, Terminal Building 2, Tuan Chau International Passenger Port, Quang Ninh, unless otherwise stated in the booking confirmation.</p>' +
         '<p>Guests must arrive within the check-in window communicated before departure.</p>' +
-        '<p>Embarkation may involve a tender transfer. Depending on the selected vessel and itinerary, passengers may also be transferred to another pier before boarding the main cruise vessel.</p>' +
+        '<p>Guests are taken from the port to the cruise ship by tender.</p>' +
         '<p>The boarding arrangements and departure times are subject to operational and safety requirements.</p>' +
         '<p>Guests who anticipate arriving late should contact the reservations or operations team immediately.</p>' +
         '<p>Failure to arrive by the required boarding deadline may result in a missed departure and application of the no-show policy.</p>',
@@ -304,8 +311,8 @@ const en: BookingTermsCopy = {
       id: 'groups-charters',
       title: 'Group Reservations and Private Charters',
       html: () =>
-        '<p>Group reservations and exclusive vessel charters may have separate booking, payment, cancellation and minimum-guarantee conditions.</p>' +
-        '<p>These conditions will be provided in the relevant quotation or charter agreement before the reservation is confirmed.</p>' +
+        '<p>Group reservations and exclusive vessel charters are not available through our standard online checkout. They are arranged with our sales team under a separate quotation or contract, which sets the payment schedule, cancellation conditions and any minimum guarantee.</p>' +
+        '<p>These conditions will be provided before the reservation is confirmed. Payments due under that contract may be made through a secure payment link.</p>' +
         '<p>Where a separately agreed contract conflicts with these general terms, the specific agreed provisions will govern to the extent permitted by applicable law.</p>',
     },
     {
@@ -330,7 +337,7 @@ const en: BookingTermsCopy = {
       id: 'complaints',
       title: 'Complaints and Dispute Resolution',
       html: () =>
-        '<p>Guests experiencing any problem during their cruise are encouraged to inform the Cruise Manager or Guest Relations team promptly so that the matter can be addressed.</p>' +
+        '<p>Guests experiencing any problem during their cruise are encouraged to inform the Operations Manager or the Head of Service on board promptly so that the matter can be addressed.</p>' +
         '<p>Formal complaints may also be submitted in writing through the official Green Ruby Cruises contact channels, including after the cruise.</p>' +
         '<p>Please include the booking reference, travel date, a description of the issue and any relevant supporting information.</p>' +
         '<p>Green Ruby Cruises will review complaints in good faith and seek a fair resolution in accordance with applicable Vietnamese law.</p>' +
@@ -350,6 +357,7 @@ const en: BookingTermsCopy = {
       title: 'Applicable Law and Amendments',
       html: () =>
         '<p>These Booking Terms & Conditions are governed by the laws of Vietnam.</p>' +
+        '<p>They take effect on the date Green Ruby Cruises first accepts binding, paid online bookings, shown at the top of this page, and apply to bookings made from that date.</p>' +
         '<p>Green Ruby Cruises may update these terms from time to time to reflect operational, commercial or legal changes.</p>' +
         '<p>Material changes will not be applied retroactively to confirmed bookings without an appropriate legal or contractual basis.</p>' +
         '<p>The version of the terms accepted at the time of booking will form part of the applicable booking agreement, together with the booking confirmation and any expressly agreed special conditions.</p>',
@@ -359,7 +367,7 @@ const en: BookingTermsCopy = {
       title: 'Contact Information',
       html: (p) =>
         `<p>For reservations, payment questions, cancellation requests or complaints, please contact Green Ruby Cruises through the contact details published on our <a href="${p.contact}">contact page</a>.</p>` +
-        '<p><strong>Green Ruby Cruises</strong><br>Operated by TPX JOINT STOCK COMPANY<br>Enterprise / tax registration no. 5702096485<br>Official website: https://greenrubycruises.com</p>',
+        '<p><strong>Green Ruby Cruises</strong><br>Operated by TPX JOINT STOCK COMPANY<br>Enterprise / tax registration no. 5702096485<br>Contact address: Green Ruby Lounge, No. 27, Terminal Building 2, Tuan Chau International Passenger Port, Quang Ninh, Vietnam<br>Official website: https://greenrubycruises.com</p>',
     },
   ],
   contactLines: { email: 'Email', phone: 'Telephone', page: 'All contact details' },
@@ -378,7 +386,7 @@ const vi: BookingTermsCopy = {
   draftBody:
     'Điều khoản và Điều kiện Đặt Du thuyền này đang chờ phê duyệt và chưa áp dụng cho bất kỳ đặt chỗ nào. Cho đến khi ngày có hiệu lực được công bố tại đây, các điều kiện trong xác nhận đặt chỗ của Quý khách được áp dụng.',
   effectiveLabel: 'Ngày có hiệu lực',
-  effectivePending: 'Sẽ cập nhật sau khi được phê duyệt',
+  effectivePending: 'Ngày Green Ruby Cruises bắt đầu nhận đặt chỗ trực tuyến có thanh toán (sẽ thông báo)',
   operator: 'Green Ruby Cruises do Công ty Cổ phần TPX (TPX JOINT STOCK COMPANY) vận hành · Mã số doanh nghiệp / Mã số thuế 5702096485',
   introHeading: 'Trước khi Quý khách xác nhận đặt chỗ.',
   introHtml:
@@ -387,9 +395,9 @@ const vi: BookingTermsCopy = {
   glance: {
     title: 'Tóm tắt',
     items: [
-      ['Đặt trước ngày khởi hành hơn 30 ngày', 'Đặt cọc 30%, hoặc thanh toán toàn bộ nếu Quý khách muốn'],
+      ['Đặt trước ngày khởi hành hơn 45 ngày', 'Đặt cọc 30%, hoặc thanh toán toàn bộ nếu Quý khách muốn'],
       ['Thanh toán còn lại', '70% còn lại, chậm nhất 30 ngày theo lịch trước ngày khởi hành'],
-      ['Đặt trong vòng 30 ngày trở xuống', 'Thanh toán toàn bộ khi đặt chỗ'],
+      ['Đặt trong vòng 45 ngày trở xuống', 'Thanh toán toàn bộ khi đặt chỗ'],
       ['Phương thức thanh toán', 'Thẻ (Stripe) hoặc PayPal bằng USD; chuyển khoản VietQR (SePay) bằng VND'],
       ['Được xác nhận khi', 'Chúng tôi chấp thuận đặt chỗ và nhận khoản đặt cọc hoặc toàn bộ số tiền'],
       ['Thay đổi', 'Tối đa hai lần; đổi ngày được xử lý như hủy và đặt chỗ mới'],
@@ -433,7 +441,10 @@ const vi: BookingTermsCopy = {
         '<p>Đặt chỗ được xác nhận khi Green Ruby Cruises chấp thuận yêu cầu và nhận đủ khoản đặt cọc hoặc toàn bộ số tiền theo quy định, trừ trường hợp hai bên có thỏa thuận thanh toán khác bằng văn bản.</p>' +
         '<p>Quý khách có trách nhiệm kiểm tra thông tin trong xác nhận đặt chỗ và thông báo kịp thời nếu có sai sót.</p>' +
         '<h3>2.3. Đặt chỗ thay cho người khác</h3>' +
-        '<p>Người đại diện đặt chỗ cho các hành khách khác cần được những người này đồng ý và có trách nhiệm chuyển đầy đủ thông tin, điều kiện đặt chỗ cho các hành khách liên quan.</p>',
+        '<p>Người đại diện đặt chỗ cho các hành khách khác cần được những người này đồng ý và có trách nhiệm chuyển đầy đủ thông tin, điều kiện đặt chỗ cho các hành khách liên quan.</p>' +
+        '<h3>2.4. Đặt chỗ qua bộ phận đặt phòng</h3>' +
+        '<p>Đặt chỗ thực hiện qua điện thoại, email hoặc tin nhắn với bộ phận đặt phòng áp dụng cùng quy định đặt cọc và thanh toán như đặt chỗ trên website.</p>' +
+        '<p>Chúng tôi sẽ gửi Quý khách đường dẫn bảo mật để xem lại đặt chỗ, tự xác nhận đồng ý với các điều khoản này và thanh toán. Đặt chỗ được xác nhận khi chúng tôi nhận được thanh toán.</p>',
     },
     {
       id: 'rates',
@@ -460,9 +471,9 @@ const vi: BookingTermsCopy = {
       title: 'Đặt cọc và Thanh toán',
       html: () =>
         '<h3>4.1. Quy định đặt cọc</h3>' +
-        '<p>Đối với đặt chỗ được thực hiện <strong>trước ngày khởi hành hơn 30 ngày theo lịch</strong>, khoản đặt cọc bằng <strong>30% tổng giá trị đặt chỗ</strong> sẽ giữ chỗ cho Quý khách. Quý khách cũng có thể chọn thanh toán toàn bộ ngay khi đặt chỗ.</p>' +
+        '<p>Đối với đặt chỗ được thực hiện <strong>trước ngày khởi hành hơn 45 ngày theo lịch</strong>, khoản đặt cọc bằng <strong>30% tổng giá trị đặt chỗ</strong> sẽ giữ chỗ cho Quý khách. Quý khách cũng có thể chọn thanh toán toàn bộ ngay khi đặt chỗ.</p>' +
         '<p>Trường hợp đặt cọc, 70% còn lại phải được thanh toán <strong>chậm nhất 30 ngày theo lịch trước ngày khởi hành</strong>.</p>' +
-        '<p>Đối với đặt chỗ được thực hiện trong vòng 30 ngày theo lịch trở xuống trước ngày khởi hành, Quý khách cần thanh toán toàn bộ giá trị đặt chỗ khi đặt.</p>' +
+        '<p>Đối với đặt chỗ được thực hiện trong vòng 45 ngày theo lịch trở xuống trước ngày khởi hành, Quý khách cần thanh toán toàn bộ giá trị đặt chỗ khi đặt.</p>' +
         '<p>Đặt chỗ theo đoàn, thuê nguyên du thuyền hoặc chương trình ưu đãi đặc biệt có thể áp dụng tiến độ thanh toán riêng. Những điều kiện này sẽ được thông báo và thống nhất trước khi xác nhận.</p>' +
         '<h3>4.2. Phương thức thanh toán</h3>' +
         '<p>Thanh toán trực tuyến được thực hiện qua các đơn vị sau:</p>' +
@@ -472,14 +483,16 @@ const vi: BookingTermsCopy = {
           '<strong>Chuyển khoản ngân hàng qua VietQR</strong> do SePay xử lý, bằng đồng Việt Nam (VND).',
         ]) +
         '<p>Với các đặt chỗ do bộ phận đặt phòng xác nhận, hướng dẫn thanh toán sẽ được gửi theo một trong các phương thức trên qua kênh chính thức của Green Ruby Cruises.</p>' +
-        '<p>Các dịch vụ phát sinh trên tàu ngoài gói đã đặt, như đồ uống thêm hoặc dịch vụ spa, có thể thanh toán bằng tiền mặt hoặc thẻ khi làm thủ tục trả phòng cuối hành trình.</p>' +
+        '<p>Các dịch vụ phát sinh trên tàu ngoài gói đã đặt, như đồ uống thêm hoặc dịch vụ spa, có thể thanh toán bằng tiền mặt (VND hoặc USD) hoặc thẻ khi làm thủ tục trả phòng cuối hành trình.</p>' +
         '<h3>4.3. Loại tiền tệ và phí giao dịch</h3>' +
         '<p>Quý khách thanh toán theo đơn vị tiền tệ được ghi trong xác nhận đặt chỗ hoặc hướng dẫn thanh toán: đô la Mỹ với đặt chỗ trên website tiếng Anh, đồng Việt Nam với đặt chỗ trên website tiếng Việt.</p>' +
         '<p>Nếu có chuyển đổi ngoại tệ, số tiền thực tế có thể phụ thuộc vào tỷ giá và các khoản phí do ngân hàng hoặc đơn vị cung cấp dịch vụ thanh toán áp dụng.</p>' +
         '<p>Mọi khoản phí xử lý giao dịch do Quý khách chịu, nếu có, sẽ được thông báo khi có thể xác định trước và phải phù hợp với quy định pháp luật.</p>' +
-        '<h3>4.4. Thanh toán chậm hoặc chưa đầy đủ</h3>' +
-        '<p>Nếu khoản thanh toán không được thực hiện đúng hạn, Green Ruby Cruises có thể liên hệ và yêu cầu Quý khách hoàn tất thanh toán trong một thời hạn bổ sung hợp lý.</p>' +
-        '<p>Nếu Quý khách không hoàn tất thanh toán sau khi được thông báo bằng văn bản, đặt chỗ có thể bị hủy theo các điều kiện hủy đã thỏa thuận và quy định pháp luật áp dụng.</p>',
+        '<h3>4.4. Thanh toán phần còn lại và thanh toán chậm</h3>' +
+        '<p>Khoảng 45 ngày trước ngày khởi hành, chúng tôi sẽ gửi email kèm đường dẫn bảo mật để Quý khách thanh toán phần còn lại, sau đó là các thư nhắc. Phần còn lại phải được thanh toán chậm nhất <strong>30 ngày theo lịch trước ngày khởi hành</strong>.</p>' +
+        '<p>Nếu đến thời điểm đó chưa nhận được thanh toán, chúng tôi sẽ gửi thông báo bằng văn bản và cho Quý khách thêm <strong>48 giờ</strong> để thanh toán. Chúng tôi không bao giờ tự động hủy đặt chỗ.</p>' +
+        '<p>Nếu sau thời hạn đó vẫn chưa nhận được phần còn lại, Green Ruby Cruises có thể hủy đặt chỗ. Khi đó chúng tôi có thể giữ lại tối đa khoản đặt cọc đã nhận (không quá 30% tổng giá trị đặt chỗ) và không thu thêm bất kỳ phí hủy nào khác.</p>' +
+        '<p>Quy định này không ảnh hưởng đến quyền hủy đặt chỗ của Quý khách theo mục 5 hoặc khoản hoàn tiền Quý khách được hưởng theo các điều khoản này.</p>',
     },
     {
       id: 'cancellation',
@@ -521,6 +534,7 @@ const vi: BookingTermsCopy = {
         '<p>Tiền hoàn sẽ được chuyển về phương thức thanh toán ban đầu trong trường hợp có thể thực hiện hợp lý.</p>' +
         '<p>Số tiền được hoàn căn cứ vào khoản tiền thực tế đã nhận cho đặt chỗ, mức phí hủy áp dụng và các dịch vụ đã cung cấp.</p>' +
         '<p>Những chi phí không hoàn lại từ bên thứ ba chỉ được khấu trừ nếu đã được thông báo phù hợp, có căn cứ theo thỏa thuận và được pháp luật cho phép.</p>' +
+        '<p>Các khoản hoàn tiền do bộ phận tài chính phê duyệt và được ghi nhận vào đặt chỗ của Quý khách. Khoản thanh toán bằng thẻ hoặc PayPal được hoàn về phương thức thanh toán ban đầu. Khoản thanh toán bằng chuyển khoản được hoàn bằng chuyển khoản; chúng tôi sẽ đề nghị Quý khách cung cấp thông tin tài khoản nhận tiền.</p>' +
         '<p>Thời gian xử lý hoàn tiền phụ thuộc vào phương thức thanh toán và đơn vị tài chính tiếp nhận. Green Ruby Cruises sẽ thông báo thời gian dự kiến khi xác nhận khoản hoàn tiền.</p>' +
         '<p>Green Ruby Cruises không giữ lại những khoản tiền mà pháp luật về bảo vệ quyền lợi người tiêu dùng yêu cầu phải hoàn trả.</p>',
     },
@@ -578,9 +592,9 @@ const vi: BookingTermsCopy = {
       id: 'check-in',
       title: 'Làm thủ tục và Lên Du thuyền',
       html: () =>
-        '<p>Địa điểm làm thủ tục thông thường là khu vực đón khách của Green Ruby Cruises tại Cảng tàu khách Quốc tế Tuần Châu, trừ khi xác nhận đặt chỗ có hướng dẫn khác.</p>' +
+        '<p>Khách của cả Green Ruby 1 và Green Ruby 2 làm thủ tục tại Green Ruby Lounge, Số 27, Nhà ga số 2, Cảng tàu khách Quốc tế Tuần Châu, Quảng Ninh, trừ khi xác nhận đặt chỗ có hướng dẫn khác.</p>' +
         '<p>Quý khách cần có mặt trong khoảng thời gian làm thủ tục được thông báo trước ngày khởi hành.</p>' +
-        '<p>Quá trình lên du thuyền có thể bao gồm di chuyển bằng tàu trung chuyển. Tùy theo du thuyền và hành trình đã chọn, Quý khách có thể cần di chuyển đến một bến khác trước khi lên du thuyền chính.</p>' +
+        '<p>Quý khách được đưa từ cảng ra du thuyền bằng tàu trung chuyển.</p>' +
         '<p>Thời gian và phương án đón khách phụ thuộc vào điều kiện vận hành và yêu cầu an toàn.</p>' +
         '<p>Nếu dự kiến đến muộn, Quý khách cần liên hệ ngay với bộ phận đặt phòng hoặc điều hành của Green Ruby Cruises.</p>' +
         '<p>Nếu Quý khách không có mặt đúng thời hạn lên tàu và lỡ chuyến, chính sách không đến làm thủ tục (No-show) có thể được áp dụng.</p>',
@@ -611,8 +625,8 @@ const vi: BookingTermsCopy = {
       id: 'groups-charters',
       title: 'Đặt chỗ theo Đoàn và Thuê Nguyên Du thuyền',
       html: () =>
-        '<p>Các đặt chỗ theo đoàn hoặc thuê riêng toàn bộ du thuyền có thể áp dụng điều kiện đặt chỗ, thanh toán, hủy và số lượng khách bảo đảm riêng.</p>' +
-        '<p>Những điều kiện này được thể hiện trong báo giá hoặc hợp đồng thuê du thuyền tương ứng và cung cấp trước khi xác nhận.</p>' +
+        '<p>Đặt chỗ theo đoàn và thuê riêng toàn bộ du thuyền không áp dụng quy trình thanh toán trực tuyến thông thường. Các đặt chỗ này được thực hiện với bộ phận kinh doanh theo báo giá hoặc hợp đồng riêng, trong đó quy định tiến độ thanh toán, điều kiện hủy và số lượng khách bảo đảm (nếu có).</p>' +
+        '<p>Những điều kiện này được cung cấp trước khi xác nhận đặt chỗ. Các khoản thanh toán theo hợp đồng có thể được thực hiện qua đường dẫn thanh toán bảo mật.</p>' +
         '<p>Trường hợp hợp đồng riêng có nội dung khác với điều khoản chung này, các thỏa thuận cụ thể được ưu tiên áp dụng trong phạm vi pháp luật cho phép.</p>',
     },
     {
@@ -637,7 +651,7 @@ const vi: BookingTermsCopy = {
       id: 'complaints',
       title: 'Khiếu nại và Giải quyết Tranh chấp',
       html: () =>
-        '<p>Nếu phát sinh vấn đề trong thời gian sử dụng dịch vụ, Quý khách được khuyến khích thông báo sớm cho Quản lý Du thuyền hoặc bộ phận Chăm sóc Khách hàng để được hỗ trợ.</p>' +
+        '<p>Nếu phát sinh vấn đề trong thời gian sử dụng dịch vụ, Quý khách được khuyến khích thông báo sớm cho Quản lý vận hành hoặc Trưởng bộ phận phục vụ trên tàu để được hỗ trợ.</p>' +
         '<p>Khiếu nại chính thức cũng có thể được gửi bằng văn bản qua các kênh liên hệ của Green Ruby Cruises, kể cả sau khi kết thúc hành trình.</p>' +
         '<p>Nội dung khiếu nại nên bao gồm mã đặt chỗ, ngày khởi hành, mô tả sự việc và các tài liệu liên quan (nếu có).</p>' +
         '<p>Green Ruby Cruises sẽ tiếp nhận và xem xét khiếu nại trên tinh thần thiện chí, hướng đến phương án giải quyết công bằng và phù hợp với quy định pháp luật Việt Nam.</p>' +
@@ -657,6 +671,7 @@ const vi: BookingTermsCopy = {
       title: 'Pháp luật Áp dụng và Điều chỉnh Điều khoản',
       html: () =>
         '<p>Các Điều khoản và Điều kiện Đặt Du thuyền này được điều chỉnh bởi pháp luật Việt Nam.</p>' +
+        '<p>Điều khoản có hiệu lực từ ngày Green Ruby Cruises bắt đầu nhận đặt chỗ trực tuyến có thanh toán và ràng buộc, được ghi ở đầu trang này, và áp dụng cho các đặt chỗ thực hiện từ ngày đó.</p>' +
         '<p>Green Ruby Cruises có thể cập nhật nội dung theo thay đổi về hoạt động, chính sách kinh doanh hoặc quy định pháp luật.</p>' +
         '<p>Những thay đổi quan trọng không được áp dụng hồi tố đối với các đặt chỗ đã xác nhận nếu không có căn cứ hợp đồng hoặc pháp luật phù hợp.</p>' +
         '<p>Phiên bản điều khoản được Quý khách chấp thuận tại thời điểm đặt chỗ là một phần của thỏa thuận đặt chỗ, cùng với xác nhận đặt chỗ và các điều kiện riêng đã được hai bên thống nhất.</p>',
@@ -666,7 +681,7 @@ const vi: BookingTermsCopy = {
       title: 'Thông tin Liên hệ',
       html: (p) =>
         `<p>Để được hỗ trợ về đặt phòng, thanh toán, thay đổi lịch trình, hủy đặt chỗ hoặc gửi khiếu nại, Quý khách vui lòng liên hệ Green Ruby Cruises qua các kênh chính thức được công bố tại <a href="${p.contact}">trang liên hệ</a>.</p>` +
-        '<p><strong>GREEN RUBY CRUISES</strong><br>Đơn vị vận hành: Công ty Cổ phần TPX<br>Mã số doanh nghiệp / Mã số thuế: 5702096485<br>Website: https://greenrubycruises.com</p>',
+        '<p><strong>GREEN RUBY CRUISES</strong><br>Đơn vị vận hành: Công ty Cổ phần TPX<br>Mã số doanh nghiệp / Mã số thuế: 5702096485<br>Địa chỉ liên hệ: Green Ruby Lounge, Số 27, Nhà ga số 2, Cảng tàu khách Quốc tế Tuần Châu, Quảng Ninh, Việt Nam<br>Website: https://greenrubycruises.com</p>',
     },
   ],
   contactLines: { email: 'Email', phone: 'Điện thoại', page: 'Tất cả thông tin liên hệ' },

@@ -131,6 +131,8 @@ export type PaymentPlan = 'deposit' | 'full';
 export type BookingPolicy = {
   depositEnabled: boolean;
   depositPercent: number;
+  /** A deposit is offered only when departing MORE than this many days out (TPX decision 2: 45). */
+  depositMinDays: number;
   balanceDaysBefore: number;
   termsRequired: boolean;
   termsVersion: string | null;
@@ -143,6 +145,7 @@ export function parsePolicy(data: Record<string, unknown> | null): BookingPolicy
   return {
     depositEnabled: data.deposit_enabled === true,
     depositPercent: Number(data.deposit_percent) || 30,
+    depositMinDays: Number(data.deposit_min_days) || 45,
     balanceDaysBefore: Number(data.balance_days_before) || 30,
     termsRequired: data.terms_required === true,
     termsVersion: typeof data.terms_version === 'string' ? data.terms_version : null,
@@ -164,11 +167,11 @@ export function dateBefore(ymd: string, days: number): string {
 
 /**
  * Plans the guest may choose, the default first; null while deposits are off (full payment, as before).
- * Same rule as PaymentPlan::options(): a deposit only when departing more than `balanceDaysBefore` days out.
+ * Same rule as PaymentPlan::options(): a deposit only when departing more than `depositMinDays` days out.
  */
 export function planOptions(policy: BookingPolicy | null, departureDate: string): PaymentPlan[] | null {
   if (!policy?.depositEnabled || !/^\d{4}-\d{2}-\d{2}$/.test(departureDate)) return null;
-  return daysBetween(policy.today, departureDate) > policy.balanceDaysBefore ? ['deposit', 'full'] : ['full'];
+  return daysBetween(policy.today, departureDate) > policy.depositMinDays ? ['deposit', 'full'] : ['full'];
 }
 
 /** The plan that will be charged: the guest's choice when allowed, otherwise the default. */

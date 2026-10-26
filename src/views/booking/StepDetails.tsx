@@ -26,7 +26,7 @@ function planView(state: State, currency: Currency) {
   const percent = state.policy.depositPercent;
   const total = estimatedTotal(state, currency);
   const balanceDue = dateBefore(state.date, state.policy.balanceDaysBefore);
-  return { options, plan, percent, balanceDue, days: state.policy.balanceDaysBefore, ...splitAmount(total, currency, plan, percent) };
+  return { options, plan, percent, balanceDue, days: state.policy.depositMinDays, ...splitAmount(total, currency, plan, percent) };
 }
 
 export function StepGuest({ t, state, dispatch, privacyHref, termsHref }: Props & { privacyHref: string; termsHref?: string }) {

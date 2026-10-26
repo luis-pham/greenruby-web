@@ -140,6 +140,16 @@ export const bookingApi = {
     }
   },
 
+  /** Secure payment link from an email (/booking/pay?t=…): what is due on the booking. */
+  async paymentLink(token: string): Promise<{ ok: boolean; status: number; data: Json | null }> {
+    const res = await fetch(`/api/booking/payment-link?t=${encodeURIComponent(token)}`, { headers: { Accept: 'application/json' } });
+    return { ok: res.ok, status: res.status, data: (await res.json().catch(() => null)) as Json | null };
+  },
+
+  payPaymentLink(body: { t: string; method: string; payment_plan?: string; return_base: string; terms?: TermsAcceptance }) {
+    return postJson('/api/booking/payment-link', body);
+  },
+
   inquiry(body: { booking: BookingPayload & { currency: string }; terms?: TermsAcceptance }) {
     return postJson('/api/booking/inquiry', body);
   },

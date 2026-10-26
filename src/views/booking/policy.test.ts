@@ -21,6 +21,7 @@ import { BOOKING_TERMS, bookingTermsVersion } from '../legal/booking-terms.ts';
 const policy = (over: Partial<BookingPolicy> = {}): BookingPolicy => ({
   depositEnabled: true,
   depositPercent: 30,
+  depositMinDays: 45,
   balanceDaysBefore: 30,
   termsRequired: false,
   termsVersion: null,
@@ -41,7 +42,7 @@ const input: PayloadInput = {
 describe('booking policy', () => {
   it('reads the policy endpoint and treats anything else as "switches off"', () => {
     assert.deepEqual(
-      parsePolicy({ success: true, deposit_enabled: true, deposit_percent: 30, balance_days_before: 30, terms_required: true, terms_version: '2027-01-01', today: '2026-10-27' }),
+      parsePolicy({ success: true, deposit_enabled: true, deposit_percent: 30, deposit_min_days: 45, balance_days_before: 30, terms_required: true, terms_version: '2027-01-01', today: '2026-10-27' }),
       policy({ termsRequired: true, termsVersion: '2027-01-01' }),
     );
     assert.equal(parsePolicy(null), null);
@@ -57,12 +58,13 @@ describe('booking policy', () => {
     assert.equal(dateBefore('2027-03-01', 30), '2027-01-30');
   });
 
-  it('offers a deposit only more than 30 days before departure (rules 1-2)', () => {
+  it('offers a deposit only more than 45 days before departure (decision 2)', () => {
     assert.equal(planOptions(policy({ depositEnabled: false }), '2026-12-26'), null);
     assert.equal(planOptions(null, '2026-12-26'), null);
     assert.equal(planOptions(policy(), ''), null);
-    assert.deepEqual(planOptions(policy(), '2026-11-26'), ['full']); // exactly 30 days
-    assert.deepEqual(planOptions(policy(), '2026-11-27'), ['deposit', 'full']); // 31 days
+    assert.deepEqual(planOptions(policy(), '2026-11-27'), ['full']); // 31 days
+    assert.deepEqual(planOptions(policy(), '2026-12-11'), ['full']); // exactly 45 days
+    assert.deepEqual(planOptions(policy(), '2026-12-12'), ['deposit', 'full']); // 46 days
     assert.deepEqual(planOptions(policy(), '2026-10-27'), ['full']); // today
   });
 
