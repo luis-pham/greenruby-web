@@ -40,7 +40,7 @@ function resolver(locale: Locale, publishedSlugs: Set<string>, hiddenPages: read
     'checkin-map': MAPS_URL,
   };
   return (target: string): string | null => {
-    if (target.startsWith('/') || /^https?:\/\//.test(target)) return target;
+    if (target.startsWith('/') || target.startsWith('#') || /^https?:\/\//.test(target)) return target;
     if (target.startsWith('destination:')) {
       const slug = target.slice('destination:'.length);
       return publishedSlugs.has(slug) ? destinationPath(locale, slug) : null;

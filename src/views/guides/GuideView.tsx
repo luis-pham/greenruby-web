@@ -8,6 +8,8 @@ import { organizationRef } from '@/lib/organization';
 import { siteInfo } from '@/lib/site-info';
 import { absoluteUrl, siteUrl } from '@/lib/site-url';
 import { BoardingTimeline } from './BoardingTimeline';
+import { OperatorTable } from './OperatorTable';
+import { SelectorPanel } from './SelectorPanel';
 import { plainText, RichText, type LinkResolver } from './Rich';
 import { TransferSelector } from './TransferSelector';
 import type { Block, GuideContent } from './types';
@@ -61,6 +63,7 @@ export function GuideView({
         </div>
       );
     }
+    if ('operators' in block) return <OperatorTable key={key} routes={block.operators} locale={locale} caption={block.caption} />;
     if ('checklist' in block) {
       return (
         <div key={key} className={s.checklist}>
@@ -74,7 +77,16 @@ export function GuideView({
       );
     }
     if (block.widget === 'boarding-timeline' && c.timeline) return <BoardingTimeline key={key} {...c.timeline} />;
-    if (block.widget === 'transfer-selector' && c.selector) return <TransferSelector key={key} {...c.selector} />;
+    if (block.widget === 'transfer-selector' && c.selector) {
+      const sel = c.selector;
+      return (
+        <TransferSelector
+          key={key}
+          {...sel}
+          panels={Object.fromEntries(sel.origins.map((o) => [o.key, <SelectorPanel key={o.key} origin={o.key} locale={locale} labels={sel.labels} />]))}
+        />
+      );
+    }
     if (block.widget === 'itineraries' && c.itineraries) {
       const list = [...itineraries].sort((a, b) => (a.bay ?? '').localeCompare(b.bay ?? '') || a.duration - b.duration);
       return (

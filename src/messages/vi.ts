@@ -301,7 +301,7 @@ const vi: Messages = {
     h1: 'Lịch trình du thuyền Hạ Long & Lan Hạ',
     heroTitle: 'Mỗi hành trình mang',
     heroTitleEm: 'một câu chuyện riêng.',
-    heroBody: 'Du thuyền nghỉ đêm trên vịnh Hạ Long với Green Ruby 1 và vịnh Lan Hạ với Green Ruby 2, hành trình 2 ngày 1 đêm hoặc 3 ngày 2 đêm. Mọi hành trình bắt đầu bằng thủ tục tại Tuần Châu khoảng 10:45; xe đón từ Hà Nội (khoảng 08:00, đi khoảng 2,5 giờ) được sắp xếp theo yêu cầu.',
+    heroBody: 'Du thuyền nghỉ đêm trên vịnh Hạ Long với Green Ruby 1 và vịnh Lan Hạ với Green Ruby 2, hành trình 2 ngày 1 đêm hoặc 3 ngày 2 đêm. Mọi hành trình bắt đầu bằng thủ tục tại Tuần Châu khoảng 10:45; xe đón từ Hà Nội (khoảng 07:30–08:00, đi khoảng 2,5 giờ) được sắp xếp theo yêu cầu.',
     heroPrimary: 'Xem các hành trình',
     heroSecondary: '2 ngày hay 3 ngày?',
     heroFromHanoi: 'Đi từ Hà Nội',

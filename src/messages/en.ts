@@ -301,7 +301,7 @@ const en = {
     heroTitle: 'Every journey has its',
     heroTitleEm: 'own story.',
     // Facts from the published itineraries (check-in, Hanoi transfer); service starts February 2027 (provisional).
-    heroBody: 'Overnight cruises on Ha Long Bay aboard Green Ruby 1 and on Lan Ha Bay aboard Green Ruby 2, for 2 days / 1 night or 3 days / 2 nights. Every itinerary starts with check-in at Tuan Chau around 10:45; a transfer from Hanoi (pick-up around 08:00, about 2.5 hours) can be arranged on request.',
+    heroBody: 'Overnight cruises on Ha Long Bay aboard Green Ruby 1 and on Lan Ha Bay aboard Green Ruby 2, for 2 days / 1 night or 3 days / 2 nights. Every itinerary starts with check-in at Tuan Chau around 10:45; a transfer from Hanoi (pick-up around 07:30–08:00, about 2.5 hours) can be arranged on request.',
     heroPrimary: 'Explore our itineraries',
     heroSecondary: '2 days or 3 days?',
     heroFromHanoi: 'Getting here from Hanoi',

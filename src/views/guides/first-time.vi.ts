@@ -266,7 +266,7 @@ const firstTime: GuideContent = {
         key: 'gr1',
         label: 'Green Ruby 1 · Vịnh Hạ Long',
         steps: [
-          { time: 'Khoảng 08:00', title: 'Khởi hành từ Hà Nội', body: 'Nếu đặt dịch vụ xe đưa đón, xe sẽ đón khách tại địa điểm đã thỏa thuận.' },
+          { time: 'Khoảng 07:30', title: 'Khởi hành từ Hà Nội', body: 'Nếu đặt dịch vụ xe đưa đón, xe đón khách tại địa điểm đã thỏa thuận trong khoảng 07:30–08:00.' },
           { time: 'Khoảng 10:45', title: 'Làm thủ tục tại Tuần Châu', body: 'Xuất trình giấy tờ, làm thủ tục và nghỉ tại phòng chờ Green Ruby.' },
           { time: 'Khoảng 11:45', title: 'Di chuyển ra du thuyền', body: 'Khách được đưa đến tàu Green Ruby 1 bằng xuồng trung chuyển.' },
           { time: 'Khoảng 12:30', title: 'Hướng dẫn an toàn và nhận phòng', body: 'Nhân viên phổ biến các quy định an toàn và hướng dẫn khách về cabin.' },
@@ -278,7 +278,7 @@ const firstTime: GuideContent = {
         key: 'gr2',
         label: 'Green Ruby 2 · Vịnh Lan Hạ',
         steps: [
-          { time: 'Khoảng 08:00', title: 'Khởi hành từ Hà Nội', body: 'Nếu đặt dịch vụ xe đưa đón, xe sẽ đón khách tại địa điểm đã thỏa thuận.' },
+          { time: 'Khoảng 07:30', title: 'Khởi hành từ Hà Nội', body: 'Nếu đặt dịch vụ xe đưa đón, xe đón khách tại địa điểm đã thỏa thuận trong khoảng 07:30–08:00.' },
           { time: 'Khoảng 10:45', title: 'Làm thủ tục tại Tuần Châu', body: 'Làm thủ tục tại cùng phòng chờ Green Ruby với khách Green Ruby 1.' },
           { time: 'Khoảng 11:45', title: 'Di chuyển đến Gia Luận', body: 'Xuồng trung chuyển đưa khách sang khu vực bến Gia Luận (Cát Bà, Hải Phòng) để lên tàu Green Ruby 2 trên vịnh Lan Hạ.' },
           { time: 'Khoảng 12:30', title: 'Hướng dẫn an toàn và nhận phòng', body: 'Nhân viên phổ biến các quy định an toàn và hướng dẫn khách về cabin.' },

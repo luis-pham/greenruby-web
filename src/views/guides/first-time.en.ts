@@ -234,7 +234,7 @@ const firstTime: GuideContent = {
         key: 'gr1',
         label: 'Green Ruby 1 · Ha Long Bay',
         steps: [
-          { time: '≈ 08:00', title: 'Leave Hanoi', body: 'Pick-up in Hanoi if you book a transfer; the drive takes about 2.5–3 hours (estimate).' },
+          { time: '≈ 07:30', title: 'Leave Hanoi', body: 'If you book a transfer, pick-up in Hanoi is around 07:30–08:00; the drive takes about 2.5–3 hours (estimate).' },
           { time: '≈ 10:45', title: 'Check in at Tuan Chau', body: 'Green Ruby lounge at Tuan Chau: passports, luggage handover and a welcome drink.' },
           { time: '≈ 11:45', title: 'Tender to the ship', body: 'A short ride out to Green Ruby 1, anchored in Ha Long Bay.' },
           { time: '≈ 12:30', title: 'Safety briefing and cabins', body: 'Briefing in the restaurant, then keys and time to settle in.' },
@@ -246,7 +246,7 @@ const firstTime: GuideContent = {
         key: 'gr2',
         label: 'Green Ruby 2 · Lan Ha Bay',
         steps: [
-          { time: '≈ 08:00', title: 'Leave Hanoi', body: 'Pick-up in Hanoi if you book a transfer; the drive takes about 2.5–3 hours (estimate).' },
+          { time: '≈ 07:30', title: 'Leave Hanoi', body: 'If you book a transfer, pick-up in Hanoi is around 07:30–08:00; the drive takes about 2.5–3 hours (estimate).' },
           { time: '≈ 10:45', title: 'Check in at Tuan Chau', body: 'Same Green Ruby lounge at Tuan Chau as Green Ruby 1 guests.' },
           { time: '≈ 11:45', title: 'Tender to Gia Luan Pier', body: 'The tender crosses to Gia Luan Pier on Cat Ba Island (Hai Phong), where you board Green Ruby 2 on Lan Ha Bay.' },
           { time: '≈ 12:30', title: 'Safety briefing and cabins', body: 'Briefing in the restaurant, then keys and time to settle in.' },

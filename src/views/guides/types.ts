@@ -15,7 +15,9 @@ export type Block =
   | { table: { caption?: string; head: string[]; rows: Rich[][] } }
   | { note: Rich }
   | { checklist: { title: string; items: string[] }[] }
-  | { widget: 'boarding-timeline' | 'transfer-selector' | 'itineraries' };
+  | { widget: 'boarding-timeline' | 'transfer-selector' | 'itineraries' }
+  /** Operators for these routes, from the shared registry in operators.ts. */
+  | { operators: import('./operators').RouteId[]; caption?: string };
 
 export type GuideSection = { id: string; title: string; blocks: Block[] };
 
