@@ -138,15 +138,16 @@ export function OperatorTable({ routes, locale, caption }: { routes: readonly Ro
               <th scope="col">{t.booking}</th>
             </tr>
           </thead>
-          <tbody>
-            {rows.map((row, i) => {
-              const op = operatorById(row.operatorId)!;
-              const fare =
-                row.fareMin === null
-                  ? t.askFare
-                  : fareText({ min: row.fareMin, max: row.fareMax ?? row.fareMin, currency: row.fareCurrency, unit: row.fareUnit, open: row.fareMax === null }, locale);
-              return (
-                <tr key={`${row.operatorId}-${row.routeId}-${row.transportType}-${i}`}>
+          {rows.map((row, i) => {
+            const op = operatorById(row.operatorId)!;
+            const fare =
+              row.fareMin === null
+                ? t.askFare
+                : fareText({ min: row.fareMin, max: row.fareMax ?? row.fareMin, currency: row.fareCurrency, unit: row.fareUnit, open: row.fareMax === null }, locale);
+            // One tbody per operator: the main row plus a full-width notes row (a card on phones).
+            return (
+              <tbody key={`${row.operatorId}-${row.routeId}-${row.transportType}-${i}`}>
+                <tr>
                   <th scope="row">
                     <strong>{op.operatorName}</strong>
                     <small className={s.opStatus}>{statusLabel(row, locale)}</small>
@@ -164,15 +165,7 @@ export function OperatorTable({ routes, locale, caption }: { routes: readonly Ro
                   <td data-label={t.vehicle}>{row.vehicle[locale]}</td>
                   <td data-label={t.fare}>{fare}</td>
                   <td data-label={t.pickup}>{row.pickupLocations[locale]}</td>
-                  <td data-label={t.dropoff}>
-                    {row.dropoffLocations[locale]}
-                    {row.note && <small>{row.note[locale]}</small>}
-                    {row.luggage && (
-                      <small>
-                        {t.luggage}: {row.luggage[locale]}
-                      </small>
-                    )}
-                  </td>
+                  <td data-label={t.dropoff}>{row.dropoffLocations[locale]}</td>
                   <td data-label={t.booking}>
                     {row.bookingUrl && (
                       <span className={s.opContact}>
@@ -184,9 +177,22 @@ export function OperatorTable({ routes, locale, caption }: { routes: readonly Ro
                     <OperatorContacts operator={op} locale={locale} />
                   </td>
                 </tr>
-              );
-            })}
-          </tbody>
+                {(row.note || row.luggage) && (
+                  <tr className={s.opNotes}>
+                    <td colSpan={6}>
+                      {row.note?.[locale]}
+                      {row.luggage && (
+                        <>
+                          {row.note && ' '}
+                          {t.luggage}: {row.luggage[locale]}.
+                        </>
+                      )}
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            );
+          })}
         </table>
       </div>
       <p className={s.opChecked}>{t.checked(checkedDate(locale))}</p>

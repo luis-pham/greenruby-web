@@ -128,7 +128,8 @@ export function GuideView({
       <section className={s.glance} aria-labelledby="glance-title">
         <div className="container">
           <h2 id="glance-title" className={s.glanceTitle}>{c.summaryTitle}</h2>
-          <dl className={s.glanceGrid}>
+          {/* Six answers sit in two rows of three instead of five plus one. */}
+          <dl className={s.glanceGrid} data-cols={c.summary.length % 3 === 0 && c.summary.length > 3 ? 3 : undefined}>
             {c.summary.map(([k, v]) => (
               <div key={k}>
                 <dt>{k}</dt>
