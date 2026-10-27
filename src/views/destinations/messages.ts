@@ -239,18 +239,21 @@ export const caveVisit: Record<Locale, Record<string, string>> = {
     'luon-cave': 'By kayak or bamboo boat through a water-level tunnel',
     'tien-ong-cave': 'On foot after a short walk; archaeological displays',
     'dark-bright-cave': 'By rowing boat (kayaking suspended in Lan Ha Bay)',
+    'thien-cung-cave': 'On foot, steps up to an entrance about 20 m above sea level; about 30–60 minutes',
   },
   vi: {
     'hang-sung-sot': 'Đi bộ, nhiều bậc và lối đi không bằng phẳng; khoảng 45–60 phút',
     'hang-luon': 'Đi kayak hoặc đò nan qua lối hang sát mặt nước',
     'hang-tien-ong': 'Đi bộ một đoạn ngắn; có trưng bày khảo cổ',
     'hang-sang-toi': 'Đi thuyền chèo (kayak trên vịnh Lan Hạ đang tạm dừng)',
+    'dong-thien-cung': 'Đi bộ, leo bậc lên cửa động cao khoảng 20 m; khoảng 30 – 60 phút',
   },
 };
 
 /**
  * Places worth knowing that are not Green Ruby stops and have no page of their own (no thin pages): shown on the
- * hub only, each with an official source. Both are on Ha Long Bay sightseeing route VHL1, not on a Green Ruby route.
+ * hub only, each with an official source. Dau Go is on Ha Long Bay sightseeing route VHL1, not on a Green Ruby route.
+ * Thien Cung moved to a CMS destination page (no itinerary) on 2026-10-27.
  */
 export type OtherPlace = { key: string; name: string; bay: Bay; category: Category; summary: string; visit: string; sources: { title: string; url: string }[] };
 
@@ -260,20 +263,11 @@ const QN = 'https://www.quangninh.gov.vn/Sites/en-us/Trang/ChiTietBVGioiThieu.as
 export const otherPlaces: Record<Locale, OtherPlace[]> = {
   en: [
     {
-      key: 'thien-cung',
-      name: 'Thien Cung Cave',
-      bay: 'ha-long',
-      category: 'cave',
-      summary: 'The “Heavenly Palace” cave on Dau Go Island, at the western edge of the World Heritage area: about 20 m above sea level, with a floor of around 3,000 m² and bright white stalactites and stalagmites.',
-      visit: 'On foot, about 20 m above sea level',
-      sources: [{ title: 'Ha Long Bay Management Board: route VHL1', url: VHL1 }],
-    },
-    {
       key: 'dau-go',
       name: 'Dau Go Cave',
       bay: 'ha-long',
       category: 'cave',
-      summary: 'Also on Dau Go Island and one of the first caves discovered in Ha Long Bay. Its three large chambers hold many stalactites and stalagmites; French visitors in the late 19th century called it the Grotte des Merveilles. The name means “wooden stakes”.',
+      summary: 'On Dau Go Island, next to Thien Cung Cave, and one of the first caves discovered in Ha Long Bay. Its three large chambers hold many stalactites and stalagmites; French visitors in the late 19th century called it the Grotte des Merveilles. The name means “wooden stakes”.',
       visit: 'On foot, through three chambers',
       sources: [
         { title: 'Ha Long Bay Management Board: route VHL1', url: VHL1 },
@@ -283,20 +277,11 @@ export const otherPlaces: Record<Locale, OtherPlace[]> = {
   ],
   vi: [
     {
-      key: 'thien-cung',
-      name: 'Động Thiên Cung',
-      bay: 'ha-long',
-      category: 'cave',
-      summary: '“Cung điện trên trời” nằm trên đảo Đầu Gỗ, điểm cực tây của khu di sản: ở độ cao khoảng 20 m so với mực nước biển, diện tích nền khoảng 3.000 m², hệ thống nhũ đá trắng sáng.',
-      visit: 'Đi bộ, ở độ cao khoảng 20 m',
-      sources: [{ title: 'Ban Quản lý vịnh Hạ Long: hành trình VHL1', url: VHL1 }],
-    },
-    {
       key: 'dau-go',
       name: 'Hang Đầu Gỗ',
       bay: 'ha-long',
       category: 'cave',
-      summary: 'Cũng trên đảo Đầu Gỗ, là một trong những hang được phát hiện sớm nhất trên vịnh Hạ Long và từng đón Chủ tịch Hồ Chí Minh đến thăm. Hang có ba ngăn lớn với nhiều nhũ đá; du khách Pháp cuối thế kỷ 19 gọi là Grotte des Merveilles.',
+      summary: 'Nằm trên đảo Đầu Gỗ, cạnh động Thiên Cung, là một trong những hang được phát hiện sớm nhất trên vịnh Hạ Long và từng đón Chủ tịch Hồ Chí Minh đến thăm. Hang có ba ngăn lớn với nhiều nhũ đá; du khách Pháp cuối thế kỷ 19 gọi là Grotte des Merveilles.',
       visit: 'Đi bộ qua ba ngăn hang',
       sources: [
         { title: 'Ban Quản lý vịnh Hạ Long: hành trình VHL1', url: VHL1 },
