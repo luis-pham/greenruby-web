@@ -240,6 +240,7 @@ export const caveVisit: Record<Locale, Record<string, string>> = {
     'tien-ong-cave': 'On foot after a short walk; archaeological displays',
     'dark-bright-cave': 'By rowing boat (kayaking suspended in Lan Ha Bay)',
     'thien-cung-cave': 'On foot, steps up to an entrance about 20 m above sea level; about 30–60 minutes',
+    'dau-go-cave': 'On foot, about 90 steep steps; daylight in the first of three chambers; about 30–60 minutes',
   },
   vi: {
     'hang-sung-sot': 'Đi bộ, nhiều bậc và lối đi không bằng phẳng; khoảng 45–60 phút',
@@ -247,46 +248,16 @@ export const caveVisit: Record<Locale, Record<string, string>> = {
     'hang-tien-ong': 'Đi bộ một đoạn ngắn; có trưng bày khảo cổ',
     'hang-sang-toi': 'Đi thuyền chèo (kayak trên vịnh Lan Hạ đang tạm dừng)',
     'dong-thien-cung': 'Đi bộ, leo bậc lên cửa động cao khoảng 20 m; khoảng 30 – 60 phút',
+    'hang-dau-go': 'Đi bộ, khoảng 90 bậc đá dốc; ngăn đầu có ánh sáng tự nhiên; khoảng 30 – 60 phút',
   },
 };
 
 /**
  * Places worth knowing that are not Green Ruby stops and have no page of their own (no thin pages): shown on the
- * hub only, each with an official source. Dau Go is on Ha Long Bay sightseeing route VHL1, not on a Green Ruby route.
- * Thien Cung moved to a CMS destination page (no itinerary) on 2026-10-27.
+ * hub only, each with an official source. Empty since 2026-10-27: Thien Cung and Dau Go moved to CMS destination
+ * pages without an itinerary, which the hub lists under "other places" automatically.
  */
 export type OtherPlace = { key: string; name: string; bay: Bay; category: Category; summary: string; visit: string; sources: { title: string; url: string }[] };
 
-const VHL1 = 'https://halongbay.com.vn/tours/1-hanh-trinh-vhl1-cang-tau-dong-thien-cung-hang-dau-go-hon-cho-da-hang-ba-hang-hon-dinh-huong-hon-trong-mai';
-const QN = 'https://www.quangninh.gov.vn/Sites/en-us/Trang/ChiTietBVGioiThieu.aspx?bvid=138';
 
-export const otherPlaces: Record<Locale, OtherPlace[]> = {
-  en: [
-    {
-      key: 'dau-go',
-      name: 'Dau Go Cave',
-      bay: 'ha-long',
-      category: 'cave',
-      summary: 'On Dau Go Island, next to Thien Cung Cave, and one of the first caves discovered in Ha Long Bay. Its three large chambers hold many stalactites and stalagmites; French visitors in the late 19th century called it the Grotte des Merveilles. The name means “wooden stakes”.',
-      visit: 'On foot, through three chambers',
-      sources: [
-        { title: 'Ha Long Bay Management Board: route VHL1', url: VHL1 },
-        { title: 'Quang Ninh Provincial Portal: tourism resources', url: QN },
-      ],
-    },
-  ],
-  vi: [
-    {
-      key: 'dau-go',
-      name: 'Hang Đầu Gỗ',
-      bay: 'ha-long',
-      category: 'cave',
-      summary: 'Nằm trên đảo Đầu Gỗ, cạnh động Thiên Cung, là một trong những hang được phát hiện sớm nhất trên vịnh Hạ Long và từng đón Chủ tịch Hồ Chí Minh đến thăm. Hang có ba ngăn lớn với nhiều nhũ đá; du khách Pháp cuối thế kỷ 19 gọi là Grotte des Merveilles.',
-      visit: 'Đi bộ qua ba ngăn hang',
-      sources: [
-        { title: 'Ban Quản lý vịnh Hạ Long: hành trình VHL1', url: VHL1 },
-        { title: 'Cổng thông tin tỉnh Quảng Ninh: tài nguyên du lịch', url: QN },
-      ],
-    },
-  ],
-};
+export const otherPlaces: Record<Locale, OtherPlace[]> = { en: [], vi: [] };
