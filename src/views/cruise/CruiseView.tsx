@@ -234,11 +234,8 @@ export function CruiseView({ cruise, index, chrome, places = [] }: { cruise: Cru
                 <ul className={s.ecoList}>
                   {cruise.greenTechnology.map((g, i) => (
                     <li key={i} className={s.ecoItem}>
-                      {g.icon ? <Image src={g.icon} alt="" width={40} height={40} className={s.ecoIcon} /> : <span className={s.ecoNum}>{pad(i + 1)}</span>}
-                      <div>
-                        {g.title && <h3>{g.title}</h3>}
-                        {g.description && <p>{g.description}</p>}
-                      </div>
+                      {g.title && <h3>{g.title}</h3>}
+                      {g.description && <p>{g.description}</p>}
                     </li>
                   ))}
                 </ul>

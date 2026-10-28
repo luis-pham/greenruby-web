@@ -58,9 +58,7 @@
 .ecoPhoto::after { content: ''; position: absolute; inset: 45% 0 0; background: linear-gradient(transparent, rgba(11, 48, 42, 0.67)); }
 .ecoPhoto figcaption { position: absolute; z-index: 1; left: 30px; right: 30px; bottom: 30px; color: var(--color-neutral-white); font-size: var(--font-size-label); letter-spacing: 0.15em; text-transform: uppercase; }
 .ecoList { list-style: none; margin: 28px 0 0; padding: 0; }
-.ecoItem { display: grid; grid-template-columns: 52px 1fr; gap: 22px; align-items: start; padding: 20px 0; border-top: 1px solid #e3e3da; }
-.ecoIcon { width: 40px; height: 40px; object-fit: contain; }
-.ecoNum { color: var(--action-primary); font: var(--font-weight-regular) 27px / 1.2 var(--font-family-serif); }
+.ecoItem { padding: 20px 0; border-top: 1px solid #e3e3da; }
 .ecoItem h3 { margin: 0 0 8px; font-family: var(--font-family-sans); font-size: 14px; font-weight: var(--font-weight-bold); letter-spacing: 0; color: var(--text-heading); }
 .ecoItem p { margin: 0; color: var(--text-muted); font-size: 13px; line-height: 1.8; }
 
