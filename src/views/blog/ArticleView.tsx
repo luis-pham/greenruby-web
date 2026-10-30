@@ -91,7 +91,9 @@ export function ArticleView({ article, chrome }: { article: Article; chrome: Chr
               </div>
               {article.image && (
                 <div className={s.cover}>
-                  <Image src={article.image} alt={article.title} fill preload sizes="(max-width: 600px) 90vw, (max-width: 1300px) 94vw, 1208px" quality={80} />
+                  <Image src={article.image} alt={article.imageAlt ?? article.title} fill preload sizes="(max-width: 600px) 90vw, (max-width: 1300px) 94vw, 1208px" quality={80} />
+                  {/* Licence attribution for photos from outside the team (CC BY / BY-SA). */}
+                  {article.imageCredit && <small className={s.coverCredit}>{article.imageCredit}</small>}
                 </div>
               )}
             </div>

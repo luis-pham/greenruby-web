@@ -17,6 +17,9 @@ export const articleSummarySchema = z.object({
   subTitle: z.string().nullable(),
   lead: z.string().nullable(),
   image: z.string().nullable(),
+  // Optional so the frontend keeps working against a CMS without these fields.
+  imageAlt: z.string().nullable().optional(),
+  imageCredit: z.string().nullable().optional(),
   publishDate: z.string().nullable(),
   isFeatured: z.boolean(),
   category: categoryRefSchema.nullable(),

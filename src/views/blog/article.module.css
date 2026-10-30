@@ -38,6 +38,7 @@
 .dot { width: 3px; height: 3px; border-radius: var(--radius-full); background: var(--color-gold-500); }
 .cover { position: relative; aspect-ratio: 2.43 / 1; min-height: 350px; overflow: hidden; background: var(--bg-brand); }
 .cover img { object-fit: cover; object-position: center 51%; filter: saturate(0.85) contrast(0.98); }
+.coverCredit { position: absolute; right: 14px; bottom: 10px; z-index: 1; max-width: calc(100% - 28px); color: rgba(255, 255, 255, 0.86); font-size: 11px; line-height: 1.4; text-align: right; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); }
 .cover::after { content: ''; position: absolute; inset: 50% 0 0; background: linear-gradient(transparent, var(--color-overlay-soft)); pointer-events: none; }
 
 /* ---------- Body layout ---------- */
