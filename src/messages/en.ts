@@ -44,6 +44,7 @@ const en = {
       aboutUs: 'About Us',
       fleetFacts: 'Fleet Facts',
       gallery: 'Gallery',
+      news: 'News',
       sustainability: 'Sustainability',
       greenTechnology: 'Green Technology',
       greenGlobe: 'Green Globe',

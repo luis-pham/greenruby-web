@@ -11,7 +11,7 @@ import { ArticleView } from './ArticleView';
 import { BlogListView } from './BlogListView';
 import { getArticle, getLegacyArticle, isRedirect, listArticles, searchArticles, type Article, type ArticleList, type CategoryNode } from './data';
 import { blogMessages } from './messages';
-import { articlePath, blogPath, pageSegment, parseLegacyFile, parsePageSegment, searchPath } from './paths';
+import { articlePath, blogPath, isNewsCategory, newsPath, pageSegment, parseLegacyFile, parsePageSegment, searchPath } from './paths';
 
 // Route logic for /blog (vi: /vi/blog). Mirrors Modules/FrontEnd ArticleController:
 //   /blog[/page-n]                 index           ([segment] = page-n)
@@ -19,7 +19,8 @@ import { articlePath, blogPath, pageSegment, parseLegacyFile, parsePageSegment, 
 //   /blog/{category}/{slug}.html   article         ([segment]/[sub])
 //   /blog/{anything}-{id}.html     legacy -> 301   ([segment])
 // Other-language category slugs 301 to the localized one, pages past the end 404, page-1 301s to
-// the base URL, and empty categories are noindex (the API's noIndex flag).
+// the base URL, and empty categories are noindex (the API's noIndex flag). The news category lives at
+// /news (src/views/news/route.tsx): its /blog URLs 301 there.
 
 type ListOk = { kind: 'list'; list: ArticleList; canonical: string };
 type ArticleOk = { kind: 'article'; article: Article; canonical: string };
@@ -30,6 +31,7 @@ const SLUG = /^[A-Za-z0-9_-]+$/;
 
 async function resolveList(locale: Locale, category: string | null, page: number): Promise<Resolved> {
   if (category !== null && !SLUG.test(category)) return { kind: 'notFound' };
+  if (isNewsCategory(category)) return { kind: 'redirect', to: newsPath(locale, page) };
   const result = await listArticles(locale, category, page);
   if (!result) return { kind: 'notFound' };
   if (isRedirect(result)) return { kind: 'redirect', to: blogPath(locale, result.redirect.category, result.redirect.page ?? page) };
@@ -57,6 +59,7 @@ async function resolveSub(locale: Locale, segment: string, sub: string): Promise
   if (page !== null) return page <= 1 ? { kind: 'redirect', to: blogPath(locale, segment) } : resolveList(locale, segment, page);
   const slug = sub.endsWith('.html') ? sub.slice(0, -5) : null;
   if (!slug || !SLUG.test(slug) || !SLUG.test(segment)) return { kind: 'notFound' };
+  if (isNewsCategory(segment)) return { kind: 'redirect', to: articlePath(locale, segment, slug) };
   const article = await getArticle(locale, segment, slug);
   if (!article) return { kind: 'notFound' };
   const canonical = articlePath(locale, article.canonical.categorySlug, article.canonical.slug);
@@ -95,7 +98,7 @@ async function listMetadata(locale: Locale, { list, canonical }: ListOk): Promis
   });
 }
 
-async function articleMetadata(locale: Locale, { article, canonical }: ArticleOk): Promise<Metadata> {
+export async function articleMetadata(locale: Locale, { article, canonical }: Pick<ArticleOk, 'article' | 'canonical'>): Promise<Metadata> {
   const site = await getSite(locale);
   const meta = pageMetadata({
     locale,
@@ -123,16 +126,19 @@ async function render(locale: Locale, resolved: Resolved) {
   if (resolved.kind === 'redirect') permanentRedirect(resolved.to);
   const site = await getSite(locale);
   const t = getMessages(locale);
-  if (resolved.kind === 'article') {
-    const alternateHref = articleAlternate(resolved.article) ?? sectionPath(other(locale), 'blog');
-    // Links in the copy to places that are not live yet render as text (no 404 links).
-    const live = await livePlacePaths(locale);
-    const a = resolved.article;
-    const article = { ...a, leadHtml: unlinkHiddenPlaces(a.leadHtml, live), contentHtml: unlinkHiddenPlaces(a.contentHtml, live) };
-    return <ArticleView article={article} chrome={{ locale, site, t, alternateHref }} />;
-  }
+  if (resolved.kind === 'article') return articlePage(locale, resolved.article, sectionPath(other(locale), 'blog'));
   const alternateHref = (await listAlternate(locale, resolved.list)) ?? sectionPath(other(locale), 'blog');
   return <BlogListView list={resolved.list} chrome={{ locale, site, t, alternateHref }} />;
+}
+
+/** Article page (blog or news); fallbackAlternate is the language switch target without a translation. */
+export async function articlePage(locale: Locale, a: Article, fallbackAlternate: string) {
+  const site = await getSite(locale);
+  const alternateHref = articleAlternate(a) ?? fallbackAlternate;
+  // Links in the copy to places that are not live yet render as text (no 404 links).
+  const live = await livePlacePaths(locale);
+  const article = { ...a, leadHtml: unlinkHiddenPlaces(a.leadHtml, live), contentHtml: unlinkHiddenPlaces(a.contentHtml, live) };
+  return <ArticleView article={article} chrome={{ locale, site, t: getMessages(locale), alternateHref }} />;
 }
 
 const flatten = (nodes: CategoryNode[]): CategoryNode[] => nodes.flatMap((n) => [n, ...flatten(n.children)]);

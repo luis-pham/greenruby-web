@@ -15,6 +15,8 @@ const segments = {
   aboutUs: { en: 'about-us', vi: 'gioi-thieu' },
   faq: { en: 'faq', vi: 'cau-hoi-thuong-gap' },
   blog: { en: 'blog', vi: 'blog' },
+  // Company news: articles of the CMS category of the same slug (news / tin-tuc), kept out of /blog.
+  news: { en: 'news', vi: 'tin-tuc' },
   booking: { en: 'booking', vi: 'booking' },
   privacyPolicy: { en: 'privacy-policy', vi: 'chinh-sach-bao-mat' },
   legal: { en: 'legal', vi: 'phap-ly' },

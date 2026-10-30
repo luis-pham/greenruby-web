@@ -11,12 +11,24 @@ export function pageSegment(locale: Locale, page: number): string {
   return `${pagePrefix(locale)}-${page}`;
 }
 
+// Company news is the article category "news" (vi "tin-tuc"), served at /news and /vi/tin-tuc instead of
+// /blog/{category}: /news[/page-n], /news/{slug}.html. The CMS leaves it out of the blog index and search.
+export const NEWS_CATEGORY: Record<Locale, string> = { en: 'news', vi: 'tin-tuc' };
+
+export const isNewsCategory = (slug: string | null | undefined) => slug === NEWS_CATEGORY.en || slug === NEWS_CATEGORY.vi;
+
+export function newsPath(locale: Locale, page = 1): string {
+  return page > 1 ? `${sectionPath(locale, 'news')}/${pageSegment(locale, page)}` : sectionPath(locale, 'news');
+}
+
 export function blogPath(locale: Locale, category?: string | null, page = 1): string {
+  if (isNewsCategory(category)) return newsPath(locale, page);
   const base = category ? `${sectionPath(locale, 'blog')}/${category}` : sectionPath(locale, 'blog');
   return page > 1 ? `${base}/${pageSegment(locale, page)}` : base;
 }
 
 export function articlePath(locale: Locale, categorySlug: string, slug: string): string {
+  if (isNewsCategory(categorySlug)) return `${sectionPath(locale, 'news')}/${slug}.html`;
   return `${sectionPath(locale, 'blog')}/${categorySlug}/${slug}.html`;
 }
 

@@ -11,7 +11,8 @@ import { absoluteImageUrl, absoluteUrl, siteUrl } from '@/lib/site-url';
 import { CopyLink } from './CopyLink';
 import type { Article } from './data';
 import { blogMessages } from './messages';
-import { articlePath, blogPath } from './paths';
+import { newsMessages } from '@/views/news/messages';
+import { articlePath, blogPath, isNewsCategory, newsPath } from './paths';
 import { formatDate, linked, pad } from './shared';
 import { Toc } from './Toc';
 import { prepareContent, readingMinutes, withHeadingIds } from './headings';
@@ -24,15 +25,19 @@ const PLAN: Record<Locale, { title: string; firstTime: string; transfer: string;
   vi: { title: 'Chuẩn bị chuyến đi', firstTime: 'Lần đầu đi du thuyền', transfer: 'Hà Nội đi Hạ Long', destinations: 'Địa điểm tham quan', hub: 'Tất cả cẩm nang' },
 };
 
+/** Blog article, or a company news article (category news / tin-tuc: /news/{slug}.html). */
 export function ArticleView({ article, chrome }: { article: Article; chrome: Chrome }) {
   const { locale, t, site } = chrome;
-  const m = blogMessages(locale);
+  const news = isNewsCategory(article.canonical.categorySlug);
+  const m = news ? newsMessages(locale) : blogMessages(locale);
   const info = siteInfo(site);
-  const blogHref = sectionPath(locale, 'blog');
+  // The section the article belongs to: the journal, or the news listing.
+  const blogHref = news ? newsPath(locale) : sectionPath(locale, 'blog');
   const path = articlePath(locale, article.canonical.categorySlug, article.canonical.slug);
   const url = absoluteUrl(path);
   const category = article.category;
-  const trail = category && 'breadcrumb' in category ? category.breadcrumb : category ? [{ slug: category.slug, name: category.name }] : [];
+  // News has a single category, already named by the News crumb.
+  const trail = news ? [] : category && 'breadcrumb' in category ? category.breadcrumb : category ? [{ slug: category.slug, name: category.name }] : [];
   const { html: withIds, toc } = withHeadingIds(normalizeArticleHtml(article.contentHtml ?? ''));
   const html = prepareContent(withIds, s.tableWrap);
   const minutes = readingMinutes(`${article.leadHtml ?? ''} ${article.contentHtml ?? ''}`);
@@ -68,7 +73,7 @@ export function ArticleView({ article, chrome }: { article: Article; chrome: Chr
               <div className={s.titleWrap}>
                 <Eyebrow className={s.kicker}>
                   {m.heroEyebrow}
-                  {category && <> &nbsp;/&nbsp; {category.name}</>}
+                  {category && !news && <> &nbsp;/&nbsp; {category.name}</>}
                 </Eyebrow>
                 <h1 id="article-title" className={s.title}>{article.title}</h1>
                 {deck && <p className={s.deck}>{deck}</p>}
@@ -195,7 +200,7 @@ export function ArticleView({ article, chrome }: { article: Article; chrome: Chr
       <JsonLd
         data={{
           '@context': 'https://schema.org',
-          '@type': 'BlogPosting',
+          '@type': news ? 'NewsArticle' : 'BlogPosting',
           '@id': `${url}#article`,
           mainEntityOfPage: { '@type': 'WebPage', '@id': url },
           url,
@@ -208,7 +213,9 @@ export function ArticleView({ article, chrome }: { article: Article; chrome: Chr
           inLanguage: locale,
           ...(category && { articleSection: category.name }),
           wordCount: html ? html.replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length : undefined,
-          isPartOf: { '@type': 'Blog', '@id': `${absoluteUrl(blogHref)}#blog`, url: absoluteUrl(blogHref) },
+          isPartOf: news
+            ? { '@type': 'CollectionPage', '@id': absoluteUrl(blogHref), url: absoluteUrl(blogHref) }
+            : { '@type': 'Blog', '@id': `${absoluteUrl(blogHref)}#blog`, url: absoluteUrl(blogHref) },
           // No author field in the CMS: the organization is credited, as on the Laravel site.
           author: { '@type': 'Organization', '@id': ORGANIZATION_ID, name: info.name, url: siteUrl },
           publisher: {

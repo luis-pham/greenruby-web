@@ -9,7 +9,7 @@ import { ButtonLink, cx, Eyebrow, SmartLink, TextLink } from '@/components/ui';
 import { homePath, sectionPath } from '@/lib/i18n';
 import { absoluteImageUrl, absoluteUrl } from '@/lib/site-url';
 import type { ArticleList, CategoryNode } from './data';
-import { blogMessages } from './messages';
+import { blogMessages, type BlogMessages } from './messages';
 import { blogPath, searchPath } from './paths';
 import { SearchRedirect } from './SearchRedirect';
 import { formatDate, linked, pad, PHOTOS, SearchIcon, type LinkedArticle } from './shared';
@@ -271,8 +271,7 @@ export function BlogListView({ chrome, list, search }: { chrome: Chrome; list: A
   );
 }
 
-function FeatureCard({ article, locale }: { article: LinkedArticle; locale: Chrome['locale'] }) {
-  const m = blogMessages(locale);
+export function FeatureCard({ article, locale, m = blogMessages(locale) }: { article: LinkedArticle; locale: Chrome['locale']; m?: BlogMessages }) {
   return (
     <article className={s.feature}>
       <SmartLink className={s.featurePhoto} href={article.href} aria-hidden="true" tabIndex={-1}>
@@ -303,8 +302,7 @@ function FeatureCard({ article, locale }: { article: LinkedArticle; locale: Chro
   );
 }
 
-function ArticleCard({ article, locale }: { article: LinkedArticle; locale: Chrome['locale'] }) {
-  const m = blogMessages(locale);
+export function ArticleCard({ article, locale, m = blogMessages(locale) }: { article: LinkedArticle; locale: Chrome['locale']; m?: BlogMessages }) {
   return (
     <article className={s.card}>
       <SmartLink className={s.cardPicture} href={article.href} tabIndex={-1} aria-hidden="true">
@@ -325,7 +323,7 @@ function ArticleCard({ article, locale }: { article: LinkedArticle; locale: Chro
   );
 }
 
-function Pagination({ page, last, href, label, previous, next }: { page: number; last: number; href: (n: number) => string; label: string; previous: string; next: string }) {
+export function Pagination({ page, last, href, label, previous, next }: { page: number; last: number; href: (n: number) => string; label: string; previous: string; next: string }) {
   // Current page, its neighbours, first and last; gaps become an ellipsis.
   const pages = [...new Set([1, page - 1, page, page + 1, last])].filter((n) => n >= 1 && n <= last).sort((a, b) => a - b);
   return (

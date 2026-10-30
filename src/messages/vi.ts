@@ -46,6 +46,7 @@ const vi: Messages = {
       aboutUs: 'Giới thiệu',
       fleetFacts: 'Thông tin đội tàu',
       gallery: 'Thư viện ảnh',
+      news: 'Tin tức',
       sustainability: 'Phát triển bền vững',
       greenTechnology: 'Công nghệ xanh',
       greenGlobe: 'Green Globe',

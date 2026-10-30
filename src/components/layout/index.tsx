@@ -362,6 +362,7 @@ export function footerColumns(
         { label: f.aboutUs, href: p('aboutUs') },
         { label: f.fleetFacts, href: p('brandFacts') },
         { label: f.gallery, href: p('gallery') },
+        { label: f.news, href: p('news') },
         { label: f.sustainability, href: p('aboutUs', '#sustainability') },
         { label: f.greenTechnology, href: p('ecoDashboard', '#technology') },
         { label: f.greenGlobe, href: p('aboutUs', '#standards') },
