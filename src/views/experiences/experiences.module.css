@@ -310,14 +310,8 @@
 .faq .heading { margin-bottom: 23px; font-size: 48px; }
 
 /* ---------- CTA ---------- */
-.cta { position: relative; overflow: hidden; padding: 107px 0 114px; background: var(--bg-inverse); color: var(--color-neutral-white); }
-.cta::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at 70% 60%, var(--color-green-800) 0%, transparent 60%);
-}
-.ctaInner { position: relative; display: flex; justify-content: space-between; align-items: center; gap: 50px; }
+.cta { padding: 107px 0 114px; background: var(--bg-inverse); color: var(--color-neutral-white); }
+.ctaInner { display: flex; justify-content: space-between; align-items: center; gap: 50px; }
 .ctaHeading {
   max-width: 850px;
   margin: 17px 0 23px;
