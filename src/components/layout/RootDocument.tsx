@@ -22,11 +22,12 @@ const sans = DM_Sans({
 
 /**
  * <html>/<body> shared by the per-language root layouts (app/(en), app/(vi), generated app/(ja)). A locale without its
- * own dictionary renders English, so it is labelled English.
+ * own dictionary renders English, so it is labelled English. `className`: a language's own fonts (src/styles/locales,
+ * passed only by an intl layout); en/vi pass none and keep exactly their previous class list.
  */
-export function RootDocument({ locale, children }: { locale: Locale; children: ReactNode }) {
+export function RootDocument({ locale, className, children }: { locale: Locale; className?: string; children: ReactNode }) {
   return (
-    <html lang={hasDictionary(locale) ? locale : defaultLocale} className={`${serif.variable} ${sans.variable}`}>
+    <html lang={hasDictionary(locale) ? locale : defaultLocale} className={`${serif.variable} ${sans.variable}${className ? ` ${className}` : ''}`}>
       <body>{children}</body>
     </html>
   );

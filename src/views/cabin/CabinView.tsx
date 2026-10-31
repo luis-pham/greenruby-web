@@ -1,14 +1,16 @@
 import Image from 'next/image';
 import { Booking } from '@/components/booking';
 import { inventoryCabinId } from '@/lib/booking-options';
+import { sectionHref } from '@/lib/section-links';
 import { PageHero, SiteFooter, type Chrome } from '@/components/layout';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, SectionHeading, SmartLink, TextLink } from '@/components/ui';
 import type { Cabin, CabinSummary, Cruise } from '@/lib/api/schemas';
 import { LinkChips } from '@/components/sections/TravelLinks';
 import { guideLinks } from '@/lib/guide-links';
-import { detailPath, homePath, itineraryPath, sectionPath, type Locale } from '@/lib/i18n';
+import { detailPath, homePath, itineraryPath, numberFormatTag, sectionPath, type Locale } from '@/lib/i18n';
 import { absoluteImageUrl, absoluteUrl } from '@/lib/site-url';
+import { wordSpace } from '@/lib/typography';
 import s from './cabin.module.css';
 
 export function cabinPath(locale: Locale, cabin: Pick<CabinSummary, 'slug' | 'id'>): string {
@@ -16,7 +18,7 @@ export function cabinPath(locale: Locale, cabin: Pick<CabinSummary, 'slug' | 'id
 }
 
 function formatPrice(value: number, currency: 'USD' | 'VND', locale: Locale) {
-  return new Intl.NumberFormat(locale === 'vi' ? 'vi-VN' : 'en-US', {
+  return new Intl.NumberFormat(numberFormatTag(locale), {
     style: 'currency',
     currency,
     maximumFractionDigits: 0,
@@ -42,11 +44,13 @@ export function CabinView({
   const bay = cruise?.bay ?? null;
   const bayName = bay ? t.home.bays[bay] : null;
   const voyages = cruise?.itineraries ?? [];
-  const guides = guideLinks(locale, chrome.site.hiddenPages);
+  const guides = guideLinks(locale, chrome.site.hiddenPages, chrome.site.publicSections);
   const url = cabinPath(locale, cabin);
   const cruiseUrl = detailPath(locale, 'cruise', cabin.cruise.slug, cabin.cruise.id);
-  const bookingUrl = `${sectionPath(locale, 'booking')}?cabin_id=${cabin.id}`;
-  const contactUrl = sectionPath(locale, 'contact');
+  // A new language books the linked English cabin (inventoryCabinId); en/vi: the page's own id, as before.
+  const bookCabin = inventoryCabinId(locale, cabin);
+  const bookingUrl = `${sectionHref(locale, 'booking', chrome.site.publicSections)}${bookCabin ? `?cabin_id=${bookCabin}` : ''}`;
+  const contactUrl = sectionHref(locale, 'contact', chrome.site.publicSections);
   const extra = cabin.overCapacity.adult + cabin.overCapacity.child6to12 + cabin.overCapacity.child2to5 + cabin.overCapacity.infant;
   const { pricing } = cabin;
   const durations = [...new Set(pricing.matrix.map((r) => r.duration))].sort((a, b) => a - b);
@@ -81,7 +85,7 @@ export function CabinView({
         subtitle={cabin.summary}
         actions={
           <>
-            <TextLink href={cruiseUrl} inverse>{`${c.discoverShip} ${cabin.cruise.name}`}</TextLink>
+            <TextLink href={cruiseUrl} inverse>{c.discoverShip(cabin.cruise.name)}</TextLink>
             <div className={s.heroBooking}>
               <Booking locale={locale} site={chrome.site} scope={{ cruiseId: cabin.cruise.id }} cabinId={inventoryCabinId(locale, cabin)} layout="bar" />
             </div>
@@ -101,7 +105,7 @@ export function CabinView({
             {cabin.capacity != null && (
               <div className={s.fact}>
                 <dt>{c.guests}</dt>
-                <dd><span className={s.factValue}>{cabin.capacity} {c.guestUnit(cabin.capacity)}</span><span className={s.factCaption}>{c.guestsCaption(extra)}</span></dd>
+                <dd><span className={s.factValue}>{cabin.capacity}{wordSpace(locale)}{c.guestUnit(cabin.capacity)}</span><span className={s.factCaption}>{c.guestsCaption(extra)}</span></dd>
               </div>
             )}
             {cabin.view && (
@@ -139,7 +143,7 @@ export function CabinView({
                 {cabin.cabinClass && <div className={s.glanceRow}><dt>{c.glance.category}</dt><dd>{cabin.cabinClass}</dd></div>}
                 {cabin.view && <div className={s.glanceRow}><dt>{c.glance.view}</dt><dd>{cabin.view}</dd></div>}
                 {cabin.area != null && <div className={s.glanceRow}><dt>{c.glance.area}</dt><dd>{cabin.area} m²</dd></div>}
-                {cabin.capacity != null && <div className={s.glanceRow}><dt>{c.glance.occupancy}</dt><dd>{cabin.capacity} {c.guestUnit(cabin.capacity).toLowerCase()}</dd></div>}
+                {cabin.capacity != null && <div className={s.glanceRow}><dt>{c.glance.occupancy}</dt><dd>{cabin.capacity}{wordSpace(locale)}{c.guestUnit(cabin.capacity).toLowerCase()}</dd></div>}
                 <div className={s.glanceRow}><dt>{c.glance.extraGuests}</dt><dd>{c.extraGuests(cabin.overCapacity)}</dd></div>
                 {cabin.suitableFor.length > 0 && (
                   <div className={s.glanceRow}><dt>{c.glance.suitableFor}</dt><dd>{cabin.suitableFor.map((a) => a.name).join(', ')}</dd></div>

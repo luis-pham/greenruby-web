@@ -6,6 +6,7 @@ import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SmartLink } from '@/components/ui';
 import { guideLinks } from '@/lib/guide-links';
 import { byLocale, homePath, sectionPath } from '@/lib/i18n';
+import { sectionHref } from '@/lib/section-links';
 import { siteInfo } from '@/lib/site-info';
 import { absoluteImageUrl, absoluteUrl, siteUrl } from '@/lib/site-url';
 import { CopyLink } from './CopyLink';
@@ -18,11 +19,13 @@ import { Toc } from './Toc';
 import { prepareContent, readingMinutes, withHeadingIds } from './headings';
 import { normalizeArticleHtml } from './normalize';
 import s from './article.module.css';
+import { wordSpace } from '@/lib/typography';
 
 /** Trip-planning guides linked under every article. */
 const PLAN = byLocale<{ title: string; firstTime: string; transfer: string; destinations: string; hub: string }>({
   en: { title: 'Plan your trip', firstTime: 'First-time cruise guide', transfer: 'Hanoi to Ha Long Bay', destinations: 'Places to visit', hub: 'All travel guides' },
   vi: { title: 'Chuẩn bị chuyến đi', firstTime: 'Lần đầu đi du thuyền', transfer: 'Hà Nội đi Hạ Long', destinations: 'Địa điểm tham quan', hub: 'Tất cả cẩm nang' },
+  ja: { title: '旅の準備', firstTime: '初めてのクルーズガイド', transfer: 'ハノイからハロン湾へ', destinations: '見どころ', hub: '旅行ガイド一覧' },
 });
 
 /** Blog article, or a company news article (category news / tin-tuc: /news/{slug}.html). */
@@ -32,7 +35,7 @@ export function ArticleView({ article, chrome }: { article: Article; chrome: Chr
   const m = news ? newsMessages(locale) : blogMessages(locale);
   const info = siteInfo(site);
   // The section the article belongs to: the journal, or the news listing.
-  const blogHref = news ? newsPath(locale) : sectionPath(locale, 'blog');
+  const blogHref = news ? newsPath(locale) : sectionHref(locale, 'blog', chrome.site.publicSections);
   const path = articlePath(locale, article.canonical.categorySlug, article.canonical.slug);
   const url = absoluteUrl(path);
   const category = article.category;
@@ -56,7 +59,7 @@ export function ArticleView({ article, chrome }: { article: Article; chrome: Chr
   const related = linked(locale, article.related.length > 0 ? article.related : article.popular.filter((a) => a.id !== article.id)).slice(0, 3);
   const fallbackCards = m.fallbackCards.slice(0, Math.max(0, 3 - related.length));
   const share = encodeURIComponent(url);
-  const guides = guideLinks(locale, site.hiddenPages);
+  const guides = guideLinks(locale, site.hiddenPages, site.publicSections);
   const plan = PLAN[locale];
 
   return (
@@ -150,7 +153,7 @@ export function ArticleView({ article, chrome }: { article: Article; chrome: Chr
               <div>
                 <Eyebrow>{m.relatedEyebrow}</Eyebrow>
                 <h2 className={s.heading} id="related-title">
-                  {m.relatedTitle} <em>{m.relatedTitleEm}</em>
+                  {m.relatedTitle}{wordSpace(locale)}<em>{m.relatedTitleEm}</em>
                 </h2>
               </div>
               <p>{m.relatedIntro}</p>
@@ -185,12 +188,12 @@ export function ArticleView({ article, chrome }: { article: Article; chrome: Chr
             <div>
               <Eyebrow inverse>{m.bannerEyebrow}</Eyebrow>
               <h2>
-                {m.bannerTitle} <em>{m.bannerTitleEm}</em>
+                {m.bannerTitle}{wordSpace(locale)}<em>{m.bannerTitleEm}</em>
               </h2>
               <p>{m.bannerBody}</p>
             </div>
             <div className={s.bannerActions}>
-              <ButtonLink href={sectionPath(locale, 'itinerary')}>{m.bannerPrimary}</ButtonLink>
+              <ButtonLink href={sectionHref(locale, 'itinerary', chrome.site.publicSections)}>{m.bannerPrimary}</ButtonLink>
               <ButtonLink href={sectionPath(locale, 'booking')} variant="lightOutline">{m.bannerSecondary}</ButtonLink>
             </div>
           </div>

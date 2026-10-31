@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 import { PageIntro, SiteFooter, type Chrome } from '@/components/layout';
 import { homePath, sectionPath } from '@/lib/i18n';
+import { wordSpace } from '@/lib/typography';
 import { bookingTermsVersion } from '@/views/legal/booking-terms';
 import { PayLinkForm } from './PayLinkForm';
 import s from './booking.module.css';
@@ -19,7 +20,7 @@ export function PayView({ chrome }: { chrome: Chrome }) {
         currentHref={path}
         crumbs={[{ label: t.breadcrumb.home, href: homePath(locale) }, { label: b.crumb, href: bookingHref }, { label: b.pay.crumb, href: path }]}
         eyebrow={b.heroEyebrow}
-        title={<>{b.pay.heroTitle} <em>{b.pay.heroTitleEm}</em></>}
+        title={<>{b.pay.heroTitle}{wordSpace(locale)}<em>{b.pay.heroTitleEm}</em></>}
         lead={b.pay.heroIntro}
       />
       <main className={s.main}>

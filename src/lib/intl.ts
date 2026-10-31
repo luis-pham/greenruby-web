@@ -39,6 +39,17 @@ export async function localeOpen(locale: Locale, section: IntlSection): Promise<
 }
 
 /**
+ * Whether `locale` is effectively public at all (phase 2B): this build has its dictionary and the CMS reports it public
+ * with at least one served section. Decides which 404 an unmatched /code/... URL gets (src/proxy.ts, lib/intl-404.ts).
+ */
+export async function localePublic(locale: Locale): Promise<boolean> {
+  if (isLegacyLocale(locale)) return true;
+  if (!hasDictionary(locale)) return false;
+  const served = (await cmsPublicSections()).get(locale);
+  return served !== undefined && (served === null || served.length > 0);
+}
+
+/**
  * The hreflang/switcher set for a page from its CMS `alternates`. undefined (= render exactly the legacy EN/VI
  * output) for an en/vi page whose group has no intl member: that path makes no extra call.
  */

@@ -1,4 +1,5 @@
 import { defaultLocale, intlSections, isLegacyLocale, segmentOf, type Locale, type Section } from './i18n.ts';
+import { CATCH_ALL } from './intl-404.ts';
 
 // Route families per locale, derived from the route trees that actually exist (phase 1D-b). A section counts as
 // served only when the locale's tree holds every route that section needs; a name in `segments` proves nothing.
@@ -26,11 +27,14 @@ export function routeKey(appPath: string): string | null {
   return m ? m[1] : null;
 }
 
-/** The locale's routes relative to its tree: '' (home), 'cruise/[file]', … */
+/**
+ * The locale's routes relative to its tree: '' (home), 'cruise/[file]', … The intl 404 catch-all (lib/intl-404.ts)
+ * serves no content and belongs to no section, so it is not one of them.
+ */
 export function localeRoutes(keys: readonly string[], code: string): string[] {
   const group = `/(${code})`;
   const base = code === defaultLocale ? group : `${group}/${code}`;
-  return keys.flatMap((key) => (key === base ? [''] : key.startsWith(`${base}/`) ? [key.slice(base.length + 1)] : []));
+  return keys.flatMap((key) => (key === base ? [''] : key.startsWith(`${base}/`) && key !== `${base}/${CATCH_ALL}` ? [key.slice(base.length + 1)] : []));
 }
 
 /** Section of an English route ('cruise/[file]' → cruise, '' → home); null for routes outside the section map. */

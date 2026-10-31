@@ -7,7 +7,8 @@ import { organizationRef } from '@/lib/organization';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SmartLink, TextLink } from '@/components/ui';
 import type { Cruise } from '@/lib/api/schemas';
-import { detailPath, experiencePath, homePath, itineraryPath, sectionPath } from '@/lib/i18n';
+import { detailPath, experiencePath, homePath, isLegacyLocale, itineraryPath, sectionPath, type Locale } from '@/lib/i18n';
+import { sectionHref } from '@/lib/section-links';
 import { siteInfo } from '@/lib/site-info';
 import { absoluteImageUrl, absoluteUrl } from '@/lib/site-url';
 import cabinStyles from '@/views/cabin/cabin.module.css';
@@ -18,15 +19,16 @@ import { cabinHighlights, cabinTier } from '@/views/home/cabin-card';
 import { Carousel } from '@/views/home/Carousel';
 import homeStyles from '@/views/home/home.module.css';
 import s from './cruise.module.css';
+import { wordSpace } from '@/lib/typography';
 
 const pad = (n: number) => String(n).padStart(2, '0');
 
-function Head({ eyebrow, title, em, body, id, inverse }: { eyebrow: string; title: string; em: string; body?: string; id: string; inverse?: boolean }) {
+function Head({ locale, eyebrow, title, em, body, id, inverse }: { locale: Locale; eyebrow: string; title: string; em: string; body?: string; id: string; inverse?: boolean }) {
   return (
     <div className={s.head}>
       <div>
         <Eyebrow inverse={inverse}>{eyebrow}</Eyebrow>
-        <h2 className={s.heading} id={id}>{title} <em>{em}</em></h2>
+        <h2 className={s.heading} id={id}>{title}{wordSpace(locale)}<em>{em}</em></h2>
       </div>
       {body && <p className={s.body}>{body}</p>}
     </div>
@@ -37,7 +39,8 @@ export function CruiseView({ cruise, index, chrome, places = [] }: { cruise: Cru
   const { locale, t, site } = chrome;
   const c = t.cruise;
   const url = detailPath(locale, 'cruise', cruise.slug, cruise.id);
-  const bookingUrl = `${sectionPath(locale, 'booking')}?cruise_id=${cruise.id}`;
+  // The cruise payload has no inventory id for a new language: its wizard opens without a prefilled ship.
+  const bookingUrl = isLegacyLocale(locale) ? `${sectionPath(locale, 'booking')}?cruise_id=${cruise.id}` : sectionHref(locale, 'booking', site.publicSections);
   const bayName = cruise.bay ? t.home.bays[cruise.bay] : null;
   const heroImage = cruise.cover ?? cruise.image;
   const areas = cruise.cabins.map((x) => x.area).filter((a): a is number => a != null);
@@ -105,7 +108,7 @@ export function CruiseView({ cruise, index, chrome, places = [] }: { cruise: Cru
           <div className={cx('container', s.introGrid)}>
             <div>
               <Eyebrow>{c.introEyebrow(cruise.name)}</Eyebrow>
-              <h2 className={s.heading} id="overview-title">{c.introTitle} <em>{c.introTitleEm}</em></h2>
+              <h2 className={s.heading} id="overview-title">{c.introTitle}{wordSpace(locale)}<em>{c.introTitleEm}</em></h2>
               {cruise.contentHtml ? (
                 <div className={s.body} dangerouslySetInnerHTML={{ __html: cruise.contentHtml }} />
               ) : (
@@ -143,7 +146,7 @@ export function CruiseView({ cruise, index, chrome, places = [] }: { cruise: Cru
         {cruise.cabins.length > 0 && (
           <section className={s.section} id="suites" aria-labelledby="suites-title">
             <div className="container">
-              <Head id="suites-title" eyebrow={c.suitesEyebrow} title={c.suitesTitle} em={c.suitesTitleEm} body={c.suitesBody} />
+              <Head locale={locale} id="suites-title" eyebrow={c.suitesEyebrow} title={c.suitesTitle} em={c.suitesTitleEm} body={c.suitesBody} />
               <Carousel label={t.home.suitesCollection} count={cruise.cabins.length} caption={t.home.suitesCollection} previous={t.home.previous} next={t.home.next}>
                 {cruise.cabins.map((cabin) => (
                   <article key={cabin.id} className={homeStyles.roomCard}>
@@ -173,7 +176,7 @@ export function CruiseView({ cruise, index, chrome, places = [] }: { cruise: Cru
         {cruise.facilities.length > 0 && (
           <section className={cx(s.section, s.onboard)} id="onboard" aria-labelledby="onboard-title">
             <div className="container">
-              <Head id="onboard-title" eyebrow={c.onboardEyebrow} title={c.onboardTitle} em={c.onboardTitleEm} body={c.onboardBody(cruise.name)} inverse />
+              <Head locale={locale} id="onboard-title" eyebrow={c.onboardEyebrow} title={c.onboardTitle} em={c.onboardTitleEm} body={c.onboardBody(cruise.name)} inverse />
               <div className={s.onboardMain}>
                 <figure className={s.onboardPhoto}>
                   {facilityPhoto && <Image src={facilityPhoto} alt="" fill sizes="(max-width: 900px) 100vw, 55vw" />}
@@ -205,7 +208,7 @@ export function CruiseView({ cruise, index, chrome, places = [] }: { cruise: Cru
         {cruise.experiences.length > 0 && (
           <section className={cx(s.section, s.moments)} id="moments" aria-labelledby="moments-title">
             <div className="container">
-              <Head id="moments-title" eyebrow={c.momentsEyebrow} title={c.momentsTitle} em={c.momentsTitleEm} body={c.momentsBody} />
+              <Head locale={locale} id="moments-title" eyebrow={c.momentsEyebrow} title={c.momentsTitle} em={c.momentsTitleEm} body={c.momentsBody} />
               <div className={s.momentsGrid}>
                 {cruise.experiences.slice(0, 3).map((e, i) => (
                   <article key={e.id} className={s.moment}>
@@ -229,7 +232,7 @@ export function CruiseView({ cruise, index, chrome, places = [] }: { cruise: Cru
               </figure>
               <div>
                 <Eyebrow>{c.ecoEyebrow}</Eyebrow>
-                <h2 className={s.heading} id="eco-title">{c.ecoTitle} <em>{c.ecoTitleEm}</em></h2>
+                <h2 className={s.heading} id="eco-title">{c.ecoTitle}{wordSpace(locale)}<em>{c.ecoTitleEm}</em></h2>
                 <p className={s.body}>{c.ecoBody(cruise.name)}</p>
                 <ul className={s.ecoList}>
                   {cruise.greenTechnology.map((g, i) => (
@@ -250,6 +253,7 @@ export function CruiseView({ cruise, index, chrome, places = [] }: { cruise: Cru
           <section className={cx(s.section, s.journeys)} id="journeys" aria-labelledby="journeys-title">
             <div className="container">
               <Head
+                locale={locale}
                 id="journeys-title"
                 eyebrow={c.journeysEyebrow}
                 title={c.journeysTitle(bayName ?? cruise.name)}
@@ -282,7 +286,7 @@ export function CruiseView({ cruise, index, chrome, places = [] }: { cruise: Cru
               </div>
               <p className={s.journeyNote}>
                 <span>{c.journeyNote}</span>
-                <TextLink href={sectionPath(locale, 'itinerary')}>{c.allItineraries}</TextLink>
+                <TextLink href={sectionHref(locale, 'itinerary', chrome.site.publicSections)}>{c.allItineraries}</TextLink>
               </p>
             </div>
           </section>
@@ -294,7 +298,7 @@ export function CruiseView({ cruise, index, chrome, places = [] }: { cruise: Cru
             eyebrow={t.travel.shipPlacesEyebrow}
             title={t.travel.shipPlacesTitle(cruise.name)}
             lede={t.travel.shipPlacesLede}
-            more={{ href: sectionPath(locale, 'destinations'), label: t.travel.allPlaces }}
+            more={{ href: sectionHref(locale, 'destinations', chrome.site.publicSections), label: t.travel.allPlaces }}
           >
             <PlaceCards items={places.map((d) => placeCard(locale, d))} />
           </TravelLinksSection>
@@ -305,9 +309,9 @@ export function CruiseView({ cruise, index, chrome, places = [] }: { cruise: Cru
             <div className={cx('container', s.servicesGrid)}>
               <div className={s.servicesLead}>
                 <Eyebrow>{c.servicesEyebrow}</Eyebrow>
-                <h2 className={s.heading} id="services-title">{c.servicesTitle} <em>{c.servicesTitleEm}</em></h2>
+                <h2 className={s.heading} id="services-title">{c.servicesTitle}{wordSpace(locale)}<em>{c.servicesTitleEm}</em></h2>
                 <p className={s.body}>{c.servicesBody}</p>
-                <TextLink href={sectionPath(locale, 'contact')}>{c.talkToTeam}</TextLink>
+                <TextLink href={sectionHref(locale, 'contact', chrome.site.publicSections)}>{c.talkToTeam}</TextLink>
               </div>
               <div>
                 {cruise.services.included.length > 0 && (
@@ -331,11 +335,11 @@ export function CruiseView({ cruise, index, chrome, places = [] }: { cruise: Cru
           {heroImage && <Image src={heroImage} alt="" fill sizes="100vw" className={cabinStyles.ctaImage} />}
           <div className={cabinStyles.ctaInner}>
             <Eyebrow inverse>{c.ctaEyebrow}</Eyebrow>
-            <h2 id="cta-title">{c.ctaTitle} <em style={{ color: 'var(--text-inverse-accent)' }}>{c.ctaTitleEm}</em></h2>
+            <h2 id="cta-title">{c.ctaTitle}{wordSpace(locale)}<em style={{ color: 'var(--text-inverse-accent)' }}>{c.ctaTitleEm}</em></h2>
             <p>{c.ctaBody}</p>
             <div className={cabinStyles.ctaLinks}>
               <ButtonLink href={bookingUrl}>{c.ctaPrimary}</ButtonLink>
-              <ButtonLink href={sectionPath(locale, 'contact')} variant="lightOutline" arrow={false}>{t.cabin.ctaSecondary}</ButtonLink>
+              <ButtonLink href={sectionHref(locale, 'contact', chrome.site.publicSections)} variant="lightOutline" arrow={false}>{t.cabin.ctaSecondary}</ButtonLink>
             </div>
           </div>
         </section>

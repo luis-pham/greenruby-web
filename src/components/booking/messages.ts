@@ -57,5 +57,34 @@ const vi: typeof en = {
   durationShort: (days: number) => `${days}N${days - 1}Đ`,
 };
 
-export const bookingMessages = byLocale({ en, vi });
+const ja: typeof en = {
+  regionLabel: '日程の確認とご予約',
+  from: '1室あたり',
+  perCabin: '〜',
+  priceOnRequest: '料金はお問い合わせください',
+  priceLabel: '料金',
+  onRequest: 'お問い合わせ',
+  voyage: '行程',
+  date: '出発日',
+  chooseDate: '日付を選択',
+  prevMonth: '前の月',
+  nextMonth: '次の月',
+  selected: '選択中',
+  available: '出発可能',
+  check: '空室状況を確認',
+  checkDates: '日程を確認',
+  soonTitle: '出発日は近日公開予定',
+  soonBody: 'ご希望の日程をお送りください。予約担当チームが客室をお取り置きします。',
+  soonDate: '日程は近日公開予定',
+  request: '希望日を送る',
+  trustCancel: '出発の30日以上前のキャンセルは全額返金',
+  trustPayment: 'オンラインで安全にお支払い、または先にリクエストのみ送信',
+  questions: 'ご質問はチャットで',
+  close: '閉じる',
+  demo: 'デモデータ',
+  nights: (n: number) => `${n}泊`,
+  durationShort: (days: number) => `${days - 1}泊${days}日`,
+};
+
+export const bookingMessages = byLocale({ en, vi, ja });
 export type BookingMessages = typeof en;

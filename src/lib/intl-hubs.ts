@@ -67,6 +67,8 @@ export const HUB_CONTENT: Record<IntlSection, ((locale: Locale) => Promise<boole
   contact: (locale) => pagePublished('contact', locale),
   cruise: null,
   cabin: null,
+  // Phase 2B: the booking wizard is not a hub (nothing to list); the locale and section gate alone decide.
+  booking: null,
 };
 
 export type HubSection = 'home' | 'itinerary' | 'experiences' | 'destinations' | 'blog' | 'news' | 'faq' | 'services' | 'gallery' | 'aboutUs' | 'contact';

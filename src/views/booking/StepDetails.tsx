@@ -3,10 +3,11 @@
 import type { Dispatch } from 'react';
 import { cx, SmartLink } from '@/components/ui';
 import type { Locale } from '@/lib/i18n';
-import { durationLabel, fmt, formatDate, guestsText, pricedRooms, selectedAmenities, type T } from './model';
+import { durationLabel, fmt, formatAmount, formatDate, guestsText, pricedRooms, selectedAmenities, type T } from './model';
 import type { ServerBooking } from './api';
+import { outcomeView, type ResultOutcome } from './format';
 import { dateBefore, effectivePlan, PAYMENT_METHODS, planOptions, splitAmount, type PaymentPlan } from './payment';
-import { formatPrice, type Currency } from './pricing';
+import type { Currency } from './pricing';
 import { FieldError } from './StepBookingInfo';
 import type { Action, Confirmation, State } from './state';
 import s from './booking.module.css';
@@ -68,11 +69,18 @@ export function StepGuest({ t, state, dispatch, privacyHref, termsHref }: Props 
         {field('phone', t.phone, { type: 'tel', autoComplete: 'tel', placeholder: t.phonePlaceholder, maxLength: 20, inputMode: 'tel' })}
       </div>
       <p className={s.fieldHint}>
-        {t.privacyNote} <SmartLink href={privacyHref}>{t.privacyLink}</SmartLink>.
+        {/* en/vi: "… See our <privacy policy>." as before; ja (draft copy, LEGAL_REVIEW_REQUIRED) links the English pages. */}
+        {t.privacyNote}
+        {t.wordSep}
+        <SmartLink href={privacyHref}>{t.privacyLink}</SmartLink>
+        {t.privacyNoteEnd}
         {termsHref && (
           <>
-            {' '}
-            {t.termsNote} <SmartLink href={termsHref}>{t.termsLink}</SmartLink>.
+            {t.wordSep}
+            {t.termsNote}
+            {t.wordSep}
+            <SmartLink href={termsHref}>{t.termsLink}</SmartLink>
+            {t.termsNoteEnd}
           </>
         )}
       </p>
@@ -82,6 +90,8 @@ export function StepGuest({ t, state, dispatch, privacyHref, termsHref }: Props 
 
 export function StepConfirmation({ t, locale, state, dispatch, currency }: Props) {
   const pv = planView(state, currency);
+  // Payment guard (CMS booking.payment_locales): without it, only the reservation request is offered.
+  const canPay = state.paymentAllowed;
   const choice = (value: Confirmation) => (
     <label className={cx(s.choice, state.confirmation === value && s.choiceSelected)}>
       <input type="radio" name="confirmation" value={value} checked={state.confirmation === value} onChange={() => dispatch({ type: 'setConfirmation', value })} />
@@ -99,13 +109,14 @@ export function StepConfirmation({ t, locale, state, dispatch, currency }: Props
           <span className={s.sectionNumber}>01</span> {t.confirmationHeading}
         </legend>
         <div className={s.choiceGrid}>
-          {choice('direct')}
+          {canPay && choice('direct')}
           {choice('inquiry')}
         </div>
+        {!canPay && <p className={s.note}>{t.paymentUnavailableNote}</p>}
         {state.confirmation === 'inquiry' && <p className={s.note}>{t.inquiryNotice}</p>}
       </fieldset>
 
-      {state.confirmation === 'direct' && (
+      {canPay && state.confirmation === 'direct' && (
         <fieldset className={s.block}>
           <legend className={s.blockLegend}>
             <span className={s.sectionNumber}>02</span> {t.methodHeading}
@@ -134,7 +145,7 @@ export function StepConfirmation({ t, locale, state, dispatch, currency }: Props
         </fieldset>
       )}
 
-      {state.confirmation === 'direct' && pv && (
+      {canPay && state.confirmation === 'direct' && pv && (
         <fieldset className={s.block}>
           <legend className={s.blockLegend}>
             <span className={s.sectionNumber}>03</span> {t.planHeading}
@@ -161,7 +172,7 @@ export function StepConfirmation({ t, locale, state, dispatch, currency }: Props
 }
 
 export function StepReview({ t, locale, state, dispatch, currency, termsHref, privacyHref }: Props & { termsHref: string; privacyHref: string }) {
-  const price = (value: number) => formatPrice(value, currency);
+  const price = (value: number) => formatAmount(value, currency, locale);
   const rooms = pricedRooms(state, currency);
   const amenities = selectedAmenities(state, currency);
   const total = estimatedTotal(state, currency);
@@ -170,7 +181,7 @@ export function StepReview({ t, locale, state, dispatch, currency, termsHref, pr
   const rows: [string, string][] = [
     [t.review.voyage, it ? [it.name, it.cruise_name, durationLabel(t, it.duration)].filter(Boolean).join(' · ') : '—'],
     [t.review.departure, formatDate(locale, state.date) || '—'],
-    [t.review.cabins, rooms.map(({ cabin, room, unitPrice }) => `${cabin.name} (${guestsText(t, room.guests)}) – ${price(unitPrice)}`).join('; ') || '—'],
+    [t.review.cabins, rooms.map(({ cabin, room, unitPrice }) => fmt(t.reviewCabinLine, { name: cabin.name, guests: guestsText(t, room.guests), price: price(unitPrice) })).join('; ') || '—'],
     [t.review.amenities, amenities.map((a) => `${a.amenity.name} × ${a.quantity} – ${price(a.total)}`).join('; ') || t.none],
     [t.review.leadGuest, state.guest.fullName.trim()],
     [t.review.contact, [state.guest.email.trim(), state.guest.phone.trim()].filter(Boolean).join(' · ')],
@@ -214,16 +225,20 @@ export function StepReview({ t, locale, state, dispatch, currency, termsHref, pr
             aria-invalid={termsError ? true : undefined}
             aria-describedby={termsError ? 'booking-terms-error' : undefined}
           />
+          {/* ja: draft acceptance wording (LEGAL_REVIEW_REQUIRED) of the ENGLISH Booking Terms; acceptance is recorded as 'en'. */}
           <label htmlFor="booking-terms-accept">
-            {t.termsAccept}{' '}
+            {t.termsAccept}
+            {t.wordSep}
             <a href={termsHref} target="_blank" rel="noopener">
               {t.termsAcceptLink}
-            </a>{' '}
-            {t.termsAcceptAnd}{' '}
+            </a>
+            {t.wordSep}
+            {t.termsAcceptAnd}
+            {t.wordSep}
             <a href={privacyHref} target="_blank" rel="noopener">
               {t.privacyLink}
             </a>
-            .
+            {t.termsAcceptEnd}
           </label>
           {termsError && (
             <p id="booking-terms-error" className={s.termsError}>
@@ -247,7 +262,7 @@ export function OutcomePanel({
   bookingHref,
 }: {
   t: T;
-  outcome: 'success' | 'pending' | 'error';
+  outcome: ResultOutcome;
   checking: boolean;
   reference: string | null;
   booking: ServerBooking | null;
@@ -256,12 +271,12 @@ export function OutcomePanel({
   bookingHref: string;
 }) {
   const o = t.outcome;
-  const title = outcome === 'success' ? o.successTitle : outcome === 'pending' ? o.pendingTitle : o.failedTitle;
-  const message = outcome === 'success' ? o.successMessage : outcome === 'pending' ? o.pendingMessage : o.failedMessage;
+  // Payment completed, request received, payment pending or failed: never the payment copy for a request.
+  const { title, message, emblem, isError } = outcomeView(o, outcome);
   return (
-    <section className={cx(s.finish, s.outcome, outcome === 'error' && s.outcomeError)} aria-labelledby="booking-step-title" aria-busy={checking}>
+    <section className={cx(s.finish, s.outcome, isError && s.outcomeError)} aria-labelledby="booking-step-title" aria-busy={checking}>
       <div className={s.finishEmblem} aria-hidden="true">
-        {outcome === 'success' ? '✓' : outcome === 'pending' ? '⧗' : '!'}
+        {emblem}
       </div>
       <h2 id="booking-step-title" tabIndex={-1} className={s.outcomeTitle}>
         {title}
@@ -270,13 +285,15 @@ export function OutcomePanel({
         <p>{checking ? o.checking : message}</p>
         {reference && (
           <p>
-            {o.reference}: <strong>{reference}</strong>
+            {o.reference}
+            {t.labelSep}
+            <strong>{reference}</strong>
           </p>
         )}
         {!checking && outcome === 'success' && booking?.payment_plan === 'deposit' && (booking.balance_amount ?? 0) > 0 && booking.balance_due_date && (
           <p>
             {fmt(o.depositReceived, {
-              amount: formatPrice(booking.balance_amount ?? 0, booking.currency === 'vnd' ? 'vnd' : 'usd'),
+              amount: formatAmount(booking.balance_amount ?? 0, booking.currency === 'vnd' ? 'vnd' : 'usd', locale),
               date: formatDate(locale, booking.balance_due_date),
             })}
           </p>

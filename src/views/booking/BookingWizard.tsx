@@ -3,9 +3,12 @@
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useReducer, useRef, type Dispatch } from 'react';
 import { cx } from '@/components/ui';
-import type { Locale } from '@/lib/i18n';
+import { isLegacyLocale, type Locale } from '@/lib/i18n';
+import { wordSpace } from '@/lib/typography';
 import { bookingApi, type ServerBooking } from './api';
-import { fmt, normalizeQueryDate, payloadFromState, summaryFromBooking, summaryFromState, type T } from './model';
+import { paymentAllowed } from './format';
+import { handoffQuery, inventoryOf, restorable, switchTarget, takeHandoff, writeHandoff, type Handoff } from './handoff';
+import { fmt, normalizeQueryDate, payloadFromState, summaryFromBooking, summaryFromState, todayYmd, type T } from './model';
 import {
   buildInquiryBody,
   buildPaymentInitBody,
@@ -80,7 +83,12 @@ export type WizardProps = {
 export function BookingWizard({ locale, t, contact, homeHref, bookingHref, privacyHref, terms, image }: WizardProps) {
   const params = useSearchParams();
   const currency = currencyForLocale(locale);
-  const [state, dispatch] = useReducer(reducer, currency, (c) => initialState(c === 'vnd' ? 'sepay' : 'stripe'));
+  // An intl page starts with the request only and offers payment once the CMS policy allows it (paymentAllowed).
+  const [state, dispatch] = useReducer(reducer, currency, (c) => initialState(c === 'vnd' ? 'sepay' : 'stripe', paymentAllowed(null, locale)));
+  const stateRef = useRef(state);
+  useEffect(() => {
+    stateRef.current = state;
+  });
   const started = useRef(false);
   const alive = useRef(true);
   const headingRef = useRef<HTMLHeadingElement>(null);
@@ -114,7 +122,10 @@ export function BookingWizard({ locale, t, contact, homeHref, bookingHref, priva
     return () => void (alive.current = false);
 
     function boot() {
-      bookingApi.policy().then((policy) => alive.current && dispatch({ type: 'policyLoaded', policy }));
+      bookingApi.policy().then((policy) => alive.current && dispatch({ type: 'policyLoaded', policy, paymentAllowed: paymentAllowed(policy, locale) }));
+      // Coming from the same wizard in another language (language switcher): selection and guest details.
+      const handoff = takeHandoff(storage, Date.now());
+      const carried = handoff ? restorable(handoff, locale) : null;
       const cabinId = params.get('cabin_id');
       const cruiseId = params.get('cruise_id');
       const itineraryId = params.get('itinerary_id');
@@ -125,6 +136,8 @@ export function BookingWizard({ locale, t, contact, homeHref, bookingHref, priva
       ]).then(([dates, suggestion]) => {
         let date = '';
         if (startAt && dates.includes(startAt)) date = startAt;
+        // Language handoff into a page without listed departures (free date entry): keep the guest's date.
+        else if (!dates.length && handoff?.date && startAt === handoff.date && handoff.date >= todayYmd()) date = startAt;
         else if (itineraryId && dates.length) date = dates[0];
         else if (suggestion?.date) date = suggestion.date;
         else if (cruiseId && dates.length) date = dates[0];
@@ -132,8 +145,11 @@ export function BookingWizard({ locale, t, contact, homeHref, bookingHref, priva
           itineraryId: Number(itineraryId) || suggestion?.itinerary_id || null,
           cruiseId: Number(cruiseId) || suggestion?.cruise_id || null,
           cabinId: Number(cabinId) || null,
+          // Intl pages link with inventory ids (content API `booking`); an unknown cabin must not become another one.
+          ...(isLegacyLocale(locale) && !carried ? {} : { exactCabin: true }),
+          ...(carried?.rooms.length ? { rooms: carried.rooms, amenityQty: carried.amenityQty } : {}),
         };
-        dispatch({ type: 'boot', dates, date, prefill: prefill.itineraryId || prefill.cabinId ? prefill : null });
+        dispatch({ type: 'boot', dates, date, prefill: prefill.itineraryId || prefill.cabinId ? prefill : null, guest: carried?.guest });
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps -- runs once per page load; the URL is read at that moment.
@@ -149,6 +165,34 @@ export function BookingWizard({ locale, t, contact, homeHref, bookingHref, priva
     window.addEventListener('pageshow', onShow);
     return () => window.removeEventListener('pageshow', onShow);
   }, []);
+
+  // Language switcher: carry the selection to the same wizard in the other language (handoff.ts). Only links to
+  // another language's booking page are touched; the page's own HTML is unchanged.
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      const anchor = (e.target as Element | null)?.closest?.('a[hreflang]') as HTMLAnchorElement | null;
+      const target = anchor && switchTarget(anchor.href, locale, '', window.location.origin);
+      if (!anchor || !target) return;
+      const st = stateRef.current;
+      if (st.outcome) return;
+      const handoff: Handoff = {
+        v: 1,
+        at: Date.now(),
+        inventory: inventoryOf(locale),
+        date: st.date,
+        itineraryId: st.itinerary?.itinerary_id ?? null,
+        cruiseId: st.itinerary?.cruise_id ?? null,
+        rooms: st.rooms.map((r) => ({ cabinId: r.cabinId, guests: r.guests })),
+        amenityQty: st.amenityQty,
+        guest: st.guest,
+      };
+      writeHandoff(session(), handoff);
+      const url = new URL(anchor.href, window.location.origin);
+      anchor.href = url.pathname + handoffQuery(st.date ? handoff : null, locale, target, new URLSearchParams(window.location.search));
+    };
+    document.addEventListener('click', onClick, true);
+    return () => document.removeEventListener('click', onClick, true);
+  }, [locale]);
 
   // Voyages for the chosen date.
   useEffect(() => {
@@ -235,6 +279,7 @@ export function BookingWizard({ locale, t, contact, homeHref, bookingHref, priva
     if (failure === 'termsUpdated') return t.errors.termsUpdated;
     if (failure === 'departure') return t.errors.departureInvalid;
     if (failure === 'unavailable') return t.errors.bookingUnavailable;
+    if (failure === 'paymentLocale') return t.errors.paymentNotOffered;
     return fallback;
   }
 
@@ -249,14 +294,16 @@ export function BookingWizard({ locale, t, contact, homeHref, bookingHref, priva
       document.getElementById('booking-terms-accept')?.focus();
       return;
     }
+    // terms.locale is the language of the TERMS (en for ja: no Japanese terms); `locale` is the page language.
     const acceptance = termsRequired ? ({ accepted: true, version: terms.version, locale: termsLocale(locale) } as const) : undefined;
 
     if (state.confirmation === 'inquiry') {
       dispatch({ type: 'submit', mode: 'sending' });
       try {
-        const { ok, data } = await bookingApi.inquiry(buildInquiryBody(payload, currency, acceptance));
+        const { ok, data } = await bookingApi.inquiry(buildInquiryBody(payload, currency, acceptance, locale));
         if (ok && data?.success) {
-          dispatch({ type: 'outcome', outcome: 'success', reference: typeof data.code === 'string' ? data.code : null });
+          // A stored request, not a payment: the result screen says so ('requested', format.ts outcomeView).
+          dispatch({ type: 'outcome', outcome: 'requested', reference: typeof data.code === 'string' ? data.code : null });
         } else {
           dispatch({ type: 'submitFailed', message: failureMessage(data, t.errors.inquiryFailed) });
         }
@@ -266,6 +313,8 @@ export function BookingWizard({ locale, t, contact, homeHref, bookingHref, priva
       return;
     }
 
+    // Payment guard: never start a payment the CMS would refuse (it refuses anyway: payment_locale_not_allowed).
+    if (!state.paymentAllowed) return dispatch({ type: 'submitFailed', message: t.errors.paymentNotOffered });
     if (!payload.email) return dispatch({ type: 'submitFailed', message: t.errors.emailForPayment });
     if (!methodSupportsCurrency(state.method, currency)) {
       return dispatch({ type: 'submitFailed', message: state.method === 'sepay' ? t.errors.currencyVndOnly : t.errors.currencyUsdOnly });
@@ -279,6 +328,7 @@ export function BookingWizard({ locale, t, contact, homeHref, bookingHref, priva
         returnBase: window.location.origin + window.location.pathname,
         plan: effectivePlan(planOptions(state.policy, state.date), state.paymentPlan),
         terms: acceptance,
+        locale,
       });
       const { ok, data } = await bookingApi.initPayment(body);
       if (ok && data?.success && typeof data.payment_url === 'string') {
@@ -342,7 +392,7 @@ export function BookingWizard({ locale, t, contact, homeHref, bookingHref, priva
                 <div className={s.intro}>
                   <span className={s.eyebrowGold}>{fmt(t.stepCounter, { n: String(state.step).padStart(2, '0'), total: '04' })}</span>
                   <h2 id="booking-step-title" ref={headingRef} tabIndex={-1}>
-                    {panel.title} <em>{panel.em}</em>
+                    {panel.title}{wordSpace(locale)}<em>{panel.em}</em>
                   </h2>
                   <p>{panel.intro}</p>
                 </div>

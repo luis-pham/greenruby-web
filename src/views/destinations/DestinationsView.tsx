@@ -4,12 +4,14 @@ import { SmartLink, TextLink } from '@/components/ui';
 import type { ItinerarySummary } from '@/lib/api/schemas';
 import { guideLinks } from '@/lib/guide-links';
 import { destinationPath, detailPath, homePath, itineraryPath, sectionPath } from '@/lib/i18n';
+import { sectionHref } from '@/lib/section-links';
 import { absoluteImageUrl, absoluteUrl } from '@/lib/site-url';
 import { bays, categories, type DestinationSummary } from './data';
 import { DestinationFilter, type CardItem } from './DestinationFilter';
 import { DestinationMap } from './DestinationMap';
 import { caveVisit, destinationMessages, otherPlaces } from './messages';
 import s from './destinations.module.css';
+import { wordSpace } from '@/lib/typography';
 
 type CruiseLink = { id: number; slug: string; name: string };
 
@@ -20,8 +22,8 @@ type CruiseLink = { id: number; slug: string; name: string };
 export function DestinationsView({ chrome, items, itineraries, cruises }: { chrome: Chrome; items: DestinationSummary[]; itineraries: ItinerarySummary[]; cruises: CruiseLink[] }) {
   const { locale, t } = chrome;
   const m = destinationMessages[locale];
-  const path = sectionPath(locale, 'destinations');
-  const guides = guideLinks(locale, chrome.site.hiddenPages);
+  const path = sectionHref(locale, 'destinations', chrome.site.publicSections);
+  const guides = guideLinks(locale, chrome.site.hiddenPages, chrome.site.publicSections);
 
   const toCard = (d: DestinationSummary): CardItem => ({
     slug: d.slug,
@@ -75,7 +77,7 @@ export function DestinationsView({ chrome, items, itineraries, cruises }: { chro
         eyebrow={m.eyebrow}
         title={
           <>
-            {m.title} <em>{m.titleEm}</em>
+            {m.title}{wordSpace(locale)}<em>{m.titleEm}</em>
           </>
         }
         lead={m.lead}
@@ -129,7 +131,7 @@ export function DestinationsView({ chrome, items, itineraries, cruises }: { chro
               <article className={s.todo}>
                 <h3>{m.thingsToDo.onboard[0]}</h3>
                 <p>{m.thingsToDo.onboard[1]}</p>
-                <TextLink href={sectionPath(locale, 'experiences')}>{m.thingsToDo.onboardLink}</TextLink>
+                <TextLink href={sectionHref(locale, 'experiences', chrome.site.publicSections)}>{m.thingsToDo.onboardLink}</TextLink>
               </article>
             </div>
           </div>
@@ -347,7 +349,7 @@ export function DestinationsView({ chrome, items, itineraries, cruises }: { chro
         data={{
           '@context': 'https://schema.org',
           '@type': 'CollectionPage',
-          name: `${m.title} ${m.titleEm}`,
+          name: `${m.title}${wordSpace(locale)}${m.titleEm}`,
           description: m.metaDescription,
           url: absoluteUrl(path),
           inLanguage: locale,

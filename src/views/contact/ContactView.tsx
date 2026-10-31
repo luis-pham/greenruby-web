@@ -3,10 +3,12 @@ import { organizationSchema, MAPS_URL } from '@/lib/organization';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SectionHeading } from '@/components/ui';
 import { homePath, sectionPath } from '@/lib/i18n';
+import { sectionHref } from '@/lib/section-links';
 import { siteInfo } from '@/lib/site-info';
 import { absoluteUrl } from '@/lib/site-url';
 import { ContactForm } from './ContactForm';
 import s from './contact.module.css';
+import { wordSpace } from '@/lib/typography';
 
 const icons = {
   phone: <path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2" />,
@@ -36,7 +38,7 @@ export function ContactView({ chrome }: { chrome: Chrome }) {
   const { locale, t, site } = chrome;
   const c = t.contact;
   const info = siteInfo(site);
-  const path = sectionPath(locale, 'contact');
+  const path = sectionHref(locale, 'contact', chrome.site.publicSections);
   const mapsHref = MAPS_URL;
 
   return (
@@ -54,7 +56,7 @@ export function ContactView({ chrome }: { chrome: Chrome }) {
               />
               <Eyebrow>{c.eyebrow}</Eyebrow>
               <h1 className={s.title} id="contact-title">
-                {c.title} <em>{c.titleEm}</em>
+                {c.title}{wordSpace(locale)}<em>{c.titleEm}</em>
               </h1>
               <p className={s.lead}>{c.intro}</p>
 

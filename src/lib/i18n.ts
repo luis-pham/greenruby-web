@@ -29,6 +29,14 @@ export const localeInfo: Record<Locale, { nativeName: string; code: string; href
   ja: { nativeName: '日本語', code: 'JA', hreflang: 'ja', ogLocale: 'ja_JP', intlTag: 'ja-JP' },
 };
 
+const intlTagOf = (locale: string): string | undefined => (localeInfo as Partial<Record<string, { intlTag: string }>>)[locale]?.intlTag;
+
+/** Intl tag for dates: English (and anything unknown) keeps en-GB day-month-year, as before; others use their own. */
+export const dateFormatTag = (locale: string): string => (locale === 'en' ? 'en-GB' : (intlTagOf(locale) ?? 'en-GB'));
+
+/** Intl tag for amounts: en-US for English (and anything unknown), vi-VN for Vietnamese, as before; others their own. */
+export const numberFormatTag = (locale: string): string => intlTagOf(locale) ?? 'en-US';
+
 // English URLs have no prefix; Vietnamese URLs use /vi plus translated segments, matching Laravel's
 // FeUtils::getLocalizedFrontendPathSegmentMap(); intl locales use /{code} plus the English segments (PathBuilder).
 const segments = {
@@ -78,14 +86,16 @@ export function homePath(locale: Locale): string {
 }
 
 /**
- * Sections an intl locale has (its generated route tree, intl-routes.ts): content the CMS publishes per row, and
- * (phase 1E-c) the static pages whose CMS page row is their publication (services, gallery, about us, contact).
+ * Sections an intl locale has (its generated route tree, intl-routes.ts): content the CMS publishes per row,
+ * (phase 1E-c) the static pages whose CMS page row is their publication (services, gallery, about us, contact), and
+ * (phase 2B) the booking wizard and payment-link page (/ja/booking, /ja/booking/pay: noindex, never in a sitemap; the
+ * locale books the English inventory in USD, CMS booking.price_list_for_locale).
  */
-export const intlSections = ['home', 'cruise', 'cabin', 'itinerary', 'experiences', 'destinations', 'blog', 'news', 'faq', 'services', 'gallery', 'aboutUs', 'contact'] as const;
+export const intlSections = ['home', 'cruise', 'cabin', 'itinerary', 'experiences', 'destinations', 'blog', 'news', 'faq', 'services', 'gallery', 'aboutUs', 'contact', 'booking'] as const;
 
 /**
- * en/vi: the section in that language. An intl locale has no route for the other sections (booking, contact, legal,
- * static pages: no page-level publication before 1E, no checkout of its own), so its links to them go to English.
+ * en/vi: the section in that language. An intl locale has no route for the other sections (legal, booking terms,
+ * guides, brand facts, eco), so its links to them go to English.
  */
 export function sectionPath(locale: Locale, section: Section): string {
   const target = isLegacyLocale(locale) || (intlSections as readonly string[]).includes(section) ? locale : defaultLocale;

@@ -4,12 +4,14 @@ import { PageIntro, SiteFooter, type Chrome } from '@/components/layout';
 import { FaqList as FaqAccordion, faqPageSchema } from '@/components/sections/Faq';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SmartLink, TextLink } from '@/components/ui';
-import { homePath, sectionPath } from '@/lib/i18n';
+import { homePath } from '@/lib/i18n';
+import { sectionHref } from '@/lib/section-links';
 import { siteInfo } from '@/lib/site-info';
 import { faqPath, type FaqEntry, type FaqList } from './data';
 import { FaqSearch } from './FaqSearch';
 import { faqMessages } from './messages';
 import s from './faq.module.css';
+import { wordSpace } from '@/lib/typography';
 
 const pad = (n: number) => String(n).padStart(2, '0');
 
@@ -53,8 +55,8 @@ export function FaqView({ list, chrome }: { list: FaqList; chrome: Chrome }) {
   const { locale, t, site } = chrome;
   const f = faqMessages[locale];
   const info = siteInfo(site);
-  const hubPath = sectionPath(locale, 'faq');
-  const contactPath = sectionPath(locale, 'contact');
+  const hubPath = sectionHref(locale, 'faq', chrome.site.publicSections);
+  const contactPath = sectionHref(locale, 'contact', chrome.site.publicSections);
   const { group: current, groups, pagination } = list;
   const totalAll = groups.reduce((sum, g) => sum + g.count, 0);
   const blocks = sections(list, f.otherGroup);
@@ -73,7 +75,7 @@ export function FaqView({ list, chrome }: { list: FaqList; chrome: Chrome }) {
           ...(current ? [{ label: current.name, href: faqPath(locale, current.slug) }] : []),
         ]}
         eyebrow={f.heroEyebrow}
-        title={current ? <>{current.name} <em>{f.breadcrumb}</em></> : <>{f.heroTitle} <em>{f.heroTitleEm}</em></>}
+        title={current ? <>{current.name}{wordSpace(locale)}<em>{f.breadcrumb}</em></> : <>{f.heroTitle}{wordSpace(locale)}<em>{f.heroTitleEm}</em></>}
         lead={f.heroBody}
         actions={
           <>
@@ -89,7 +91,7 @@ export function FaqView({ list, chrome }: { list: FaqList; chrome: Chrome }) {
             <div className={s.intro}>
               <div>
                 <Eyebrow>{f.introEyebrow}</Eyebrow>
-                <h2 className={s.sectionTitle} id="questions-title">{f.introTitle} <em>{f.introTitleEm}</em></h2>
+                <h2 className={s.sectionTitle} id="questions-title">{f.introTitle}{wordSpace(locale)}<em>{f.introTitleEm}</em></h2>
               </div>
               <p className={s.lead}>{f.introBody}</p>
             </div>
@@ -162,9 +164,9 @@ export function FaqView({ list, chrome }: { list: FaqList; chrome: Chrome }) {
           <div className={cx('container', s.assuranceGrid)}>
             <div>
               <Eyebrow inverse>{f.assuranceEyebrow}</Eyebrow>
-              <h2 className={s.sectionTitle} id="assurance-title">{f.assuranceTitle} <em>{f.assuranceTitleEm}</em></h2>
+              <h2 className={s.sectionTitle} id="assurance-title">{f.assuranceTitle}{wordSpace(locale)}<em>{f.assuranceTitleEm}</em></h2>
               <p className={s.lead}>{f.assuranceBody}</p>
-              <ButtonLink href={sectionPath(locale, 'itinerary')}>{f.assuranceCta}</ButtonLink>
+              <ButtonLink href={sectionHref(locale, 'itinerary', chrome.site.publicSections)}>{f.assuranceCta}</ButtonLink>
             </div>
             <ol className={s.steps}>
               {f.steps.map((step, i) => (
@@ -185,7 +187,7 @@ export function FaqView({ list, chrome }: { list: FaqList; chrome: Chrome }) {
             <div className={s.contactBox}>
               <div className={s.contactCopy}>
                 <Eyebrow>{f.contactEyebrow}</Eyebrow>
-                <h2 id="contact-title">{f.contactTitle} <em>{f.contactTitleEm}</em></h2>
+                <h2 id="contact-title">{f.contactTitle}{wordSpace(locale)}<em>{f.contactTitleEm}</em></h2>
                 <p>{f.contactBody}</p>
                 <div className={s.contactActions}>
                   <ButtonLink href={contactPath}>{f.contactPrimary}</ButtonLink>

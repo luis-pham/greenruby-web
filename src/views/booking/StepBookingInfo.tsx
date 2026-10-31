@@ -3,9 +3,10 @@
 import Image from 'next/image';
 import type { Dispatch } from 'react';
 import { cx } from '@/components/ui';
-import { detailPath, itineraryPath, type Locale } from '@/lib/i18n';
-import { cabinDescription, durationLabel, fmt, formatDate, mediaSrc, pricedRooms, slugify, todayYmd, type T } from './model';
-import { formatPrice, GUEST_TYPES, guestLimits, roundPrice, toCabinPricing, type Currency } from './pricing';
+import { defaultLocale, detailPath, isLegacyLocale, itineraryPath, type Locale } from '@/lib/i18n';
+import { cabinDescription, durationLabel, fmt, formatAmount, formatDate, mediaSrc, pricedRooms, slugify, todayYmd, type T } from './model';
+import { fromPriceParts } from './format';
+import { GUEST_TYPES, guestLimits, roundPrice, toCabinPricing, type Currency } from './pricing';
 import { MAX_AMENITY_QTY, type Action, type State } from './state';
 import s from './booking.module.css';
 
@@ -49,7 +50,11 @@ export function Stepper({
 
 export function StepBookingInfo({ t, locale, state, dispatch, currency, routeImage }: Props) {
   const { errors, itinerary } = state;
-  const price = (value: number) => formatPrice(value, currency);
+  const price = (value: number) => formatAmount(value, currency, locale);
+  // Voyage and cabin links use the booking inventory's ids and names (English rows for an intl locale: CMS
+  // booking.price_list_for_locale). An intl page therefore links the English item page, never /ja + English ids
+  // (that path does not exist); en/vi link their own pages as before.
+  const itemLocale: Locale = isLegacyLocale(locale) ? locale : defaultLocale;
   const listed = state.enabledDates.length > 0;
   const dateOptions = listed && state.date && !state.enabledDates.includes(state.date) ? [state.date, ...state.enabledDates] : state.enabledDates;
   const rooms = pricedRooms(state, currency);
@@ -114,7 +119,7 @@ export function StepBookingInfo({ t, locale, state, dispatch, currency, routeIma
           {itinerary && (
             <a
               className={s.inlineLink}
-              href={itineraryPath(locale, slugify(itinerary.name), itinerary.cruise_id, itinerary.itinerary_id)}
+              href={itineraryPath(itemLocale, slugify(itinerary.name), itinerary.cruise_id, itinerary.itinerary_id)}
               target="_blank"
               rel="noopener"
             >
@@ -210,7 +215,7 @@ export function StepBookingInfo({ t, locale, state, dispatch, currency, routeIma
                     <div className={s.cabTop}>{cabinDescription(t, { ...cabin, summary: null })}</div>
                     <h4>{cabin.name}</h4>
                     {cabin.summary && <p>{cabin.summary}</p>}
-                    <a className={s.textLink} href={detailPath(locale, 'cabin', slugify(cabin.name), cabin.id)} target="_blank" rel="noopener">
+                    <a className={s.textLink} href={detailPath(itemLocale, 'cabin', slugify(cabin.name), cabin.id)} target="_blank" rel="noopener">
                       {t.viewCabin} <span className="sr-only">: {cabin.name}</span>
                       <span aria-hidden="true"> ↗︎</span>
                     </a>
@@ -218,11 +223,17 @@ export function StepBookingInfo({ t, locale, state, dispatch, currency, routeIma
                   <div className={s.cabAction}>
                     <div className={s.cabPrice}>
                       {fromPrice > 0 ? (
-                        <>
-                          {t.priceFrom}
-                          <strong>{price(fromPrice)}</strong>
-                          {t.perCabin}
-                        </>
+                        (() => {
+                          // en/vi: "From" $1,250.00 "per cabin" as before; ja: US$1,250.00〜 "1室あたり" (glossary §2).
+                          const from = fromPriceParts(t, price(fromPrice));
+                          return (
+                            <>
+                              {from.label}
+                              <strong>{from.amount}</strong>
+                              {from.unit}
+                            </>
+                          );
+                        })()
                       ) : (
                         <strong>{t.priceOnRequest}</strong>
                       )}
@@ -322,7 +333,7 @@ export function StepBookingInfo({ t, locale, state, dispatch, currency, routeIma
                   <Stepper
                     value={qty}
                     max={MAX_AMENITY_QTY}
-                    label={`${t.quantity}: ${a.name}`}
+                    label={`${t.quantity}${t.labelSep}${a.name}`}
                     increaseLabel={fmt(t.increase, { label: t.quantity, cabin: a.name })}
                     decreaseLabel={fmt(t.decrease, { label: t.quantity, cabin: a.name })}
                     onChange={(delta) => dispatch({ type: 'changeAmenity', id: a.id, delta })}

@@ -7,7 +7,8 @@ import { organizationSchema } from '@/lib/organization';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SmartLink, TextLink } from '@/components/ui';
 import type { Homepage } from '@/lib/api/schemas';
-import { detailPath, experiencePath, homePath, itineraryPath, sectionPath } from '@/lib/i18n';
+import { detailPath, experiencePath, homePath, inLocale, itineraryPath, sectionPath, type Locale } from '@/lib/i18n';
+import { sectionHref } from '@/lib/section-links';
 import { siteInfo } from '@/lib/site-info';
 import { absoluteImageUrl, absoluteUrl, siteUrl } from '@/lib/site-url';
 import { cabinPath } from '@/views/cabin/CabinView';
@@ -17,13 +18,14 @@ import { HeroSlideshow, type HeroSlide } from './HeroSlideshow';
 import { FacilityIcon } from './FacilityIcon';
 import { JourneyTabs } from './JourneyTabs';
 import s from './home.module.css';
+import { wordSpace } from '@/lib/typography';
 
 const pad = (n: number) => String(n).padStart(2, '0');
 
-function Heading({ title, em, id, className }: { title: string; em: string; id?: string; className?: string }) {
+function Heading({ locale, title, em, id, className }: { locale: Locale; title: string; em: string; id?: string; className?: string }) {
   return (
     <h2 className={cx(s.heading, className)} id={id}>
-      {title} <em>{em}</em>
+      {title}{wordSpace(locale)}<em>{em}</em>
     </h2>
   );
 }
@@ -67,14 +69,16 @@ export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
   const bayOfCruise = (cruiseId: number) => page.itineraries.find((i) => i.cruiseId === cruiseId)?.bay ?? null;
   const firstItineraryOfCruise = (cruiseId: number) => page.itineraries.find((i) => i.cruiseId === cruiseId);
   const experiences = page.experiences.slice(0, 3);
-  const experienceVerbs = locale === 'vi' ? ['Khám phá', 'Thưởng thức', 'Thư thái'] : ['Discover', 'Savour', 'Restore'];
+  const experienceVerbs = inLocale({ en: ['Discover', 'Savour', 'Restore'], vi: ['Khám phá', 'Thưởng thức', 'Thư thái'], ja: ['発見', '味わい', '癒やし'] }, locale);
   // Slideshow: the CMS homepage banners. The first slide keeps the designed tagline; the others use the
   // banner's own title and description.
-  const designSlide = { title: h.heroTitle, titleEm: h.heroTitleEm, body: h.heroBody };
+  // Japanese joins the two parts without a space; en/vi slides keep their exact previous shape (no `gap` key).
+  const gap = wordSpace(locale);
+  const designSlide = { title: h.heroTitle, titleEm: h.heroTitleEm, body: h.heroBody, ...(gap !== ' ' && { gap }) };
   const heroSlides: HeroSlide[] = (page.banner.length ? page.banner : heroImage ? [{ image: heroImage, title: null, description: null }] : []).map(
     (banner, i) => ({
       image: banner.image,
-      ...(i === 0 || isFileName(banner.title) ? designSlide : { ...splitTitle(banner.title as string), body: banner.description ?? null }),
+      ...(i === 0 || isFileName(banner.title) ? designSlide : { ...splitTitle(banner.title as string), body: banner.description ?? null, ...(gap !== ' ' && { gap }) }),
     }),
   );
 
@@ -145,7 +149,7 @@ export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
               <div className={s.fleetIntro}>
                 <div>
                   <Eyebrow>{h.fleetEyebrow}</Eyebrow>
-                  <Heading id="fleet-title" title={h.fleetTitle} em={h.fleetTitleEm} />
+                  <Heading locale={locale} id="fleet-title" title={h.fleetTitle} em={h.fleetTitleEm} />
                 </div>
                 <div>
                   <p>{h.fleetBody}</p>
@@ -213,9 +217,9 @@ export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
           <div className={cx('container', s.storyGrid)}>
             <div className={s.storyCopy}>
               <Eyebrow>{page.slogan ?? h.storyEyebrow}</Eyebrow>
-              <Heading id="story-title" title={h.storyTitle} em={h.storyTitleEm} />
+              <Heading locale={locale} id="story-title" title={h.storyTitle} em={h.storyTitleEm} />
               {h.storyBody.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-              <div className={s.storyLink}><TextLink href={sectionPath(locale, 'aboutUs')}>{h.storyLink}</TextLink></div>
+              <div className={s.storyLink}><TextLink href={sectionHref(locale, 'aboutUs', chrome.site.publicSections)}>{h.storyLink}</TextLink></div>
               <dl className={s.facts}>
                 <div><dt>{h.facts.vessels}</dt><dd>{pad(page.cruises.length)}</dd></div>
                 <div><dt>{h.facts.bays}</dt><dd>{pad(bays.length)}</dd></div>
@@ -236,7 +240,7 @@ export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
         {page.itineraries.length > 0 && (
           <section className={cx(s.section, s.journeys)} id="journeys" aria-labelledby="journeys-title">
             <div className="container">
-              <Head eyebrow={h.journeysEyebrow} title={<Heading id="journeys-title" title={h.journeysTitle} em={h.journeysTitleEm} />} body={h.journeysBody} />
+              <Head eyebrow={h.journeysEyebrow} title={<Heading locale={locale} id="journeys-title" title={h.journeysTitle} em={h.journeysTitleEm} />} body={h.journeysBody} />
               <JourneyTabs label={h.durationTabsLabel} tabs={durations.map((d) => ({ duration: d, label: h.duration(d) }))} initial={durations[0]}>
                 {page.itineraries.map((it) => {
                   const url = itineraryPath(locale, it.slug, it.cruiseId, it.itineraryId);
@@ -266,7 +270,7 @@ export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
         {page.cabins.length > 0 && (
           <section className={s.section} id="suites" aria-labelledby="suites-title">
             <div className="container">
-              <Head eyebrow={h.suitesEyebrow} title={<Heading id="suites-title" title={h.suitesTitle} em={h.suitesTitleEm} />} body={h.suitesBody} />
+              <Head eyebrow={h.suitesEyebrow} title={<Heading locale={locale} id="suites-title" title={h.suitesTitle} em={h.suitesTitleEm} />} body={h.suitesBody} />
               <Carousel label={h.suitesCollection} count={page.cabins.length} caption={h.suitesCollection} previous={h.previous} next={h.next}>
                 {page.cabins.map((cabin) => (
                   <article key={cabin.id} className={s.roomCard}>
@@ -297,7 +301,7 @@ export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
             <div className="container">
               <Head
                 eyebrow={h.facilitiesEyebrow}
-                title={<Heading id="facilities-title" title={h.facilitiesTitle} em={h.facilitiesTitleEm} />}
+                title={<Heading locale={locale} id="facilities-title" title={h.facilitiesTitle} em={h.facilitiesTitleEm} />}
                 body={h.facilitiesBody}
               />
               <ul className={s.facilitiesGrid}>
@@ -310,7 +314,7 @@ export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
                   </li>
                 ))}
               </ul>
-              <div className={s.experiencesMore}><TextLink href={sectionPath(locale, 'services')}>{h.facilitiesLink}</TextLink></div>
+              <div className={s.experiencesMore}><TextLink href={sectionHref(locale, 'services', chrome.site.publicSections)}>{h.facilitiesLink}</TextLink></div>
             </div>
           </section>
         )}
@@ -320,7 +324,7 @@ export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
             <div className="container">
               <Head
                 eyebrow={h.experiencesEyebrow}
-                title={<Heading id="experiences-title" title={h.experiencesTitle} em={h.experiencesTitleEm} />}
+                title={<Heading locale={locale} id="experiences-title" title={h.experiencesTitle} em={h.experiencesTitleEm} />}
                 body={h.experiencesBody}
                 inverse
               />
@@ -339,7 +343,7 @@ export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
                   );
                 })}
               </div>
-              <div className={s.experiencesMore}><TextLink href={sectionPath(locale, 'experiences')} inverse>{h.experiencesLink}</TextLink></div>
+              <div className={s.experiencesMore}><TextLink href={sectionHref(locale, 'experiences', chrome.site.publicSections)} inverse>{h.experiencesLink}</TextLink></div>
             </div>
           </section>
         )}
@@ -353,7 +357,7 @@ export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
               </figure>
               <div className={s.sustainCopy}>
                 <Eyebrow>{h.sustainEyebrow}</Eyebrow>
-                <Heading id="sustain-title" title={h.sustainTitle} em={h.sustainTitleEm} />
+                <Heading locale={locale} id="sustain-title" title={h.sustainTitle} em={h.sustainTitleEm} />
                 <p>{h.sustainBody}</p>
                 <ol className={s.sustainList}>
                   {page.sustainability.map((item, i) => (
@@ -366,7 +370,7 @@ export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
                     </li>
                   ))}
                 </ol>
-                <TextLink href={sectionPath(locale, 'aboutUs')}>{h.sustainLink}</TextLink>
+                <TextLink href={sectionHref(locale, 'aboutUs', chrome.site.publicSections)}>{h.sustainLink}</TextLink>
               </div>
             </div>
           </section>
@@ -377,9 +381,9 @@ export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
             <div className={cx('container', s.faqGrid)}>
               <div>
                 <Eyebrow>{h.faqEyebrow}</Eyebrow>
-                <Heading id="faq-title" title={h.faqTitle} em={h.faqTitleEm} />
+                <Heading locale={locale} id="faq-title" title={h.faqTitle} em={h.faqTitleEm} />
                 <p>{h.faqBody}</p>
-                <TextLink href={sectionPath(locale, 'faq')}>{h.faqLink}</TextLink>
+                <TextLink href={sectionHref(locale, 'faq', chrome.site.publicSections)}>{h.faqLink}</TextLink>
               </div>
               <FaqList items={page.faqs} schema={false} />
             </div>
@@ -391,7 +395,7 @@ export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
           <div className={s.quoteInner}>
             <Eyebrow inverse>{h.quoteEyebrow}</Eyebrow>
             <h2 id="quote-title">
-              {h.quoteTitle} <em>{h.quoteTitleEm}</em>
+              {h.quoteTitle}{wordSpace(locale)}<em>{h.quoteTitleEm}</em>
             </h2>
             <p>{page.readyToSail ?? h.quoteBody}</p>
             <ButtonLink href={sectionPath(locale, 'booking')}>{h.quoteCta}</ButtonLink>

@@ -133,4 +133,69 @@ const vi: FaqMessages = {
   contactCaption: 'Hẹn gặp bạn trên vịnh.',
 };
 
-export const faqMessages = byLocale({ en, vi });
+const ja: FaqMessages = {
+  breadcrumb: 'よくあるご質問',
+  metaTitle: 'よくあるご質問',
+  metaDescription:
+    'ハロン湾・ランハ湾を巡るGreen Rubyのクルーズについて、行程、ご予約とお支払い、客室、船内での過ごし方、環境技術などのよくあるご質問にお答えします。',
+  pageSuffix: (page) => ` - ${page}ページ目`,
+  categoryDescription: (name) =>
+    `${name}：ハロン湾・ランハ湾を巡るGreen Rubyのクルーズについて、よくあるご質問に予約担当チームがお答えします。`,
+  heroEyebrow: 'Green Rubyのご案内',
+  heroTitle: '少しの安心が、',
+  heroTitleEm: '旅をより美しく。',
+  heroBody:
+    '湾の選び方から船内での過ごし方の細部まで、わかりやすい回答をご用意しました。安心してご出発いただけます。',
+  heroPrimary: '質問を見る',
+  heroSecondary: 'スタッフに質問する',
+  artKicker: '丁寧にお答えします',
+  artTitle: '出航の前に。',
+  questions: (n) => `${n}件の質問`,
+  introEyebrow: '知っておきたいこと',
+  introTitle: 'ご質問に、',
+  introTitleEm: 'わかりやすくお答えします。',
+  introBody: 'テーマ別にご覧いただくか、知りたい内容を検索してください。旅に欠かせない情報をひとつにまとめています。',
+  topicsKicker: 'テーマから探す',
+  topicsLabel: 'よくあるご質問のテーマ',
+  allTopics: 'すべての質問',
+  helpTitle: '個別のご相談はありますか？',
+  helpBody: '特別なご要望、旅のご計画、ご予約の詳細について、予約担当チームがお手伝いします。',
+  helpLink: 'スタッフに相談する',
+  search: {
+    label: 'よくあるご質問を検索',
+    placeholder: '質問を検索（例：お支払い、服装）',
+    clear: 'クリア',
+    found: (n) => `${n}件の質問が見つかりました`,
+    expandAll: 'すべて開く',
+    collapseAll: 'すべて閉じる',
+    emptyTitle: '該当する質問が見つかりません',
+    emptyBody: '別のキーワードをお試しいただくか、お気軽にスタッフまでお問い合わせください。',
+    reset: 'すべての質問を表示',
+  },
+  otherGroup: 'その他の質問',
+  emptyGroup: 'このテーマの質問はまだありません。',
+  paginationLabel: 'よくあるご質問のページ',
+  previous: '前へ',
+  next: '次へ',
+  assuranceEyebrow: '安心のご計画',
+  assuranceTitle: '特別な旅を、',
+  assuranceTitleEm: 'スムーズに始めるために。',
+  assuranceBody:
+    '最初のご質問から最終的なご予約確定まで、スタッフがご案内します。湾で待つひとときだけを楽しみにお過ごしいただけます。',
+  assuranceCta: '行程を見る',
+  steps: [
+    { title: 'ぴったりの旅を選ぶ', body: 'ハロン湾とランハ湾をご覧いただき、ご滞在に合った行程と客室をお選びください。' },
+    { title: '詳細を確認する', body: '空室状況、料金に含まれるもの、送迎の選択肢、ご予約条件を予約担当チームとご確認ください。' },
+    { title: '湾での時間を楽しみに', body: '予約確認書と当日のご案内をお受け取りいただき、出航の日を楽しみにお待ちください。' },
+  ],
+  contactEyebrow: '個別のご予約相談',
+  contactTitle: 'ほかにも、',
+  contactTitleEm: '気になることはありますか？',
+  contactBody:
+    '記念日のご旅行、特定のスイートのご希望、到着に関するご質問など、旅のご計画を喜んでお手伝いします。',
+  contactPrimary: 'お問い合わせ',
+  contactEmail: 'メールを送る',
+  contactCaption: '湾でお会いしましょう。',
+};
+
+export const faqMessages = byLocale({ en, vi, ja });

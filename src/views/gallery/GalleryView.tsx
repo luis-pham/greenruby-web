@@ -3,12 +3,14 @@ import { PageIntro, SiteFooter, type Chrome } from '@/components/layout';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SmartLink, TextLink } from '@/components/ui';
 import { experiencePath, homePath, sectionPath } from '@/lib/i18n';
+import { sectionHref } from '@/lib/section-links';
 import { absoluteImageUrl, absoluteUrl } from '@/lib/site-url';
 import { categoryKey, galleryPath, placeItems, type Gallery } from './data';
 import { GalleryGrid } from './GalleryGrid';
 import { galleryMessages } from './messages';
 import { VirtualTour } from './VirtualTour';
 import s from './gallery.module.css';
+import { wordSpace } from '@/lib/typography';
 
 const pad = (n: number) => String(n).padStart(2, '0');
 const mediaOrigin = process.env.NEXT_PUBLIC_MEDIA_ORIGIN ?? '';
@@ -23,7 +25,7 @@ const HERO_IMAGE = '/upload/2026/06/08/green-ruby-cruises-halong-bay-1.jpg';
 export function GalleryView({ gallery, chrome }: { gallery: Gallery; chrome: Chrome }) {
   const { locale, t } = chrome;
   const g = galleryMessages[locale];
-  const hubPath = sectionPath(locale, 'gallery');
+  const hubPath = sectionHref(locale, 'gallery', chrome.site.publicSections);
   const { pagination, categories, canonicalCategorySlug: current } = gallery;
   const category = categories.find((c) => c.slug === current) ?? null;
   const key = current ? categoryKey(current) : null;
@@ -46,7 +48,7 @@ export function GalleryView({ gallery, chrome }: { gallery: Gallery; chrome: Chr
         ]}
         eyebrow={g.heroEyebrow}
         // Category pages: their own H1 (CMS "SEO danh mục" title without the brand) and a fuller lead.
-        title={category ? (category.seo?.title?.split(' | ')[0] ?? category.name) : <>{g.heroTitle} <em>{g.heroTitleEm}</em></>}
+        title={category ? (category.seo?.title?.split(' | ')[0] ?? category.name) : <>{g.heroTitle}{wordSpace(locale)}<em>{g.heroTitleEm}</em></>}
         lead={key ? [g.categoryCopy[key], category?.seo?.description].filter(Boolean).join(' ') : g.heroBody}
         actions={
           <>
@@ -158,7 +160,7 @@ export function GalleryView({ gallery, chrome }: { gallery: Gallery; chrome: Chr
               </div>
               <div className={s.virtualCopy}>
                 <Eyebrow inverse>{g.virtualEyebrow}</Eyebrow>
-                <h2 className={s.heading} id="virtual-title">{g.virtualTitle} <em>{g.virtualTitleEm}</em></h2>
+                <h2 className={s.heading} id="virtual-title">{g.virtualTitle}{wordSpace(locale)}<em>{g.virtualTitleEm}</em></h2>
                 <p>{g.virtualBody}</p>
                 <ButtonLink href={mediaFile(tours[0].src)} data-tour={0}>{g.virtualCta}</ButtonLink>
                 <div className={s.virtualNote}>
@@ -176,7 +178,7 @@ export function GalleryView({ gallery, chrome }: { gallery: Gallery; chrome: Chr
               <div className={s.head}>
                 <div>
                   <Eyebrow>{g.momentsEyebrow}</Eyebrow>
-                  <h2 className={s.heading} id="moments-title">{g.momentsTitle} <em>{g.momentsTitleEm}</em></h2>
+                  <h2 className={s.heading} id="moments-title">{g.momentsTitle}{wordSpace(locale)}<em>{g.momentsTitleEm}</em></h2>
                 </div>
                 <p>{g.momentsBody}</p>
               </div>
@@ -204,10 +206,10 @@ export function GalleryView({ gallery, chrome }: { gallery: Gallery; chrome: Chr
         <section className={s.closing} aria-labelledby="closing-title">
           <Image src={HERO_IMAGE} alt="" fill sizes="100vw" className={s.closingImage} />
           <Eyebrow inverse>{g.ctaEyebrow}</Eyebrow>
-          <h2 className={s.heading} id="closing-title">{g.ctaTitle} <em>{g.ctaTitleEm}</em></h2>
+          <h2 className={s.heading} id="closing-title">{g.ctaTitle}{wordSpace(locale)}<em>{g.ctaTitleEm}</em></h2>
           <p>{g.ctaBody}</p>
           <div className={s.closingActions}>
-            <ButtonLink href={sectionPath(locale, 'itinerary')}>{g.ctaPrimary}</ButtonLink>
+            <ButtonLink href={sectionHref(locale, 'itinerary', chrome.site.publicSections)}>{g.ctaPrimary}</ButtonLink>
             <TextLink href={sectionPath(locale, 'booking')} inverse>{g.ctaSecondary}</TextLink>
           </div>
         </section>

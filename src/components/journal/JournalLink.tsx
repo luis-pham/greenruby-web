@@ -4,7 +4,7 @@ import { isRedirect, listArticles } from '@/views/blog/data';
 import { articlePath } from '@/views/blog/paths';
 import s from './journal.module.css';
 
-const label = byLocale({ en: 'From the Green Ruby Journal', vi: 'Từ blog Green Ruby' });
+const label = byLocale({ en: 'From the Green Ruby Journal', vi: 'Từ blog Green Ruby', ja: 'Green Rubyの旅のコラムより' });
 
 /**
  * Internal link from a product page (itinerary, cruise) to the newest published article, so the blog's

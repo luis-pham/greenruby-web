@@ -4,18 +4,20 @@ import { PageIntro, SiteFooter, type Chrome } from '@/components/layout';
 import { FaqList } from '@/components/sections/Faq';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SmartLink, TextLink } from '@/components/ui';
-import { homePath, sectionPath } from '@/lib/i18n';
+import { homePath, sectionPath, type Locale } from '@/lib/i18n';
+import { sectionHref } from '@/lib/section-links';
 import { absoluteImageUrl, absoluteUrl } from '@/lib/site-url';
 import type { ExperienceList, ExperienceSummary } from './data';
 import { ExperienceFilter } from './ExperienceFilter';
 import type { ExperienceMessages } from './messages';
 import { cardImage, experienceUrl, pad, tabLabel } from './shared';
 import s from './experiences.module.css';
+import { wordSpace } from '@/lib/typography';
 
-function Heading({ title, em, id, className }: { title: string; em: string; id: string; className?: string }) {
+function Heading({ locale, title, em, id, className }: { locale: Locale; title: string; em: string; id: string; className?: string }) {
   return (
     <h2 className={cx(s.heading, className)} id={id}>
-      {title} <em>{em}</em>
+      {title}{wordSpace(locale)}<em>{em}</em>
     </h2>
   );
 }
@@ -74,7 +76,7 @@ function ExperienceCard({
 export function ExperiencesView({ list, chrome, m }: { list: ExperienceList; chrome: Chrome; m: ExperienceMessages }) {
   const { locale, t } = chrome;
   const { items, page } = list;
-  const path = sectionPath(locale, 'experiences');
+  const path = sectionHref(locale, 'experiences', chrome.site.publicSections);
   const signature = (list.featured.length > 0 ? list.featured : items).slice(0, 3);
   const numberOf = (item: ExperienceSummary) => items.findIndex((i) => i.id === item.id) + 1 || 1;
   const photos = (page.gallery ?? []).filter((g) => g.type === 'image');
@@ -90,7 +92,7 @@ export function ExperiencesView({ list, chrome, m }: { list: ExperienceList; chr
         currentHref={path}
         crumbs={[{ label: t.breadcrumb.home, href: homePath(locale) }, { label: m.breadcrumb, href: path }]}
         eyebrow={m.heroEyebrow}
-        title={<>{m.heroTitle} <em>{m.heroTitleEm}</em></>}
+        title={<>{m.heroTitle}{wordSpace(locale)}<em>{m.heroTitleEm}</em></>}
         lead={m.heroBody}
         actions={
           <>
@@ -146,7 +148,7 @@ export function ExperiencesView({ list, chrome, m }: { list: ExperienceList; chr
           <div className={cx('container')}>
             <figure className={s.quoteInner}>
               <blockquote>
-                <p>“{m.quote} <em>{m.quoteEm}</em>”</p>
+                <p>“{m.quote}{wordSpace(locale)}<em>{m.quoteEm}</em>”</p>
               </blockquote>
               <span className={s.asterisk} aria-hidden="true">✳</span>
             </figure>
@@ -156,7 +158,7 @@ export function ExperiencesView({ list, chrome, m }: { list: ExperienceList; chr
         <section className={s.collection} id="collection" aria-labelledby="collection-title">
           <div className="container">
             <Intro eyebrow={m.collectionEyebrow} body={m.collectionBody}>
-              <Heading id="collection-title" title={m.collectionTitle} em={m.collectionTitleEm} />
+              <Heading locale={locale} id="collection-title" title={m.collectionTitle} em={m.collectionTitleEm} />
             </Intro>
             <ExperienceFilter
               label={m.filterLabel}
@@ -189,7 +191,7 @@ export function ExperiencesView({ list, chrome, m }: { list: ExperienceList; chr
         <section className={s.day} id="rhythm" aria-labelledby="rhythm-title">
           <div className="container">
             <Intro eyebrow={m.dayEyebrow} body={m.dayBody}>
-              <Heading id="rhythm-title" title={m.dayTitle} em={m.dayTitleEm} />
+              <Heading locale={locale} id="rhythm-title" title={m.dayTitle} em={m.dayTitleEm} />
             </Intro>
             <ol className={s.daySteps}>
               {m.daySteps.map((step, i) => (
@@ -211,9 +213,9 @@ export function ExperiencesView({ list, chrome, m }: { list: ExperienceList; chr
             </div>
             <div className={s.editorialCopy}>
               <Eyebrow inverse>{m.editorialEyebrow}</Eyebrow>
-              <Heading id="editorial-title" title={m.editorialTitle} em={m.editorialTitleEm} />
+              <Heading locale={locale} id="editorial-title" title={m.editorialTitle} em={m.editorialTitleEm} />
               <p>{m.editorialBody}</p>
-              <TextLink href={sectionPath(locale, 'aboutUs')} inverse>{m.editorialLink}</TextLink>
+              <TextLink href={sectionHref(locale, 'aboutUs', chrome.site.publicSections)} inverse>{m.editorialLink}</TextLink>
             </div>
           </div>
         </section>
@@ -224,13 +226,13 @@ export function ExperiencesView({ list, chrome, m }: { list: ExperienceList; chr
               <div className={s.galleryHead}>
                 <div>
                   <Eyebrow>{m.galleryEyebrow}</Eyebrow>
-                  <Heading id="journal-title" title={m.galleryTitle} em={m.galleryTitleEm} />
+                  <Heading locale={locale} id="journal-title" title={m.galleryTitle} em={m.galleryTitleEm} />
                 </div>
-                <TextLink href={sectionPath(locale, 'gallery')}>{m.galleryLink}</TextLink>
+                <TextLink href={sectionHref(locale, 'gallery', chrome.site.publicSections)}>{m.galleryLink}</TextLink>
               </div>
               <div className={s.galleryPhotos}>
                 {teaser.map((photo, i) => (
-                  <SmartLink key={photo.src} href={sectionPath(locale, 'gallery')} className={s.galleryCell}>
+                  <SmartLink key={photo.src} href={sectionHref(locale, 'gallery', chrome.site.publicSections)} className={s.galleryCell}>
                     <Image src={photo.src} alt={photo.alt ?? m.galleryAlt(i + 1)} fill sizes="(max-width: 640px) 50vw, 33vw" />
                   </SmartLink>
                 ))}
@@ -243,7 +245,7 @@ export function ExperiencesView({ list, chrome, m }: { list: ExperienceList; chr
           <div className={cx('container', s.faqInner)}>
             <div>
               <Eyebrow>{m.faqEyebrow}</Eyebrow>
-              <Heading id="faq-title" title={m.faqTitle} em={m.faqTitleEm} />
+              <Heading locale={locale} id="faq-title" title={m.faqTitle} em={m.faqTitleEm} />
               <p className={s.desc}>{m.faqBody}</p>
             </div>
             <FaqList items={m.faqs} />
@@ -262,7 +264,7 @@ export function ExperiencesView({ list, chrome, m }: { list: ExperienceList; chr
               <p>{page.readyToSailContent ?? m.ctaBody}</p>
             </div>
             <div className={s.ctaActions}>
-              <ButtonLink href={sectionPath(locale, 'itinerary')}>{m.ctaPrimary}</ButtonLink>
+              <ButtonLink href={sectionHref(locale, 'itinerary', chrome.site.publicSections)}>{m.ctaPrimary}</ButtonLink>
               <ButtonLink href={sectionPath(locale, 'booking')} variant="lightOutline">{m.ctaSecondary}</ButtonLink>
             </div>
           </div>

@@ -22,6 +22,8 @@ export const siteSchema = z.object({
   }),
   /** app_page codes switched off in the CMS ("destinations", "guide-first-time", "guide-transfer"): never linked. */
   hiddenPages: z.array(z.string()).default([]),
+  /** New languages only (phase 2B): their public section pages (lib/section-links.ts); absent for en/vi. */
+  publicSections: z.array(z.string()).optional().catch(undefined),
 });
 export type Site = z.infer<typeof siteSchema>;
 

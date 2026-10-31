@@ -1,8 +1,9 @@
 'use client';
 
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
-import { sectionPath, type Locale } from '@/lib/i18n';
+import { dateFormatTag, numberFormatTag, sectionPath, type Locale } from '@/lib/i18n';
 import type { BookingData, BookingOption } from '@/lib/booking-options';
+import { wordSpace } from '@/lib/typography';
 import { bookingMessages, type BookingMessages } from './messages';
 import s from './booking.module.css';
 
@@ -11,10 +12,10 @@ type Props = { locale: Locale; data: BookingData; cabinId?: number; contact: Con
 
 const cx = (...c: (string | false | undefined | null)[]) => c.filter(Boolean).join(' ');
 const pad = (n: number) => String(n).padStart(2, '0');
-const tag = (locale: Locale) => (locale === 'vi' ? 'vi-VN' : 'en-GB');
+const tag = (locale: Locale) => dateFormatTag(locale);
 
 function formatMoney(value: number, currency: 'USD' | 'VND', locale: Locale) {
-  return new Intl.NumberFormat(locale === 'vi' ? 'vi-VN' : 'en-US', { style: 'currency', currency, maximumFractionDigits: 0 }).format(value);
+  return new Intl.NumberFormat(numberFormatTag(locale), { style: 'currency', currency, maximumFractionDigits: 0 }).format(value);
 }
 
 function formatDay(iso: string, locale: Locale) {
@@ -116,7 +117,7 @@ function useBooking(data: BookingData) {
 function Price({ option, locale, t }: { option?: BookingOption; locale: Locale; t: BookingMessages }) {
   return option?.fromPrice ? (
     <p className={s.price}>
-      <span>{t.from}</span> <strong>{formatMoney(option.fromPrice, option.currency, locale)}</strong> <span>{t.perCabin}</span>
+      <span>{t.from}</span>{wordSpace(locale)}<strong>{formatMoney(option.fromPrice, option.currency, locale)}</strong>{wordSpace(locale)}<span>{t.perCabin}</span>
     </p>
   ) : (
     <p className={s.price}><strong className={s.priceAsk}>{t.priceOnRequest}</strong></p>
@@ -237,7 +238,7 @@ export function BookingBar({ locale, data, cabinId }: Omit<Props, 'contact'>) {
         <span className={s.barLabel}>{option?.fromPrice ? t.from : t.priceLabel}</span>
         <span className={s.barValue}>
           {option?.fromPrice ? (
-            <><strong>{formatMoney(option.fromPrice, option.currency, locale)}</strong> {t.perCabin}</>
+            <><strong>{formatMoney(option.fromPrice, option.currency, locale)}</strong>{wordSpace(locale)}{t.perCabin}</>
           ) : (
             t.onRequest
           )}

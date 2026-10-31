@@ -1,4 +1,4 @@
-import type { Locale } from '@/lib/i18n';
+import { dateFormatTag, type Locale } from '@/lib/i18n';
 import type { ArticleSummary } from './data';
 import { articlePath } from './paths';
 
@@ -6,7 +6,7 @@ export const pad = (n: number) => String(n).padStart(2, '0');
 
 /** "13 June 2026" / "13 tháng 6, 2026", in the CMS timezone. */
 export function formatDate(iso: string, locale: Locale): string {
-  return new Intl.DateTimeFormat(locale === 'vi' ? 'vi-VN' : 'en-GB', {
+  return new Intl.DateTimeFormat(dateFormatTag(locale), {
     day: 'numeric',
     month: 'long',
     year: 'numeric',

@@ -9,6 +9,7 @@ import { bays, type DestinationSummary } from '@/views/destinations/data';
 import { destinationMessages } from '@/views/destinations/messages';
 import { hubMessages } from './hub-messages';
 import s from './guide.module.css';
+import { wordSpace } from '@/lib/typography';
 
 export type HubCruise = { id: number; slug: string; name: string; bay: 'ha-long' | 'lan-ha' | null };
 export type HubArticle = { href: string; title: string; category: string | null };
@@ -72,7 +73,7 @@ export function HubView({
         eyebrow={m.eyebrow}
         title={
           <>
-            {m.title} <em>{m.titleEm}</em>
+            {m.title}{wordSpace(locale)}<em>{m.titleEm}</em>
           </>
         }
         lead={m.lead}
@@ -114,7 +115,7 @@ export function HubView({
         data={{
           '@context': 'https://schema.org',
           '@type': 'CollectionPage',
-          name: `${m.title} ${m.titleEm}`,
+          name: `${m.title}${wordSpace(locale)}${m.titleEm}`,
           description: m.metaDescription,
           url: absoluteUrl(path),
           inLanguage: locale,

@@ -1,9 +1,9 @@
-import type { Locale } from '@/lib/i18n';
 import type { Messages } from '@/messages';
 import type { ServerBooking } from './api';
 import type { BookingPayload, PayloadInput } from './payment';
 import { buildBookingPayload } from './payment';
-import { displayCabinPrice, roundPrice, toCabinPricing, type Currency, type Guests } from './pricing';
+import { guestsText } from './format';
+import { displayCabinPrice, roundPrice, toCabinPricing, type Currency } from './pricing';
 import type { State } from './state';
 
 export type T = Messages['booking'];
@@ -19,16 +19,8 @@ export function durationLabel(t: T, days: number | null | undefined): string {
   return fmt(nights === 1 ? t.durationOne : t.durationMany, { days, nights });
 }
 
-/** "2026-03-04" -> "4 Mar 2026" (en) / "04/03/2026" (vi), without timezone shifts. */
-export function formatDate(locale: Locale, ymd: string | null | undefined): string {
-  if (!ymd) return '';
-  const [y, m, d] = ymd.split('-').map(Number);
-  if (!y || !m || !d) return ymd;
-  const date = new Date(y, m - 1, d);
-  return locale === 'vi'
-    ? new Intl.DateTimeFormat('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' }).format(date)
-    : new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }).format(date);
-}
+// Locale-aware display helpers (dates, amounts, guest counts) live in format.ts (phase 2B, unit-tested).
+export { formatAmount, formatDate, guestsText } from './format';
 
 export function todayYmd(): string {
   const now = new Date();
@@ -64,20 +56,6 @@ export function mediaSrc(url: string | null | undefined): string | null {
   } catch {
     return null;
   }
-}
-
-export function guestsText(t: T, g: Partial<Guests>): string {
-  const s = t.guestShort;
-  const parts: string[] = [];
-  const a = g.adults ?? 0;
-  const c612 = g.children_6_12 ?? 0;
-  const c25 = g.children_2_5 ?? 0;
-  const inf = g.infants ?? 0;
-  if (a > 0) parts.push(`${a} ${a > 1 ? s.adults : s.adult}`);
-  if (c612 > 0) parts.push(`${c612} ${s.child612}`);
-  if (c25 > 0) parts.push(`${c25} ${s.child25}`);
-  if (inf > 0) parts.push(`${inf} ${inf > 1 ? s.infants : s.infant}`);
-  return parts.join(', ');
 }
 
 export function cabinDescription(t: T, cabin: { capacity: number; view: string | null; area: number | null; summary: string | null }): string {

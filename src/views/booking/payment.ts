@@ -8,6 +8,7 @@
  */
 import { isLegacyLocale, type LegacyLocale, type Locale } from '../../lib/i18n.ts';
 import type { Currency, Guests } from './pricing';
+import { normalizePhone } from './validation.ts';
 
 export type PaymentMethod = 'stripe' | 'paypal' | 'sepay';
 export const PAYMENT_METHODS: readonly PaymentMethod[] = ['stripe', 'paypal', 'sepay'];
@@ -102,7 +103,7 @@ export function buildBookingPayload(input: PayloadInput): BookingPayload {
     guests_total: guestsTotal,
     full_name: input.guest.fullName.trim(),
     email: input.guest.email.trim(),
-    phone: input.guest.phone.trim(),
+    phone: normalizePhone(input.guest.phone),
     subtotal_cabins: subtotalCabins,
     subtotal_amenities: subtotalAmenities,
     total_amount: round(subtotalCabins + subtotalAmenities, currency),
@@ -116,9 +117,12 @@ export function buildInquiryBooking(payload: BookingPayload, currency: Currency)
   return { ...payload, currency };
 }
 
-/** Body for POST /api/booking/inquiry; `terms` only when the policy requires acceptance. */
-export function buildInquiryBody(payload: BookingPayload, currency: Currency, terms?: TermsAcceptance) {
-  return { booking: buildInquiryBooking(payload, currency), ...(terms ? { terms } : {}) };
+/**
+ * Body for POST /api/booking/inquiry; `terms` only when the policy requires acceptance. `locale` (phase 2B): the
+ * page language, stored as bookings.locale for the guest e-mails; never terms.locale, which is 'en' for ja.
+ */
+export function buildInquiryBody(payload: BookingPayload, currency: Currency, terms?: TermsAcceptance, locale?: Locale) {
+  return { booking: buildInquiryBooking(payload, currency), ...(terms ? { terms } : {}), ...(locale ? { locale } : {}) };
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -138,6 +142,11 @@ export type BookingPolicy = {
   termsVersion: string | null;
   /** Vietnam calendar date on the server, Y-m-d: the deposit rule counts days from it. */
   today: string;
+  /**
+   * Page languages that may start an online payment (CMS booking.payment_locales, phase 2B); null when the CMS does
+   * not send the list (format.ts paymentAllowed then keeps en/vi as before and offers intl locales the request only).
+   */
+  paymentLocales: string[] | null;
 };
 
 export function parsePolicy(data: Record<string, unknown> | null): BookingPolicy | null {
@@ -150,6 +159,7 @@ export function parsePolicy(data: Record<string, unknown> | null): BookingPolicy
     termsRequired: data.terms_required === true,
     termsVersion: typeof data.terms_version === 'string' ? data.terms_version : null,
     today: data.today,
+    paymentLocales: Array.isArray(data.payment_locales) ? data.payment_locales.filter((code): code is string => typeof code === 'string') : null,
   };
 }
 
@@ -201,6 +211,8 @@ export type PaymentInitBody = {
   currency?: Currency;
   payment_plan?: PaymentPlan;
   terms?: TermsAcceptance;
+  /** Page language (phase 2B): the CMS refuses a payment from a language outside booking.payment_locales. */
+  locale?: Locale;
 };
 
 /**
@@ -216,6 +228,7 @@ export function buildPaymentInitBody(args: {
   /** Only when the policy offers a choice; omitted, the request is the same as before deposits existed. */
   plan?: PaymentPlan;
   terms?: TermsAcceptance;
+  locale?: Locale;
 }): PaymentInitBody {
   const body: PaymentInitBody = {
     method: args.method,
@@ -226,6 +239,7 @@ export function buildPaymentInitBody(args: {
   if (!args.booking.cabins.some((c) => c.cabin_id)) body.currency = args.currency;
   if (args.plan) body.payment_plan = args.plan;
   if (args.terms) body.terms = args.terms;
+  if (args.locale) body.locale = args.locale;
   return body;
 }
 
@@ -234,7 +248,7 @@ export function methodSupportsCurrency(method: PaymentMethod, currency: Currency
   return method === 'sepay' ? currency === 'vnd' : currency === 'usd';
 }
 
-export type InitFailure = 'usd_only' | 'vnd_only' | 'amount' | 'terms' | 'termsUpdated' | 'departure' | 'unavailable' | 'generic';
+export type InitFailure = 'usd_only' | 'vnd_only' | 'amount' | 'terms' | 'termsUpdated' | 'departure' | 'unavailable' | 'paymentLocale' | 'generic';
 
 /** Maps a failed /api/payment/init (or /api/booking/inquiry) response to a message key. */
 export function classifyInitFailure(data: Record<string, unknown> | null): InitFailure {
@@ -243,6 +257,7 @@ export function classifyInitFailure(data: Record<string, unknown> | null): InitF
   if (data?.code === 'terms_required') return 'terms';
   if (data?.code === 'terms_version_mismatch') return 'termsUpdated';
   if (data?.code === 'terms_not_configured') return 'unavailable';
+  if (data?.code === 'payment_locale_not_allowed') return 'paymentLocale';
   if (typeof data?.code === 'string' && data.code.startsWith('departure_date_')) return 'departure';
   return 'generic';
 }

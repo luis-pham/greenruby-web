@@ -47,17 +47,29 @@ export type Step2Messages = {
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-/** Name required; phone digits with optional leading + (spaces, dashes, dots and brackets allowed); basic email shape. */
+/**
+ * Phone as sent to the server: full-width digits, plus and hyphen typed with a Japanese IME (０９０－１２３４…)
+ * become ASCII (NFKC). ASCII input is returned unchanged apart from the trim, as before.
+ */
+export const normalizePhone = (phone: string): string => phone.normalize('NFKC').trim();
+
+/** Separators allowed between digits: spaces, dashes (any Unicode dash, the katakana long mark), dots, brackets. */
+const PHONE_SEPARATORS = /[\s\-.()\u2010-\u2015\u2212\u30fc]/g;
+
+/**
+ * Name required (any script: kanji, kana, Latin, Vietnamese…, nothing else checked, as before); phone digits with
+ * an optional leading + (international numbers such as +81 90-1234-5678); basic email shape.
+ */
 export function validateStep2(input: Step2Input, msg: Step2Messages): ValidationResult {
   const fieldErrors: Record<string, string> = {};
   const fullName = input.fullName.trim();
-  const phone = input.phone.trim();
+  const phone = normalizePhone(input.phone);
   const email = input.email.trim();
 
   if (!fullName) fieldErrors.fullName = msg.fullNameRequired;
 
   if (!phone) fieldErrors.phone = msg.phoneRequired;
-  else if (!/^\+?\d+$/.test(phone.replace(/[\s\-.()]/g, ''))) fieldErrors.phone = msg.phoneNumeric;
+  else if (!/^\+?[0-9]+$/.test(phone.replace(PHONE_SEPARATORS, ''))) fieldErrors.phone = msg.phoneNumeric;
 
   if (!email) fieldErrors.email = msg.emailRequired;
   else if (!EMAIL.test(email)) fieldErrors.email = msg.emailInvalid;

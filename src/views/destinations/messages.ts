@@ -227,7 +227,119 @@ const vi: DestinationMessages = {
   },
 };
 
-export const destinationMessages = byLocale<DestinationMessages>({ en, vi });
+const ja: DestinationMessages = {
+  metaTitle: 'ハロン湾の観光スポット：洞窟・島・村',
+  metaDescription:
+    'ハロン湾・ランハ湾の洞窟、島、ビーチ、漁村。Green Rubyのクルーズが立ち寄る予定の場所と、そのほかの見どころをご紹介します。',
+  breadcrumb: '観光スポット',
+  breadcrumbGuide: '旅行ガイド',
+  eyebrow: '旅行ガイド',
+  title: 'ハロン湾・ランハ湾の',
+  titleEm: '観光スポット',
+  lead: '2つの湾に点在する洞窟、島、ビーチ、漁村について、それぞれの訪れ方、Green Rubyの予定航路に含まれる場所、別の方法で訪れる場所をご案内します。',
+  bays: { 'ha-long': 'ハロン湾', 'lan-ha': 'ランハ湾' },
+  bayIntro: {
+    'ha-long': 'ユネスコ世界遺産の中心となる湾。大きな観光洞窟や島の展望台があり、航路は比較的混み合います。Green Ruby 1が運航します。',
+    'lan-ha': 'ハロン湾の南、カットバ島の沖合に広がる湾。穏やかな水面、カヤックで巡るラグーン、村の訪問が特徴です。Green Ruby 2が運航します。',
+  },
+  categories: { cave: '洞窟', island: '島・ビーチ', village: '村', lagoon: 'ラグーン・カヤック', other: 'その他' },
+  category: { cave: '洞窟', island: '島', village: '村', lagoon: 'ラグーン', other: 'スポット' },
+  places: (n: number) => `${n}か所`,
+  compareBays: '2つの湾を比較',
+  filter: {
+    label: '観光スポットを絞り込む',
+    search: '観光スポットを検索',
+    searchPlaceholder: '名前で検索（例：洞窟）',
+    bay: '湾',
+    category: '種類',
+    all: 'すべて',
+    results: (n: number) => `${n}か所`,
+    empty: '条件に合う観光スポットはありません。',
+    reset: '条件をクリア',
+  },
+  stop: 'Green Ruby立ち寄り予定',
+  regional: '周辺の観光スポット',
+  thingsToDo: {
+    title: '湾での楽しみ方',
+    lede: '2つの湾での主な観光のスタイルです。各スポットのガイドで、アクセス、所要時間、条件をご案内しています。',
+    groups: {
+      cave: ['洞窟', '階段を歩いて見学する観光洞窟と、カヤックや小舟でくぐり抜ける、水面近くの低い洞窟があります。'],
+      island: ['島・ビーチ', '階段を上って訪れる島の展望台と、条件が整った場合にのみ遊泳できる小さなビーチがあります。'],
+      village: ['漁村と地元の暮らし', '2014年に住民が陸へ移り住んだかつての水上村と、船と自転車または電気カートで訪れるカットバ島の農村があります。'],
+      lagoon: ['ラグーン・カヤック・小舟', '小島に囲まれた穏やかな水域を、湾や現地の規則に応じて、カヤック、竹舟、手漕ぎボートで巡ります。'],
+    },
+    cavesLink: '洞窟を比較する',
+    kayakNote: 'ランハ湾でのカヤックは、現地の規則により一時中止されています（2026年10月時点）。そのため、ランハ湾の立ち寄り先は船から見学します。ハロン湾のルオン洞窟は、カヤックまたは竹舟で訪れます。',
+    onboard: ['船上のアクティビティ', '料理、朝のエクササイズなど、船上で楽しめるアクティビティは「体験」ページでご紹介しています。'],
+    onboardLink: '船上の体験を見る',
+  },
+  stops: {
+    title: 'Green Rubyクルーズの立ち寄り先',
+    lede: 'Green Rubyが公開している行程に含まれる場所です。あくまで予定であり、確約するものではありません。当日の天候、潮の満ち引き、現地の規則によって決まります。',
+  },
+  others: {
+    title: 'そのほかの見どころ',
+    lede: 'Green Rubyの行程には含まれない、湾内の有名なスポットです。Green Rubyのクルーズはこれらの場所には立ち寄りません。ハロン湾の日帰り観光船で、別途訪れることができます。',
+    notStop: 'Green Rubyは立ち寄りません',
+    source: '出典',
+    route: 'ハロン湾観光ルートVHL1で訪れることができます。出発はトゥアンチャウ（Tuan Chau）またはHa Long International Cruise Portです。',
+  },
+  caves: {
+    title: 'ハロン湾・ランハ湾の洞窟',
+    lede: '各洞窟の訪れ方と、Green Rubyの行程に含まれるかどうかをまとめました。',
+    cave: '洞窟',
+    bay: '湾',
+    visit: '見学方法',
+    greenRuby: 'Green Rubyの行程',
+    none: 'Green Rubyは立ち寄りません',
+  },
+  cruises: { title: 'Green Rubyの船', lede: 'Green Ruby 1はハロン湾、Green Ruby 2はランハ湾を運航します。' },
+  stopNote: 'Green Rubyの立ち寄り先は公開済みの行程に基づきますが、運航開始（2027年2月予定）までは暫定です。そのほかの周辺観光スポットは、Green Rubyのルートには含まれません。',
+  readMore: 'ガイドを読む',
+  map: {
+    title: '湾の地図',
+    lede: '位置を確認済みの観光スポットです。位置はおおよそのもので、目安としてご利用ください。',
+    attribution: '© OpenStreetMap contributors',
+    listLabel: '地図上の観光スポット',
+  },
+  itineraries: {
+    title: 'クルーズごとの立ち寄り先',
+    lede: 'Green Rubyの各行程で予定している立ち寄り先です。時間や立ち寄り先は、天候や潮の満ち引きによって変わる場合があります。',
+    days: (n: number) => `${n - 1}泊${n}日`,
+    view: '行程を見る',
+  },
+  plan: {
+    title: 'ご出発の前に',
+    items: [
+      ['天候しだい', 'すべての見学は、船の出航が許可されることが前提です。暴風警報が出た場合（主に6月〜10月）、直前に運航が中止されることがあります。'],
+      ['潮の満ち引き', 'ルオン洞窟やDark & Bright Caveのような低い洞窟の通路は、潮位が適しているときにしか通れないため、ガイドが1日の順番を変更することがあります。'],
+      ['階段とバランス', '観光洞窟や展望台には多くの階段があり、カヤックや手漕ぎボートにはある程度のバランス感覚が必要です。バリアフリーに関する注意点は、各ガイドに記載しています。'],
+    ],
+  },
+  guides: {
+    title: '旅の準備',
+    firstTime: ['初めてのハロン湾クルーズですか？', '旅の流れ、持ち物、乗船日の過ごし方をご案内します。'],
+    transfer: ['ハノイからハロン湾へ', '送迎、港、実際にかかる移動時間について。'],
+    bestTime: ['おすすめの時期', '月ごとの天候と台風シーズン。'],
+  },
+  detail: {
+    facts: '基本情報',
+    plan: 'Green Rubyの予定',
+    planNone: 'この場所はGreen Rubyの行程には含まれません。個人で、またはほかの会社のツアーで訪れることができる周辺の観光スポットとして掲載しています。',
+    planNote: '公開済みの行程に基づく立ち寄り予定です。運航開始（2027年2月予定）までは暫定です。',
+    mapsLink: 'Google マップで開く',
+    faq: 'よくあるご質問',
+    sources: '出典',
+    photo: '写真',
+    checked: '情報確認日',
+    related: '周辺・類似のスポット',
+    back: 'すべての観光スポット',
+    ctaTitle: '行程の詳細を見る',
+    ctaBody: 'ここに立ち寄る予定のクルーズについて、時間、食事、客室、料金に含まれるものをご覧いただけます。',
+  },
+};
+
+export const destinationMessages = byLocale<DestinationMessages>({ en, vi, ja });
 
 /**
  * How each cave is visited, by destination slug of each language (for the hub's cave table). Taken from the
@@ -250,6 +362,14 @@ export const caveVisit = byLocale<Record<string, string>>({
     'dong-thien-cung': 'Đi bộ, leo bậc lên cửa động cao khoảng 20 m; khoảng 30 – 60 phút',
     'hang-dau-go': 'Đi bộ, khoảng 90 bậc đá dốc; ngăn đầu có ánh sáng tự nhiên; khoảng 30 – 60 phút',
   },
+  ja: {
+    'sung-sot-cave': '徒歩で見学。階段や足場の悪い道があります。所要約45〜60分',
+    'luon-cave': 'カヤックまたは竹舟で、水面近くのトンネルをくぐります',
+    'tien-ong-cave': '短い距離を歩いて入洞。考古学の展示があります',
+    'dark-bright-cave': '手漕ぎボートで見学（ランハ湾のカヤックは現在中止）',
+    'thien-cung-cave': '徒歩で見学。海抜約20mの入口まで階段を上ります。所要約30〜60分',
+    'dau-go-cave': '徒歩で見学。約90段の急な階段があり、3つの空間のうち最初の空間には外光が入ります。所要約30〜60分',
+  },
 });
 
 /**
@@ -260,4 +380,4 @@ export const caveVisit = byLocale<Record<string, string>>({
 export type OtherPlace = { key: string; name: string; bay: Bay; category: Category; summary: string; visit: string; sources: { title: string; url: string }[] };
 
 
-export const otherPlaces = byLocale<OtherPlace[]>({ en: [], vi: [] });
+export const otherPlaces = byLocale<OtherPlace[]>({ en: [], vi: [], ja: [] });

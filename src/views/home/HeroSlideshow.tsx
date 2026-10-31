@@ -4,11 +4,12 @@ import Image from 'next/image';
 import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
 import s from './home.module.css';
 
-export type HeroSlide = { image: string; title: string; titleEm: string | null; body: string | null };
+/** `gap`: what joins title and titleEm when it is not a space (Japanese, lib/typography.ts wordSpace); absent for en/vi. */
+export type HeroSlide = { image: string; title: string; titleEm: string | null; body: string | null; gap?: string };
 
 const INTERVAL = 4375;
 const pad = (n: number) => String(n).padStart(2, '0');
-const fullTitle = (slide: HeroSlide) => (slide.titleEm ? `${slide.title} ${slide.titleEm}` : slide.title);
+const fullTitle = (slide: HeroSlide) => (slide.titleEm ? `${slide.title}${slide.gap ?? ' '}${slide.titleEm}` : slide.title);
 const fill = (template: string, n: number, slide: HeroSlide) => template.replace('{n}', pad(n)).replace('{title}', fullTitle(slide));
 
 /**
@@ -110,7 +111,7 @@ export function HeroSlideshow({
                   {slide.title}
                   {slide.titleEm && (
                     <>
-                      {' '}
+                      {slide.gap ?? ' '}
                       <em>{slide.titleEm}</em>
                     </>
                   )}

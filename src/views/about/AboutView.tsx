@@ -6,10 +6,12 @@ import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SmartLink, TextLink } from '@/components/ui';
 import { guideArticlePath } from '@/lib/guide-links';
 import { detailPath, homePath, sectionPath } from '@/lib/i18n';
+import { sectionHref } from '@/lib/section-links';
 import { absoluteImageUrl, absoluteUrl } from '@/lib/site-url';
 import type { AboutCruise, AboutPage } from './data';
 import { aboutMessages, honestDescription } from './messages';
 import s from './about.module.css';
+import { wordSpace } from '@/lib/typography';
 
 export type Credential = { title: string | null; description: string | null };
 
@@ -70,7 +72,7 @@ export function AboutView({
   const { locale, t, site } = chrome;
   const m = aboutMessages[locale];
   const c = data.config;
-  const path = sectionPath(locale, 'aboutUs');
+  const path = sectionHref(locale, 'aboutUs', chrome.site.publicSections);
   const banner = c.banner?.[0];
   const [storyMain, storySecondary] = data.heroImages;
   const tech = c.sustainability ?? [];
@@ -81,8 +83,8 @@ export function AboutView({
     { value: c.statisticRenewableSolarPower, suffix: ' kW', label: m.impact.solar },
   ].filter((x) => x.value != null && String(x.value).trim() !== '');
   const ctaImage = c.ecoFeaturedImage ?? banner?.src ?? null;
-  const itineraryUrl = sectionPath(locale, 'itinerary');
-  const contactUrl = sectionPath(locale, 'contact');
+  const itineraryUrl = sectionHref(locale, 'itinerary', chrome.site.publicSections);
+  const contactUrl = sectionHref(locale, 'contact', chrome.site.publicSections);
 
   return (
     <>
@@ -93,7 +95,7 @@ export function AboutView({
         imageAlt={banner?.alt ?? ''}
         crumbs={[{ label: t.breadcrumb.home, href: homePath(locale) }, { label: m.breadcrumb, href: path }]}
         eyebrow={m.hero.eyebrow}
-        title={<>{m.hero.title} <em>{m.hero.titleEm}</em></>}
+        title={<>{m.hero.title}{wordSpace(locale)}<em>{m.hero.titleEm}</em></>}
         description={banner?.description ?? m.hero.body}
         actions={
           <>
@@ -131,7 +133,7 @@ export function AboutView({
             <div className={s.storyCopy}>
               <Eyebrow>01 — {m.story.eyebrow}</Eyebrow>
               <h2 className={s.heading} id="story-title">
-                {c.ecoDescription ?? <>{m.story.title} <em>{m.story.titleEm}</em></>}
+                {c.ecoDescription ?? <>{m.story.title}{wordSpace(locale)}<em>{m.story.titleEm}</em></>}
               </h2>
               <p className={s.lead}>{m.story.lead}</p>
               {paragraphs(c.ecoContent).map((p) => <p key={p} className={s.description}>{p}</p>)}
@@ -159,7 +161,7 @@ export function AboutView({
               <div>
                 <blockquote>
                   <p>
-                    “{m.statement.line1} {m.statement.line2} <em>{m.statement.em}</em>”
+                    “{m.statement.line1}{wordSpace(locale)}{m.statement.line2}{wordSpace(locale)}<em>{m.statement.em}</em>”
                   </p>
                 </blockquote>
                 <figcaption className={s.statementFooter}>{m.statement.footer}</figcaption>
@@ -175,7 +177,7 @@ export function AboutView({
               <div className={s.sectionHeading}>
                 <div>
                   <Eyebrow>02 — {m.technology.eyebrow}</Eyebrow>
-                  <h2 className={s.heading} id="tech-title">{m.technology.title} <em>{m.technology.titleEm}</em></h2>
+                  <h2 className={s.heading} id="tech-title">{m.technology.title}{wordSpace(locale)}<em>{m.technology.titleEm}</em></h2>
                 </div>
                 <p className={s.description}>{m.technology.body}</p>
               </div>
@@ -249,7 +251,7 @@ export function AboutView({
                 <div>
                   <Eyebrow>03 — {m.community.eyebrow}</Eyebrow>
                   <h2 className={s.heading} id="community-title">
-                    {c.enviromentTitle ?? <>{m.community.title} <em>{m.community.titleEm}</em></>}
+                    {c.enviromentTitle ?? <>{m.community.title}{wordSpace(locale)}<em>{m.community.titleEm}</em></>}
                   </h2>
                 </div>
                 <p className={s.description}>{c.enviromentDescription?.replace(/\s*\n\s*/g, ' ') ?? m.community.body}</p>
@@ -290,7 +292,7 @@ export function AboutView({
               <div className={s.sectionHeading}>
                 <div>
                   <Eyebrow>04 — {m.collection.eyebrow}</Eyebrow>
-                  <h2 className={s.heading} id="collection-title">{m.collection.title(fleet.length)} <em>{m.collection.titleEm}</em></h2>
+                  <h2 className={s.heading} id="collection-title">{m.collection.title(fleet.length)}{wordSpace(locale)}<em>{m.collection.titleEm}</em></h2>
                 </div>
                 <p className={s.description}>{m.collection.body}</p>
               </div>
@@ -322,7 +324,7 @@ export function AboutView({
             <div className={cx('container', s.standardsLayout)}>
               <div>
                 <Eyebrow>05 — {m.standards.eyebrow}</Eyebrow>
-                <h2 className={s.heading} id="standards-title">{m.standards.title} <em>{m.standards.titleEm}</em></h2>
+                <h2 className={s.heading} id="standards-title">{m.standards.title}{wordSpace(locale)}<em>{m.standards.titleEm}</em></h2>
                 <p className={s.description}>{c.partnerDescription ?? m.standards.body}</p>
                 <p className={s.standardsLinks}>
                   {m.standards.guide && <TextLink href={guideArticlePath(locale, 'luxuryPillar')}>{m.standards.guide}</TextLink>}

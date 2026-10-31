@@ -146,11 +146,11 @@ export const bookingApi = {
     return { ok: res.ok, status: res.status, data: (await res.json().catch(() => null)) as Json | null };
   },
 
-  payPaymentLink(body: { t: string; method: string; payment_plan?: string; return_base: string; terms?: TermsAcceptance }) {
+  payPaymentLink(body: { t: string; method: string; payment_plan?: string; return_base: string; terms?: TermsAcceptance; locale?: Locale }) {
     return postJson('/api/booking/payment-link', body);
   },
 
-  inquiry(body: { booking: BookingPayload & { currency: string }; terms?: TermsAcceptance }) {
+  inquiry(body: { booking: BookingPayload & { currency: string }; terms?: TermsAcceptance; locale?: Locale }) {
     return postJson('/api/booking/inquiry', body);
   },
 

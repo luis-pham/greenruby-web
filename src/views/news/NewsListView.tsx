@@ -1,7 +1,8 @@
 import { Breadcrumb, SiteFooter, SolidHeader, type Chrome, type Crumb } from '@/components/layout';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, Eyebrow } from '@/components/ui';
-import { homePath, sectionPath } from '@/lib/i18n';
+import { homePath } from '@/lib/i18n';
+import { sectionHref } from '@/lib/section-links';
 import { ORGANIZATION_ID } from '@/lib/organization';
 import { DEFAULT_SOCIAL_IMAGE } from '@/lib/seo';
 import { siteInfo } from '@/lib/site-info';
@@ -12,6 +13,7 @@ import { newsPath } from '@/views/blog/paths';
 import { linked, pad } from '@/views/blog/shared';
 import s from '@/views/blog/blog.module.css';
 import { newsMessages } from './messages';
+import { wordSpace } from '@/lib/typography';
 
 /** /news (vi /vi/tin-tuc): the blog listing layout without the journal's category filters, search and topics. */
 export function NewsListView({ chrome, list }: { chrome: Chrome; list: ArticleList }) {
@@ -49,7 +51,7 @@ export function NewsListView({ chrome, list }: { chrome: Chrome; list: ArticleLi
               <div>
                 <Eyebrow>{eyebrow}</Eyebrow>
                 <h1 className={s.heading} id="news-title">
-                  {m.heroTitle} <em>{m.heroTitleEm}</em>
+                  {m.heroTitle}{wordSpace(locale)}<em>{m.heroTitleEm}</em>
                 </h1>
               </div>
               <p className={s.desc}>{list.category?.description ?? m.listIntro}</p>
@@ -80,7 +82,7 @@ export function NewsListView({ chrome, list }: { chrome: Chrome; list: ArticleLi
                 <div className={s.smallMark} aria-hidden="true">{m.emptyMark}</div>
                 <h2 className={s.noResultsTitle}>{m.emptyTitle}</h2>
                 <p>{m.emptyBodyAll}</p>
-                <ButtonLink href={sectionPath(locale, 'itinerary')} variant="dark">{m.emptyCtaJourneys}</ButtonLink>
+                <ButtonLink href={sectionHref(locale, 'itinerary', chrome.site.publicSections)} variant="dark">{m.emptyCtaJourneys}</ButtonLink>
               </div>
             )}
 

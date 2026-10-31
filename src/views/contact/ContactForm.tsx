@@ -4,6 +4,7 @@ import { useActionState } from 'react';
 import { Button, SmartLink } from '@/components/ui';
 import type { Locale } from '@/lib/i18n';
 import type { Messages } from '@/messages';
+import { splitAt } from '@/lib/typography';
 import { sendContact, type ContactState } from './actions';
 import s from './contact.module.css';
 
@@ -22,6 +23,8 @@ export function ContactForm({ locale, t, privacyHref }: { locale: Locale; t: Mes
     );
   }
 
+  // A language whose sentence continues after the link (ja) writes `{link}` in its copy; en/vi keep "consent <link>.".
+  const consentParts = splitAt(t.consent, 'link');
   const errors = state.status === 'error' ? state.fieldErrors : {};
   const values = state.status === 'error' ? state.values : {};
   const general =
@@ -58,7 +61,17 @@ export function ContactForm({ locale, t, privacyHref }: { locale: Locale; t: Mes
         {field('message', t.fields.message, (p) => <textarea {...p} rows={6} placeholder={t.fields.messagePlaceholder} />, true)}
       </div>
       <p className={s.consent}>
-        {t.consent} <SmartLink href={privacyHref}>{t.privacyLink}</SmartLink>.
+        {consentParts ? (
+          <>
+            {consentParts[0]}
+            <SmartLink href={privacyHref}>{t.privacyLink}</SmartLink>
+            {consentParts[1]}
+          </>
+        ) : (
+          <>
+            {t.consent} <SmartLink href={privacyHref}>{t.privacyLink}</SmartLink>.
+          </>
+        )}
       </p>
       {general && <p className={s.errorBox} role="alert">{general}</p>}
       <Button type="submit" disabled={pending} aria-busy={pending}>

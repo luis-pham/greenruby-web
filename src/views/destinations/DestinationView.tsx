@@ -4,7 +4,8 @@ import { PageHero, PageIntro, SiteFooter, type Chrome, type Crumb } from '@/comp
 import { FaqList } from '@/components/sections/Faq';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, TextLink } from '@/components/ui';
-import { destinationPath, experiencePath, homePath, itineraryPath, sectionPath } from '@/lib/i18n';
+import { dateFormatTag, destinationPath, experiencePath, homePath, itineraryPath, sectionPath } from '@/lib/i18n';
+import { sectionHref } from '@/lib/section-links';
 import { absoluteImageUrl, absoluteUrl } from '@/lib/site-url';
 import type { Destination } from './data';
 import { mapsLink } from './map';
@@ -15,7 +16,7 @@ import prose from '@/views/blog/article.module.css';
 const escapeHtml = (value: string) => value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
 function formatDate(iso: string, locale: string): string {
-  return new Intl.DateTimeFormat(locale === 'vi' ? 'vi-VN' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${iso}T00:00:00Z`));
+  return new Intl.DateTimeFormat(dateFormatTag(locale), { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${iso}T00:00:00Z`));
 }
 
 /** /destinations/{slug}: one destination, its facts, Green Ruby plan, FAQs, sources and related places. */
@@ -23,7 +24,7 @@ export function DestinationView({ chrome, destination: d }: { chrome: Chrome; de
   const { locale, t } = chrome;
   const m = destinationMessages[locale];
   const path = destinationPath(locale, d.slug);
-  const hub = sectionPath(locale, 'destinations');
+  const hub = sectionHref(locale, 'destinations', chrome.site.publicSections);
   const crumbs: Crumb[] = [
     { label: t.breadcrumb.home, href: homePath(locale) },
     { label: m.breadcrumbGuide, href: sectionPath(locale, 'guides') },

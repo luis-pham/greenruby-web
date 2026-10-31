@@ -8,7 +8,8 @@ import { organizationRef } from '@/lib/organization';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SmartLink, TextLink } from '@/components/ui';
 import type { Itinerary } from '@/lib/api/schemas';
-import { detailPath, experiencePath, homePath, itineraryPath, sectionPath } from '@/lib/i18n';
+import { detailPath, experiencePath, homePath, isLegacyLocale, itineraryPath } from '@/lib/i18n';
+import { sectionHref } from '@/lib/section-links';
 import { siteInfo } from '@/lib/site-info';
 import { absoluteImageUrl, absoluteUrl } from '@/lib/site-url';
 import { cabinPath } from '@/views/cabin/CabinView';
@@ -16,6 +17,7 @@ import type { DestinationSummary } from '@/views/destinations/data';
 import { placeCard } from '@/views/destinations/cards';
 import { formatDate } from '@/views/itineraries/ItinerariesView';
 import s from './itinerary.module.css';
+import { wordSpace } from '@/lib/typography';
 
 const pad = (n: number) => String(n).padStart(2, '0');
 const plain = (html: string | null) => (html ?? '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
@@ -25,7 +27,9 @@ export function ItineraryView({ itinerary: it, chrome, places = [] }: { itinerar
   const d = t.itinerary;
   const url = itineraryPath(locale, it.slug, it.cruiseId, it.itineraryId);
   const cruiseUrl = detailPath(locale, 'cruise', it.cruise.slug, it.cruise.id);
-  const bookingUrl = `${sectionPath(locale, 'booking')}?cruise_id=${it.cruiseId}&itinerary_id=${it.itineraryId}`;
+  // A new language books the linked English itinerary (`booking` ids, phase 1A); en/vi: the page's own ids, as before.
+  const bookIds = isLegacyLocale(locale) ? { cruiseId: it.cruiseId, itineraryId: it.itineraryId } : it.booking;
+  const bookingUrl = `${sectionHref(locale, 'booking', site.publicSections)}${bookIds?.cruiseId && bookIds.itineraryId ? `?cruise_id=${bookIds.cruiseId}&itinerary_id=${bookIds.itineraryId}` : ''}`;
   const bayName = it.bay ? t.home.bays[it.bay] : null;
   const photos = [it.image, ...it.gallery.map((g) => g.src), ...it.activities.map((a) => a.image)].filter((p): p is string => !!p);
   const photoAt = (i: number) => (photos.length ? photos[i % photos.length] : null);
@@ -40,7 +44,7 @@ export function ItineraryView({ itinerary: it, chrome, places = [] }: { itinerar
         imageAlt={it.name}
         crumbs={[
           { label: t.breadcrumb.home, href: homePath(locale) },
-          { label: t.itineraries.breadcrumb, href: sectionPath(locale, 'itinerary') },
+          { label: t.itineraries.breadcrumb, href: sectionHref(locale, 'itinerary', chrome.site.publicSections) },
           { label: it.name, href: url },
         ]}
         eyebrow={[bayName, it.cruise.name, d.durationLabel(it.duration)].filter(Boolean).join(' · ')}
@@ -85,7 +89,7 @@ export function ItineraryView({ itinerary: it, chrome, places = [] }: { itinerar
           <div className={cx('container', s.introGrid)}>
             <div>
               <Eyebrow>{d.introEyebrow}</Eyebrow>
-              <h2 className={s.heading} id="overview-title">{d.introTitle} <em>{d.introTitleEm}</em></h2>
+              <h2 className={s.heading} id="overview-title">{d.introTitle}{wordSpace(locale)}<em>{d.introTitleEm}</em></h2>
               {it.descriptionHtml ? (
                 <div className={s.body} dangerouslySetInnerHTML={{ __html: it.descriptionHtml }} />
               ) : (
@@ -109,7 +113,7 @@ export function ItineraryView({ itinerary: it, chrome, places = [] }: { itinerar
               <div className={s.head}>
                 <div>
                   <Eyebrow>{d.highlightsEyebrow}</Eyebrow>
-                  <h2 className={s.heading} id="highlights-title">{d.highlightsTitle} <em>{d.highlightsTitleEm}</em></h2>
+                  <h2 className={s.heading} id="highlights-title">{d.highlightsTitle}{wordSpace(locale)}<em>{d.highlightsTitleEm}</em></h2>
                 </div>
                 <p className={s.body}>{d.highlightsBody}</p>
               </div>
@@ -134,7 +138,7 @@ export function ItineraryView({ itinerary: it, chrome, places = [] }: { itinerar
             <div className="container">
               <div className={s.scheduleHead}>
                 <Eyebrow>{d.scheduleEyebrow(it.duration)}</Eyebrow>
-                <h2 className={s.heading} id="schedule-title">{d.scheduleTitle} <em>{d.scheduleTitleEm}</em></h2>
+                <h2 className={s.heading} id="schedule-title">{d.scheduleTitle}{wordSpace(locale)}<em>{d.scheduleTitleEm}</em></h2>
                 <p className={s.body}>{d.scheduleBody}</p>
               </div>
               <div className={s.scheduleGrid}>
@@ -190,7 +194,7 @@ export function ItineraryView({ itinerary: it, chrome, places = [] }: { itinerar
             eyebrow={t.travel.placesEyebrow}
             title={t.travel.placesTitle}
             lede={t.travel.placesLede}
-            more={{ href: sectionPath(locale, 'destinations'), label: t.travel.allPlaces }}
+            more={{ href: sectionHref(locale, 'destinations', chrome.site.publicSections), label: t.travel.allPlaces }}
           >
             <PlaceCards items={places.map((d) => placeCard(locale, d))} />
           </TravelLinksSection>
@@ -200,7 +204,7 @@ export function ItineraryView({ itinerary: it, chrome, places = [] }: { itinerar
           <section className={s.inclusions} id="inclusions" aria-labelledby="inclusions-title">
             <div className="container">
               <Eyebrow inverse>{d.inclusionsEyebrow}</Eyebrow>
-              <h2 className={s.heading} id="inclusions-title">{d.inclusionsTitle} <em>{d.inclusionsTitleEm}</em></h2>
+              <h2 className={s.heading} id="inclusions-title">{d.inclusionsTitle}{wordSpace(locale)}<em>{d.inclusionsTitleEm}</em></h2>
               <div className={s.inclusionsGrid}>
                 {it.services.included.length > 0 && (
                   <div className={s.box}>
@@ -242,7 +246,7 @@ export function ItineraryView({ itinerary: it, chrome, places = [] }: { itinerar
             </figure>
             <div>
               <Eyebrow>{d.shipEyebrow}</Eyebrow>
-              <h2 className={s.heading} id="ship-title">{d.shipTitle} <em>{d.shipTitleEm}</em></h2>
+              <h2 className={s.heading} id="ship-title">{d.shipTitle}{wordSpace(locale)}<em>{d.shipTitleEm}</em></h2>
               <p className={s.body}>{d.shipBody(it.cruise.name)}</p>
               <dl className={s.shipSpecs}>
                 {it.cruise.length != null && <div><dt>{t.home.vesselLength}</dt><dd>{it.cruise.length} m</dd></div>}
@@ -267,9 +271,9 @@ export function ItineraryView({ itinerary: it, chrome, places = [] }: { itinerar
             <div className={cx('container', s.faqLayout)}>
               <div>
                 <Eyebrow>{d.faqEyebrow}</Eyebrow>
-                <h2 className={s.heading} id="faq-title">{d.faqTitle} <em>{d.faqTitleEm}</em></h2>
+                <h2 className={s.heading} id="faq-title">{d.faqTitle}{wordSpace(locale)}<em>{d.faqTitleEm}</em></h2>
                 <p className={s.body}>{t.itineraries.faqBody}</p>
-                <TextLink href={sectionPath(locale, 'faq')}>{d.faqLink}</TextLink>
+                <TextLink href={sectionHref(locale, 'faq', chrome.site.publicSections)}>{d.faqLink}</TextLink>
               </div>
               <FaqList items={it.faqs} />
             </div>
@@ -280,11 +284,11 @@ export function ItineraryView({ itinerary: it, chrome, places = [] }: { itinerar
           {photoAt(0) && <Image src={photoAt(0) as string} alt="" fill sizes="100vw" className={s.ctaImage} />}
           <div className={s.ctaInner}>
             <Eyebrow inverse>{d.ctaEyebrow}</Eyebrow>
-            <h2 className={s.heading} id="cta-title">{d.ctaTitle} <em>{d.ctaTitleEm}</em></h2>
+            <h2 className={s.heading} id="cta-title">{d.ctaTitle}{wordSpace(locale)}<em>{d.ctaTitleEm}</em></h2>
             <p>{d.ctaBody}</p>
             <div className={s.ctaLinks}>
               <ButtonLink href={bookingUrl}>{d.checkAvailability}</ButtonLink>
-              <ButtonLink href={sectionPath(locale, 'contact')} variant="lightOutline" arrow={false}>{d.enquire}</ButtonLink>
+              <ButtonLink href={sectionHref(locale, 'contact', chrome.site.publicSections)} variant="lightOutline" arrow={false}>{d.enquire}</ButtonLink>
             </div>
           </div>
         </section>

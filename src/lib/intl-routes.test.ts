@@ -19,7 +19,8 @@ test('every generated ja route is an English route of an intl section, under /ja
   for (const route of ja) assert.ok(en.includes(route), route);
   assert.deepEqual([...intlRequirements(appRoutes).values()].flat().sort(), [...ja].sort());
   assert.equal(ja.includes('blog/search'), false, 'no intl keyword search');
-  assert.equal(ja.some((r) => r.startsWith('booking')), false, 'no ja checkout');
+  // Phase 2B: the booking wizard and payment-link page, behind the same gate as every intl section.
+  assert.deepEqual(ja.filter((r) => r.startsWith('booking')).sort(), ['booking', 'booking/pay']);
 });
 
 test('each generated page wraps the shared factory in the intl gate (no copy of a view)', () => {
@@ -35,7 +36,9 @@ test('legacy sections are read from their own trees (vi uses its segments)', () 
 
 test('intl links to sections without an intl route go to the English page; EN/VI links unchanged', () => {
   assert.equal(sectionPath('ja', 'cruise'), '/ja/cruise');
-  assert.equal(sectionPath('ja', 'booking'), '/booking');
+  assert.equal(sectionPath('ja', 'booking'), '/ja/booking');
+  assert.equal(sectionPath('ja', 'bookingTerms'), '/booking-terms-and-conditions', 'no Japanese booking terms: English');
+  assert.equal(sectionPath('vi', 'booking'), '/vi/booking');
   assert.equal(sectionPath('ja', 'contact'), '/ja/contact', 'static page with page-level publication (1E-c)');
   assert.equal(sectionPath('ja', 'legal'), '/legal');
   assert.equal(sectionPath('ja', 'brandFacts'), '/about-us/brand-facts');

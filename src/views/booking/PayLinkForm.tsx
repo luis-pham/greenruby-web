@@ -5,10 +5,11 @@ import { useEffect, useState } from 'react';
 import { cx } from '@/components/ui';
 import type { Locale } from '@/lib/i18n';
 import { bookingApi } from './api';
-import { fmt, formatDate, type T } from './model';
+import { fmt, formatAmount, formatDate, type T } from './model';
+import { paymentAllowed } from './format';
+import { switchTarget } from './handoff';
 import { classifyInitFailure, storePaymentAccess, type PaymentMethod, type PaymentPlan, termsLocale } from './payment';
 import { dueNow, linkError, parseLinkInfo, type LinkError, type PaymentLinkInfo } from './pay-link';
-import { formatPrice } from './pricing';
 import s from './booking.module.css';
 
 type Load = { state: 'loading' } | { state: 'error'; error: LinkError } | { state: 'ready'; info: PaymentLinkInfo };
@@ -35,11 +36,25 @@ export function PayLinkForm({ locale, t, bookingHref, termsHref, privacyHref, te
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // Language switcher: keep the payment link token on the other language's /booking/pay (handoff.ts).
   useEffect(() => {
     if (!token) return;
-    bookingApi
-      .paymentLink(token)
-      .then(({ status, data }) => {
+    const onClick = (e: MouseEvent) => {
+      const anchor = (e.target as Element | null)?.closest?.('a[hreflang]') as HTMLAnchorElement | null;
+      if (!anchor || !switchTarget(anchor.href, locale, '/pay', window.location.origin)) return;
+      anchor.href = `${new URL(anchor.href, window.location.origin).pathname}?t=${encodeURIComponent(token)}`;
+    };
+    document.addEventListener('click', onClick, true);
+    return () => document.removeEventListener('click', onClick, true);
+  }, [token, locale]);
+
+  useEffect(() => {
+    if (!token) return;
+    // Payment guard (CMS booking.payment_locales): en/vi skip the policy call and behave as before.
+    const allowed = paymentAllowed(null, locale) ? Promise.resolve(true) : bookingApi.policy().then((policy) => paymentAllowed(policy, locale));
+    Promise.all([bookingApi.paymentLink(token), allowed])
+      .then(([{ status, data }, canPay]) => {
+        if (!canPay) return setLoad({ state: 'error', error: 'unavailable' });
         const info = parseLinkInfo(data);
         if (!info) return setLoad({ state: 'error', error: linkError(status, data) });
         setMethod(info.methods[0] ?? null);
@@ -47,7 +62,7 @@ export function PayLinkForm({ locale, t, bookingHref, termsHref, privacyHref, te
         setLoad({ state: 'ready', info });
       })
       .catch(() => setLoad({ state: 'error', error: 'generic' }));
-  }, [token]);
+  }, [token, locale]);
 
   if (load.state === 'loading') {
     return <p className={s.loadingPanel} role="status">{p.loading}</p>;
@@ -62,7 +77,7 @@ export function PayLinkForm({ locale, t, bookingHref, termsHref, privacyHref, te
 
   const { info } = load;
   const b = info.booking;
-  const price = (v: number) => formatPrice(v, b.currency);
+  const price = (v: number) => formatAmount(v, b.currency, locale);
   const chosen = info.plans.find((x) => x.plan === plan) ?? info.plans[0];
 
   async function submit() {
@@ -81,6 +96,7 @@ export function PayLinkForm({ locale, t, bookingHref, termsHref, privacyHref, te
         ...(info.purpose === 'booking' ? { payment_plan: chosen?.plan ?? 'full' } : {}),
         return_base: window.location.origin + bookingHref,
         ...(info.termsRequired ? { terms: { accepted: true as const, version: termsVersion, locale: termsLocale(locale) } } : {}),
+        locale,
       });
       if (ok && data?.success && typeof data.payment_url === 'string') {
         if (typeof data.internal_tx_id === 'string') {
@@ -100,6 +116,7 @@ export function PayLinkForm({ locale, t, bookingHref, termsHref, privacyHref, te
         failure === 'terms' ? t.errors.termsRequired
           : failure === 'termsUpdated' ? t.errors.termsUpdated
             : failure === 'unavailable' ? t.errors.bookingUnavailable
+              : failure === 'paymentLocale' ? p.errors.unavailable
               : data?.code === 'nothing_due' ? p.errors.nothingDue
                 : t.errors.paymentFailed,
       );
@@ -176,11 +193,16 @@ export function PayLinkForm({ locale, t, bookingHref, termsHref, privacyHref, te
       {info.termsRequired && (
         <div className={s.termsAccept}>
           <input type="checkbox" id="pay-terms-accept" checked={accepted} onChange={(e) => setAccepted(e.target.checked)} />
+          {/* ja: draft acceptance wording (LEGAL_REVIEW_REQUIRED) of the ENGLISH Booking Terms; recorded as 'en'. */}
           <label htmlFor="pay-terms-accept">
-            {t.termsAccept}{' '}
-            <a href={termsHref} target="_blank" rel="noopener">{t.termsAcceptLink}</a>{' '}
-            {t.termsAcceptAnd}{' '}
-            <a href={privacyHref} target="_blank" rel="noopener">{t.privacyLink}</a>.
+            {t.termsAccept}
+            {t.wordSep}
+            <a href={termsHref} target="_blank" rel="noopener">{t.termsAcceptLink}</a>
+            {t.wordSep}
+            {t.termsAcceptAnd}
+            {t.wordSep}
+            <a href={privacyHref} target="_blank" rel="noopener">{t.privacyLink}</a>
+            {t.termsAcceptEnd}
           </label>
         </div>
       )}

@@ -213,7 +213,111 @@ const vi: AboutMessages = {
   },
 };
 
-export const aboutMessages = byLocale<AboutMessages>({ en, vi });
+const ja: AboutMessages = {
+  metaTitle: 'Green Ruby Cruisesについて',
+  metaDescription:
+    'Green Rubyのストーリー。心配りの行き届いたラグジュアリー、環境に配慮した船の設計、ハロン湾・ランハ湾とその地域社会とのつながりをご紹介します。',
+  breadcrumb: 'Green Rubyについて',
+  hero: {
+    eyebrow: 'Green Ruby Cruisesのストーリー',
+    title: 'ラグジュアリーを、',
+    titleEm: '環境への負荷を抑えて。',
+    body: 'ベトナムの湾をもっとも上質に体験する方法とは、その美しさを尊重し、周りの世界を守ることにも貢献する旅だと私たちは考えています。',
+    primary: 'ストーリーを読む',
+    secondary: '私たちの取り組み',
+  },
+  values: {
+    label: 'Green Rubyの考え方を形づくるもの',
+    items: [
+      { icon: 'compass', tag: '理念', title: '心を配るラグジュアリー', body: '余計なものを減らし、水上で過ごす意味のある時間を増やす。' },
+      { icon: 'leaf', tag: '環境', title: '湾を敬う', body: '環境への負荷を抑えるために考えられた技術と、日々の選択。' },
+      { icon: 'people', tag: '地域', title: 'この土地とともに', body: 'この地域の人々や伝統と、より身近につながること。' },
+    ],
+  },
+  subnav: {
+    label: 'このページのセクション',
+    story: 'ストーリー',
+    approach: '私たちの考え方',
+    community: '地域社会',
+    collection: '船のご紹介',
+    progress: '取り組みの状況',
+  },
+  story: {
+    eyebrow: 'ストーリー',
+    title: 'この湾には、',
+    titleEm: 'もっとふさわしい旅を。',
+    lead: 'ゆっくりと過ごし、よく目を凝らし、いつもとは違う旅をしたくなる場所があります。',
+    link: '船を見る',
+    stamp: ['より丁寧な', '船旅の', 'かたち'],
+  },
+  statement: {
+    index: 'Green Rubyの視点',
+    line1: '本当のラグジュアリーとは、より多くを持つことではありません。',
+    line2: '大切なものに',
+    em: '気づくことです。',
+    footer: 'ゆったりと過ごす余白。人とつながる場所。守るべき湾。',
+  },
+  technology: {
+    eyebrow: '意図を込めた設計',
+    title: '思慮深い旅の、',
+    titleEm: '新しいスタンダード。',
+    body: '湾を大切にする取り組みは、見えないところから始まります。当社の船は、効率的な設備と、日々の運航における実践的な工夫を組み合わせています。',
+    micro: 'テクノロジーとデザイン',
+    foot: '設計上の取り組み',
+    qualifier:
+      '設計上の特徴と環境面の目標は、船の運航方針として想定しているものであり、第三者によって検証された運航実績ではありません。',
+  },
+  impact: {
+    eyebrow: '環境への取り組み',
+    wastewater: '排水処理率',
+    co2: '年間のCO₂削減量（トン、太陽光発電による推計）',
+    solar: '屋上の太陽光パネル',
+  },
+  community: {
+    eyebrow: '船の外へ',
+    title: '私たちの故郷。',
+    titleEm: '私たちの責任。',
+    body: 'ある土地を守ることは、そこで暮らす人々を支えることでもあります。',
+    link: 'スタッフに相談する',
+  },
+  collection: {
+    eyebrow: '船のご紹介',
+    title: (n: number): string => (n === 2 ? '2隻の船。' : '当社の船。'),
+    titleEm: 'ひとつの理念。',
+    body: '異なる海域でも、変わらない心配りを。Green Rubyの各船の個性と、それぞれが向かう場所をご紹介します。',
+    vessel: (i: number, bay: string | null) => `船${String(i).padStart(2, '0')}${bay ? ` / ${bay}` : ''}`,
+    explore: (name: string) => `${name}を見る`,
+  },
+  standards: {
+    eyebrow: '取り組みの状況を公開',
+    title: '信頼は、',
+    titleEm: '透明性から生まれます。',
+    body: 'まだ取得していない認証を取得済みであるかのように示すのではなく、取り組みの過程をお伝えしたいと考えています。現在の状況は次のとおりです。',
+    label: '環境認証への取り組み',
+    // No Japanese eco article exists; like Vietnamese, Japanese readers get only the brand facts link.
+    guide: null,
+    facts: '環境に関する各数値の現状',
+  },
+  cta: {
+    eyebrow: '湾のもうひとつの楽しみ方',
+    title: '美しい旅を、',
+    titleEm: '湾への思いやりとともに。',
+    body: '壮大な景観、ゆったりとした快適さ、そしてより深いつながりが重なり合う、Green Rubyのクルーズをお選びください。',
+    primary: 'クルーズ行程を見る',
+    secondary: 'スタッフに相談する',
+  },
+  honest: {
+    solar: '屋上の約70kWの太陽光パネルが、日中の照明、給湯、船内設備の電力の一部をまかないます。海水冷却式の空調と組み合わせ、船内のエネルギー使用量を約40%削減することを目指して設計されています。実際の削減量は運航開始後にご報告します。',
+    water: '湾の繊細な海洋環境を守るため、排水は100%、船内で生物処理を行ってから排出します。',
+    plastic: '詰め替え式のボトル、大容量タイプのアメニティ、プラスチックを減らした仕入れ先の梱包は、船内の日常運営の計画に含まれています。',
+    energy: '排熱回収システムにより、エンジンと発電機の排熱を無駄にせず、給湯と空調に再利用します。',
+    local: '食材はできる限り地元の漁師や農家から調達し、乗組員の採用と育成では地元の人材を優先することを目指しています。',
+    cleanup: 'お客様にもご参加いただける海岸清掃や、湾の生態系と旅行者が環境負荷を減らす方法についての船内トークを予定しています。',
+    culture: '地元の学校での環境学習、若者が海の仕事に就くための道づくり、湾の工芸や伝統を受け継ぐための協力を支援していきたいと考えています。',
+  },
+};
+
+export const aboutMessages = byLocale<AboutMessages>({ en, vi, ja });
 
 type HonestTopic = keyof AboutMessages['honest'];
 

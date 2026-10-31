@@ -4,7 +4,8 @@ import { Breadcrumb, SiteFooter, SiteNav, Topbar, type Chrome } from '@/componen
 import { PlaceCards, TravelLinksSection } from '@/components/sections/TravelLinks';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SmartLink, TextLink } from '@/components/ui';
-import { homePath, sectionPath } from '@/lib/i18n';
+import { homePath, sectionPath, type Locale } from '@/lib/i18n';
+import { sectionHref } from '@/lib/section-links';
 import { absoluteImageUrl, absoluteUrl } from '@/lib/site-url';
 import { placeCard } from '@/views/destinations/cards';
 import type { DestinationSummary } from '@/views/destinations/data';
@@ -14,13 +15,14 @@ import { PhotoJournal, type Photo } from './PhotoJournal';
 import { SectionNav } from './SectionNav';
 import { cardImage, durationMinutes, experienceUrl, pad, tabLabel, timeRange } from './shared';
 import s from './experience.module.css';
+import { wordSpace } from '@/lib/typography';
 
 const plain = (html: string) => html.replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ').trim();
 
-function Heading({ title, em, id }: { title: string; em: string; id: string }) {
+function Heading({ locale, title, em, id }: { locale: Locale; title: string; em: string; id: string }) {
   return (
     <h2 className={s.heading} id={id}>
-      {title} <em>{em}</em>
+      {title}{wordSpace(locale)}<em>{em}</em>
     </h2>
   );
 }
@@ -52,8 +54,8 @@ export function ExperienceView({
 }) {
   const { locale, t } = chrome;
   const url = experienceUrl(locale, x);
-  const listUrl = sectionPath(locale, 'experiences');
-  const itinerariesUrl = sectionPath(locale, 'itinerary');
+  const listUrl = sectionHref(locale, 'experiences', chrome.site.publicSections);
+  const itinerariesUrl = sectionHref(locale, 'itinerary', chrome.site.publicSections);
   const bookingUrl = sectionPath(locale, 'booking');
   const tab = x.group?.tab ?? null;
   const minutes = durationMinutes(x);
@@ -199,7 +201,7 @@ export function ExperienceView({
           <div className={cx('container', s.intro)}>
             <div className={s.introCopy}>
               <Eyebrow>{tab ? m.introEyebrow[tab] : m.introEyebrow.onboard}</Eyebrow>
-              <Heading id="discover-title" title={m.introTitle[tab ?? 'onboard']} em={m.introTitleEm[tab ?? 'onboard']} />
+              <Heading locale={locale} id="discover-title" title={m.introTitle[tab ?? 'onboard']} em={m.introTitleEm[tab ?? 'onboard']} />
               {x.summary && <p className={s.lead}>{x.summary}</p>}
               {showContent && <div className={s.prose} dangerouslySetInnerHTML={{ __html: x.contentHtml as string }} />}
               <figure className={s.quote}>
@@ -233,7 +235,7 @@ export function ExperienceView({
             <div className={s.sectionTop}>
               <div>
                 <Eyebrow>{m.momentEyebrow}</Eyebrow>
-                <Heading id="experience-title" title={m.momentTitle} em={m.momentTitleEm} />
+                <Heading locale={locale} id="experience-title" title={m.momentTitle} em={m.momentTitleEm} />
               </div>
               <p>{m.momentBody}</p>
             </div>
@@ -256,7 +258,7 @@ export function ExperienceView({
               <div className={s.sectionTop}>
                 <div>
                   <Eyebrow inverse>{m.photosEyebrow}</Eyebrow>
-                  <Heading id="photos-title" title={m.photosTitle} em={m.photosTitleEm} />
+                  <Heading locale={locale} id="photos-title" title={m.photosTitle} em={m.photosTitleEm} />
                 </div>
                 <p>{m.photosBody}</p>
               </div>
@@ -277,7 +279,7 @@ export function ExperienceView({
           <div className={cx('container', s.practicalGrid)}>
             <div>
               <Eyebrow>{m.goodEyebrow}</Eyebrow>
-              <Heading id="participation-title" title={m.goodTitle} em={m.goodTitleEm} />
+              <Heading locale={locale} id="participation-title" title={m.goodTitle} em={m.goodTitleEm} />
               <p className={s.desc}>{m.goodBody(audiences)}</p>
               {audiences.length > 0 && (
                 <ul className={s.guestTags}>
@@ -305,7 +307,7 @@ export function ExperienceView({
         </section>
 
         {places.length > 0 && (
-          <TravelLinksSection id="where" title={t.travel.experiencePlacesTitle} more={{ href: sectionPath(locale, 'destinations'), label: t.travel.allPlaces }}>
+          <TravelLinksSection id="where" title={t.travel.experiencePlacesTitle} more={{ href: sectionHref(locale, 'destinations', chrome.site.publicSections), label: t.travel.allPlaces }}>
             <PlaceCards items={places.map((d) => placeCard(locale, d))} />
           </TravelLinksSection>
         )}
@@ -316,7 +318,7 @@ export function ExperienceView({
               <div className={s.sectionTop}>
                 <div>
                   <Eyebrow>{m.moreEyebrow}</Eyebrow>
-                  <Heading id="more-title" title={m.moreTitle} em={m.moreTitleEm} />
+                  <Heading locale={locale} id="more-title" title={m.moreTitle} em={m.moreTitleEm} />
                 </div>
                 <TextLink href={listUrl}>{m.allExperiences}</TextLink>
               </div>
@@ -347,7 +349,7 @@ export function ExperienceView({
             <div>
               <Eyebrow inverse>{page.readyToSailDescription ?? m.detailCtaEyebrow}</Eyebrow>
               <h2 className={s.ctaHeading} id="cta-title">
-                {m.detailCtaTitle} <em>{m.detailCtaTitleEm}</em>
+                {m.detailCtaTitle}{wordSpace(locale)}<em>{m.detailCtaTitleEm}</em>
               </h2>
               <p>{page.readyToSailContent ?? m.detailCtaBody}</p>
             </div>

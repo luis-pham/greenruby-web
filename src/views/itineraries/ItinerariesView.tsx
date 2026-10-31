@@ -5,16 +5,18 @@ import { FaqList } from '@/components/sections/Faq';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SmartLink, TextLink } from '@/components/ui';
 import type { ItinerarySummary } from '@/lib/api/schemas';
-import { homePath, itineraryPath, sectionPath, type Locale } from '@/lib/i18n';
+import { dateFormatTag, homePath, itineraryPath, sectionPath, type Locale } from '@/lib/i18n';
+import { sectionHref } from '@/lib/section-links';
 import { guideLinks } from '@/lib/guide-links';
 import { absoluteUrl } from '@/lib/site-url';
 import { TripFilter } from './TripFilter';
 import s from './itineraries.module.css';
+import { labelled, wordSpace } from '@/lib/typography';
 
 const pad = (n: number) => String(n).padStart(2, '0');
 
 export function formatDate(date: string, locale: Locale): string {
-  return new Intl.DateTimeFormat(locale === 'vi' ? 'vi-VN' : 'en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }).format(
+  return new Intl.DateTimeFormat(dateFormatTag(locale), { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }).format(
     new Date(`${date}T00:00:00Z`),
   );
 }
@@ -30,13 +32,13 @@ export function ItinerariesView({
 }) {
   const { locale, t } = chrome;
   // Transfer guide link; null while that guide is switched off in the CMS.
-  const fromHanoi = guideLinks(locale, chrome.site.hiddenPages).transfer;
+  const fromHanoi = guideLinks(locale, chrome.site.hiddenPages, chrome.site.publicSections).transfer;
   const l = t.itineraries;
   const bays = [...new Set(items.map((i) => i.bay).filter((b): b is 'ha-long' | 'lan-ha' => b !== null))];
   const durations = [...new Set(items.map((i) => i.duration))].sort((a, b) => a - b);
   const cruises = [...new Set(items.map((i) => i.cruiseName).filter(Boolean))];
   const heroImage = items.find((i) => i.bay === 'ha-long')?.image ?? items[0]?.image ?? null;
-  const path = sectionPath(locale, 'itinerary');
+  const path = sectionHref(locale, 'itinerary', chrome.site.publicSections);
   const bookingUrl = sectionPath(locale, 'booking');
   const results = Object.fromEntries(Array.from({ length: items.length + 1 }, (_, n) => [n, l.results(n)]));
 
@@ -49,7 +51,7 @@ export function ItinerariesView({
         imageAlt=""
         crumbs={[{ label: t.breadcrumb.home, href: homePath(locale) }, { label: l.breadcrumb, href: path }]}
         eyebrow={l.heroEyebrow}
-        title={<>{l.h1}<span className={s.titleTag}>{l.heroTitle} {l.heroTitleEm}</span></>}
+        title={<>{l.h1}<span className={s.titleTag}>{l.heroTitle}{wordSpace(locale)}{l.heroTitleEm}</span></>}
         description={l.heroBody}
         actions={
           <>
@@ -95,7 +97,7 @@ export function ItinerariesView({
             <div className={s.head}>
               <div>
                 <Eyebrow>{l.listEyebrow}</Eyebrow>
-                <h2 className={s.heading} id="journeys-title">{l.listTitle} <em>{l.listTitleEm}</em></h2>
+                <h2 className={s.heading} id="journeys-title">{l.listTitle}{wordSpace(locale)}<em>{l.listTitleEm}</em></h2>
               </div>
               <p>{l.listBody}</p>
             </div>
@@ -132,7 +134,7 @@ export function ItinerariesView({
                       <div className={s.tripBottom}>
                         <p className={s.tripNote}>
                           <b>{t.home.duration(it.duration)}</b>
-                          {it.nextDeparture ? `${l.nextDeparture}: ${formatDate(it.nextDeparture, locale)}` : l.onRequest}
+                          {it.nextDeparture ? labelled(l.nextDeparture, formatDate(it.nextDeparture, locale), locale) : l.onRequest}
                         </p>
                         <TextLink href={url}>{l.viewItinerary}</TextLink>
                       </div>
@@ -150,7 +152,7 @@ export function ItinerariesView({
               <div className={s.compareTop}>
                 <div>
                   <Eyebrow inverse>{l.compareEyebrow}</Eyebrow>
-                  <h2 className={s.heading} id="compare-title">{l.compareTitle} <em>{l.compareTitleEm}</em></h2>
+                  <h2 className={s.heading} id="compare-title">{l.compareTitle}{wordSpace(locale)}<em>{l.compareTitleEm}</em></h2>
                 </div>
                 <p>{l.compareBody}</p>
               </div>
@@ -183,7 +185,7 @@ export function ItinerariesView({
               <div className={s.head}>
                 <div>
                   <Eyebrow>{l.baysEyebrow}</Eyebrow>
-                  <h2 className={s.heading} id="bays-title">{l.baysTitle} <em>{l.baysTitleEm}</em></h2>
+                  <h2 className={s.heading} id="bays-title">{l.baysTitle}{wordSpace(locale)}<em>{l.baysTitleEm}</em></h2>
                 </div>
                 <p>{l.baysBody}</p>
               </div>
@@ -214,9 +216,9 @@ export function ItinerariesView({
             <div className={cx('container', s.faqLayout)}>
               <div>
                 <Eyebrow>{l.faqEyebrow}</Eyebrow>
-                <h2 className={s.heading} id="faq-title">{l.faqTitle} <em>{l.faqTitleEm}</em></h2>
+                <h2 className={s.heading} id="faq-title">{l.faqTitle}{wordSpace(locale)}<em>{l.faqTitleEm}</em></h2>
                 <p>{l.faqBody}</p>
-                <TextLink href={sectionPath(locale, 'faq')}>{l.faqLink}</TextLink>
+                <TextLink href={sectionHref(locale, 'faq', chrome.site.publicSections)}>{l.faqLink}</TextLink>
               </div>
               <FaqList items={faqs} />
             </div>
@@ -227,11 +229,11 @@ export function ItinerariesView({
           {heroImage && <Image src={heroImage} alt="" fill sizes="100vw" className={s.ctaImage} />}
           <div className={s.ctaInner}>
             <Eyebrow inverse>{l.ctaEyebrow}</Eyebrow>
-            <h2 id="cta-title">{l.ctaTitle} <em>{l.ctaTitleEm}</em></h2>
+            <h2 id="cta-title">{l.ctaTitle}{wordSpace(locale)}<em>{l.ctaTitleEm}</em></h2>
             <p>{l.ctaBody}</p>
             <div className={s.ctaLinks}>
               <ButtonLink href={bookingUrl}>{l.ctaPrimary}</ButtonLink>
-              <TextLink href={sectionPath(locale, 'contact')} inverse>{l.ctaSecondary}</TextLink>
+              <TextLink href={sectionHref(locale, 'contact', chrome.site.publicSections)} inverse>{l.ctaSecondary}</TextLink>
             </div>
           </div>
         </section>

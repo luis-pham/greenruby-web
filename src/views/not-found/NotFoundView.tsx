@@ -5,6 +5,7 @@ import s from './not-found.module.css';
 const copy = byLocale({
   en: { eyebrow: 'Page not found', title: 'This part of the bay is uncharted.', body: 'The page you are looking for has moved or no longer exists.', home: 'Back to home', contact: 'Contact our team' },
   vi: { eyebrow: 'Không tìm thấy trang', title: 'Vùng vịnh này chưa có trên bản đồ.', body: 'Trang bạn tìm đã được chuyển hoặc không còn tồn tại.', home: 'Về trang chủ', contact: 'Liên hệ chúng tôi' },
+  ja: { eyebrow: 'ページが見つかりません', title: '湾のこのあたりは、まだ地図にありません。', body: 'お探しのページは移動したか、現在は存在しません。', home: 'ホームへ戻る', contact: 'お問い合わせ' },
 });
 
 /**

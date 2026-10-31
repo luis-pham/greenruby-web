@@ -26,6 +26,7 @@ const policy = (over: Partial<BookingPolicy> = {}): BookingPolicy => ({
   termsRequired: false,
   termsVersion: null,
   today: '2026-10-27',
+  paymentLocales: null,
   ...over,
 });
 

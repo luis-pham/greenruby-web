@@ -1,0 +1,34 @@
+/* Japanese typography (phase 2B). Loaded only by the Japanese root layout (src/styles/locales/ja.ts); every rule is
+   also scoped to :lang(ja), so an element marked lang="en" inside a Japanese page keeps the English rules. */
+
+/* Font stacks: Latin keeps Playfair / DM Sans. Kana and kanji: Noto Serif JP (web font, ja.ts) for the serif, the system
+   Mincho while it loads; the system Japanese sans for body and interface text. Outranks base.css `html:root`. */
+html:root:lang(ja) {
+  --font-family-serif: var(--font-playfair), var(--font-noto-serif-jp), "Hiragino Mincho ProN", "Yu Mincho", YuMincho, serif;
+  --font-family-sans: var(--font-dm-sans), "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Noto Sans CJK JP", "Yu Gothic", YuGothic, Meiryo, sans-serif;
+  /* Kinsoku: no small kana, prolonged sound mark or closing punctuation at the start of a line. Inherited. */
+  line-break: strict;
+}
+
+/* Japanese has no true italics: the <em> accents (and the few italic captions) would render as synthetic oblique.
+   Upright instead; colour and weight of the accent are unchanged. !important because the italic is set by many
+   module rules of equal or higher specificity; it applies to Japanese-language elements only. */
+:lang(ja),
+:lang(ja)::before,
+:lang(ja)::after {
+  font-style: normal !important;
+}
+
+/* Headings break between phrases, not inside words (環境配慮型ラ／グジュアリー). word-break: auto-phrase is
+   Chromium (119+) only and needs lang="ja"; elsewhere keep-all keeps runs together and breaks after 、。 and at
+   spaces, and overflow-wrap: anywhere still breaks a run that cannot fit, so nothing overflows. */
+:lang(ja) :is(h1, h2, h3, h4, h5, h6, [aria-roledescription="slide"] p:first-child) {
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+@supports (word-break: auto-phrase) {
+  :lang(ja) :is(h1, h2, h3, h4, h5, h6, [aria-roledescription="slide"] p:first-child) {
+    word-break: auto-phrase;
+  }
+}

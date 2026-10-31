@@ -4,13 +4,15 @@ import { FaqList, type FaqItem } from '@/components/sections/Faq';
 import { organizationRef } from '@/lib/organization';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SmartLink, TextLink } from '@/components/ui';
-import { detailPath, homePath, sectionPath } from '@/lib/i18n';
+import { detailPath, homePath, numberFormatTag } from '@/lib/i18n';
+import { sectionHref } from '@/lib/section-links';
 import { siteInfo } from '@/lib/site-info';
 import { absoluteImageUrl, absoluteUrl } from '@/lib/site-url';
 import type { ServicesPage } from './data';
 import { servicesMessages } from './messages';
 import { ServiceFilter } from './ServiceFilter';
 import s from './services.module.css';
+import { wordSpace } from '@/lib/typography';
 
 // CMS photography: the homepage banner (also used by the contact page) and the transfer service photo.
 const HERO_IMAGE = '/upload/2026/06/08/green-ruby-cruises-halong-bay-1.jpg';
@@ -19,7 +21,7 @@ const TRANSFER_IMAGE = '/upload/2026/03/12/limousine-bus-hanoi-halong-bay-5.jpg'
 const pad = (n: number) => String(n).padStart(2, '0');
 
 function formatPrice(price: number, currency: 'USD' | 'VND', locale: string) {
-  return new Intl.NumberFormat(locale === 'vi' ? 'vi-VN' : 'en-US', { style: 'currency', currency, maximumFractionDigits: 0 }).format(price);
+  return new Intl.NumberFormat(numberFormatTag(locale), { style: 'currency', currency, maximumFractionDigits: 0 }).format(price);
 }
 
 export function ServicesView({
@@ -37,9 +39,9 @@ export function ServicesView({
   const { locale, t, site } = chrome;
   const m = servicesMessages[locale];
   const info = siteInfo(site);
-  const path = sectionPath(locale, 'services');
-  const contactUrl = sectionPath(locale, 'contact');
-  const itineraryUrl = sectionPath(locale, 'itinerary');
+  const path = sectionHref(locale, 'services', chrome.site.publicSections);
+  const contactUrl = sectionHref(locale, 'contact', chrome.site.publicSections);
+  const itineraryUrl = sectionHref(locale, 'itinerary', chrome.site.publicSections);
   const { page, items } = data;
 
   const groups = data.groups.filter((g) => items.some((it) => it.group?.id === g.id));
@@ -61,7 +63,7 @@ export function ServicesView({
         currentHref={path}
         crumbs={[{ label: t.breadcrumb.home, href: homePath(locale) }, { label: m.breadcrumb, href: path }]}
         eyebrow={m.hero.eyebrow}
-        title={<>{m.hero.title} <em>{m.hero.titleEm}</em></>}
+        title={<>{m.hero.title}{wordSpace(locale)}<em>{m.hero.titleEm}</em></>}
         lead={m.hero.body}
         actions={
           <>
@@ -128,7 +130,7 @@ export function ServicesView({
             </div>
             <div className={s.storyCopy}>
               <Eyebrow>{m.story.eyebrow}</Eyebrow>
-              <h2 className={s.heading} id="story-title">{m.story.title} <em>{m.story.titleEm}</em></h2>
+              <h2 className={s.heading} id="story-title">{m.story.title}{wordSpace(locale)}<em>{m.story.titleEm}</em></h2>
               {m.story.paragraphs.map((p) => <p key={p} className={s.desc}>{p}</p>)}
               <ol className={s.points}>
                 {m.story.points.map((point, i) => (
@@ -200,7 +202,7 @@ export function ServicesView({
               <div className={s.sectionHead}>
                 <div>
                   <Eyebrow inverse>{m.celebrations.eventsEyebrow}</Eyebrow>
-                  <h2 className={s.heading} id="events-title">{m.celebrations.eventsTitle} <em>{m.celebrations.eventsTitleEm}</em></h2>
+                  <h2 className={s.heading} id="events-title">{m.celebrations.eventsTitle}{wordSpace(locale)}<em>{m.celebrations.eventsTitleEm}</em></h2>
                 </div>
                 <div className={s.eventsIntro}>
                   {page.quoteRequestDescription && <h3>{page.quoteRequestDescription}</h3>}
@@ -259,7 +261,7 @@ export function ServicesView({
             <div className={s.processHead}>
               <div>
                 <Eyebrow>{m.process.eyebrow}</Eyebrow>
-                <h2 className={s.heading} id="process-title">{m.process.title} <em>{m.process.titleEm}</em></h2>
+                <h2 className={s.heading} id="process-title">{m.process.title}{wordSpace(locale)}<em>{m.process.titleEm}</em></h2>
               </div>
               <p className={s.desc}>{m.process.body}</p>
             </div>
@@ -279,9 +281,9 @@ export function ServicesView({
           <div className={cx('container', s.faqGrid)}>
             <div>
               <Eyebrow>{m.faq.eyebrow}</Eyebrow>
-              <h2 className={s.heading} id="faq-title">{m.faq.title} <em>{m.faq.titleEm}</em></h2>
+              <h2 className={s.heading} id="faq-title">{m.faq.title}{wordSpace(locale)}<em>{m.faq.titleEm}</em></h2>
               <p className={s.desc}>{m.faq.body}</p>
-              <TextLink href={sectionPath(locale, 'faq')}>{m.faq.link}</TextLink>
+              <TextLink href={sectionHref(locale, 'faq', chrome.site.publicSections)}>{m.faq.link}</TextLink>
             </div>
             <FaqList items={faqs} />
           </div>
@@ -292,7 +294,7 @@ export function ServicesView({
           <div className={cx('container', s.ctaInner)}>
             <Eyebrow inverse>{m.cta.eyebrow}</Eyebrow>
             <h2 id="cta-title">
-              {page.readyToSailDescription ?? <>{m.cta.title} <em>{m.cta.titleEm}</em></>}
+              {page.readyToSailDescription ?? <>{m.cta.title}{wordSpace(locale)}<em>{m.cta.titleEm}</em></>}
             </h2>
             <p>{page.readyToSailContent ?? m.cta.body}</p>
             <div className={s.ctaLinks}>

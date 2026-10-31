@@ -156,4 +156,80 @@ const vi: GalleryMessages = {
   schemaName: 'Thư viện ảnh du thuyền Green Ruby',
 };
 
-export const galleryMessages = byLocale({ en, vi });
+const ja: GalleryMessages = {
+  breadcrumb: 'ギャラリー',
+  metaTitle: 'フォトギャラリー',
+  pageSuffix: (page) => ` - ${page}ページ目`,
+  categoryDescription: (name) =>
+    `${name}：ハロン湾・ランハ湾を航行するGreen Rubyクルーズの船内で撮影した写真です。客室、お食事、アクティビティ、そして湾の風景をご覧ください。`,
+  heroEyebrow: 'Green Rubyのフォトジャーナル',
+  heroTitle: '心に残る瞬間を、',
+  heroTitleEm: 'さまざまなかたちで。',
+  heroBody:
+    '湾の静かな魅力。プライベートな空間で過ごす心地よさ。旅を特別なものにする、大小さまざまなひととき。',
+  heroPrimary: 'ギャラリーを見る',
+  heroSecondary: '360°ビューを体験する',
+  heroFolio: 'ハロン湾・ランハ湾 / フォトジャーナル',
+  listEyebrow: 'フォトコレクション',
+  filterLabel: 'カテゴリーで絞り込む',
+  browseBy: 'カテゴリー',
+  all: 'すべて',
+  showing: (from, to, total) => (total === 0 ? 'まだ写真がありません' : `全${pad(total)}枚中、${pad(from)}〜${pad(to)}枚目を表示`),
+  viewHint: '画像を選択すると拡大表示します',
+  enlarge: (alt) => `拡大表示：${alt}`,
+  empty: 'このコレクションにはまだ写真がありません。別のカテゴリーをお試しください。',
+  more: 'さらに見る',
+  morePage: (page, last) => `${page} / ${last}ページ`,
+  allSeen: 'このコレクションの写真をすべてご覧いただきました',
+  paginationLabel: 'ギャラリーのページ',
+  previous: '前へ',
+  next: '次へ',
+  photoAlt: (category, n, total) => `Green Ruby Cruisesの船内：${category}（写真${n}/${total}）`,
+  photoAltGeneric: 'ハロン湾・ランハ湾のGreen Ruby Cruises',
+  categoryCopy: {
+    onboard: 'ラウンジ、デッキ、ダイニング。湾での時間がゆっくりと流れる、共用スペースをご紹介します。',
+    suites: '静けさと快適さ、窓の外の景色を大切に設計した客室とスイートの様子をご覧ください。',
+    activities: '朝日の中の太極拳、静かなラグーンを進むカヤック、デッキから楽しむ夜のイカ釣り。',
+    nature: '石灰岩の峰々、エメラルド色の海、そして刻々と移ろうハロン湾・ランハ湾の光。',
+    moments: 'はじめての発見から船上で迎える最後の夕日まで、お客様が分かち合ったささやかなひととき。',
+  },
+  lightbox: {
+    label: '写真ビューアー',
+    close: '閉じる',
+    previous: '前の画像',
+    next: '次の画像',
+  },
+  virtualEyebrow: '没入型の体験',
+  virtualTitle: '船内へどうぞ。',
+  virtualTitleEm: 'もう少しゆっくりと。',
+  virtualBody:
+    'あらゆる角度から眺めてこそわかる場所があります。360°で見渡して、ご旅行の前に船旅の雰囲気を感じてください。',
+  virtualCta: '360°ビューを見る',
+  virtualStamp: '360°ビュー',
+  virtualOpen: (n) => `360°ビュー${n}を開く`,
+  virtualNote: 'ドラッグ、スワイプ、または矢印キーで周囲を見渡せます。動画は音声なしで再生され、開いたときにのみ読み込まれます。',
+  viewer: {
+    label: '360°ビューアー',
+    close: '閉じる',
+    loading: '360°ビューを読み込み中…',
+    unsupported: 'お使いのブラウザは360°表示に対応していないため、通常の動画として再生します。',
+    hint: 'ドラッグして見渡す',
+  },
+  momentsEyebrow: '印象に残るひととき',
+  momentsTitle: 'いつまでも',
+  momentsTitleEm: '心に残るように。',
+  momentsBody:
+    '穏やかな朝のひとときから、一緒に何かを見つけたときの温かさまで。旅の思い出の一部となる瞬間をご紹介します。',
+  momentFallbackTag: '体験',
+  momentLink: '体験を見る',
+  ctaEyebrow: '次の旅へ',
+  ctaTitle: '写真で見ても美しく、',
+  ctaTitleEm: '実際に訪れればなお印象深く。',
+  ctaBody:
+    'ぜひご自身で湾を体験してください。クルーズ行程をご覧いただくか、次のGreen Rubyの旅について予約担当チームにご相談ください。',
+  ctaPrimary: 'クルーズ行程を見る',
+  ctaSecondary: '船旅を計画する',
+  schemaName: 'Green Ruby Cruisesフォトギャラリー',
+};
+
+export const galleryMessages = byLocale({ en, vi, ja });

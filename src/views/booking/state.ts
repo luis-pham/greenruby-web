@@ -1,6 +1,7 @@
 import type { Amenity, Cabin, Itinerary, ItineraryDetail, ServerBooking } from './api';
-import type { BookingPolicy, Outcome, PaymentMethod, PaymentPlan } from './payment';
-import { guestLimits, toCabinPricing, type GuestType, type Guests } from './pricing';
+import type { ResultOutcome } from './format';
+import type { BookingPolicy, PaymentMethod, PaymentPlan } from './payment';
+import { guestLimits, toCabinPricing, type GuestType, type Guests } from './pricing.ts';
 
 export type Step = 1 | 2 | 3 | 4;
 export type LoadStatus = 'idle' | 'loading' | 'ready' | 'error';
@@ -8,13 +9,24 @@ export type Confirmation = 'direct' | 'inquiry';
 
 export type Room = { key: number; cabinId: number; guests: Guests };
 
-/** What the URL asked for (cabin page, ship page or itinerary page "Book" links); applied once. */
-export type Prefill = { itineraryId: number | null; cruiseId: number | null; cabinId: number | null };
+/**
+ * What the URL asked for (cabin page, ship page or itinerary page "Book" links); applied once.
+ * exactCabin: an unknown ?cabin_id adds no cabin instead of the first one (intl pages and language handoffs: a
+ * guessed cabin must not be booked). rooms/amenityQty: the selection carried over a language switch (handoff.ts).
+ */
+export type Prefill = {
+  itineraryId: number | null;
+  cruiseId: number | null;
+  cabinId: number | null;
+  exactCabin?: boolean;
+  rooms?: { cabinId: number; guests: Guests }[];
+  amenityQty?: Record<number, number>;
+};
 
 export type State = {
   boot: LoadStatus;
   step: Step;
-  outcome: Outcome | null;
+  outcome: ResultOutcome | null;
   /** True while a payment return is being checked (outcome shows "checking"). */
   checking: boolean;
   serverBooking: ServerBooking | null;
@@ -35,9 +47,13 @@ export type State = {
   rooms: Room[];
   nextRoomKey: number;
   amenityQty: Record<number, number>;
+  /** Amenity quantities carried over a language switch, applied when the voyage's amenities load. */
+  restoreAmenities: Record<number, number> | null;
 
   guest: { fullName: string; phone: string; email: string };
   confirmation: Confirmation;
+  /** Online payment may be offered (CMS booking.payment_locales, format.ts paymentAllowed); else request only. */
+  paymentAllowed: boolean;
   method: PaymentMethod;
   /** GET /api/booking/policy; null until loaded, or when it failed (then the page behaves as before). */
   policy: BookingPolicy | null;
@@ -53,7 +69,8 @@ export type State = {
 /** BookingPricer::MAX_QUANTITY on the server. */
 export const MAX_AMENITY_QTY = 10;
 
-export function initialState(defaultMethod: PaymentMethod): State {
+/** `paymentAllowed` false (an intl page before the policy is known): the reservation request is the only path. */
+export function initialState(defaultMethod: PaymentMethod, paymentAllowed = true): State {
   return {
     boot: 'loading',
     step: 1,
@@ -74,8 +91,10 @@ export function initialState(defaultMethod: PaymentMethod): State {
     rooms: [],
     nextRoomKey: 1,
     amenityQty: {},
+    restoreAmenities: null,
     guest: { fullName: '', phone: '', email: '' },
-    confirmation: 'direct',
+    confirmation: paymentAllowed ? 'direct' : 'inquiry',
+    paymentAllowed,
     method: defaultMethod,
     policy: null,
     paymentPlan: 'deposit',
@@ -87,7 +106,7 @@ export function initialState(defaultMethod: PaymentMethod): State {
 }
 
 export type Action =
-  | { type: 'boot'; dates: string[]; date: string; prefill: Prefill | null }
+  | { type: 'boot'; dates: string[]; date: string; prefill: Prefill | null; guest?: State['guest'] }
   | { type: 'bootFailed' }
   | { type: 'setDate'; date: string }
   | { type: 'itinerariesLoaded'; date: string; items: Itinerary[] }
@@ -105,21 +124,28 @@ export type Action =
   | { type: 'setGuestField'; field: keyof State['guest']; value: string }
   | { type: 'setConfirmation'; value: Confirmation }
   | { type: 'setMethod'; value: PaymentMethod }
-  | { type: 'policyLoaded'; policy: BookingPolicy | null }
+  | { type: 'policyLoaded'; policy: BookingPolicy | null; paymentAllowed: boolean }
   | { type: 'setPlan'; value: PaymentPlan }
   | { type: 'setTermsAccepted'; value: boolean }
   | { type: 'goTo'; step: Step }
   | { type: 'setErrors'; errors: Record<string, string> }
   | { type: 'submit'; mode: 'sending' | 'redirecting' }
   | { type: 'submitFailed'; message: string }
-  | { type: 'outcome'; outcome: Outcome; checking?: boolean; booking?: ServerBooking | null; reference?: string | null };
+  | { type: 'outcome'; outcome: ResultOutcome; checking?: boolean; booking?: ServerBooking | null; reference?: string | null };
 
-function newRoom(state: State, cabinId: number): State {
+function newRoom(state: State, cabinId: number, guests?: Guests): State {
   const cabin = state.cabins.find((c) => c.id === cabinId);
   if (!cabin) return state;
   const limits = guestLimits(toCabinPricing(cabin, state.itinerary?.duration));
+  const clamp = (type: GuestType) => Math.max(0, Math.min(limits[type], Math.trunc(guests?.[type] ?? 0)));
   // Two adults is the most common party; the Laravel page started every cabin at zero guests.
-  const room: Room = { key: state.nextRoomKey, cabinId, guests: { adults: Math.max(1, Math.min(2, limits.adults)), children_6_12: 0, children_2_5: 0, infants: 0 } };
+  const room: Room = {
+    key: state.nextRoomKey,
+    cabinId,
+    guests: guests
+      ? { adults: clamp('adults'), children_6_12: clamp('children_6_12'), children_2_5: clamp('children_2_5'), infants: clamp('infants') }
+      : { adults: Math.max(1, Math.min(2, limits.adults)), children_6_12: 0, children_2_5: 0, infants: 0 },
+  };
   return { ...state, rooms: [...state.rooms, room], nextRoomKey: state.nextRoomKey + 1, errors: dropCabinErrors(state.errors) };
 }
 
@@ -139,6 +165,8 @@ export function reducer(state: State, action: Action): State {
         boot: 'ready',
         enabledDates: action.dates,
         prefill: action.prefill,
+        restoreAmenities: action.prefill?.amenityQty ?? null,
+        guest: action.guest ?? state.guest,
         date: action.date,
         itinerariesStatus: action.date ? 'loading' : 'idle',
       };
@@ -195,17 +223,29 @@ export function reducer(state: State, action: Action): State {
     case 'cabinsLoaded': {
       if (action.itineraryId !== state.itinerary?.id) return state;
       let next: State = { ...state, cabins: action.items, cabinsStatus: 'ready' };
-      // A cabin page link (?cabin_id=) adds that cabin once, falling back to the first one like before.
-      if (state.prefill?.cabinId && action.items.length > 0) {
-        const target = action.items.find((c) => c.id === state.prefill?.cabinId) ?? action.items[0];
-        next = newRoom(next, target.id);
+      const p = state.prefill;
+      if (p?.rooms?.length) {
+        // A language switch carries the selection (same inventory only); cabins that no longer exist are dropped.
+        for (const room of p.rooms) next = newRoom(next, room.cabinId, room.guests);
+      } else if (p?.cabinId && action.items.length > 0) {
+        // A cabin page link (?cabin_id=) adds that cabin once, falling back to the first one like before
+        // (never on an intl page: its ids must be the inventory's, so an unknown id adds nothing).
+        const target = action.items.find((c) => c.id === p.cabinId) ?? (p.exactCabin ? undefined : action.items[0]);
+        if (target) next = newRoom(next, target.id);
       }
       return { ...next, prefill: null };
     }
     case 'cabinsFailed':
       return action.itineraryId === state.itinerary?.id ? { ...state, cabinsStatus: 'error', prefill: null } : state;
-    case 'amenitiesLoaded':
-      return action.itineraryId === state.itinerary?.id ? { ...state, amenities: action.items } : state;
+    case 'amenitiesLoaded': {
+      if (action.itineraryId !== state.itinerary?.id) return state;
+      const carried = state.restoreAmenities;
+      if (!carried) return { ...state, amenities: action.items };
+      const amenityQty = Object.fromEntries(
+        action.items.flatMap((a) => (carried[a.id] > 0 ? [[a.id, Math.min(MAX_AMENITY_QTY, Math.trunc(carried[a.id]))]] : [])),
+      );
+      return { ...state, amenities: action.items, amenityQty, restoreAmenities: null };
+    }
 
     case 'addRoom':
       return newRoom(state, action.cabinId);
@@ -229,11 +269,16 @@ export function reducer(state: State, action: Action): State {
     case 'setGuestField':
       return { ...state, guest: { ...state.guest, [action.field]: action.value }, errors: without(state.errors, action.field) };
     case 'setConfirmation':
+      if (action.value === 'direct' && !state.paymentAllowed) return state;
       return { ...state, confirmation: action.value, submitError: null };
     case 'setMethod':
       return { ...state, method: action.value, submitError: null };
-    case 'policyLoaded':
-      return { ...state, policy: action.policy };
+    case 'policyLoaded': {
+      // Payment closed: the request is the only path. Opened after an intl page started closed: offer payment first,
+      // as en/vi do. en/vi with the default CMS list: allowed before and after, nothing changes.
+      const confirmation: Confirmation = !action.paymentAllowed ? 'inquiry' : state.paymentAllowed ? state.confirmation : 'direct';
+      return { ...state, policy: action.policy, paymentAllowed: action.paymentAllowed, confirmation };
+    }
     case 'setPlan':
       return { ...state, paymentPlan: action.value, submitError: null };
     case 'setTermsAccepted':

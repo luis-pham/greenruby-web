@@ -1,4 +1,5 @@
-import { inLocale, sectionPath, type Locale } from './i18n.ts';
+import { inLocale, type Locale } from './i18n.ts';
+import { sectionHref } from './section-links.ts';
 
 /**
  * Travel Journal articles the guides and the footer link to. Article slugs are explicit CMS fields
@@ -37,12 +38,15 @@ export const HIDEABLE_PAGES = { guideFirstTime: 'guide-first-time', guideTransfe
 export const sectionVisible = (section: string, hiddenPages: readonly string[]) =>
   !(section in HIDEABLE_PAGES && hiddenPages.includes(HIDEABLE_PAGES[section as keyof typeof HIDEABLE_PAGES]));
 
-/** The Travel Guide set. Hubs switched off in the CMS are null (render as text or not at all). */
-export function guideLinks(locale: Locale, hiddenPages: readonly string[] = []) {
-  const hub = (section: keyof typeof HIDEABLE_PAGES) => (sectionVisible(section, hiddenPages) ? sectionPath(locale, section) : null);
+/**
+ * The Travel Guide set. Hubs switched off in the CMS are null (render as text or not at all). A new language links
+ * to its own hub only when it is public there (`publicSections`, phase 2C), otherwise to the English one.
+ */
+export function guideLinks(locale: Locale, hiddenPages: readonly string[] = [], publicSections?: readonly string[]) {
+  const hub = (section: keyof typeof HIDEABLE_PAGES) => (sectionVisible(section, hiddenPages) ? sectionHref(locale, section, publicSections) : null);
   return {
-    hub: sectionPath(locale, 'guides'),
-    journal: sectionPath(locale, 'blog'),
+    hub: sectionHref(locale, 'guides', publicSections),
+    journal: sectionHref(locale, 'blog', publicSections),
     firstTime: hub('guideFirstTime'),
     bestTime: guideArticlePath(locale, 'bestTime'),
     bayComparison: guideArticlePath(locale, 'bayComparison'),
@@ -69,8 +73,9 @@ export function travelGuideLinks(
   locale: Locale,
   labels: TravelGuideLabels,
   hiddenPages: readonly string[] = [],
+  publicSections?: readonly string[],
 ): { key: keyof TravelGuideLabels; label: string; href: string }[] {
-  const g = guideLinks(locale, hiddenPages);
+  const g = guideLinks(locale, hiddenPages, publicSections);
   const hrefs: Record<keyof TravelGuideLabels, string | null> = {
     destinations: g.destinations,
     firstTimeGuide: g.firstTime,

@@ -23,3 +23,13 @@ test('hubs switched off in the CMS are left out of the menu', () => {
   assert.deepEqual(links.map((l) => l.key), ['firstTimeGuide', 'bestTime', 'bayComparison', 'travelJournal']);
   assert.ok(links.every((l) => !l.href.startsWith('/destinations') && !l.href.includes('hanoi-to-halong-bay')));
 });
+
+test('a new language links its own hubs only when they are public (phase 2C), otherwise the English page', () => {
+  const closed = travelGuideLinks('ja', labels, [], ['home', 'contact']);
+  assert.equal(closed.find((l) => l.key === 'travelJournal')?.href, '/blog');
+  assert.equal(closed.find((l) => l.key === 'destinations')?.href, '/destinations');
+  const open = travelGuideLinks('ja', labels, [], ['destinations', 'blog']);
+  assert.equal(open.find((l) => l.key === 'travelJournal')?.href, '/ja/blog');
+  assert.equal(open.find((l) => l.key === 'destinations')?.href, '/ja/destinations');
+  assert.deepEqual(travelGuideLinks('vi', labels, [], undefined).map((l) => l.href), travelGuideLinks('vi', labels).map((l) => l.href));
+});

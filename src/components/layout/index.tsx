@@ -6,7 +6,8 @@ import type { OpenAlternates } from '@/lib/api/contract';
 import type { Site } from '@/lib/api/schemas';
 import { switcherLinks } from '@/lib/hreflang';
 import { guideLinks, travelGuideLinks } from '@/lib/guide-links';
-import { byLocale, homePath, sectionPath, type Locale, type Section } from '@/lib/i18n';
+import { byLocale, sectionPath, type Locale, type Section } from '@/lib/i18n';
+import { homeHref, sectionHref } from '@/lib/section-links';
 import { navLinks, siteInfo, type NavLink } from '@/lib/site-info';
 import { absoluteUrl } from '@/lib/site-url';
 import { bookingTermsLinked } from '@/views/legal/booking-terms';
@@ -41,7 +42,7 @@ export function Brand({ locale, site, className, eager }: { locale: Locale; site
   // via Nginx; locally NEXT_PUBLIC_MEDIA_ORIGIN points at Laravel.
   const src = logo ? `${process.env.NEXT_PUBLIC_MEDIA_ORIGIN ?? ''}${logo}` : null;
   return (
-    <SmartLink href={homePath(locale)} className={cx(s.brand, className)} aria-label={info.name}>
+    <SmartLink href={homeHref(locale, site.publicSections)} className={cx(s.brand, className)} aria-label={info.name}>
       {src ? (
         <Image src={src} alt={info.name} width={117} height={93} unoptimized loading={eager ? 'eager' : 'lazy'} className={s.brandLogo} />
       ) : (
@@ -123,26 +124,26 @@ export function withGuideAndBrochure(
 }
 
 /** Header item for the travel guide hub, with the guide set as its dropdown. */
-function travelGuideItem(locale: Locale, t: Messages, hiddenPages: readonly string[]): NavLink {
+function travelGuideItem(locale: Locale, t: Messages, hiddenPages: readonly string[], publicSections?: readonly string[]): NavLink {
   return {
     label: t.nav.travelGuide,
     href: sectionPath(locale, 'guides'),
     external: false,
-    children: travelGuideLinks(locale, t.footer.links, hiddenPages).map(({ label, href }) => ({ label, href, external: false, children: [] })),
+    children: travelGuideLinks(locale, t.footer.links, hiddenPages, publicSections).map(({ label, href }) => ({ label, href, external: false, children: [] })),
   };
 }
 
 export function SiteNav({ locale, site, t, alternateHref, alternates, currentHref }: Chrome & { currentHref?: string }) {
-  const footerOnly = FOOTER_ONLY.map((section) => sectionPath(locale, section));
+  const footerOnly = FOOTER_ONLY.map((section) => sectionHref(locale, section, site.publicSections));
   const inHeader = (link: NavLink) => !footerOnly.some((path) => link.href === path || link.href.startsWith(`${path}/`));
   const links = withGuideAndBrochure(navLinks(site.menus.primary).filter(inHeader), {
-    contactHref: sectionPath(locale, 'contact'),
+    contactHref: sectionHref(locale, 'contact', site.publicSections),
     contactLabel: t.nav.contactUs,
     brochureLabel: t.nav.brochure,
-    guide: travelGuideItem(locale, t, site.hiddenPages),
+    guide: travelGuideItem(locale, t, site.hiddenPages, site.publicSections),
   });
   // The brand already links home, so the home item is left out of the desktop menu.
-  const desktopLinks = links.filter((link) => link.href !== homePath(locale));
+  const desktopLinks = links.filter((link) => link.href !== homeHref(locale, site.publicSections));
   const collapseAt = menuBreakpoint(desktopLinks);
   const isCurrent = (link: NavLink) => link.href === currentHref || link.children.some((c) => c.href === currentHref);
   return (
@@ -173,7 +174,7 @@ export function SiteNav({ locale, site, t, alternateHref, alternates, currentHre
       </ul>
       <div className={s.navEnd}>
         <LanguageSwitcher locale={locale} links={switcherLinks(locale, alternateHref, alternates)} label={t.nav.language} />
-        <SmartLink className={s.navBook} href={sectionPath(locale, 'booking')}>
+        <SmartLink className={s.navBook} href={sectionHref(locale, 'booking', site.publicSections)}>
           {t.nav.book} <span aria-hidden="true">↗︎</span>
         </SmartLink>
         <MobileMenu label={t.nav.openMenu}>
@@ -189,7 +190,7 @@ export function SiteNav({ locale, site, t, alternateHref, alternates, currentHre
               )}
             </div>
           ))}
-          <SmartLink href={sectionPath(locale, 'booking')}>{t.nav.book} ↗︎</SmartLink>
+          <SmartLink href={sectionHref(locale, 'booking', site.publicSections)}>{t.nav.book} ↗︎</SmartLink>
         </MobileMenu>
       </div>
     </nav>
@@ -343,15 +344,16 @@ export function footerColumns(
   locale: Locale,
   t: Messages,
   hiddenPages: readonly string[] = [],
+  publicSections?: readonly string[],
 ): { title: string; links: FooterLink[] }[] {
   const f = t.footer.links;
-  const p = (section: Section, hash = '') => `${sectionPath(locale, section)}${hash}`;
-  const guide = guideLinks(locale, hiddenPages);
+  const p = (section: Section, hash = '') => `${sectionHref(locale, section, publicSections)}${hash}`;
+  const guide = guideLinks(locale, hiddenPages, publicSections);
   return [
     {
       title: t.footer.columns.explore,
       links: [
-        { label: f.ourCruises, href: `${homePath(locale)}#fleet` },
+        { label: f.ourCruises, href: `${homeHref(locale, publicSections)}#fleet` },
         { label: f.itineraries, href: p('itinerary') },
         { label: f.experiences, href: p('experiences') },
         { label: f.services, href: p('services') },
@@ -360,7 +362,7 @@ export function footerColumns(
     },
     {
       title: t.footer.columns.guide,
-      links: [{ label: f.allGuides, href: guide.hub }, ...travelGuideLinks(locale, f, hiddenPages).map(({ label, href }) => ({ label, href }))],
+      links: [{ label: f.allGuides, href: guide.hub }, ...travelGuideLinks(locale, f, hiddenPages, publicSections).map(({ label, href }) => ({ label, href }))],
     },
     {
       title: t.footer.columns.about,
@@ -393,6 +395,8 @@ export function footerColumns(
 const CHAT_CHANNELS = byLocale<ChannelKey[]>({
   en: ['call', 'whatsapp', 'ai'],
   vi: ['call', 'zalo', 'messenger', 'ai'],
+  // Channel keys, not copy: Japanese guests are international guests, so they get the English channels.
+  ja: ['call', 'whatsapp', 'ai'],
 });
 
 export function SiteFooter({ locale, site, t }: Pick<Chrome, 'locale' | 'site' | 't'>) {
@@ -425,7 +429,7 @@ export function SiteFooter({ locale, site, t }: Pick<Chrome, 'locale' | 'site' |
             )}
           </div>
           <div className={s.footerNav}>
-            {footerColumns(locale, t, site.hiddenPages).map((column, i) => (
+            {footerColumns(locale, t, site.hiddenPages, site.publicSections).map((column, i) => (
               <FooterColumn key={column.title} id={`footer-col-${i}`} title={column.title} toggleLabel={t.footer.toggle}>
                 <ul>
                   {column.links.map((link) => (

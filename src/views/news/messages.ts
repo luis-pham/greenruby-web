@@ -63,7 +63,37 @@ const vi: Partial<BlogMessages> = {
   ],
 };
 
-const overrides = byLocale<Partial<BlogMessages>>({ en, vi });
+const ja: Partial<BlogMessages> = {
+  metaTitle: 'お知らせ',
+  breadcrumb: 'お知らせ',
+  heroEyebrow: 'Green Rubyからのお知らせ',
+  heroTitle: 'Green Rubyから、',
+  heroTitleEm: '最新のお知らせ。',
+  categoryLead: 'Green Ruby Cruisesからの企業ニュースです。',
+  listIntro: '出展する旅行博や業界イベント、パートナーシップ、そして初就航に向けた歩みをお知らせします。',
+  latest: '新着のお知らせ',
+  storyCount: () => '件のお知らせ',
+  featured: '注目のお知らせ',
+  journalNumber: (n) => `Green Rubyからのお知らせ · ${String(n).padStart(2, '0')}`,
+  readStory: '詳しく見る',
+  moreArticles: 'その他のお知らせ',
+  emptyTitle: 'お知らせは近日掲載予定です。',
+  emptyBodyAll: '現在、お知らせはまだありません。掲載までの間、クルーズをご覧ください。',
+  publisher: 'Green Ruby Cruises',
+  tocTitle: 'この記事の内容',
+  tocMobile: '目次を見る',
+  share: 'この記事をシェア',
+  enjoyed: 'このお知らせをシェア',
+  relatedTitle: 'そのほかの',
+  relatedTitleEm: 'お知らせ。',
+  relatedIntro: 'Green Ruby Cruisesからのその他のお知らせと、次にご覧いただきたいページです。',
+  fallbackCards: [
+    { kicker: 'お知らせ', title: 'すべてのお知らせ', body: 'Green Ruby Cruisesからの最新情報をまとめてご覧いただけます。', link: 'すべてのお知らせを見る', section: 'news' },
+    ...blogMessages('ja').fallbackCards.slice(1),
+  ],
+};
+
+const overrides = byLocale<Partial<BlogMessages>>({ en, vi, ja });
 
 export function newsMessages(locale: Locale): BlogMessages {
   return { ...blogMessages(locale), ...overrides[locale] };

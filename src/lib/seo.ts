@@ -21,12 +21,13 @@ function clip(text: string | undefined, max = 160): string | undefined {
 }
 
 /**
- * Editor-written titles with "|" are complete ("Green Ruby 1 | Luxury…"), except that a short brand suffix
- * ("… | Green Ruby", "… - Green Ruby") becomes the full name; titles without one get " | {site name}".
+ * Editor-written titles with "|" (Japanese: full-width "｜") are complete ("Green Ruby 1 | Luxury…"), except that a
+ * short brand suffix ("… | Green Ruby", "… - Green Ruby", "…｜Green Ruby") becomes the full name; titles without one
+ * get " | {site name}".
  */
 export function brandedTitle(title: string, siteName: string): string {
-  const t = title.trim().replace(/\s*[|–—-]\s*Green Ruby\s*$/i, ` | ${siteName}`);
-  return t.includes('|') || t.toLowerCase().includes(siteName.toLowerCase()) ? t : `${t} | ${siteName}`;
+  const t = title.trim().replace(/\s*[|｜–—-]\s*Green Ruby\s*$/i, ` | ${siteName}`);
+  return /[|｜]/.test(t) || t.toLowerCase().includes(siteName.toLowerCase()) ? t : `${t} | ${siteName}`;
 }
 
 export function pageMetadata({

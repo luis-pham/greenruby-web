@@ -10,6 +10,7 @@ import type { LegalMessages } from './messages';
 import type { Policy } from './policies';
 import { ScrollSpy } from './ScrollSpy';
 import s from './legal.module.css';
+import { wordSpace } from '@/lib/typography';
 
 export type TocItem = { href: string; label: string; number?: string; current?: boolean };
 
@@ -78,7 +79,7 @@ export function LegalShell({
         currentHref={path}
         crumbs={crumbs}
         eyebrow={m.heroEyebrow}
-        title={<>{title} <em>{titleEm}</em></>}
+        title={<>{title}{wordSpace(locale)}<em>{titleEm}</em></>}
         lead={intro}
         meta={
           <p className={s.heroMeta}>

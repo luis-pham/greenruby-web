@@ -6,7 +6,8 @@ import { DEFAULT_SOCIAL_IMAGE } from '@/lib/seo';
 import { siteInfo } from '@/lib/site-info';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SmartLink, TextLink } from '@/components/ui';
-import { homePath, sectionPath } from '@/lib/i18n';
+import { homePath } from '@/lib/i18n';
+import { sectionHref } from '@/lib/section-links';
 import { absoluteImageUrl, absoluteUrl } from '@/lib/site-url';
 import type { ArticleList, CategoryNode } from './data';
 import { blogMessages, type BlogMessages } from './messages';
@@ -14,6 +15,7 @@ import { blogPath, searchPath } from './paths';
 import { SearchRedirect } from './SearchRedirect';
 import { formatDate, linked, pad, PHOTOS, SearchIcon, type LinkedArticle } from './shared';
 import s from './blog.module.css';
+import { wordSpace } from '@/lib/typography';
 
 /** Search state for the noindex search route. Listing pages pass nothing. */
 export type SearchState = { keyword: string; category: string | null };
@@ -41,7 +43,7 @@ export function BlogListView({ chrome, list, search }: { chrome: Chrome; list: A
   const m = blogMessages(locale);
   const { category, pagination } = list;
   const page = pagination.page;
-  const blogHref = sectionPath(locale, 'blog');
+  const blogHref = sectionHref(locale, 'blog', chrome.site.publicSections);
   const selfHref = search ? searchPath(locale) : blogPath(locale, category?.slug, page);
 
   const crumbs: Crumb[] = [
@@ -66,7 +68,7 @@ export function BlogListView({ chrome, list, search }: { chrome: Chrome; list: A
       ? category.name
       : (
           <>
-            {m.heroTitle} <em>{m.heroTitleEm}</em>
+            {m.heroTitle}{wordSpace(locale)}<em>{m.heroTitleEm}</em>
           </>
         );
   const heroLead = search ? (search.keyword ? m.categoryLead : m.searchHint) : category ? (category.description ?? m.categoryLead) : m.listIntro;
@@ -158,7 +160,7 @@ export function BlogListView({ chrome, list, search }: { chrome: Chrome; list: A
                 {category || search ? (
                   <ButtonLink href={blogHref} variant="dark">{m.emptyCtaAll}</ButtonLink>
                 ) : (
-                  <ButtonLink href={sectionPath(locale, 'itinerary')} variant="dark">{m.emptyCtaJourneys}</ButtonLink>
+                  <ButtonLink href={sectionHref(locale, 'itinerary', chrome.site.publicSections)} variant="dark">{m.emptyCtaJourneys}</ButtonLink>
                 )}
               </div>
             )}
@@ -174,7 +176,7 @@ export function BlogListView({ chrome, list, search }: { chrome: Chrome; list: A
                 <div>
                   <Eyebrow>{m.topicsEyebrow}</Eyebrow>
                   <h2 className={s.heading} id="topics-title">
-                    {m.topicsTitle} <em>{m.topicsTitleEm}</em>
+                    {m.topicsTitle}{wordSpace(locale)}<em>{m.topicsTitleEm}</em>
                   </h2>
                 </div>
                 <p className={s.desc}>{m.topicsIntro}</p>
@@ -197,7 +199,7 @@ export function BlogListView({ chrome, list, search }: { chrome: Chrome; list: A
                   </li>
                 ))}
                 <li>
-                  <SmartLink className={cx(s.topicCard, s.ctaCard)} href={sectionPath(locale, 'itinerary')}>
+                  <SmartLink className={cx(s.topicCard, s.ctaCard)} href={sectionHref(locale, 'itinerary', chrome.site.publicSections)}>
                     <span className={s.topicPicture}>
                       <Image src={PHOTOS.topics[0]} alt="" fill sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw" />
                       <span className={s.topicCount}>✦</span>
@@ -220,12 +222,12 @@ export function BlogListView({ chrome, list, search }: { chrome: Chrome; list: A
             <div>
               <Eyebrow>{m.afterEyebrow}</Eyebrow>
               <h2 className={s.heading} id="afterword-title">
-                {m.afterTitle} <em>{m.afterTitleEm}</em>
+                {m.afterTitle}{wordSpace(locale)}<em>{m.afterTitleEm}</em>
               </h2>
               <p className={s.desc}>{m.afterBody}</p>
               <div className={s.afterwordActions}>
-                <ButtonLink href={sectionPath(locale, 'itinerary')} variant="dark">{m.afterPrimary}</ButtonLink>
-                <TextLink href={sectionPath(locale, 'contact')}>{m.afterSecondary}</TextLink>
+                <ButtonLink href={sectionHref(locale, 'itinerary', chrome.site.publicSections)} variant="dark">{m.afterPrimary}</ButtonLink>
+                <TextLink href={sectionHref(locale, 'contact', chrome.site.publicSections)}>{m.afterSecondary}</TextLink>
               </div>
             </div>
             <figure className={s.afterwordPhoto}>

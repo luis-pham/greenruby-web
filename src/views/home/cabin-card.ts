@@ -10,20 +10,20 @@ import { inLocale, type LegacyCopy, type Locale } from '@/lib/i18n';
 // ship-wide (Wi-Fi, pool…), so it can't tell rooms apart; nothing is shown that the summary doesn't mention.
 
 const TIERS: Record<string, LegacyCopy<string>> = {
-  'imperial-suite': { en: 'Signature Suite', vi: 'Suite biểu tượng' },
-  'royal-romance-suite': { en: 'Romance Suite', vi: 'Suite lãng mạn' },
-  'ocean-breeze-premium': { en: 'Premium Cabin', vi: 'Cabin cao cấp' },
-  'serenity-deluxe': { en: 'Deluxe Cabin', vi: 'Cabin Deluxe' },
+  'imperial-suite': { en: 'Signature Suite', vi: 'Suite biểu tượng', ja: 'シグネチャースイート' },
+  'royal-romance-suite': { en: 'Romance Suite', vi: 'Suite lãng mạn', ja: 'ロマンススイート' },
+  'ocean-breeze-premium': { en: 'Premium Cabin', vi: 'Cabin cao cấp', ja: 'プレミアム客室' },
+  'serenity-deluxe': { en: 'Deluxe Cabin', vi: 'Cabin Deluxe', ja: 'デラックス客室' },
 };
 
 // In priority order; the first two found in the summary are shown.
 const FEATURES: { match: RegExp; label: LegacyCopy<string> }[] = [
-  { match: /in-suite dining|private (in-suite )?dining|ăn uống và bar riêng|khu ăn uống/i, label: { en: 'In-suite dining', vi: 'Ăn uống riêng tư' } },
-  { match: /jacuzzi/i, label: { en: 'Jacuzzi', vi: 'Bồn Jacuzzi' } },
-  { match: /terrace|sân hiên/i, label: { en: 'Private terrace', vi: 'Sân hiên riêng' } },
-  { match: /butler/i, label: { en: 'Butler service', vi: 'Dịch vụ butler' } },
-  { match: /bathtub|bồn tắm/i, label: { en: 'Bathtub', vi: 'Bồn tắm' } },
-  { match: /separate shower|vòi sen riêng/i, label: { en: 'Separate shower', vi: 'Vòi sen riêng' } },
+  { match: /in-suite dining|private (in-suite )?dining|ăn uống và bar riêng|khu ăn uống/i, label: { en: 'In-suite dining', vi: 'Ăn uống riêng tư', ja: '客室でのお食事' } },
+  { match: /jacuzzi/i, label: { en: 'Jacuzzi', vi: 'Bồn Jacuzzi', ja: 'ジャグジー' } },
+  { match: /terrace|sân hiên/i, label: { en: 'Private terrace', vi: 'Sân hiên riêng', ja: '専用テラス' } },
+  { match: /butler/i, label: { en: 'Butler service', vi: 'Dịch vụ butler', ja: 'バトラーサービス' } },
+  { match: /bathtub|bồn tắm/i, label: { en: 'Bathtub', vi: 'Bồn tắm', ja: 'バスタブ' } },
+  { match: /separate shower|vòi sen riêng/i, label: { en: 'Separate shower', vi: 'Vòi sen riêng', ja: '独立シャワー' } },
 ];
 
 type CabinLike = { slug: string; cabinClass: string | null; view: string | null; summary: string | null };

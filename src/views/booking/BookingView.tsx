@@ -2,6 +2,7 @@ import { Suspense } from 'react';
 import { PageIntro, SiteFooter, type Chrome } from '@/components/layout';
 import { homePath, sectionPath } from '@/lib/i18n';
 import { siteInfo } from '@/lib/site-info';
+import { wordSpace } from '@/lib/typography';
 import { bookingTermsLinked, bookingTermsVersion } from '@/views/legal/booking-terms';
 import { BookingWizard } from './BookingWizard';
 import { StepsBar } from './StepsBar';
@@ -27,7 +28,7 @@ export function BookingView({ chrome }: { chrome: Chrome }) {
         currentHref={path}
         crumbs={[{ label: t.breadcrumb.home, href: homePath(locale) }, { label: b.crumb, href: path }]}
         eyebrow={b.heroEyebrow}
-        title={<>{b.heroTitle} <em>{b.heroTitleEm}</em></>}
+        title={<>{b.heroTitle}{wordSpace(locale)}<em>{b.heroTitleEm}</em></>}
         lead={b.heroIntro}
       />
 

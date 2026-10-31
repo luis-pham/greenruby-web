@@ -19,8 +19,8 @@ const AI_CRAWLERS = [
   'meta-externalagent',
 ];
 
-// Booking wizard deep links (?cruise_id=…&cabin_id=…) are noindex and endless; keep crawlers out of both languages.
-const disallow = ['/api/', '/admincp/', '/booking?', '/vi/booking?'];
+// Booking wizard deep links (?cruise_id=…&cabin_id=…) are noindex and endless; keep crawlers out in every language.
+const disallow = ['/api/', '/admincp/', '/booking?', '/vi/booking?', '/ja/booking?'];
 
 export default function robots(): MetadataRoute.Robots {
   return {
