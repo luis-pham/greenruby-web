@@ -1,4 +1,4 @@
-import type { Locale } from '@/lib/i18n';
+import { byLocale } from '@/lib/i18n';
 import type { LegalSectionKey } from './data';
 
 // Design-only UI strings for the legal pages. The policy wording itself always comes from the CMS.
@@ -205,4 +205,4 @@ const vi: LegalMessages = {
   },
 };
 
-export const legalMessages: Record<Locale, LegalMessages> = { en, vi };
+export const legalMessages = byLocale<LegalMessages>({ en, vi });

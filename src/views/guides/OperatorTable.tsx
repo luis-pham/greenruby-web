@@ -1,8 +1,8 @@
-import type { Locale } from '@/lib/i18n';
+import { byLocale, inLocale, type Locale } from '@/lib/i18n';
 import { fareRanges, listedServices, operatorById, TRANSPORT_CHECKED, type FareRange, type Operator, type RouteId, type Service } from './operators';
 import s from './guide.module.css';
 
-const LABELS = {
+const LABEL_COPY = {
   en: {
     operator: 'Operator',
     vehicle: 'Vehicle',
@@ -50,6 +50,7 @@ const LABELS = {
     checked: (date: string) => `Giá và giờ chạy theo công bố, kiểm tra ngày ${date}. Nhà xe có thể thay đổi mà không báo trước, hãy xác nhận khi đặt. Các nhà xe này không phải đối tác của Green Ruby.`,
   },
 } as const;
+const LABELS = byLocale<(typeof LABEL_COPY)[keyof typeof LABEL_COPY]>(LABEL_COPY);
 
 export function checkedDate(locale: Locale, iso = TRANSPORT_CHECKED): string {
   const [y, m, d] = iso.split('-').map(Number);
@@ -153,19 +154,19 @@ export function OperatorTable({ routes, locale, caption }: { routes: readonly Ro
                     <small className={s.opStatus}>{statusLabel(row, locale)}</small>
                     {row.departureTimes && (
                       <small>
-                        {t.departures}: {row.departureTimes[locale]}
+                        {t.departures}: {inLocale(row.departureTimes, locale)}
                       </small>
                     )}
                     {row.estimatedDuration && (
                       <small>
-                        {t.duration}: {row.estimatedDuration[locale]}
+                        {t.duration}: {inLocale(row.estimatedDuration, locale)}
                       </small>
                     )}
                   </th>
-                  <td data-label={t.vehicle}>{row.vehicle[locale]}</td>
+                  <td data-label={t.vehicle}>{inLocale(row.vehicle, locale)}</td>
                   <td data-label={t.fare}>{fare}</td>
-                  <td data-label={t.pickup}>{row.pickupLocations[locale]}</td>
-                  <td data-label={t.dropoff}>{row.dropoffLocations[locale]}</td>
+                  <td data-label={t.pickup}>{inLocale(row.pickupLocations, locale)}</td>
+                  <td data-label={t.dropoff}>{inLocale(row.dropoffLocations, locale)}</td>
                   <td data-label={t.booking}>
                     {row.bookingUrl && (
                       <span className={s.opContact}>
@@ -180,11 +181,11 @@ export function OperatorTable({ routes, locale, caption }: { routes: readonly Ro
                 {(row.note || row.luggage) && (
                   <tr className={s.opNotes}>
                     <td colSpan={6}>
-                      {row.note?.[locale]}
+                      {(row.note && inLocale(row.note, locale))}
                       {row.luggage && (
                         <>
                           {row.note && ' '}
-                          {t.luggage}: {row.luggage[locale]}.
+                          {t.luggage}: {inLocale(row.luggage, locale)}.
                         </>
                       )}
                     </td>

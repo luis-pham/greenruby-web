@@ -1,10 +1,10 @@
 import { TextLink } from '@/components/ui';
-import type { Locale } from '@/lib/i18n';
+import { byLocale, type Locale } from '@/lib/i18n';
 import { isRedirect, listArticles } from '@/views/blog/data';
 import { articlePath } from '@/views/blog/paths';
 import s from './journal.module.css';
 
-const label = { en: 'From the Green Ruby Journal', vi: 'Từ blog Green Ruby' };
+const label = byLocale({ en: 'From the Green Ruby Journal', vi: 'Từ blog Green Ruby' });
 
 /**
  * Internal link from a product page (itinerary, cruise) to the newest published article, so the blog's

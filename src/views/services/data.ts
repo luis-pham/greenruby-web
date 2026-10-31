@@ -3,7 +3,7 @@ import { cacheLife, cacheTag } from 'next/cache';
 import { z } from 'zod';
 import { getContent } from '@/lib/api/client';
 import { cabinSummarySchema } from '@/lib/api/schemas';
-import type { Locale } from '@/lib/i18n';
+import { byLocale, type Locale } from '@/lib/i18n';
 
 const text = z.string().nullable();
 const groupRef = z.object({ id: z.number(), slug: z.string(), name: z.string() });
@@ -70,7 +70,7 @@ export async function getServicesPage(locale: Locale) {
 }
 
 // FAQ group shown on the services page (life on board: dietary needs, dress code…). Slugs are per language.
-const SERVICE_FAQ_GROUP: Record<Locale, string> = { en: 'life-on-board', vi: 'cuoc-song-tren-tau' };
+const SERVICE_FAQ_GROUP = byLocale<string>({ en: 'life-on-board', vi: 'cuoc-song-tren-tau' });
 
 /** CMS FAQs of the "life on board" group. Empty when the group is missing or renamed. */
 export async function getServiceFaqs(locale: Locale) {

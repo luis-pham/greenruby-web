@@ -1,3 +1,4 @@
+import { byLocale } from '@/lib/i18n';
 const en = {
   regionLabel: 'Check dates and book',
   from: 'From',
@@ -56,5 +57,5 @@ const vi: typeof en = {
   durationShort: (days: number) => `${days}N${days - 1}Đ`,
 };
 
-export const bookingMessages = { en, vi };
+export const bookingMessages = byLocale({ en, vi });
 export type BookingMessages = typeof en;

@@ -1,4 +1,4 @@
-import type { Locale } from '@/lib/i18n';
+import { byLocale, type Locale } from '@/lib/i18n';
 import { blogMessages, type BlogMessages } from '@/views/blog/messages';
 
 // News reuses the blog listing and article layouts; only the copy that names the journal changes.
@@ -63,7 +63,7 @@ const vi: Partial<BlogMessages> = {
   ],
 };
 
-const overrides: Record<Locale, Partial<BlogMessages>> = { en, vi };
+const overrides = byLocale<Partial<BlogMessages>>({ en, vi });
 
 export function newsMessages(locale: Locale): BlogMessages {
   return { ...blogMessages(locale), ...overrides[locale] };

@@ -1,11 +1,15 @@
 import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-import { getSite, listCruises, listItineraries } from '@/lib/api/content';
+import { notFound, permanentRedirect } from 'next/navigation';
+import { withPreviewBanner } from '@/components/layout/PreviewBanner';
+import { listCruises, listItineraries } from '@/lib/api/content';
 import { destinationPath, homePath, sectionPath, type Locale } from '@/lib/i18n';
+import { pageAlternates } from '@/lib/intl';
+import { hubAlternates } from '@/lib/intl-hubs';
+import { getDestinationFor, getSiteFor, isPreview, listDestinationsFor, previewMetadata } from '@/lib/preview-loaders';
 import { pageMetadata } from '@/lib/seo';
 import { siteInfo } from '@/lib/site-info';
 import { getMessages } from '@/messages';
-import { getDestination, listDestinations, livePlacePaths, type Destination } from './data';
+import { listDestinations, livePlacePaths, type Destination } from './data';
 import { unlinkHiddenPlaces } from './links';
 import { DestinationsView } from './DestinationsView';
 import { DestinationView } from './DestinationView';
@@ -16,37 +20,45 @@ export function destinationsRoute(locale: Locale) {
   const other: Locale = locale === 'en' ? 'vi' : 'en';
 
   async function generateMetadata(): Promise<Metadata> {
-    const [site, list, otherList] = await Promise.all([getSite(locale), listDestinations(locale), listDestinations(other)]);
+    const [site, list, otherList, alternates] = await Promise.all([
+      getSiteFor(locale),
+      listDestinationsFor(locale),
+      listDestinations(other),
+      hubAlternates('destinations'),
+    ]);
     if (!list.visible) return {};
     const m = destinationMessages[locale];
-    return pageMetadata({
+    return previewMetadata(pageMetadata({
       locale,
       site: siteInfo(site),
       title: list.seo.title ?? m.metaTitle,
       description: list.seo.description ?? m.metaDescription,
       path: sectionPath(locale, 'destinations'),
       alternatePath: otherList.visible ? sectionPath(other, 'destinations') : undefined,
+      alternates,
       image: list.items.find((d) => d.image)?.image?.src ?? null,
-    });
+    }));
   }
 
   async function Page() {
-    const [site, list, itineraries, otherList, cruises] = await Promise.all([
-      getSite(locale),
-      listDestinations(locale),
+    const [site, list, itineraries, otherList, cruises, alternates] = await Promise.all([
+      getSiteFor(locale),
+      listDestinationsFor(locale),
       listItineraries(locale),
       listDestinations(other),
       listCruises(locale),
+      hubAlternates('destinations'),
     ]);
     // Hub switched off in the CMS ("Hiển thị trên website"); the API then returns no destinations either.
     if (!list.visible) notFound();
-    return (
+    return withPreviewBanner(
+      await isPreview(),
       <DestinationsView
         items={list.items}
         itineraries={itineraries.items}
         cruises={cruises.map(({ id, slug, name }) => ({ id, slug, name }))}
-        chrome={{ locale, site, t: getMessages(locale), alternateHref: otherList.visible ? sectionPath(other, 'destinations') : homePath(other) }}
-      />
+        chrome={{ locale, site, t: getMessages(locale), alternateHref: otherList.visible ? sectionPath(other, 'destinations') : homePath(other), alternates }}
+      />,
     );
   }
 
@@ -72,9 +84,9 @@ export function destinationRoute(locale: Locale) {
   }
 
   async function generateMetadata({ params }: Params): Promise<Metadata> {
-    const d = await getDestination((await params).slug, locale);
+    const d = await getDestinationFor((await params).slug, locale);
     if (!d) return {};
-    const site = await getSite(locale);
+    const [site, alternates, preview] = await Promise.all([getSiteFor(locale), pageAlternates(locale, 'destinations', d.alternates), isPreview()]);
     return pageMetadata({
       locale,
       site: siteInfo(site),
@@ -83,6 +95,8 @@ export function destinationRoute(locale: Locale) {
       path: destinationPath(locale, d.slug),
       // hreflang only when the other language has a linked, published page.
       alternatePath: alternateOf(d),
+      alternates,
+      noIndex: preview || undefined,
       image: d.image?.src ?? null,
     });
   }
@@ -90,16 +104,25 @@ export function destinationRoute(locale: Locale) {
   // params are awaited outside <Suspense> on purpose: the status code (200/404) must be known before streaming.
   async function Page({ params }: Params) {
     const { slug } = await params;
-    const d = await getDestination(slug, locale);
+    const d = await getDestinationFor(slug, locale);
     if (!d) notFound();
-    const [site, otherList, live] = await Promise.all([getSite(locale), listDestinations(other), livePlacePaths(locale)]);
+    // An old slug (renamed place, CMS slug history) answers with the current place: move to its URL.
+    if (d.slug !== slug) permanentRedirect(destinationPath(locale, d.slug));
+    const [site, otherList, live, alternates, preview] = await Promise.all([
+      getSiteFor(locale),
+      listDestinations(other),
+      livePlacePaths(locale),
+      pageAlternates(locale, 'destinations', d.alternates),
+      isPreview(),
+    ]);
     // Without a translation the language switch goes to the other language's hub (home page if that hub is hidden).
     const fallback = otherList.visible ? sectionPath(other, 'destinations') : homePath(other);
-    return (
+    return withPreviewBanner(
+      preview,
       <DestinationView
         destination={{ ...d, contentHtml: unlinkHiddenPlaces(d.contentHtml, live) }}
-        chrome={{ locale, site, t: getMessages(locale), alternateHref: alternateOf(d) ?? fallback }}
-      />
+        chrome={{ locale, site, t: getMessages(locale), alternateHref: alternateOf(d) ?? fallback, alternates }}
+      />,
     );
   }
 

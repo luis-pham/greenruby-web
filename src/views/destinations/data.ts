@@ -1,8 +1,9 @@
 import 'server-only';
 import { cacheLife, cacheTag } from 'next/cache';
 import { z } from 'zod';
+import { legacyAlternate, multilingualFields } from '@/lib/api/contract';
 import { getContent } from '@/lib/api/client';
-import { destinationPath, sectionPath, type Locale } from '@/lib/i18n';
+import { destinationPath, isLegacyLocale, sectionPath, type Locale } from '@/lib/i18n';
 
 // Schemas and cached readers for GET /destinations and GET /destinations/{slug}
 // (cms-develop app/Services/Content/DestinationContentService.php). Only published rows are served.
@@ -55,7 +56,8 @@ export const destinationSchema = destinationSummarySchema.extend({
   related: z.array(destinationSummarySchema),
   experiences: z.array(z.object({ id: z.number(), slug: z.string(), name: z.string() })).default([]),
   seo,
-  alternate: z.object({ lang: z.enum(['en', 'vi']), slug: z.string() }).nullable(),
+  alternate: legacyAlternate({ slug: z.string() }),
+  ...multilingualFields,
   factCheckedAt: text,
   updatedAt: text,
 });
@@ -66,7 +68,11 @@ export async function listDestinations(locale: Locale) {
   cacheLife('hours');
   cacheTag('content', 'destinations', 'pages', 'page:destinations');
   const list = await getContent('/destinations', { lang: locale }, destinationListSchema);
-  if (!list) throw new Error(`Destination list missing for ${locale}`);
+  if (!list) {
+    // An intl language answers 404 for a section it does not serve (yet): nothing listed. en/vi always have it.
+    if (!isLegacyLocale(locale)) return destinationListSchema.parse({ seo: { title: null, description: null }, visible: false, items: [] });
+    throw new Error(`Destination list missing for ${locale}`);
+  }
   return list;
 }
 

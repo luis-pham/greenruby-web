@@ -1,4 +1,4 @@
-import type { Locale } from '@/lib/i18n';
+import { byLocale } from '@/lib/i18n';
 
 // Copy for /about-us/brand-facts (design: new_website/green-ruby-brand-facts-v1.html). One public reference
 // for the brand, company, fleet and status, written for guests, travel partners, press and AI assistants.
@@ -6,10 +6,10 @@ import type { Locale } from '@/lib/i18n';
 // vessel and cabin figures come from the CMS.
 
 /** Last review per language (owner rewrites: Vietnamese 24 October, English 25 October 2026). */
-export const REVIEWED: Record<Locale, { iso: string; label: string }> = {
+export const REVIEWED = byLocale<{ iso: string; label: string }>({
   en: { iso: '2026-10-25', label: '25 October 2026' },
   vi: { iso: '2026-10-24', label: '24/10/2026' },
-};
+});
 export const LEGAL_NAME = 'TPX JOINT STOCK COMPANY';
 export const TAX_ID = '5702096485';
 
@@ -565,5 +565,5 @@ const vi: Messages = {
   footerCta: 'Liên hệ đội ngũ Green Ruby Cruises',
 };
 
-export const brandFactsMessages: Record<Locale, Messages> = { en, vi };
+export const brandFactsMessages = byLocale<Messages>({ en, vi });
 export type { Block, Evidence, FactRow };

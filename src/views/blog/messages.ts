@@ -1,4 +1,4 @@
-import type { Locale, Section } from '@/lib/i18n';
+import { byLocale, type Locale, type Section } from '@/lib/i18n';
 
 // Editorial copy for the blog pages that the CMS does not provide (design: green-ruby-blog-v1.html
 // and green-ruby-blog-detail-v1.html). Kept here instead of src/messages to avoid merge conflicts.
@@ -188,7 +188,7 @@ const vi: BlogMessages = {
   bannerSecondary: 'Lên kế hoạch chuyến đi',
 };
 
-const messages: Record<Locale, BlogMessages> = { en, vi };
+const messages = byLocale<BlogMessages>({ en, vi });
 
 export function blogMessages(locale: Locale): BlogMessages {
   return messages[locale];

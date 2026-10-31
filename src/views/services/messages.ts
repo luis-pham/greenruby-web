@@ -1,4 +1,4 @@
-import type { Locale } from '@/lib/i18n';
+import { byLocale } from '@/lib/i18n';
 
 // Editorial copy for the services page that the CMS has no fields for (design: green-ruby-services-v1).
 // CMS content (services, groups, wedding/event blocks, ready-to-sail CTA, FAQs) comes from the Content API.
@@ -262,4 +262,4 @@ const vi: ServicesMessages = {
   },
 };
 
-export const servicesMessages: Record<Locale, ServicesMessages> = { en, vi };
+export const servicesMessages = byLocale<ServicesMessages>({ en, vi });

@@ -1,7 +1,11 @@
 import type { Metadata } from 'next';
+import { withPreviewBanner } from '@/components/layout/PreviewBanner';
 import { notFound, permanentRedirect } from 'next/navigation';
-import { getSite } from '@/lib/api/content';
+
 import { sectionPath, type Locale } from '@/lib/i18n';
+import { pageAlternates } from '@/lib/intl';
+import { hubAlternates } from '@/lib/intl-hubs';
+import { getFaqsFor, getSiteFor, isPreview, previewMetadata } from '@/lib/preview-loaders';
 import { pageMetadata } from '@/lib/seo';
 import { siteInfo } from '@/lib/site-info';
 import { getMessages } from '@/messages';
@@ -27,7 +31,7 @@ type Loaded = { list: FaqList; canonicalPath: string } | { redirectTo: string } 
 async function load(locale: Locale, path: string[] | undefined): Promise<Loaded> {
   const parsed = parsePath(locale, path);
   if (!parsed) return null;
-  const res = await getFaqs(locale, parsed.group, parsed.page);
+  const res = await getFaqsFor(locale, parsed.group, parsed.page);
   if (!res) return null;
   // Group slug of the other language: 301 to this language's counterpart (Laravel does the same).
   if ('redirect' in res) return { redirectTo: faqPath(locale, res.redirect.group, res.redirect.page ?? parsed.page) };
@@ -48,6 +52,15 @@ async function alternateOf(locale: Locale, list: FaqList) {
   return { href: faqPath(other, group, exact ? page : 1), exact };
 }
 
+/**
+ * The FAQ index (page 1) is a section hub; a group (page 1) has the CMS group (GroupAlternates, absent = today's EN/VI
+ * pair only); later pages carry no group.
+ */
+const hubGroup = (locale: Locale, list: FaqList) => {
+  if (list.pagination.page !== 1) return undefined;
+  return list.group ? pageAlternates(locale, 'faq', list.alternates) : hubAlternates('faq');
+};
+
 export function faqRoute(locale: Locale) {
   async function generateStaticParams() {
     const word = pageWord(locale);
@@ -64,10 +77,10 @@ export function faqRoute(locale: Locale) {
     const { list, canonicalPath } = loaded;
     const t = faqMessages[locale];
     const page = list.pagination.page;
-    const [site, alternate] = await Promise.all([getSite(locale), alternateOf(locale, list)]);
+    const [site, alternate, alternates] = await Promise.all([getSiteFor(locale), alternateOf(locale, list), hubGroup(locale, list)]);
     // The API title (group / app_page "faq" seo_title, else the group name or "FAQ") already carries " - Page N".
     const title = list.seo.title ?? `${t.metaTitle}${page > 1 ? t.pageSuffix(page) : ''}`;
-    return pageMetadata({
+    return previewMetadata(pageMetadata({
       locale,
       site: siteInfo(site),
       title: title ?? t.metaTitle,
@@ -75,7 +88,8 @@ export function faqRoute(locale: Locale) {
       description: `${list.seo.description ?? (list.group ? t.categoryDescription(list.group.name) : t.metaDescription)}${page > 1 ? t.pageSuffix(page) : ''}`,
       path: canonicalPath,
       alternatePath: alternate.exact ? alternate.href : undefined,
-    });
+      alternates,
+    }));
   }
 
   // Awaited outside <Suspense> so 404/301 keep correct status codes (pages export instant = false).
@@ -88,8 +102,8 @@ export function faqRoute(locale: Locale) {
     // "page-1", "page-0" and similar: 301 to the canonical URL.
     const requested = [sectionPath(locale, 'faq'), ...(path ?? []).map((p) => decodeURIComponent(p))].join('/');
     if (requested !== canonicalPath) permanentRedirect(canonicalPath);
-    const [site, alternate] = await Promise.all([getSite(locale), alternateOf(locale, list)]);
-    return <FaqView list={list} chrome={{ locale, site, t: getMessages(locale), alternateHref: alternate.href }} />;
+    const [site, alternate, alternates] = await Promise.all([getSiteFor(locale), alternateOf(locale, list), hubGroup(locale, list)]);
+    return withPreviewBanner(await isPreview(), <FaqView list={list} chrome={{ locale, site, t: getMessages(locale), alternateHref: alternate.href, alternates }} />);
   }
 
   return { generateStaticParams, generateMetadata, Page };

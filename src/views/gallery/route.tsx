@@ -1,7 +1,10 @@
 import type { Metadata } from 'next';
+import { withPreviewBanner } from '@/components/layout/PreviewBanner';
 import { notFound, permanentRedirect } from 'next/navigation';
-import { getSite } from '@/lib/api/content';
+
 import { sectionPath, type Locale } from '@/lib/i18n';
+import { hubAlternates } from '@/lib/intl-hubs';
+import { getGalleryFor, getSiteFor, isPreview, previewMetadata } from '@/lib/preview-loaders';
 import { pageMetadata } from '@/lib/seo';
 import { siteInfo } from '@/lib/site-info';
 import { getMessages } from '@/messages';
@@ -25,7 +28,7 @@ function parsePath(locale: Locale, path: string[] = []): { category: string | nu
 async function load(locale: Locale, path: string[] | undefined) {
   const parsed = parsePath(locale, path);
   if (!parsed) return null;
-  const gallery = await getGallery(locale, parsed.category, parsed.page);
+  const gallery = await getGalleryFor(locale, parsed.category, parsed.page);
   if (!gallery) return null;
   return { gallery, canonicalPath: galleryPath(locale, gallery.canonicalCategorySlug, gallery.pagination.page) };
 }
@@ -39,6 +42,9 @@ async function alternateOf(locale: Locale, gallery: Gallery) {
   const first = await getGallery(other, slug, 1);
   return { href: galleryPath(other, first?.canonicalCategorySlug ?? null), exact: false };
 }
+
+/** The gallery index (page 1, no category) is a section hub; categories and later pages carry no intl group. */
+const hubGroup = (gallery: Gallery) => (!gallery.canonicalCategorySlug && gallery.pagination.page === 1 ? hubAlternates('gallery') : undefined);
 
 export function galleryRoute(locale: Locale) {
   async function generateStaticParams() {
@@ -62,8 +68,8 @@ export function galleryRoute(locale: Locale) {
     const category = gallery.categories.find((c) => c.slug === gallery.canonicalCategorySlug);
     const base = gallery.seo.title ?? t.metaTitle;
     const page = gallery.pagination.page;
-    const [site, alternate] = await Promise.all([getSite(locale), alternateOf(locale, gallery)]);
-    return pageMetadata({
+    const [site, alternate, alternates] = await Promise.all([getSiteFor(locale), alternateOf(locale, gallery), hubGroup(gallery)]);
+    return previewMetadata(pageMetadata({
       locale,
       site: siteInfo(site),
       // Category pages get their own title (CMS "SEO danh mục", else a default), so they don't duplicate the hub's.
@@ -71,8 +77,9 @@ export function galleryRoute(locale: Locale) {
       description: `${category ? (category.seo?.description ?? t.categoryDescription(category.name)) : (gallery.seo.description ?? t.heroBody)}${page > 1 ? t.pageSuffix(page) : ''}`,
       path: canonicalPath,
       alternatePath: alternate.exact ? alternate.href : undefined,
+      alternates,
       image: gallery.items.find((i) => i.type === 'image')?.src,
-    });
+    }));
   }
 
   // Awaited outside <Suspense> so 404/301 keep correct status codes (pages export instant = false).
@@ -84,12 +91,13 @@ export function galleryRoute(locale: Locale) {
     // Other-language category slug, "page-1" or "page-0": 301 to the canonical URL (Laravel does the same).
     const requested = [sectionPath(locale, 'gallery'), ...(path ?? []).map((p) => decodeURIComponent(p))].join('/');
     if (requested !== canonicalPath) permanentRedirect(canonicalPath);
-    const [site, alternate] = await Promise.all([getSite(locale), alternateOf(locale, gallery)]);
-    return (
+    const [site, alternate, alternates] = await Promise.all([getSiteFor(locale), alternateOf(locale, gallery), hubGroup(gallery)]);
+    return withPreviewBanner(
+      await isPreview(),
       <GalleryView
         gallery={gallery}
-        chrome={{ locale, site, t: getMessages(locale), alternateHref: alternate.href }}
-      />
+        chrome={{ locale, site, t: getMessages(locale), alternateHref: alternate.href, alternates }}
+      />,
     );
   }
 

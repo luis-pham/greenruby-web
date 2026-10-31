@@ -1,6 +1,9 @@
 import type { Metadata } from 'next';
-import { getPageSeo, getSite } from '@/lib/api/content';
+import { withPreviewBanner } from '@/components/layout/PreviewBanner';
+import { getPageSeo } from '@/lib/api/content';
 import { sectionPath, type Locale } from '@/lib/i18n';
+import { hubAlternates } from '@/lib/intl-hubs';
+import { getSiteFor, isPreview, previewMetadata } from '@/lib/preview-loaders';
 import { pageMetadata } from '@/lib/seo';
 import { siteInfo } from '@/lib/site-info';
 import { getMessages } from '@/messages';
@@ -10,21 +13,22 @@ export function contactRoute(locale: Locale) {
   const other: Locale = locale === 'en' ? 'vi' : 'en';
 
   async function generateMetadata(): Promise<Metadata> {
-    const [site, seo] = await Promise.all([getSite(locale), getPageSeo('contact', locale)]);
+    const [site, seo, alternates] = await Promise.all([getSiteFor(locale), getPageSeo('contact', locale), hubAlternates('contact')]);
     const t = getMessages(locale).contact;
-    return pageMetadata({
+    return previewMetadata(pageMetadata({
       locale,
       site: siteInfo(site),
       title: seo.title || t.metaTitle,
       description: seo.description || t.metaDescription,
       path: sectionPath(locale, 'contact'),
       alternatePath: sectionPath(other, 'contact'),
-    });
+      alternates,
+    }));
   }
 
   async function Page() {
-    const site = await getSite(locale);
-    return <ContactView chrome={{ locale, site, t: getMessages(locale), alternateHref: sectionPath(other, 'contact') }} />;
+    const [site, alternates] = await Promise.all([getSiteFor(locale), hubAlternates('contact')]);
+    return withPreviewBanner(await isPreview(), <ContactView chrome={{ locale, site, t: getMessages(locale), alternateHref: sectionPath(other, 'contact'), alternates }} />);
   }
 
   return { generateMetadata, Page };

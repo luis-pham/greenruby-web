@@ -1,4 +1,4 @@
-import type { Locale } from '@/lib/i18n';
+import { byLocale } from '@/lib/i18n';
 
 // Copy for /eco-dashboard (new_website/green-ruby-eco-dashboard-v1.html). Not a CMS page: the figures are
 // deliberately labelled as design estimates until measured, verified data exists, so they live with the copy.
@@ -334,5 +334,5 @@ const vi: EcoMessages = {
   },
 };
 
-export const ecoMessages: Record<Locale, EcoMessages> = { en, vi };
+export const ecoMessages = byLocale<EcoMessages>({ en, vi });
 export type { Metric };

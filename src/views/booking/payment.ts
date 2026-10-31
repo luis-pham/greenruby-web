@@ -3,10 +3,10 @@
  * handling and the "back from the gateway" cancel, ported from the Laravel booking page (index.js).
  *
  * Prices in these payloads are display-only: BookingPricer on the server recomputes every amount
- * from itinerary_id, cabin_id/amenity_id, quantities and guest counts. Only `import type` here so
- * the module runs under `node --test`.
+ * from itinerary_id, cabin_id/amenity_id, quantities and guest counts. Only `import type` and relative .ts
+ * imports here so the module runs under `node --test`.
  */
-
+import { isLegacyLocale, type LegacyLocale, type Locale } from '../../lib/i18n.ts';
 import type { Currency, Guests } from './pricing';
 
 export type PaymentMethod = 'stripe' | 'paypal' | 'sepay';
@@ -188,7 +188,10 @@ export function splitAmount(total: number, currency: Currency, plan: PaymentPlan
   return { dueNow, balance: Math.round((total - dueNow) * factor) / factor };
 }
 
-export type TermsAcceptance = { accepted: true; version: string | null; locale: 'en' | 'vi' };
+export type TermsAcceptance = { accepted: true; version: string | null; locale: LegacyLocale };
+
+/** Booking terms exist in EN and VI only (CMS booking.terms_locales); the CMS records any other language as en. */
+export const termsLocale = (locale: Locale): LegacyLocale => (isLegacyLocale(locale) ? locale : 'en');
 
 export type PaymentInitBody = {
   method: PaymentMethod;

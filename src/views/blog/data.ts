@@ -1,6 +1,7 @@
 import 'server-only';
 import { cacheLife, cacheTag } from 'next/cache';
 import { z } from 'zod';
+import { legacyAlternate, multilingualFields } from '@/lib/api/contract';
 import { getContent } from '@/lib/api/client';
 import type { Locale } from '@/lib/i18n';
 
@@ -56,6 +57,8 @@ export const articleListSchema = z.object({
   popular: z.array(articleSummarySchema),
   pagination: z.object({ page: z.number(), perPage: z.number(), total: z.number(), lastPage: z.number() }),
   keyword: z.string().nullable(),
+  // New-language hreflang group of a category (page 1; CMS GroupAlternates). Absent while there is none.
+  alternates: multilingualFields.alternates,
 });
 export type ArticleList = z.infer<typeof articleListSchema>;
 
@@ -70,7 +73,8 @@ export const articleSchema = articleSummarySchema.extend({
   related: z.array(articleSummarySchema),
   popular: z.array(articleSummarySchema),
   canonical: z.object({ categorySlug: z.string(), slug: z.string() }),
-  alternate: z.object({ lang: z.enum(['en', 'vi']), id: z.number(), categorySlug: z.string(), slug: z.string() }).nullable(),
+  alternate: legacyAlternate({ id: z.number(), categorySlug: z.string(), slug: z.string() }),
+  ...multilingualFields,
   updatedAt: z.string().nullable(),
 });
 export type Article = z.infer<typeof articleSchema>;

@@ -1,4 +1,4 @@
-import type { Locale } from '@/lib/i18n';
+import { byLocale } from '../../lib/i18n.ts';
 
 // Booking Terms & Conditions (/booking-terms-and-conditions, /vi/dieu-khoan-dat-tour). Kept in code like the
 // cookie policy: a long, structured legal text, EN and VI with the same 20 sections and the same anchors.
@@ -690,4 +690,4 @@ const vi: BookingTermsCopy = {
   closingNote: 'Các điều khoản này cần được đọc cùng với Xác nhận Đặt chỗ, danh mục dịch vụ bao gồm trong chương trình và Chính sách Bảo mật của Green Ruby Cruises.',
 };
 
-export const bookingTerms: Record<Locale, BookingTermsCopy> = { en, vi };
+export const bookingTerms = byLocale<BookingTermsCopy>({ en, vi });

@@ -1,3 +1,4 @@
+import { byLocale } from '@/lib/i18n';
 import type { CategoryKey } from './data';
 
 const pad = (n: number) => String(n).padStart(2, '0');
@@ -155,4 +156,4 @@ const vi: GalleryMessages = {
   schemaName: 'Thư viện ảnh du thuyền Green Ruby',
 };
 
-export const galleryMessages = { en, vi };
+export const galleryMessages = byLocale({ en, vi });

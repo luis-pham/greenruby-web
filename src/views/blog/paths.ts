@@ -1,4 +1,4 @@
-import { sectionPath, type Locale } from '@/lib/i18n';
+import { byLocale, sectionPath, type Locale } from '@/lib/i18n';
 
 // URL shapes kept from Laravel (Modules/FrontEnd/Routes/web.php):
 //   /blog, /blog/page-{n}, /blog/{category}, /blog/{category}/page-{n}, /blog/{category}/{slug}.html
@@ -13,7 +13,7 @@ export function pageSegment(locale: Locale, page: number): string {
 
 // Company news is the article category "news" (vi "tin-tuc"), served at /news and /vi/tin-tuc instead of
 // /blog/{category}: /news[/page-n], /news/{slug}.html. The CMS leaves it out of the blog index and search.
-export const NEWS_CATEGORY: Record<Locale, string> = { en: 'news', vi: 'tin-tuc' };
+export const NEWS_CATEGORY = byLocale<string>({ en: 'news', vi: 'tin-tuc' });
 
 export const isNewsCategory = (slug: string | null | undefined) => slug === NEWS_CATEGORY.en || slug === NEWS_CATEGORY.vi;
 

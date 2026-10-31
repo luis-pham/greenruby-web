@@ -1,4 +1,4 @@
-import type { Locale } from '@/lib/i18n';
+import { byLocale } from '@/lib/i18n';
 
 // The cookie policy is not a CMS page: on the Blade site it was a hard-coded section of
 // /privacy-policy (#cookies) linked from the footer. It lives here with the same wording,
@@ -117,4 +117,4 @@ const vi: CookiePolicyCopy = {
   privacyLink: 'Chính sách bảo mật',
 };
 
-export const cookiePolicy: Record<Locale, CookiePolicyCopy> = { en, vi };
+export const cookiePolicy = byLocale<CookiePolicyCopy>({ en, vi });

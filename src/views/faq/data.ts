@@ -2,6 +2,7 @@ import 'server-only';
 import { cacheLife, cacheTag } from 'next/cache';
 import { z } from 'zod';
 import { getContent } from '@/lib/api/client';
+import { multilingualFields } from '@/lib/api/contract';
 import { sectionPath, type Locale } from '@/lib/i18n';
 
 // Laravel's URL scheme: /faq[/{group}][/page-{n}], vi /vi/cau-hoi-thuong-gap[/{group}][/trang-{n}].
@@ -29,6 +30,8 @@ const listSchema = z.object({
   items: z.array(faqItemSchema),
   pagination: z.object({ page: z.number(), perPage: z.number(), total: z.number(), lastPage: z.number() }),
   keyword: z.string().nullable(),
+  // New-language hreflang group of a FAQ group (page 1; CMS GroupAlternates). Absent while there is none.
+  alternates: multilingualFields.alternates,
 });
 export type FaqList = z.infer<typeof listSchema>;
 export type FaqGroup = FaqList['groups'][number];

@@ -1,4 +1,4 @@
-import type { Locale } from '@/lib/i18n';
+import { byLocale, type Locale } from '@/lib/i18n';
 
 // Editorial copy for the About page that the CMS has no fields for (design: green-ruby-about-us-v1).
 // Sustainability and community wording is phrased as intentions, not results: the CMS card texts still
@@ -213,7 +213,7 @@ const vi: AboutMessages = {
   },
 };
 
-export const aboutMessages: Record<Locale, AboutMessages> = { en, vi };
+export const aboutMessages = byLocale<AboutMessages>({ en, vi });
 
 type HonestTopic = keyof AboutMessages['honest'];
 

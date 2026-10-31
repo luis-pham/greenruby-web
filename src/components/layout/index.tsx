@@ -2,9 +2,11 @@ import Image from 'next/image';
 import type { ReactNode } from 'react';
 import { cx, Eyebrow, SmartLink } from '@/components/ui';
 import { JsonLd } from '@/components/seo/JsonLd';
+import type { OpenAlternates } from '@/lib/api/contract';
 import type { Site } from '@/lib/api/schemas';
+import { switcherLinks } from '@/lib/hreflang';
 import { guideLinks, travelGuideLinks } from '@/lib/guide-links';
-import { homePath, sectionPath, type Locale, type Section } from '@/lib/i18n';
+import { byLocale, homePath, sectionPath, type Locale, type Section } from '@/lib/i18n';
 import { navLinks, siteInfo, type NavLink } from '@/lib/site-info';
 import { absoluteUrl } from '@/lib/site-url';
 import { bookingTermsLinked } from '@/views/legal/booking-terms';
@@ -17,7 +19,11 @@ import { MobileMenu } from './MobileMenu';
 import { SOCIAL_LABELS, SocialIcon } from './SocialIcon';
 import s from './layout.module.css';
 
-export type Chrome = { locale: Locale; site: Site; t: Messages; alternateHref: string };
+/**
+ * alternateHref: the other EN/VI language's page (exact counterpart, else its home/hub). alternates: the open members of
+ * the page's translation group (lib/intl.ts pageAlternates), for intl languages in the switcher.
+ */
+export type Chrome = { locale: Locale; site: Site; t: Messages; alternateHref: string; alternates?: OpenAlternates };
 
 function Anchor({ href, external, className, children }: { href: string; external?: boolean; className?: string; children: ReactNode }) {
   return (
@@ -126,7 +132,7 @@ function travelGuideItem(locale: Locale, t: Messages, hiddenPages: readonly stri
   };
 }
 
-export function SiteNav({ locale, site, t, alternateHref, currentHref }: Chrome & { currentHref?: string }) {
+export function SiteNav({ locale, site, t, alternateHref, alternates, currentHref }: Chrome & { currentHref?: string }) {
   const footerOnly = FOOTER_ONLY.map((section) => sectionPath(locale, section));
   const inHeader = (link: NavLink) => !footerOnly.some((path) => link.href === path || link.href.startsWith(`${path}/`));
   const links = withGuideAndBrochure(navLinks(site.menus.primary).filter(inHeader), {
@@ -166,7 +172,7 @@ export function SiteNav({ locale, site, t, alternateHref, currentHref }: Chrome 
         ))}
       </ul>
       <div className={s.navEnd}>
-        <LanguageSwitcher locale={locale} alternateHref={alternateHref} label={t.nav.language} />
+        <LanguageSwitcher locale={locale} links={switcherLinks(locale, alternateHref, alternates)} label={t.nav.language} />
         <SmartLink className={s.navBook} href={sectionPath(locale, 'booking')}>
           {t.nav.book} <span aria-hidden="true">↗︎</span>
         </SmartLink>
@@ -384,10 +390,10 @@ export function footerColumns(
 }
 
 /** Chat bubble channels per language: international guests use WhatsApp, Vietnamese guests Zalo and Messenger. */
-const CHAT_CHANNELS: Record<Locale, ChannelKey[]> = {
+const CHAT_CHANNELS = byLocale<ChannelKey[]>({
   en: ['call', 'whatsapp', 'ai'],
   vi: ['call', 'zalo', 'messenger', 'ai'],
-};
+});
 
 export function SiteFooter({ locale, site, t }: Pick<Chrome, 'locale' | 'site' | 't'>) {
   const info = siteInfo(site);

@@ -1,7 +1,10 @@
 import type { Metadata } from 'next';
 import { notFound, permanentRedirect } from 'next/navigation';
-import { getCruise, getSite, listCruises } from '@/lib/api/content';
+import { listCruises } from '@/lib/api/content';
+import { getCruiseFor, getSiteFor, isPreview } from '@/lib/preview-loaders';
+import { withPreviewBanner } from '@/components/layout/PreviewBanner';
 import { detailPath, homePath, parseDetailFile, type Locale } from '@/lib/i18n';
+import { pageAlternates } from '@/lib/intl';
 import { pageMetadata } from '@/lib/seo';
 import { siteInfo } from '@/lib/site-info';
 import { getMessages } from '@/messages';
@@ -34,7 +37,7 @@ const SEO: Record<number, { title: string; description: string }> = {
 
 async function load(locale: Locale, file: string) {
   const parsed = parseDetailFile(file);
-  const cruise = parsed ? await getCruise(parsed.id, locale) : null;
+  const cruise = parsed ? await getCruiseFor(parsed.id, locale) : null;
   return cruise ? { cruise, canonicalPath: detailPath(locale, 'cruise', cruise.slug, cruise.id) } : null;
 }
 
@@ -51,7 +54,7 @@ export function cruiseRoute(locale: Locale) {
     const loaded = await load(locale, (await params).file);
     if (!loaded) return {};
     const { cruise, canonicalPath } = loaded;
-    const site = await getSite(locale);
+    const [site, alternates, preview] = await Promise.all([getSiteFor(locale), pageAlternates(locale, 'cruise', cruise.alternates), isPreview()]);
     return pageMetadata({
       locale,
       site: siteInfo(site),
@@ -59,6 +62,8 @@ export function cruiseRoute(locale: Locale) {
       description: SEO[cruise.id]?.description ?? cruise.seo.description ?? cruise.summary ?? undefined,
       path: canonicalPath,
       alternatePath: alternateOf(cruise),
+      alternates,
+      noIndex: preview || undefined,
       image: cruise.cover ?? cruise.image,
     });
   }
@@ -70,16 +75,23 @@ export function cruiseRoute(locale: Locale) {
     if (!loaded) notFound();
     const { cruise, canonicalPath } = loaded;
     if (canonicalPath.split('/').pop() !== file) permanentRedirect(canonicalPath);
-    const [site, cruises, destinations] = await Promise.all([getSite(locale), listCruises(locale), listDestinations(locale)]);
+    const [site, cruises, destinations, alternates, preview] = await Promise.all([
+      getSiteFor(locale),
+      listCruises(locale),
+      listDestinations(locale),
+      pageAlternates(locale, 'cruise', cruise.alternates),
+      isPreview(),
+    ]);
     const index = Math.max(1, cruises.findIndex((x) => x.id === cruise.id) + 1);
     const other: Locale = locale === 'en' ? 'vi' : 'en';
-    return (
+    return withPreviewBanner(
+      preview,
       <CruiseView
         cruise={cruise}
         index={index}
         places={placesOnItineraries(destinations.items, cruise.itineraries.map((it) => it.itineraryId))}
-        chrome={{ locale, site, t: getMessages(locale), alternateHref: alternateOf(cruise) ?? homePath(other) }}
-      />
+        chrome={{ locale, site, t: getMessages(locale), alternateHref: alternateOf(cruise) ?? homePath(other), alternates }}
+      />,
     );
   }
 

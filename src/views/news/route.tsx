@@ -2,10 +2,12 @@ import type { Metadata } from 'next';
 import { notFound, permanentRedirect } from 'next/navigation';
 import { getSite } from '@/lib/api/content';
 import type { Locale } from '@/lib/i18n';
+import { hubAlternates } from '@/lib/intl-hubs';
+import { getArticleFor } from '@/lib/preview-loaders';
 import { pageMetadata } from '@/lib/seo';
 import { siteInfo } from '@/lib/site-info';
 import { getMessages } from '@/messages';
-import { getArticle, isRedirect, listArticles, type Article, type ArticleList } from '@/views/blog/data';
+import { isRedirect, listArticles, type Article, type ArticleList } from '@/views/blog/data';
 import { articlePath, NEWS_CATEGORY, newsPath, pageSegment, parsePageSegment } from '@/views/blog/paths';
 import { articleMetadata, articlePage } from '@/views/blog/route';
 import { newsMessages } from './messages';
@@ -37,7 +39,7 @@ async function resolveSegment(locale: Locale, segment: string): Promise<Resolved
   if (page !== null) return page <= 1 ? { kind: 'redirect', to: newsPath(locale) } : resolveList(locale, page);
   const slug = segment.endsWith('.html') ? segment.slice(0, -5) : null;
   if (!slug || !SLUG.test(slug)) return { kind: 'notFound' };
-  const article = await getArticle(locale, NEWS_CATEGORY[locale], slug);
+  const article = await getArticleFor(locale, NEWS_CATEGORY[locale], slug);
   if (!article) return { kind: 'notFound' };
   const canonical = articlePath(locale, article.canonical.categorySlug, article.canonical.slug);
   if (canonical !== articlePath(locale, NEWS_CATEGORY[locale], slug)) return { kind: 'redirect', to: canonical };
@@ -45,7 +47,7 @@ async function resolveSegment(locale: Locale, segment: string): Promise<Resolved
 }
 
 async function listMetadata(locale: Locale, list: ArticleList, canonical: string): Promise<Metadata> {
-  const site = await getSite(locale);
+  const [site, alternates] = await Promise.all([getSite(locale), list.pagination.page === 1 ? hubAlternates('news') : undefined]);
   const m = newsMessages(locale);
   const alternate = list.pagination.page === 1 ? await listArticles(other(locale), NEWS_CATEGORY[other(locale)], 1) : null;
   const pairs = alternate && !isRedirect(alternate) && !alternate.noIndex;
@@ -56,6 +58,7 @@ async function listMetadata(locale: Locale, list: ArticleList, canonical: string
     description: list.seo.description ?? m.listIntro,
     path: canonical,
     alternatePath: pairs ? newsPath(other(locale)) : undefined,
+    alternates,
     image: list.featured[0]?.image ?? list.items[0]?.image,
     noIndex: list.noIndex,
   });
@@ -65,8 +68,8 @@ async function render(locale: Locale, resolved: Resolved) {
   if (resolved.kind === 'notFound') notFound();
   if (resolved.kind === 'redirect') permanentRedirect(resolved.to);
   if (resolved.kind === 'article') return articlePage(locale, resolved.article, newsPath(other(locale)));
-  const site = await getSite(locale);
-  return <NewsListView list={resolved.list} chrome={{ locale, site, t: getMessages(locale), alternateHref: newsPath(other(locale)) }} />;
+  const [site, alternates] = await Promise.all([getSite(locale), resolved.list.pagination.page === 1 ? hubAlternates('news') : undefined]);
+  return <NewsListView list={resolved.list} chrome={{ locale, site, t: getMessages(locale), alternateHref: newsPath(other(locale)), alternates }} />;
 }
 
 /** /news (vi /vi/tin-tuc). */

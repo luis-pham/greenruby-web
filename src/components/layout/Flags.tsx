@@ -23,3 +23,12 @@ export function FlagVN() {
     </svg>
   );
 }
+
+export function FlagJP() {
+  return (
+    <svg viewBox="0 0 30 20" aria-hidden="true">
+      <rect width="30" height="20" fill="#fff" />
+      <circle cx="15" cy="10" r="6" fill="#BC002D" />
+    </svg>
+  );
+}

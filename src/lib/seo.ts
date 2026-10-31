@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
-import type { Locale } from '@/lib/i18n';
+import type { OpenAlternates } from '@/lib/api/contract';
+import { hreflangPaths, ogAlternates } from '@/lib/hreflang';
+import { isLegacyLocale, localeInfo, type Locale } from '@/lib/i18n';
 import type { SiteInfo } from '@/lib/site-info';
 import { absoluteImageUrl, absoluteUrl } from '@/lib/site-url';
 
@@ -7,7 +9,8 @@ export const DEFAULT_SOCIAL_IMAGE = '/assets/frontend/images/logo-social.jpg?v=0
 
 /**
  * Title, description, canonical, hreflang, Open Graph and Twitter tags for a page.
- * hreflang is only emitted when the other-language counterpart is known exactly.
+ * hreflang is only emitted when the other-language counterpart is known exactly: the legacy EN/VI `alternatePath`,
+ * plus, from phase 1D-b, the open intl members of the page's CMS `alternates` (lib/hreflang.ts).
  */
 /** Search results show ~160 characters; long CMS summaries are cut at a word boundary. */
 function clip(text: string | undefined, max = 160): string | undefined {
@@ -33,6 +36,7 @@ export function pageMetadata({
   description: rawDescription,
   path,
   alternatePath,
+  alternates,
   image,
   noIndex,
 }: {
@@ -42,21 +46,19 @@ export function pageMetadata({
   description?: string;
   path: string;
   alternatePath?: string;
+  /** Open members of the page's translation group (lib/intl.ts pageAlternates). */
+  alternates?: OpenAlternates;
   image?: string | null;
   noIndex?: boolean;
 }): Metadata {
   const description = clip(rawDescription);
   const fullTitle = brandedTitle(title, site.name);
   const url = absoluteUrl(path);
-  const other: Locale = locale === 'en' ? 'vi' : 'en';
-  const languages: Record<string, string> | undefined = alternatePath
-    ? {
-        [locale]: url,
-        [other]: absoluteUrl(alternatePath),
-        'x-default': absoluteUrl(locale === 'en' ? path : alternatePath),
-      }
-    : // No exact counterpart in the other language: the page's own language, which is also the default.
-      { [locale]: url, 'x-default': url };
+  const paths = hreflangPaths(locale, path, alternatePath, alternates);
+  const languages = Object.fromEntries(Object.entries(paths).map(([tag, target]) => [tag, absoluteUrl(target)]));
+  const otherLocales = ogAlternates(locale, paths);
+  // en/vi pages without an intl member keep the single EN/VI og:locale:alternate exactly as before.
+  const alternateLocale = isLegacyLocale(locale) && otherLocales.length <= 1 ? (alternatePath ? otherLocales[0] : undefined) : otherLocales;
   // Pages without their own image share the Laravel site's default social card (frontend.organizationLogoSocial).
   // Social cards are JPEG (fm=jpg): /thumbnail serves WebP by default, which LinkedIn and some chat apps don't preview.
   const images = image
@@ -80,8 +82,8 @@ export function pageMetadata({
       title: fullTitle,
       description,
       url,
-      locale: locale === 'vi' ? 'vi_VN' : 'en_US',
-      ...(alternatePath && { alternateLocale: other === 'vi' ? 'vi_VN' : 'en_US' }),
+      locale: localeInfo[locale].ogLocale,
+      ...(alternateLocale && alternateLocale.length > 0 && { alternateLocale }),
       images,
     },
     twitter: {

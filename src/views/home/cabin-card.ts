@@ -1,4 +1,4 @@
-import type { Locale } from '@/lib/i18n';
+import { inLocale, type LegacyCopy, type Locale } from '@/lib/i18n';
 
 // Copy for the homepage suite cards that the CMS does not model.
 //
@@ -9,7 +9,7 @@ import type { Locale } from '@/lib/i18n';
 // Highlights: the room's view plus features named in that room's own summary. The amenity list in the CMS is
 // ship-wide (Wi-Fi, pool…), so it can't tell rooms apart; nothing is shown that the summary doesn't mention.
 
-const TIERS: Record<string, Record<Locale, string>> = {
+const TIERS: Record<string, LegacyCopy<string>> = {
   'imperial-suite': { en: 'Signature Suite', vi: 'Suite biểu tượng' },
   'royal-romance-suite': { en: 'Romance Suite', vi: 'Suite lãng mạn' },
   'ocean-breeze-premium': { en: 'Premium Cabin', vi: 'Cabin cao cấp' },
@@ -17,7 +17,7 @@ const TIERS: Record<string, Record<Locale, string>> = {
 };
 
 // In priority order; the first two found in the summary are shown.
-const FEATURES: { match: RegExp; label: Record<Locale, string> }[] = [
+const FEATURES: { match: RegExp; label: LegacyCopy<string> }[] = [
   { match: /in-suite dining|private (in-suite )?dining|ăn uống và bar riêng|khu ăn uống/i, label: { en: 'In-suite dining', vi: 'Ăn uống riêng tư' } },
   { match: /jacuzzi/i, label: { en: 'Jacuzzi', vi: 'Bồn Jacuzzi' } },
   { match: /terrace|sân hiên/i, label: { en: 'Private terrace', vi: 'Sân hiên riêng' } },
@@ -29,15 +29,15 @@ const FEATURES: { match: RegExp; label: Record<Locale, string> }[] = [
 type CabinLike = { slug: string; cabinClass: string | null; view: string | null; summary: string | null };
 
 export function cabinTier(cabin: CabinLike, locale: Locale): string | null {
-  return TIERS[cabin.slug]?.[locale] ?? cabin.cabinClass;
+  return (TIERS[cabin.slug] ? inLocale(TIERS[cabin.slug], locale) : null) ?? cabin.cabinClass;
 }
 
 export function cabinHighlights(cabin: CabinLike, locale: Locale): string[] {
   const summary = cabin.summary ?? '';
   const features = FEATURES.filter((f) => f.match.test(summary))
     .slice(0, 2)
-    .map((f) => f.label[locale]);
+    .map((f) => inLocale(f.label, locale));
   // A Jacuzzi bath is a bathtub: don't list both.
-  const unique = features.includes(FEATURES[1].label[locale]) ? features.filter((f) => f !== FEATURES[4].label[locale]) : features;
+  const unique = features.includes(inLocale(FEATURES[1].label, locale)) ? features.filter((f) => f !== inLocale(FEATURES[4].label, locale)) : features;
   return [cabin.view, ...unique].filter((x): x is string => Boolean(x));
 }

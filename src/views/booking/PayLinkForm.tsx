@@ -6,7 +6,7 @@ import { cx } from '@/components/ui';
 import type { Locale } from '@/lib/i18n';
 import { bookingApi } from './api';
 import { fmt, formatDate, type T } from './model';
-import { classifyInitFailure, storePaymentAccess, type PaymentMethod, type PaymentPlan } from './payment';
+import { classifyInitFailure, storePaymentAccess, type PaymentMethod, type PaymentPlan, termsLocale } from './payment';
 import { dueNow, linkError, parseLinkInfo, type LinkError, type PaymentLinkInfo } from './pay-link';
 import { formatPrice } from './pricing';
 import s from './booking.module.css';
@@ -80,7 +80,7 @@ export function PayLinkForm({ locale, t, bookingHref, termsHref, privacyHref, te
         method,
         ...(info.purpose === 'booking' ? { payment_plan: chosen?.plan ?? 'full' } : {}),
         return_base: window.location.origin + bookingHref,
-        ...(info.termsRequired ? { terms: { accepted: true as const, version: termsVersion, locale } } : {}),
+        ...(info.termsRequired ? { terms: { accepted: true as const, version: termsVersion, locale: termsLocale(locale) } } : {}),
       });
       if (ok && data?.success && typeof data.payment_url === 'string') {
         if (typeof data.internal_tx_id === 'string') {

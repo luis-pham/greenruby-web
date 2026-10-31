@@ -1,7 +1,10 @@
 import type { Metadata } from 'next';
 import { notFound, permanentRedirect } from 'next/navigation';
-import { getCabin, getCruise, getSite, listCabins } from '@/lib/api/content';
+import { withPreviewBanner } from '@/components/layout/PreviewBanner';
+import { getCabin, getCruise, listCabins } from '@/lib/api/content';
 import { destinationPath, homePath, parseDetailFile, type Locale } from '@/lib/i18n';
+import { pageAlternates } from '@/lib/intl';
+import { getCabinFor, getSiteFor, isPreview } from '@/lib/preview-loaders';
 import { pageMetadata } from '@/lib/seo';
 import { siteInfo } from '@/lib/site-info';
 import { getMessages } from '@/messages';
@@ -14,7 +17,7 @@ type Params = { params: Promise<{ file: string }> };
 async function load(locale: Locale, file: string) {
   const parsed = parseDetailFile(file);
   if (!parsed) notFound();
-  const cabin = await getCabin(parsed.id, locale);
+  const cabin = await getCabinFor(parsed.id, locale);
   if (!cabin) notFound();
   return { cabin, canonical: cabinPath(locale, cabin), requested: parsed };
 }
@@ -39,10 +42,15 @@ export function cabinRoute(locale: Locale) {
     // Unknown cabins: return nothing here and let Page call notFound(), so the 404 renders the
     // group's not-found.tsx (notFound() thrown from metadata produces a blank error shell).
     const parsed = parseDetailFile(file);
-    const cabin = parsed ? await getCabin(parsed.id, locale) : null;
+    const cabin = parsed ? await getCabinFor(parsed.id, locale) : null;
     if (!cabin) return {};
     const canonical = cabinPath(locale, cabin);
-    const [site, alternate] = await Promise.all([getSite(locale), alternateHref(locale, cabin)]);
+    const [site, alternate, alternates, preview] = await Promise.all([
+      getSiteFor(locale),
+      alternateHref(locale, cabin),
+      pageAlternates(locale, 'cabin', cabin.alternates),
+      isPreview(),
+    ]);
     return pageMetadata({
       locale,
       site: siteInfo(site),
@@ -50,6 +58,8 @@ export function cabinRoute(locale: Locale) {
       description: cabin.seo?.description ?? cabin.summary ?? undefined,
       path: canonical,
       alternatePath: alternate.exact ? alternate.href : undefined,
+      alternates,
+      noIndex: preview || undefined,
       image: cabin.image,
     });
   }
@@ -61,21 +71,24 @@ export function cabinRoute(locale: Locale) {
     const { cabin, canonical } = await load(locale, file);
     // Old or mistyped slugs (e.g. after a rename in the CMS) 301 to the canonical URL.
     if (`${canonical.split('/').pop()}` !== file) permanentRedirect(canonical);
-    const [site, alternate, cruise, destinations] = await Promise.all([
-      getSite(locale),
+    const [site, alternate, cruise, destinations, alternates, preview] = await Promise.all([
+      getSiteFor(locale),
       alternateHref(locale, cabin),
       getCruise(cabin.cruise.id, locale),
       listDestinations(locale),
+      pageAlternates(locale, 'cabin', cabin.alternates),
+      isPreview(),
     ]);
     // Published places on this ship's itineraries (CMS relation), for the boarding-day block.
     const places = placesOnItineraries(destinations.items, (cruise?.itineraries ?? []).map((it) => it.itineraryId));
-    return (
+    return withPreviewBanner(
+      preview,
       <CabinView
         cabin={cabin}
         cruise={cruise}
         places={places.map((d) => ({ href: destinationPath(locale, d.slug), label: d.name }))}
-        chrome={{ locale, site, t: getMessages(locale), alternateHref: alternate.href }}
-      />
+        chrome={{ locale, site, t: getMessages(locale), alternateHref: alternate.href, alternates }}
+      />,
     );
   }
 

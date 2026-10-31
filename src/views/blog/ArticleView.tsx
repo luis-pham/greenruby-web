@@ -5,7 +5,7 @@ import { DEFAULT_SOCIAL_IMAGE } from '@/lib/seo';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SmartLink } from '@/components/ui';
 import { guideLinks } from '@/lib/guide-links';
-import { homePath, sectionPath, type Locale } from '@/lib/i18n';
+import { byLocale, homePath, sectionPath } from '@/lib/i18n';
 import { siteInfo } from '@/lib/site-info';
 import { absoluteImageUrl, absoluteUrl, siteUrl } from '@/lib/site-url';
 import { CopyLink } from './CopyLink';
@@ -20,10 +20,10 @@ import { normalizeArticleHtml } from './normalize';
 import s from './article.module.css';
 
 /** Trip-planning guides linked under every article. */
-const PLAN: Record<Locale, { title: string; firstTime: string; transfer: string; destinations: string; hub: string }> = {
+const PLAN = byLocale<{ title: string; firstTime: string; transfer: string; destinations: string; hub: string }>({
   en: { title: 'Plan your trip', firstTime: 'First-time cruise guide', transfer: 'Hanoi to Ha Long Bay', destinations: 'Places to visit', hub: 'All travel guides' },
   vi: { title: 'Chuẩn bị chuyến đi', firstTime: 'Lần đầu đi du thuyền', transfer: 'Hà Nội đi Hạ Long', destinations: 'Địa điểm tham quan', hub: 'Tất cả cẩm nang' },
-};
+});
 
 /** Blog article, or a company news article (category news / tin-tuc: /news/{slug}.html). */
 export function ArticleView({ article, chrome }: { article: Article; chrome: Chrome }) {

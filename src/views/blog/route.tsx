@@ -1,7 +1,11 @@
 import type { Metadata } from 'next';
 import { notFound, permanentRedirect } from 'next/navigation';
+import { withPreviewBanner } from '@/components/layout/PreviewBanner';
 import { getSite } from '@/lib/api/content';
 import { sectionPath, type Locale } from '@/lib/i18n';
+import { pageAlternates } from '@/lib/intl';
+import { getArticleFor, getSiteFor, isPreview } from '@/lib/preview-loaders';
+import { hubAlternates } from '@/lib/intl-hubs';
 import { pageMetadata } from '@/lib/seo';
 import { siteInfo } from '@/lib/site-info';
 import { getMessages } from '@/messages';
@@ -9,7 +13,7 @@ import { livePlacePaths } from '@/views/destinations/data';
 import { unlinkHiddenPlaces } from '@/views/destinations/links';
 import { ArticleView } from './ArticleView';
 import { BlogListView } from './BlogListView';
-import { getArticle, getLegacyArticle, isRedirect, listArticles, searchArticles, type Article, type ArticleList, type CategoryNode } from './data';
+import { getLegacyArticle, isRedirect, listArticles, searchArticles, type Article, type ArticleList, type CategoryNode } from './data';
 import { blogMessages } from './messages';
 import { articlePath, blogPath, isNewsCategory, newsPath, pageSegment, parseLegacyFile, parsePageSegment, searchPath } from './paths';
 
@@ -60,7 +64,7 @@ async function resolveSub(locale: Locale, segment: string, sub: string): Promise
   const slug = sub.endsWith('.html') ? sub.slice(0, -5) : null;
   if (!slug || !SLUG.test(slug) || !SLUG.test(segment)) return { kind: 'notFound' };
   if (isNewsCategory(segment)) return { kind: 'redirect', to: articlePath(locale, segment, slug) };
-  const article = await getArticle(locale, segment, slug);
+  const article = await getArticleFor(locale, segment, slug);
   if (!article) return { kind: 'notFound' };
   const canonical = articlePath(locale, article.canonical.categorySlug, article.canonical.slug);
   if (canonical !== articlePath(locale, segment, slug)) return { kind: 'redirect', to: canonical };
@@ -83,8 +87,17 @@ async function listAlternate(locale: Locale, list: ArticleList): Promise<string 
 const articleAlternate = (article: Article) =>
   article.alternate ? articlePath(article.alternate.lang, article.alternate.categorySlug, article.alternate.slug) : null;
 
+/**
+ * The blog index (page 1) is a section hub; a category (page 1) has the CMS group (GroupAlternates, absent = today's
+ * EN/VI pair only); later pages carry no group.
+ */
+const listGroup = (locale: Locale, list: ArticleList) => {
+  if (list.pagination.page !== 1) return undefined;
+  return list.category ? pageAlternates(locale, 'blog', list.alternates) : hubAlternates('blog');
+};
+
 async function listMetadata(locale: Locale, { list, canonical }: ListOk): Promise<Metadata> {
-  const [site, alternate] = await Promise.all([getSite(locale), listAlternate(locale, list)]);
+  const [site, alternate, alternates] = await Promise.all([getSite(locale), listAlternate(locale, list), listGroup(locale, list)]);
   const m = blogMessages(locale);
   return pageMetadata({
     locale,
@@ -93,13 +106,18 @@ async function listMetadata(locale: Locale, { list, canonical }: ListOk): Promis
     description: list.seo.description ?? undefined,
     path: canonical,
     alternatePath: alternate ?? undefined,
+    alternates,
     image: list.featured[0]?.image ?? list.items[0]?.image,
     noIndex: list.noIndex,
   });
 }
 
+/** The open members of an article's translation group (company news is its own section, /news). */
+const articleAlternates = (locale: Locale, article: Article) =>
+  pageAlternates(locale, isNewsCategory(article.category?.slug) ? 'news' : 'blog', article.alternates);
+
 export async function articleMetadata(locale: Locale, { article, canonical }: Pick<ArticleOk, 'article' | 'canonical'>): Promise<Metadata> {
-  const site = await getSite(locale);
+  const [site, alternates, preview] = await Promise.all([getSiteFor(locale), articleAlternates(locale, article), isPreview()]);
   const meta = pageMetadata({
     locale,
     site: siteInfo(site),
@@ -107,6 +125,8 @@ export async function articleMetadata(locale: Locale, { article, canonical }: Pi
     description: article.seo.description ?? article.lead ?? undefined,
     path: canonical,
     alternatePath: articleAlternate(article) ?? undefined,
+    alternates,
+    noIndex: preview || undefined,
     image: article.image,
   });
   return {
@@ -124,21 +144,22 @@ export async function articleMetadata(locale: Locale, { article, canonical }: Pi
 async function render(locale: Locale, resolved: Resolved) {
   if (resolved.kind === 'notFound') notFound();
   if (resolved.kind === 'redirect') permanentRedirect(resolved.to);
+  if (resolved.kind === 'article') return articlePage(locale, resolved.article, sectionPath(other(locale), 'blog'));
   const site = await getSite(locale);
   const t = getMessages(locale);
-  if (resolved.kind === 'article') return articlePage(locale, resolved.article, sectionPath(other(locale), 'blog'));
-  const alternateHref = (await listAlternate(locale, resolved.list)) ?? sectionPath(other(locale), 'blog');
-  return <BlogListView list={resolved.list} chrome={{ locale, site, t, alternateHref }} />;
+  const [alternate, alternates] = await Promise.all([listAlternate(locale, resolved.list), listGroup(locale, resolved.list)]);
+  const alternateHref = alternate ?? sectionPath(other(locale), 'blog');
+  return <BlogListView list={resolved.list} chrome={{ locale, site, t, alternateHref, alternates }} />;
 }
 
 /** Article page (blog or news); fallbackAlternate is the language switch target without a translation. */
 export async function articlePage(locale: Locale, a: Article, fallbackAlternate: string) {
-  const site = await getSite(locale);
+  const [site, alternates, preview] = await Promise.all([getSiteFor(locale), articleAlternates(locale, a), isPreview()]);
   const alternateHref = articleAlternate(a) ?? fallbackAlternate;
   // Links in the copy to places that are not live yet render as text (no 404 links).
   const live = await livePlacePaths(locale);
   const article = { ...a, leadHtml: unlinkHiddenPlaces(a.leadHtml, live), contentHtml: unlinkHiddenPlaces(a.contentHtml, live) };
-  return <ArticleView article={article} chrome={{ locale, site, t: getMessages(locale), alternateHref }} />;
+  return withPreviewBanner(preview, <ArticleView article={article} chrome={{ locale, site, t: getMessages(locale), alternateHref, alternates }} />);
 }
 
 const flatten = (nodes: CategoryNode[]): CategoryNode[] => nodes.flatMap((n) => [n, ...flatten(n.children)]);

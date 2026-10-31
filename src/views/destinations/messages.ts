@@ -1,4 +1,4 @@
-import type { Locale } from '@/lib/i18n';
+import { byLocale } from '../../lib/i18n.ts';
 import type { Bay, Category } from './data';
 
 const en = {
@@ -227,13 +227,13 @@ const vi: DestinationMessages = {
   },
 };
 
-export const destinationMessages: Record<Locale, DestinationMessages> = { en, vi };
+export const destinationMessages = byLocale<DestinationMessages>({ en, vi });
 
 /**
  * How each cave is visited, by destination slug of each language (for the hub's cave table). Taken from the
  * destination pages' facts; update with them.
  */
-export const caveVisit: Record<Locale, Record<string, string>> = {
+export const caveVisit = byLocale<Record<string, string>>({
   en: {
     'sung-sot-cave': 'On foot, with steps and uneven paths; about 45–60 minutes',
     'luon-cave': 'By kayak or bamboo boat through a water-level tunnel',
@@ -250,7 +250,7 @@ export const caveVisit: Record<Locale, Record<string, string>> = {
     'dong-thien-cung': 'Đi bộ, leo bậc lên cửa động cao khoảng 20 m; khoảng 30 – 60 phút',
     'hang-dau-go': 'Đi bộ, khoảng 90 bậc đá dốc; ngăn đầu có ánh sáng tự nhiên; khoảng 30 – 60 phút',
   },
-};
+});
 
 /**
  * Places worth knowing that are not Green Ruby stops and have no page of their own (no thin pages): shown on the
@@ -260,4 +260,4 @@ export const caveVisit: Record<Locale, Record<string, string>> = {
 export type OtherPlace = { key: string; name: string; bay: Bay; category: Category; summary: string; visit: string; sources: { title: string; url: string }[] };
 
 
-export const otherPlaces: Record<Locale, OtherPlace[]> = { en: [], vi: [] };
+export const otherPlaces = byLocale<OtherPlace[]>({ en: [], vi: [] });

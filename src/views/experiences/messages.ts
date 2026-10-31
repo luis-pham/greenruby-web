@@ -1,4 +1,4 @@
-import type { Locale } from '@/lib/i18n';
+import { byLocale } from '@/lib/i18n';
 
 // Editorial copy for the experiences pages that the CMS doesn't provide (see the designs in
 // new_website/green-ruby-experiences-v1.html and green-ruby-kayaking-detail-v1.html).
@@ -337,4 +337,4 @@ const vi: ExperienceMessages = {
   detailCtaBody: 'Khám phá những hành trình được chăm chút, đưa bạn đến gần hơn với kỳ quan thiên nhiên vịnh Hạ Long.',
 };
 
-export const experienceMessages: Record<Locale, ExperienceMessages> = { en, vi };
+export const experienceMessages = byLocale<ExperienceMessages>({ en, vi });

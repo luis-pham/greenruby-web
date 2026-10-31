@@ -1,13 +1,17 @@
 import type { Metadata } from 'next';
 import { notFound, permanentRedirect } from 'next/navigation';
+import { withPreviewBanner } from '@/components/layout/PreviewBanner';
 import { getSite } from '@/lib/api/content';
 import { experiencePath, parseDetailFile, sectionPath, type Locale } from '@/lib/i18n';
+import { pageAlternates } from '@/lib/intl';
+import { hubAlternates } from '@/lib/intl-hubs';
+import { getExperienceFor, getSiteFor, isPreview } from '@/lib/preview-loaders';
 import { pageMetadata } from '@/lib/seo';
 import { siteInfo } from '@/lib/site-info';
 import { getMessages } from '@/messages';
 import { listDestinations } from '@/views/destinations/data';
 import { placesForExperience } from '@/views/destinations/links';
-import { getExperience, listExperiences, type Experience } from './data';
+import { listExperiences, type Experience } from './data';
 import { ExperiencesView } from './ExperiencesView';
 import { ExperienceView } from './ExperienceView';
 import { experienceMessages } from './messages';
@@ -17,7 +21,7 @@ export function experiencesRoute(locale: Locale) {
   const other: Locale = locale === 'en' ? 'vi' : 'en';
 
   async function generateMetadata(): Promise<Metadata> {
-    const [site, list] = await Promise.all([getSite(locale), listExperiences(locale)]);
+    const [site, list, alternates] = await Promise.all([getSite(locale), listExperiences(locale), hubAlternates('experiences')]);
     const m = experienceMessages[locale];
     return pageMetadata({
       locale,
@@ -26,17 +30,18 @@ export function experiencesRoute(locale: Locale) {
       description: list.seo.description ?? m.metaDescription,
       path: sectionPath(locale, 'experiences'),
       alternatePath: sectionPath(other, 'experiences'),
+      alternates,
       image: list.page.gallery?.[0]?.src ?? list.featured[0]?.cover ?? null,
     });
   }
 
   async function Page() {
-    const [site, list] = await Promise.all([getSite(locale), listExperiences(locale)]);
+    const [site, list, alternates] = await Promise.all([getSite(locale), listExperiences(locale), hubAlternates('experiences')]);
     return (
       <ExperiencesView
         list={list}
         m={experienceMessages[locale]}
-        chrome={{ locale, site, t: getMessages(locale), alternateHref: sectionPath(other, 'experiences') }}
+        chrome={{ locale, site, t: getMessages(locale), alternateHref: sectionPath(other, 'experiences'), alternates }}
       />
     );
   }
@@ -48,7 +53,7 @@ type Params = { params: Promise<{ file: string }> };
 
 async function load(locale: Locale, file: string) {
   const parsed = parseDetailFile(file);
-  const experience = parsed ? await getExperience(parsed.id, locale) : null;
+  const experience = parsed ? await getExperienceFor(parsed.id, locale) : null;
   if (!experience) return null;
   return { experience, canonicalPath: experiencePath(locale, experience.canonicalSlug, experience.id) };
 }
@@ -69,7 +74,7 @@ export function experienceRoute(locale: Locale) {
     const loaded = await load(locale, (await params).file);
     if (!loaded) return {};
     const { experience: x, canonicalPath } = loaded;
-    const site = await getSite(locale);
+    const [site, alternates, preview] = await Promise.all([getSiteFor(locale), pageAlternates(locale, 'experiences', x.alternates), isPreview()]);
     return pageMetadata({
       locale,
       site: siteInfo(site),
@@ -77,6 +82,8 @@ export function experienceRoute(locale: Locale) {
       description: x.seo.description ?? x.summary ?? undefined,
       path: canonicalPath,
       alternatePath: alternateOf(x),
+      alternates,
+      noIndex: preview || undefined,
       image: x.cover ?? x.image,
     });
   }
@@ -90,19 +97,26 @@ export function experienceRoute(locale: Locale) {
     const { experience, canonicalPath } = loaded;
     // Old or mistyped slugs (e.g. after a rename in the CMS) 301 to the canonical URL, as Laravel does.
     if (canonicalPath.split('/').pop() !== file) permanentRedirect(canonicalPath);
-    const [site, list, destinations] = await Promise.all([getSite(locale), listExperiences(locale), listDestinations(locale)]);
+    const [site, list, destinations, alternates, preview] = await Promise.all([
+      getSiteFor(locale),
+      listExperiences(locale),
+      listDestinations(locale),
+      pageAlternates(locale, 'experiences', experience.alternates),
+      isPreview(),
+    ]);
     // CMS "related" (same group) first, then the rest of the collection, so the section always has three cards.
     const seen = new Set([experience.id]);
     const more = [...experience.related, ...list.items].filter((item) => !seen.has(item.id) && seen.add(item.id)).slice(0, 3);
-    return (
+    return withPreviewBanner(
+      preview,
       <ExperienceView
         experience={experience}
         more={more}
         places={placesForExperience(destinations.items, experience.id)}
         page={list.page}
         m={experienceMessages[locale]}
-        chrome={{ locale, site, t: getMessages(locale), alternateHref: alternateOf(experience) ?? sectionPath(other, 'experiences') }}
-      />
+        chrome={{ locale, site, t: getMessages(locale), alternateHref: alternateOf(experience) ?? sectionPath(other, 'experiences'), alternates }}
+      />,
     );
   }
 

@@ -1,8 +1,9 @@
 import 'server-only';
 import { cacheLife, cacheTag } from 'next/cache';
 import { z } from 'zod';
+import { legacyAlternate, multilingualFields } from '@/lib/api/contract';
 import { getContent } from '@/lib/api/client';
-import type { Locale } from '@/lib/i18n';
+import { isLegacyLocale, type Locale } from '@/lib/i18n';
 
 // Schemas and cached readers for GET /experiences and GET /experiences/{id}
 // (cms-develop/docs/CONTENT_API.md §4.1–4.2). Kept here, next to the views that use them.
@@ -64,7 +65,8 @@ export const experienceSchema = experienceSummarySchema.extend({
   suitableFor: z.array(z.object({ id: z.number(), name: z.string() })),
   related: z.array(experienceSummarySchema),
   canonicalSlug: z.string(),
-  alternate: z.object({ lang: z.enum(['en', 'vi']), id: z.number(), slug: z.string() }).nullable(),
+  alternate: legacyAlternate({ id: z.number(), slug: z.string() }),
+  ...multilingualFields,
   updatedAt: text,
 });
 export type Experience = z.infer<typeof experienceSchema>;
@@ -74,7 +76,13 @@ export async function listExperiences(locale: Locale) {
   cacheLife('hours');
   cacheTag('content', 'experiences', 'pages', 'page:exp-activity');
   const list = await getContent('/experiences', { lang: locale }, experienceListSchema);
-  if (!list) throw new Error(`Experience list missing for ${locale}`);
+  if (!list) {
+    // An intl language answers 404 for a section it does not serve (yet): nothing listed. en/vi always have it.
+    if (!isLegacyLocale(locale)) {
+      return experienceListSchema.parse({ seo: { title: null, description: null }, page: {}, tabs: [], groups: [], featured: [], items: [] });
+    }
+    throw new Error(`Experience list missing for ${locale}`);
+  }
   return list;
 }
 

@@ -1,24 +1,29 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-import type { Locale } from '@/lib/i18n';
-import { FlagGB, FlagVN } from './Flags';
+import { useEffect, useRef, type ReactNode } from 'react';
+import { localeInfo, locales, type Locale } from '@/lib/i18n';
+import { FlagGB, FlagJP, FlagVN } from './Flags';
 import s from './layout.module.css';
 
-const LANGUAGES: { locale: Locale; name: string; code: string }[] = [
-  { locale: 'en', name: 'English', code: 'EN' },
-  { locale: 'vi', name: 'Tiếng Việt', code: 'VI' },
-];
+const LANGUAGES: { locale: Locale; name: string; code: string }[] = locales.map((locale) => ({ locale, name: localeInfo[locale].nativeName, code: localeInfo[locale].code }));
 
-const flag = (locale: Locale, uid: string) => (locale === 'en' ? <FlagGB uid={uid} /> : <FlagVN />);
+const FLAGS: Record<Locale, (uid: string) => ReactNode> = {
+  en: (uid) => <FlagGB uid={uid} />,
+  vi: () => <FlagVN />,
+  ja: () => <FlagJP />,
+};
+const flag = (locale: Locale, uid: string) => FLAGS[locale](uid);
 
 /**
- * Language switcher: the current language's flag + code; opening it lists every language's flag.
+ * Language switcher: the current language's flag + code; opening it lists the current language and every language
+ * with a target in `links` (lib/hreflang.ts switcherLinks: an exact translation, or for en/vi the other language's
+ * page as before). Languages without one are not listed.
  * A <details> element (works without JavaScript); closes on outside click, Escape or picking a language.
  */
-export function LanguageSwitcher({ locale, alternateHref, label }: { locale: Locale; alternateHref: string; label: string }) {
+export function LanguageSwitcher({ locale, links, label }: { locale: Locale; links: Partial<Record<Locale, string>>; label: string }) {
   const ref = useRef<HTMLDetailsElement>(null);
   const current = LANGUAGES.find((l) => l.locale === locale) ?? LANGUAGES[0];
+  const listed = LANGUAGES.filter((l) => l.locale === locale || links[l.locale]);
 
   useEffect(() => {
     const close = () => ref.current?.removeAttribute('open');
@@ -49,7 +54,7 @@ export function LanguageSwitcher({ locale, alternateHref, label }: { locale: Loc
         </svg>
       </summary>
       <ul className={s.langMenu}>
-        {LANGUAGES.map((l) => (
+        {listed.map((l) => (
           <li key={l.locale}>
             {l.locale === locale ? (
               <span className={s.langOption} aria-current="true">
@@ -58,7 +63,7 @@ export function LanguageSwitcher({ locale, alternateHref, label }: { locale: Loc
                 <span className={s.langCheck} aria-hidden="true">✓</span>
               </span>
             ) : (
-              <a className={s.langOption} href={alternateHref} hrefLang={l.locale} lang={l.locale}>
+              <a className={s.langOption} href={links[l.locale]} hrefLang={l.locale} lang={l.locale}>
                 <span className={s.flag}>{flag(l.locale, `lang-${l.locale}`)}</span>
                 {l.name}
               </a>

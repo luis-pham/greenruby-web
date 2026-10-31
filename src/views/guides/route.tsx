@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getPageSeo, getSite, isPageVisible, listItineraries } from '@/lib/api/content';
 import { guideLinks } from '@/lib/guide-links';
-import { destinationPath, homePath, sectionPath, type Locale } from '@/lib/i18n';
+import { destinationPath, homePath, inLocale, sectionPath, type LegacyCopy, type Locale } from '@/lib/i18n';
 import { MAPS_URL } from '@/lib/organization';
 import { pageMetadata } from '@/lib/seo';
 import { siteInfo } from '@/lib/site-info';
@@ -23,7 +23,7 @@ import type { GuideContent } from './types';
 const GUIDES = {
   guideFirstTime: { code: 'guide-first-time', content: { en: firstTimeEn, vi: firstTimeVi } },
   guideTransfer: { code: 'guide-transfer', content: { en: transferEn, vi: transferVi } },
-} as const satisfies Record<string, { code: 'guide-first-time' | 'guide-transfer'; content: Record<Locale, GuideContent> }>;
+} as const satisfies Record<string, { code: 'guide-first-time' | 'guide-transfer'; content: LegacyCopy<GuideContent> }>;
 
 type Guide = keyof typeof GUIDES;
 
@@ -53,7 +53,7 @@ function resolver(locale: Locale, publishedSlugs: Set<string>, hiddenPages: read
 export function guideRoute(guide: Guide, locale: Locale) {
   const other: Locale = locale === 'en' ? 'vi' : 'en';
   const { code, content } = GUIDES[guide];
-  const c = content[locale];
+  const c = inLocale<GuideContent>(content, locale);
 
   async function generateMetadata(): Promise<Metadata> {
     const [site, seo, visible, otherVisible] = await Promise.all([

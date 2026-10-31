@@ -1,6 +1,7 @@
 import { DM_Sans, Playfair_Display } from 'next/font/google';
 import type { ReactNode } from 'react';
-import type { Locale } from '@/lib/i18n';
+import { defaultLocale, type Locale } from '@/lib/i18n';
+import { hasDictionary } from '@/messages';
 import '@/styles/tokens.css';
 import '@/styles/base.css';
 
@@ -19,10 +20,13 @@ const sans = DM_Sans({
   display: 'swap',
 });
 
-/** <html>/<body> shared by the per-language root layouts in app/(en) and app/(vi). */
+/**
+ * <html>/<body> shared by the per-language root layouts (app/(en), app/(vi), generated app/(ja)). A locale without its
+ * own dictionary renders English, so it is labelled English.
+ */
 export function RootDocument({ locale, children }: { locale: Locale; children: ReactNode }) {
   return (
-    <html lang={locale} className={`${serif.variable} ${sans.variable}`}>
+    <html lang={hasDictionary(locale) ? locale : defaultLocale} className={`${serif.variable} ${sans.variable}`}>
       <body>{children}</body>
     </html>
   );

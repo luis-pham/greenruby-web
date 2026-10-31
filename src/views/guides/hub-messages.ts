@@ -1,4 +1,4 @@
-import type { Locale } from '@/lib/i18n';
+import { byLocale } from '@/lib/i18n';
 
 /**
  * Travel guide hub (/guides, /vi/cam-nang): a navigation page over the guides, places and journal. It owns only
@@ -52,4 +52,4 @@ const vi: HubMessages = {
   journal: { title: 'Từ Nhật ký hành trình', lede: 'Bài viết mới về mùa du lịch, so sánh và du lịch xanh.', all: 'Tất cả bài viết' },
 };
 
-export const hubMessages: Record<Locale, HubMessages> = { en, vi };
+export const hubMessages = byLocale<HubMessages>({ en, vi });

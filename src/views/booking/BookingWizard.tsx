@@ -19,6 +19,7 @@ import {
   pollPaymentStatus,
   readPaymentAccess,
   storePaymentAccess,
+  termsLocale,
 } from './payment';
 import { currencyForLocale } from './pricing';
 import { StepBookingInfo } from './StepBookingInfo';
@@ -248,7 +249,7 @@ export function BookingWizard({ locale, t, contact, homeHref, bookingHref, priva
       document.getElementById('booking-terms-accept')?.focus();
       return;
     }
-    const acceptance = termsRequired ? ({ accepted: true, version: terms.version, locale } as const) : undefined;
+    const acceptance = termsRequired ? ({ accepted: true, version: terms.version, locale: termsLocale(locale) } as const) : undefined;
 
     if (state.confirmation === 'inquiry') {
       dispatch({ type: 'submit', mode: 'sending' });

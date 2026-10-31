@@ -1,7 +1,7 @@
 import 'server-only';
 import { cacheLife } from 'next/cache';
 import { getCruise, getItinerary, listItineraries } from '@/lib/api/content';
-import type { Locale } from '@/lib/i18n';
+import { defaultLocale, isLegacyLocale, type Locale } from '@/lib/i18n';
 
 /** One bookable voyage (ship + itinerary) as the booking widget needs it. */
 export type BookingOption = {
@@ -26,9 +26,25 @@ export type BookingData = { options: BookingOption[]; demo: boolean };
  */
 const DEMO = process.env.BOOKING_DEMO === '1';
 
+/**
+ * Language whose rows an intl locale books (owner decision D, CMS booking.price_list_for_locale): a new language
+ * has no departures or prices of its own and books the linked English rows (`booking` ids, phase 1A).
+ */
+const INVENTORY_LOCALE = defaultLocale;
+
+/** Cabin id the booking wizard needs: the page's own for en/vi, the linked English cabin for an intl locale. */
+export const inventoryCabinId = (locale: Locale, cabin: { id: number; booking?: { cabinId: number | null } }) =>
+  isLegacyLocale(locale) ? cabin.id : (cabin.booking?.cabinId ?? undefined);
+
 async function optionFor(cruiseId: number, itineraryId: number, locale: Locale): Promise<BookingOption | null> {
   const it = await getItinerary(cruiseId, itineraryId, locale);
   if (!it) return null;
+  if (!isLegacyLocale(locale)) {
+    // Names in the page's language; ids, departures and prices from the inventory rows (never duplicated).
+    const ids = it.booking;
+    const inventory = ids?.cruiseId && ids.itineraryId ? await optionFor(ids.cruiseId, ids.itineraryId, INVENTORY_LOCALE) : null;
+    return inventory && { ...inventory, name: it.name, cruiseName: it.cruise.name };
+  }
   return {
     cruiseId: it.canonical.cruiseId,
     itineraryId: it.canonical.itineraryId,

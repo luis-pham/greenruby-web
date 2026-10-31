@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { Booking } from '@/components/booking';
+import { inventoryCabinId } from '@/lib/booking-options';
 import { PageHero, SiteFooter, type Chrome } from '@/components/layout';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, SectionHeading, SmartLink, TextLink } from '@/components/ui';
@@ -82,7 +83,7 @@ export function CabinView({
           <>
             <TextLink href={cruiseUrl} inverse>{`${c.discoverShip} ${cabin.cruise.name}`}</TextLink>
             <div className={s.heroBooking}>
-              <Booking locale={locale} site={chrome.site} scope={{ cruiseId: cabin.cruise.id }} cabinId={cabin.id} layout="bar" />
+              <Booking locale={locale} site={chrome.site} scope={{ cruiseId: cabin.cruise.id }} cabinId={inventoryCabinId(locale, cabin)} layout="bar" />
             </div>
           </>
         }
@@ -337,7 +338,7 @@ export function CabinView({
             </div>
           </div>
         </section>
-        <Booking locale={locale} site={chrome.site} scope={{ cruiseId: cabin.cruise.id }} cabinId={cabin.id} layout="mobile" />
+        <Booking locale={locale} site={chrome.site} scope={{ cruiseId: cabin.cruise.id }} cabinId={inventoryCabinId(locale, cabin)} layout="mobile" />
       </main>
 
       <SiteFooter {...chrome} />

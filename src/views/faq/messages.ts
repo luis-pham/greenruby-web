@@ -1,3 +1,4 @@
+import { byLocale } from '@/lib/i18n';
 
 const en = {
   breadcrumb: 'Frequently Asked Questions',
@@ -132,4 +133,4 @@ const vi: FaqMessages = {
   contactCaption: 'Hẹn gặp bạn trên vịnh.',
 };
 
-export const faqMessages = { en, vi };
+export const faqMessages = byLocale({ en, vi });

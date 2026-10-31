@@ -1,4 +1,4 @@
-import { sectionPath, type Locale } from './i18n.ts';
+import { inLocale, sectionPath, type Locale } from './i18n.ts';
 
 /**
  * Travel Journal articles the guides and the footer link to. Article slugs are explicit CMS fields
@@ -27,7 +27,7 @@ const ARTICLES = {
 export type GuideArticle = keyof typeof ARTICLES;
 
 export function guideArticlePath(locale: Locale, article: GuideArticle): string {
-  return ARTICLES[article][locale];
+  return inLocale(ARTICLES[article], locale);
 }
 
 /** CMS page code (app_page) of each hub an editor can switch off; see Site.hiddenPages. */

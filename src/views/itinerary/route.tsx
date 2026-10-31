@@ -1,7 +1,10 @@
 import type { Metadata } from 'next';
 import { notFound, permanentRedirect } from 'next/navigation';
-import { getItinerary, getSite, listItineraries } from '@/lib/api/content';
+import { withPreviewBanner } from '@/components/layout/PreviewBanner';
+import { listItineraries } from '@/lib/api/content';
 import { itineraryPath, sectionPath, type Locale } from '@/lib/i18n';
+import { pageAlternates } from '@/lib/intl';
+import { getItineraryFor, getSiteFor, isPreview } from '@/lib/preview-loaders';
 import { pageMetadata } from '@/lib/seo';
 import { siteInfo } from '@/lib/site-info';
 import { getMessages } from '@/messages';
@@ -19,7 +22,7 @@ function parseFile(file: string) {
 
 async function load(locale: Locale, file: string) {
   const parsed = parseFile(file);
-  const itinerary = parsed ? await getItinerary(parsed.cruiseId, parsed.itineraryId, locale) : null;
+  const itinerary = parsed ? await getItineraryFor(parsed.cruiseId, parsed.itineraryId, locale) : null;
   if (!itinerary) return null;
   const { canonical } = itinerary;
   return { itinerary, canonicalPath: itineraryPath(locale, canonical.slug, canonical.cruiseId, canonical.itineraryId) };
@@ -38,7 +41,7 @@ export function itineraryRoute(locale: Locale) {
     const loaded = await load(locale, (await params).file);
     if (!loaded) return {};
     const { itinerary: it, canonicalPath } = loaded;
-    const site = await getSite(locale);
+    const [site, alternates, preview] = await Promise.all([getSiteFor(locale), pageAlternates(locale, 'itinerary', it.alternates), isPreview()]);
     return pageMetadata({
       locale,
       site: siteInfo(site),
@@ -46,6 +49,8 @@ export function itineraryRoute(locale: Locale) {
       description: it.seo.description ?? it.description ?? undefined,
       path: canonicalPath,
       alternatePath: alternateOf(it),
+      alternates,
+      noIndex: preview || undefined,
       image: it.image ?? it.cruise.image,
     });
   }
@@ -58,14 +63,20 @@ export function itineraryRoute(locale: Locale) {
     const { itinerary, canonicalPath } = loaded;
     // Wrong slug or a cruise that doesn't sail this bay: 301 to the canonical URL (as Laravel does).
     if (canonicalPath.split('/').pop() !== file) permanentRedirect(canonicalPath);
-    const [site, destinations] = await Promise.all([getSite(locale), listDestinations(locale)]);
+    const [site, destinations, alternates, preview] = await Promise.all([
+      getSiteFor(locale),
+      listDestinations(locale),
+      pageAlternates(locale, 'itinerary', itinerary.alternates),
+      isPreview(),
+    ]);
     const other: Locale = locale === 'en' ? 'vi' : 'en';
-    return (
+    return withPreviewBanner(
+      preview,
       <ItineraryView
         itinerary={itinerary}
         places={placesOnItinerary(destinations.items, itinerary.itineraryId)}
-        chrome={{ locale, site, t: getMessages(locale), alternateHref: alternateOf(itinerary) ?? sectionPath(other, 'itinerary') }}
-      />
+        chrome={{ locale, site, t: getMessages(locale), alternateHref: alternateOf(itinerary) ?? sectionPath(other, 'itinerary'), alternates }}
+      />,
     );
   }
 
