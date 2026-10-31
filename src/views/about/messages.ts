@@ -221,7 +221,7 @@ const ja: AboutMessages = {
   hero: {
     eyebrow: 'Green Ruby Cruisesのストーリー',
     title: 'ラグジュアリーを、',
-    titleEm: '環境への負荷を抑えて。',
+    titleEm: '環境への負荷を抑えて',
     body: 'ベトナムの湾をもっとも上質に体験する方法とは、その美しさを尊重し、周りの世界を守ることにも貢献する旅だと私たちは考えています。',
     primary: 'ストーリーを読む',
     secondary: '私たちの取り組み',
@@ -245,7 +245,7 @@ const ja: AboutMessages = {
   story: {
     eyebrow: 'ストーリー',
     title: 'この湾には、',
-    titleEm: 'もっとふさわしい旅を。',
+    titleEm: 'もっとふさわしい旅を',
     lead: 'ゆっくりと過ごし、よく目を凝らし、いつもとは違う旅をしたくなる場所があります。',
     link: '船を見る',
     stamp: ['より丁寧な', '船旅の', 'かたち'],
@@ -260,7 +260,7 @@ const ja: AboutMessages = {
   technology: {
     eyebrow: '意図を込めた設計',
     title: '思慮深い旅の、',
-    titleEm: '新しいスタンダード。',
+    titleEm: '新しいスタンダード',
     body: '湾を大切にする取り組みは、見えないところから始まります。当社の船は、効率的な設備と、日々の運航における実践的な工夫を組み合わせています。',
     micro: 'テクノロジーとデザイン',
     foot: '設計上の取り組み',
@@ -275,15 +275,15 @@ const ja: AboutMessages = {
   },
   community: {
     eyebrow: '船の外へ',
-    title: '私たちの故郷。',
-    titleEm: '私たちの責任。',
+    title: '私たちの故郷、',
+    titleEm: '私たちの責任',
     body: 'ある土地を守ることは、そこで暮らす人々を支えることでもあります。',
     link: 'スタッフに相談する',
   },
   collection: {
     eyebrow: '船のご紹介',
     title: (n: number): string => (n === 2 ? '2隻の船。' : '当社の船。'),
-    titleEm: 'ひとつの理念。',
+    titleEm: 'ひとつの理念',
     body: '異なる海域でも、変わらない心配りを。Green Rubyの各船の個性と、それぞれが向かう場所をご紹介します。',
     vessel: (i: number, bay: string | null) => `船${String(i).padStart(2, '0')}${bay ? ` / ${bay}` : ''}`,
     explore: (name: string) => `${name}を見る`,
@@ -291,7 +291,7 @@ const ja: AboutMessages = {
   standards: {
     eyebrow: '取り組みの状況を公開',
     title: '信頼は、',
-    titleEm: '透明性から生まれます。',
+    titleEm: '透明性から生まれます',
     body: 'まだ取得していない認証を取得済みであるかのように示すのではなく、取り組みの過程をお伝えしたいと考えています。現在の状況は次のとおりです。',
     label: '環境認証への取り組み',
     // No Japanese eco article exists; like Vietnamese, Japanese readers get only the brand facts link.
@@ -301,7 +301,7 @@ const ja: AboutMessages = {
   cta: {
     eyebrow: '湾のもうひとつの楽しみ方',
     title: '美しい旅を、',
-    titleEm: '湾への思いやりとともに。',
+    titleEm: '湾への思いやりとともに',
     body: '壮大な景観、ゆったりとした快適さ、そしてより深いつながりが重なり合う、Green Rubyのクルーズをお選びください。',
     primary: 'クルーズ行程を見る',
     secondary: 'スタッフに相談する',

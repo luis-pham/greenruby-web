@@ -14,6 +14,12 @@ const UNSPACED: ReadonlySet<string> = new Set(['ja']);
  */
 export const wordSpace = (locale: Locale): ' ' | '' => (UNSPACED.has(locale) ? '' : ' ');
 
+/**
+ * Display headings: Japanese headlines carry no closing 。 (it also wraps alone onto the last line on phones). Only the
+ * trailing 。 is dropped, and only for unspaced languages; en/vi text is returned unchanged.
+ */
+export const headline = (text: string, locale: Locale): string => (UNSPACED.has(locale) ? text.replace(/。+$/, '') : text);
+
 /** `Next departure: 15 Feb 2027` / `次回の出発日：2027年2月15日` (full-width colon, no space, as in the glossary). */
 export const labelled = (label: string, value: string, locale: Locale): string => `${label}${UNSPACED.has(locale) ? '：' : ': '}${value}`;
 

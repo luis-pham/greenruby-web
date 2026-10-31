@@ -345,7 +345,7 @@ const ja: ExperienceMessages = {
 
   heroEyebrow: '船上で、そしてその先へ',
   heroTitle: '大切なひとときに、',
-  heroTitleEm: 'ゆとりを。',
+  heroTitleEm: 'ゆとりを',
   heroBody:
     'デッキで過ごす静かな朝から、石灰岩の島々をめぐるアクティビティまで。旅を終えたあとも心に残る体験をご紹介します。',
   heroPrimary: '体験を見る',
@@ -365,7 +365,7 @@ const ja: ExperienceMessages = {
   quoteEm: 'その場所をどれだけ深く感じたか、です。',
   collectionEyebrow: '湾での過ごし方',
   collectionTitle: 'どんな旅のスタイルにも、',
-  collectionTitleEm: '寄り添う体験を。',
+  collectionTitleEm: '寄り添う体験を',
   collectionBody:
     '船上で心静かに過ごす時間から、開けた水面でのアクティビティまで、クルーズで楽しめるひとときをご紹介します。',
   filterLabel: '体験を絞り込む',
@@ -381,7 +381,7 @@ const ja: ExperienceMessages = {
   viewExperience: '体験を見る',
   dayEyebrow: '夜明けから星空まで',
   dayTitle: '水辺とともに',
-  dayTitleEm: '過ごす1日。',
+  dayTitleEm: '過ごす1日',
   dayBody: '湾で過ごす1日は、毎日少しずつ表情を変えます。Green Rubyの旅で出会える、さまざまな時間をご紹介します。',
   daySteps: [
     { label: '夜明けとともに', title: 'ゆっくりと始める。', body: '太極拳で心を落ち着け、水平線をひとり占めするひとときを。' },
@@ -391,18 +391,18 @@ const ja: ExperienceMessages = {
   ],
   editorialEyebrow: 'Green Rubyの考え方',
   editorialTitle: '何もしない',
-  editorialTitleEm: 'という贅沢。',
+  editorialTitleEm: 'という贅沢',
   editorialBody:
     'アクティビティは、湾を楽しむ方法のひとつにすぎません。サンデッキの静かな一角、ゆっくり続く会話、いつまでも眺めていたい景色。思いがけない出会いのための余白を残しておきましょう。',
   editorialLink: 'Green Rubyについて',
   galleryEyebrow: 'フォトジャーナル',
   galleryTitle: '船上での時間を、',
-  galleryTitleEm: '間近に。',
+  galleryTitleEm: '間近に',
   galleryLink: 'ギャラリーを見る',
   galleryAlt: (n: number) => `Green Ruby Cruisesの船上の様子（写真${n}）`,
   faqEyebrow: 'ご案内',
   faqTitle: 'ご乗船前に',
-  faqTitleEm: '知っておきたいこと。',
+  faqTitleEm: '知っておきたいこと',
   faqBody: '乗船前から安心してお過ごしいただくための情報です。',
   faqs: [
     {
@@ -423,7 +423,7 @@ const ja: ExperienceMessages = {
   ],
   ctaEyebrow: '旅はここから',
   ctaTitle: '景色を求めて訪れ、',
-  ctaTitleEm: '心に残る時間を。',
+  ctaTitleEm: '心に残る時間を',
   ctaBody: 'ハロン湾・ランハ湾をめぐるクルーズをお選びいただき、お好みの体験を見つけてください。',
   ctaPrimary: 'クルーズ行程を見る',
   ctaSecondary: '予約へ進む',
@@ -454,7 +454,7 @@ const ja: ExperienceMessages = {
   photoLink: 'フォトジャーナルを見る',
   momentEyebrow: '体験について',
   momentTitle: '自分らしく',
-  momentTitleEm: '過ごすひととき。',
+  momentTitleEm: '過ごすひととき',
   momentBody: '決まったスケジュールではなく、この体験の魅力をお伝えするものです。実際の時間や内容は、ご乗船のクルーズによって異なります。',
   steps: [
     { title: 'スタッフと合流', body: '始める前に、集合場所、時間、必要な装備をGreen Rubyのスタッフにご確認ください。' },
@@ -463,14 +463,14 @@ const ja: ExperienceMessages = {
   ],
   photosEyebrow: 'フォトジャーナル',
   photosTitle: '湾の景色を、',
-  photosTitleEm: '別の角度から。',
+  photosTitleEm: '別の角度から',
   photosBody: 'この体験ならではのひとときと景色をご覧ください。',
   photosNote: '実際の場所や条件は、行程によって異なります。',
   openPhoto: (n: number) => `写真${n}を開く`,
   lightbox: { label: (name: string) => `${name}のフォトギャラリー`, close: 'ギャラリーを閉じる', previous: '前の画像', next: '次の画像' },
   goodEyebrow: '知っておきたいこと',
   goodTitle: '美しいひとときを、',
-  goodTitleEm: '丁寧な準備とともに。',
+  goodTitleEm: '丁寧な準備とともに',
   goodBody: (audiences: string[]) =>
     audiences.length > 0
       ? `この体験は、${audiences.join('、').toLowerCase()}におすすめです。湾での1日を心地よく過ごしていただくため、ご乗船前にクルーズの詳細をご確認ください。`
@@ -492,11 +492,11 @@ const ja: ExperienceMessages = {
   panelNote: 'アクティビティの内容や実施状況は、船、航路、運航条件によって異なる場合があります。',
   moreEyebrow: 'さらに見る',
   moreTitle: '湾で過ごす',
-  moreTitleEm: 'ほかのひととき。',
+  moreTitleEm: 'ほかのひととき',
   exploreExperience: '体験を見る',
   detailCtaEyebrow: '旅を始める',
   detailCtaTitle: '次の旅は、',
-  detailCtaTitleEm: '湾から始まります。',
+  detailCtaTitleEm: '湾から始まります',
   detailCtaBody: 'ハロン湾の雄大な自然をより身近に感じられる、丁寧に組み立てたクルーズ行程をご覧ください。',
 };
 

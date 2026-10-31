@@ -18,7 +18,7 @@ import { HeroSlideshow, type HeroSlide } from './HeroSlideshow';
 import { FacilityIcon } from './FacilityIcon';
 import { JourneyTabs } from './JourneyTabs';
 import s from './home.module.css';
-import { wordSpace } from '@/lib/typography';
+import { headline, wordSpace } from '@/lib/typography';
 
 const pad = (n: number) => String(n).padStart(2, '0');
 
@@ -46,8 +46,8 @@ function Head({ eyebrow, title, body, inverse, id }: { eyebrow: string; title: R
  * A CMS banner title as display copy: the part after a line break (or the last words) is set in italics,
  * like the design's "Where the bay becomes <em>yours.</em>".
  */
-function splitTitle(title: string): { title: string; titleEm: string | null } {
-  const [first, ...rest] = title.split(/\r?\n/).map((l) => l.trim()).filter(Boolean);
+function splitTitle(title: string, locale: Locale): { title: string; titleEm: string | null } {
+  const [first, ...rest] = headline(title.trim(), locale).split(/\r?\n/).map((l) => l.trim()).filter(Boolean);
   if (rest.length) return { title: first, titleEm: rest.join(' ') };
   const words = first.split(' ');
   const tail = words.length >= 4 ? 2 : 1;
@@ -78,7 +78,7 @@ export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
   const heroSlides: HeroSlide[] = (page.banner.length ? page.banner : heroImage ? [{ image: heroImage, title: null, description: null }] : []).map(
     (banner, i) => ({
       image: banner.image,
-      ...(i === 0 || isFileName(banner.title) ? designSlide : { ...splitTitle(banner.title as string), body: banner.description ?? null, ...(gap !== ' ' && { gap }) }),
+      ...(i === 0 || isFileName(banner.title) ? designSlide : { ...splitTitle(banner.title as string, locale), body: banner.description ?? null, ...(gap !== ' ' && { gap }) }),
     }),
   );
 

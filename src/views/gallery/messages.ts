@@ -164,7 +164,7 @@ const ja: GalleryMessages = {
     `${name}：ハロン湾・ランハ湾を航行するGreen Rubyクルーズの船内で撮影した写真です。客室、お食事、アクティビティ、そして湾の風景をご覧ください。`,
   heroEyebrow: 'Green Rubyのフォトジャーナル',
   heroTitle: '心に残る瞬間を、',
-  heroTitleEm: 'さまざまなかたちで。',
+  heroTitleEm: 'さまざまなかたちで',
   heroBody:
     '湾の静かな魅力。プライベートな空間で過ごす心地よさ。旅を特別なものにする、大小さまざまなひととき。',
   heroPrimary: 'ギャラリーを見る',
@@ -200,8 +200,8 @@ const ja: GalleryMessages = {
     next: '次の画像',
   },
   virtualEyebrow: '没入型の体験',
-  virtualTitle: '船内へどうぞ。',
-  virtualTitleEm: 'もう少しゆっくりと。',
+  virtualTitle: '船内へどうぞ、',
+  virtualTitleEm: 'もう少しゆっくりと',
   virtualBody:
     'あらゆる角度から眺めてこそわかる場所があります。360°で見渡して、ご旅行の前に船旅の雰囲気を感じてください。',
   virtualCta: '360°ビューを見る',
@@ -217,14 +217,14 @@ const ja: GalleryMessages = {
   },
   momentsEyebrow: '印象に残るひととき',
   momentsTitle: 'いつまでも',
-  momentsTitleEm: '心に残るように。',
+  momentsTitleEm: '心に残るように',
   momentsBody:
     '穏やかな朝のひとときから、一緒に何かを見つけたときの温かさまで。旅の思い出の一部となる瞬間をご紹介します。',
   momentFallbackTag: '体験',
   momentLink: '体験を見る',
   ctaEyebrow: '次の旅へ',
   ctaTitle: '写真で見ても美しく、',
-  ctaTitleEm: '実際に訪れればなお印象深く。',
+  ctaTitleEm: '実際に訪れればなお印象深く',
   ctaBody:
     'ぜひご自身で湾を体験してください。クルーズ行程をご覧いただくか、次のGreen Rubyの旅について予約担当チームにご相談ください。',
   ctaPrimary: 'クルーズ行程を見る',

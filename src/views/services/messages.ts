@@ -270,7 +270,7 @@ const ja: ServicesMessages = {
   hero: {
     eyebrow: 'コンシェルジュサービス',
     title: 'ひとつひとつの細部に、',
-    titleEm: '丁寧な心配りを。',
+    titleEm: '丁寧な心配りを',
     body: 'スムーズなご到着から、お祝いしたいひとときまで。船旅をより自分らしいものにする、心配りの行き届いたサービスをご紹介します。',
     primary: 'サービスを見る',
     secondary: 'スタッフに相談する',
@@ -293,7 +293,7 @@ const ja: ServicesMessages = {
   story: {
     eyebrow: 'ご乗船の前に',
     title: 'どの旅も、',
-    titleEm: '心地よい始まりを。',
+    titleEm: '心地よい始まりを',
     paragraphs: [
       'ハノイから湾までの道のりも、手配に追われる時間ではなく旅の一部であってほしいと考えています。乗合リムジンでも専用車でも、Green Rubyが送迎の手配をお手伝いします。',
       'ご宿泊のホテル、ご旅行日、人数をお知らせいただければ、最適な方法をご提案します。',
@@ -305,7 +305,7 @@ const ja: ServicesMessages = {
   inclusions: {
     eyebrow: 'わかりやすいご案内',
     title: 'クルーズに含まれるもの、',
-    titleEm: 'ご希望に応じて手配するもの。',
+    titleEm: 'ご希望に応じて手配するもの',
     body: '行程に通常含まれる内容と、個別にご依頼いただけるオプションサービスの違いを簡単にご案内します。',
     included: {
       label: '行程に含まれるもの',
@@ -334,7 +334,7 @@ const ja: ServicesMessages = {
     eyebrow: 'ウェディングと記念日',
     eventsEyebrow: 'プライベートイベント',
     eventsTitle: '湾の景色を背景に、',
-    eventsTitleEm: '大切な集いを。',
+    eventsTitleEm: '大切な集いを',
     spaces: 'イベントにふさわしい空間',
     viewSpace: '空間を見る',
     proposal: 'プランの提案を依頼',
@@ -344,7 +344,7 @@ const ja: ServicesMessages = {
   process: {
     eyebrow: 'お好みに合わせて',
     title: '特別なご要望も、',
-    titleEm: 'まずはご相談から。',
+    titleEm: 'まずはご相談から',
     body: 'まずはクルーズをお選びください。大切にしたいことをお聞かせいただければ、予約担当チームが手配可能な内容を確認します。',
     steps: [
       { tag: '選ぶ', title: 'クルーズを選ぶ', body: '1泊の小旅行から長めの船旅まで、ご希望の湾、行程、客室をお選びください。' },
@@ -355,7 +355,7 @@ const ja: ServicesMessages = {
   faq: {
     eyebrow: 'ご案内',
     title: '気になる細かな点に、',
-    titleEm: 'お答えします。',
+    titleEm: 'お答えします',
     body: '具体的なご予定はありますか？ご旅行の行程に合わせて、スタッフが選択肢をご説明します。',
     link: 'その他のよくあるご質問',
     items: [
@@ -384,7 +384,7 @@ const ja: ServicesMessages = {
   cta: {
     eyebrow: 'お客様に合わせた船旅',
     title: '特別な時間を、',
-    titleEm: '気負わずに。',
+    titleEm: '気負わずに',
     body: '湾でどのように過ごしたいか、スタッフにお聞かせください。ご利用いただけるサービスと、それに合うクルーズ選びをお手伝いします。',
     primary: 'スタッフと計画する',
     secondary: 'クルーズ行程を見る',
