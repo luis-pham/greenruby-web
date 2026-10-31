@@ -1,17 +1,17 @@
 import type { ReactNode } from 'react';
 
 // Line icons for the homepage "Life on board" cards. The cards come from the CMS (homepage-service), so the
-// icon is picked from the service name in either language; unknown names get the compass.
+// icon is picked from the service name in any site language; unknown names get the compass.
 
 type Kind = 'dining' | 'bar' | 'entertainment' | 'wellness' | 'pool' | 'cabin' | 'default';
 
 const MATCHERS: [Kind, RegExp][] = [
-  ['dining', /restaurant|dining|cuisine|nha hang|am thuc|bua an/],
-  ['bar', /\bbar\b|bars|drink|cocktail|wine|lounge|do uong|ruou/],
-  ['entertainment', /entertain|music|karaoke|cinema|show|giai tri|am nhac/],
-  ['wellness', /spa|fitness|gym|wellness|massage|yoga|thu gian|cham soc/],
-  ['pool', /pool|swim|jacuzzi|be boi|ho boi/],
-  ['cabin', /cabin|suite|room|phong|giuong/],
+  ['dining', /restaurant|dining|cuisine|nha hang|am thuc|bua an|レストラン|ダイニング|料理|食事/],
+  ['bar', /\bbar\b|bars|drink|cocktail|wine|lounge|do uong|ruou|バー|ドリンク|カクテル|ワイン|ラウンジ/],
+  ['entertainment', /entertain|music|karaoke|cinema|show|giai tri|am nhac|エンターテインメント|音楽|ライブ|カラオケ|シアター/],
+  ['wellness', /spa|fitness|gym|wellness|massage|yoga|thu gian|cham soc|スパ|フィットネス|ジム|ウェルネス|マッサージ|ヨガ/],
+  ['pool', /pool|swim|jacuzzi|be boi|ho boi|プール|ジャグジー/],
+  ['cabin', /cabin|suite|room|phong|giuong|キャビン|スイート|客室|ベッド/],
 ];
 
 const fold = (text: string) =>
@@ -19,7 +19,8 @@ const fold = (text: string) =>
     .toLowerCase()
     .replace(/đ/g, 'd')
     .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '');
+    .replace(/[\u0300-\u036f]/g, '')
+    .normalize('NFC'); // NFD splits kana voicing marks (ド → ト + ゙); put them back
 
 export function facilityKind(name: string): Kind {
   const key = fold(name);
