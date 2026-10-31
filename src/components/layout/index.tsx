@@ -7,7 +7,7 @@ import type { Site } from '@/lib/api/schemas';
 import { switcherLinks } from '@/lib/hreflang';
 import { guideLinks, travelGuideLinks } from '@/lib/guide-links';
 import { byLocale, sectionPath, type Locale, type Section } from '@/lib/i18n';
-import { homeHref, sectionHref } from '@/lib/section-links';
+import { homeHref, linkLabel, sectionHref } from '@/lib/section-links';
 import { navLinks, siteInfo, type NavLink } from '@/lib/site-info';
 import { absoluteUrl } from '@/lib/site-url';
 import { bookingTermsLinked } from '@/views/legal/booking-terms';
@@ -349,7 +349,7 @@ export function footerColumns(
   const f = t.footer.links;
   const p = (section: Section, hash = '') => `${sectionHref(locale, section, publicSections)}${hash}`;
   const guide = guideLinks(locale, hiddenPages, publicSections);
-  return [
+  return markEnglishTargets(locale, [
     {
       title: t.footer.columns.explore,
       links: [
@@ -388,7 +388,15 @@ export function footerColumns(
         { label: f.paymentMethods, href: p('paymentMethods') },
       ],
     },
-  ];
+  ]);
+}
+
+/**
+ * A new language's footer links that still go to an English page say so (linkLabel), like its legal links; en/vi
+ * columns are returned unchanged.
+ */
+function markEnglishTargets(locale: Locale, columns: { title: string; links: FooterLink[] }[]) {
+  return columns.map((c) => ({ ...c, links: c.links.map((l) => (l.href ? { ...l, label: linkLabel(locale, l.href, l.label) } : l)) }));
 }
 
 /** Chat bubble channels per language: international guests use WhatsApp, Vietnamese guests Zalo and Messenger. */

@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { getPageSeo, getSite, isPageVisible, listItineraries } from '@/lib/api/content';
 import { guideLinks } from '@/lib/guide-links';
 import { sectionHref } from '@/lib/section-links';
-import { destinationPath, homePath, inLocale, isLegacyLocale, sectionPath, type LegacyCopy, type Locale } from '@/lib/i18n';
+import { destinationPath, homePath, inLocale, isLegacyLocale, sectionPath, segmentOf, type LegacyCopy, type Locale } from '@/lib/i18n';
 import { guideAlternates, guidePublished, hubAlternates } from '@/lib/intl-hubs';
 import { MAPS_URL } from '@/lib/organization';
 import { pageMetadata } from '@/lib/seo';
@@ -44,6 +44,9 @@ function resolver(locale: Locale, publishedSlugs: Set<string>, hiddenPages: read
     'checkin-map': MAPS_URL,
   };
   return (target: string): string | null => {
+    // A new language's copy keeps the English section paths: its own section page once public, else English.
+    const section = !isLegacyLocale(locale) && /^\/[a-z-]+$/.test(target) ? segmentOf(target.slice(1), 'en') : null;
+    if (section) return sectionHref(locale, section, publicSections);
     if (target.startsWith('/') || target.startsWith('#') || /^https?:\/\//.test(target)) return target;
     if (target.startsWith('destination:')) {
       const slug = target.slice('destination:'.length);

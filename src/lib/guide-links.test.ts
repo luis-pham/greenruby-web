@@ -44,3 +44,13 @@ test('Japanese travel guides and guide articles: own pages once public, English 
   assert.equal(open.find((l) => l.key === 'bestTime')?.href, '/ja/blog/travel-tips/best-time-to-visit-halong-bay.html');
   assert.equal(open.find((l) => l.key === 'bayComparison')?.href, '/ja/blog/destinations-itineraries/ha-long-bay-vs-lan-ha-bay-which-cruise.html');
 });
+
+test('a Japanese link to an English-only page says （英語版）; en/vi labels never change', async () => {
+  const { linkLabel } = await import('./section-links.ts');
+  assert.equal(linkLabel('ja', '/about-us', 'Green Rubyについて'), 'Green Rubyについて（英語版）');
+  assert.equal(linkLabel('ja', '/ja/guides', '旅行ガイド'), '旅行ガイド');
+  assert.equal(linkLabel('ja', '/privacy-policy', 'プライバシーポリシー（英語版）'), 'プライバシーポリシー（英語版）');
+  assert.equal(linkLabel('ja', 'https://drive.google.com/x', '電子パンフレット'), '電子パンフレット');
+  assert.equal(linkLabel('en', '/about-us', 'About'), 'About');
+  assert.equal(linkLabel('vi', '/about-us', 'Giới thiệu'), 'Giới thiệu');
+});

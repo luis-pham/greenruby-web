@@ -3,6 +3,7 @@ import { GuideCards, LinkChips, TravelLinksSection, type GuideCard } from '@/com
 import { JsonLd } from '@/components/seo/JsonLd';
 import { TextLink } from '@/components/ui';
 import { guideLinks } from '@/lib/guide-links';
+import { sectionHref } from '@/lib/section-links';
 import { destinationPath, detailPath, homePath, sectionPath } from '@/lib/i18n';
 import { absoluteUrl } from '@/lib/site-url';
 import { bays, type DestinationSummary } from '@/views/destinations/data';
@@ -33,7 +34,7 @@ export function HubView({
   const m = hubMessages[locale];
   const dm = destinationMessages[locale];
   const path = sectionPath(locale, 'guides');
-  const g = guideLinks(locale, site.hiddenPages);
+  const g = guideLinks(locale, site.hiddenPages, site.publicSections);
   const f = t.footer.links;
   const bodies = t.travel.guideBodies;
 
@@ -44,7 +45,7 @@ export function HubView({
     { href: g.bayComparison, title: f.bayComparison, body: bodies.bayComparison },
   ];
   const cruiseCards: GuideCard[] = [
-    { href: sectionPath(locale, 'itinerary'), title: m.cruises.itineraries[0], body: m.cruises.itineraries[1] },
+    { href: sectionHref(locale, 'itinerary', site.publicSections), title: m.cruises.itineraries[0], body: m.cruises.itineraries[1] },
     ...cruises.map((c) => ({ href: detailPath(locale, 'cruise', c.slug, c.id), title: c.name, body: c.bay ? m.cruises.ship(dm.bays[c.bay]) : null })),
     { href: g.luxuryPillar, title: m.cruises.luxury[0], body: m.cruises.luxury[1] },
   ];

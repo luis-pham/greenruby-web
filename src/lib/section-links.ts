@@ -9,6 +9,20 @@ export function sectionHref(locale: Locale, section: Section, publicSections: re
   return publicSections?.includes(section) ? sectionPath(locale, section) : sectionPath(defaultLocale, section);
 }
 
+/** What a new language appends to a link label whose page exists only in English (glossary §10). */
+const ENGLISH_ONLY: Partial<Record<Locale, string>> = { ja: '（英語版）' };
+
+/**
+ * `label` for a link to `href`: a new language's link that goes to an English page says so（英語版）, unless the label
+ * already does. en/vi labels are returned unchanged.
+ */
+export function linkLabel(locale: Locale, href: string, label: string): string {
+  const mark = ENGLISH_ONLY[locale];
+  if (!mark || !href.startsWith('/') || label.includes(mark)) return label;
+  const own = `/${locale}`;
+  return href === own || href.startsWith(`${own}/`) || href.startsWith(`${own}#`) ? label : `${label}${mark}`;
+}
+
 export function homeHref(locale: Locale, publicSections: readonly string[] | undefined): string {
   if (isLegacyLocale(locale)) return homePath(locale);
   return publicSections?.includes('home') ? homePath(locale) : homePath(defaultLocale);

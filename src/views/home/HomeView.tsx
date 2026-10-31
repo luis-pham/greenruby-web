@@ -8,7 +8,7 @@ import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SmartLink, TextLink } from '@/components/ui';
 import type { Homepage } from '@/lib/api/schemas';
 import { detailPath, experiencePath, homePath, inLocale, itineraryPath, sectionPath, type Locale } from '@/lib/i18n';
-import { sectionHref } from '@/lib/section-links';
+import { linkLabel, sectionHref } from '@/lib/section-links';
 import { siteInfo } from '@/lib/site-info';
 import { absoluteImageUrl, absoluteUrl, siteUrl } from '@/lib/site-url';
 import { cabinPath } from '@/views/cabin/CabinView';
@@ -133,7 +133,7 @@ export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
               <div className={s.glanceCell}>
                 <dt>{h.glance.commitment}</dt>
                 <dd>
-                  <strong className={s.glanceTitle}><SmartLink href={sectionPath(locale, 'ecoDashboard')}>{h.glance.commitmentTitle}</SmartLink></strong>
+                  <strong className={s.glanceTitle}><SmartLink href={sectionPath(locale, 'ecoDashboard')}>{linkLabel(locale, sectionPath(locale, 'ecoDashboard'), h.glance.commitmentTitle)}</SmartLink></strong>
                   <span className={s.glanceDetail}>{h.glance.commitmentDetail}</span>
                 </dd>
               </div>
@@ -219,7 +219,7 @@ export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
               <Eyebrow>{page.slogan ?? h.storyEyebrow}</Eyebrow>
               <Heading locale={locale} id="story-title" title={h.storyTitle} em={h.storyTitleEm} />
               {h.storyBody.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-              <div className={s.storyLink}><TextLink href={sectionHref(locale, 'aboutUs', chrome.site.publicSections)}>{h.storyLink}</TextLink></div>
+              <div className={s.storyLink}><TextLink href={sectionHref(locale, 'aboutUs', chrome.site.publicSections)}>{linkLabel(locale, sectionHref(locale, 'aboutUs', chrome.site.publicSections), h.storyLink)}</TextLink></div>
               <dl className={s.facts}>
                 <div><dt>{h.facts.vessels}</dt><dd>{pad(page.cruises.length)}</dd></div>
                 <div><dt>{h.facts.bays}</dt><dd>{pad(bays.length)}</dd></div>
@@ -370,7 +370,7 @@ export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
                     </li>
                   ))}
                 </ol>
-                <TextLink href={sectionHref(locale, 'aboutUs', chrome.site.publicSections)}>{h.sustainLink}</TextLink>
+                <TextLink href={sectionHref(locale, 'aboutUs', chrome.site.publicSections)}>{linkLabel(locale, sectionHref(locale, 'aboutUs', chrome.site.publicSections), h.sustainLink)}</TextLink>
               </div>
             </div>
           </section>

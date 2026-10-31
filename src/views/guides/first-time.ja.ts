@@ -84,7 +84,7 @@ const firstTime: GuideContent = {
             '**船内の設備：**客室のアメニティに加え、サンデッキ、レストラン、ラウンジ、ウェルネス施設もご確認ください。小さめの客室でも快適に過ごせます。デッキで過ごす予定が多い場合は特にそうです。',
           ],
         },
-        { p: 'Green Ruby 1とGreen Ruby 2には、Serenity Deluxe、Ocean Breeze Premium、Royal Romance Suite、Imperial Suiteの4種類の客室カテゴリーを設ける予定です。最終的な仕様と設備は、ご予約前に公開中の[船の基本データ](/about-us/brand-facts)でご確認ください。' },
+        { p: 'Green Ruby 1とGreen Ruby 2には、Serenity Deluxe、Ocean Breeze Premium、Royal Romance Suite、Imperial Suiteの4種類の客室カテゴリーを設ける予定です。最終的な仕様と設備は、ご予約前に公開中の[船の基本データ（英語版）](/about-us/brand-facts)でご確認ください。' },
       ],
     },
     {
@@ -225,7 +225,7 @@ const firstTime: GuideContent = {
     links: [
       { href: 'transfer', title: 'ハノイからハロン湾へ', body: '送迎、港、現実的な所要時間。' },
       { href: 'destinations', title: 'ハロン湾の見どころ', body: '洞窟、島、村の見どころと実用情報。' },
-      { href: 'luxuryPillar', title: 'ハロン湾の環境に配慮したラグジュアリークルーズ', body: '本当に環境負荷の低いクルーズとは何か、その主張をどう確かめるか。' },
+      { href: 'luxuryPillar', title: 'ハロン湾の環境に配慮したラグジュアリークルーズ（英語版）', body: '本当に環境負荷の低いクルーズとは何か、その主張をどう確かめるか。' },
     ],
   },
   estimateNote: 'このページの移動時間と所要時間は目安であり、スケジュールではありません。Green Rubyの行程は、就航（2027年2月予定）までは暫定です。',
