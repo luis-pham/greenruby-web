@@ -2,7 +2,9 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getPageSeo, getSite, isPageVisible, listItineraries } from '@/lib/api/content';
 import { guideLinks } from '@/lib/guide-links';
-import { destinationPath, homePath, inLocale, sectionPath, type LegacyCopy, type Locale } from '@/lib/i18n';
+import { sectionHref } from '@/lib/section-links';
+import { destinationPath, homePath, inLocale, isLegacyLocale, sectionPath, type LegacyCopy, type Locale } from '@/lib/i18n';
+import { guideAlternates, guidePublished, hubAlternates } from '@/lib/intl-hubs';
 import { MAPS_URL } from '@/lib/organization';
 import { pageMetadata } from '@/lib/seo';
 import { siteInfo } from '@/lib/site-info';
@@ -12,17 +14,19 @@ import { destinationMessages } from '@/views/destinations/messages';
 import { listArticles } from '@/views/blog/data';
 import { articlePath } from '@/views/blog/paths';
 import firstTimeEn from './first-time.en';
+import firstTimeJa from './first-time.ja';
 import firstTimeVi from './first-time.vi';
 import { GuideView } from './GuideView';
 import { HubView, type HubCruise } from './HubView';
 import { hubMessages } from './hub-messages';
 import transferEn from './transfer.en';
+import transferJa from './transfer.ja';
 import transferVi from './transfer.vi';
 import type { GuideContent } from './types';
 
 const GUIDES = {
-  guideFirstTime: { code: 'guide-first-time', content: { en: firstTimeEn, vi: firstTimeVi } },
-  guideTransfer: { code: 'guide-transfer', content: { en: transferEn, vi: transferVi } },
+  guideFirstTime: { code: 'guide-first-time', content: { en: firstTimeEn, vi: firstTimeVi, ja: firstTimeJa } },
+  guideTransfer: { code: 'guide-transfer', content: { en: transferEn, vi: transferVi, ja: transferJa } },
 } as const satisfies Record<string, { code: 'guide-first-time' | 'guide-transfer'; content: LegacyCopy<GuideContent> }>;
 
 type Guide = keyof typeof GUIDES;
@@ -31,12 +35,12 @@ type Guide = keyof typeof GUIDES;
  * Link targets used in guide copy. Destination links resolve only to published destinations, and guide
  * links only to hubs that are switched on, so a hidden or missing page renders as plain text.
  */
-function resolver(locale: Locale, publishedSlugs: Set<string>, hiddenPages: readonly string[]) {
+function resolver(locale: Locale, publishedSlugs: Set<string>, hiddenPages: readonly string[], publicSections?: readonly string[]) {
   const links: Record<string, string | null> = {
-    ...guideLinks(locale, hiddenPages),
-    itineraries: sectionPath(locale, 'itinerary'),
-    faq: sectionPath(locale, 'faq'),
-    contact: sectionPath(locale, 'contact'),
+    ...guideLinks(locale, hiddenPages, publicSections),
+    itineraries: sectionHref(locale, 'itinerary', publicSections),
+    faq: sectionHref(locale, 'faq', publicSections),
+    contact: sectionHref(locale, 'contact', publicSections),
     'checkin-map': MAPS_URL,
   };
   return (target: string): string | null => {
@@ -49,6 +53,13 @@ function resolver(locale: Locale, publishedSlugs: Set<string>, hiddenPages: read
   };
 }
 
+/**
+ * Whether the guide is on for the language: en/vi follow the CMS switch ("Hiển thị trên website"); a new language
+ * needs its page row published (an unanswered request counts as unpublished, never as visible).
+ */
+const guideVisible = (code: 'guide-first-time' | 'guide-transfer', locale: Locale) =>
+  isLegacyLocale(locale) ? isPageVisible(code, locale) : guidePublished(code, locale);
+
 /** Builds the page exports of one guide in one language (app routes re-export them). */
 export function guideRoute(guide: Guide, locale: Locale) {
   const other: Locale = locale === 'en' ? 'vi' : 'en';
@@ -56,11 +67,12 @@ export function guideRoute(guide: Guide, locale: Locale) {
   const c = inLocale<GuideContent>(content, locale);
 
   async function generateMetadata(): Promise<Metadata> {
-    const [site, seo, visible, otherVisible] = await Promise.all([
+    const [site, seo, visible, otherVisible, alternates] = await Promise.all([
       getSite(locale),
       getPageSeo(code, locale),
-      isPageVisible(code, locale),
-      isPageVisible(code, other),
+      guideVisible(code, locale),
+      guideVisible(code, other),
+      guideAlternates(code, guide),
     ]);
     if (!visible) return {};
     return pageMetadata({
@@ -70,25 +82,27 @@ export function guideRoute(guide: Guide, locale: Locale) {
       description: seo.description ?? c.metaDescription,
       path: sectionPath(locale, guide),
       alternatePath: otherVisible ? sectionPath(other, guide) : undefined,
+      alternates,
     });
   }
 
   async function Page() {
     // Switched off in the CMS ("Hiển thị trên website"): 404 until an editor turns it back on.
-    if (!(await isPageVisible(code, locale))) notFound();
-    const [site, destinations, itineraries, otherVisible] = await Promise.all([
+    if (!(await guideVisible(code, locale))) notFound();
+    const [site, destinations, itineraries, otherVisible, alternates] = await Promise.all([
       getSite(locale),
       listDestinations(locale),
       listItineraries(locale),
-      isPageVisible(code, other),
+      guideVisible(code, other),
+      guideAlternates(code, guide),
     ]);
     return (
       <GuideView
         // The language switch goes to the other language's home page when its copy of the guide is hidden.
-        chrome={{ locale, site, t: getMessages(locale), alternateHref: otherVisible ? sectionPath(other, guide) : homePath(other) }}
+        chrome={{ locale, site, t: getMessages(locale), alternateHref: otherVisible ? sectionPath(other, guide) : homePath(other), alternates }}
         content={c}
         path={sectionPath(locale, guide)}
-        resolve={resolver(locale, new Set(destinations.items.map((d) => d.slug)), site.hiddenPages)}
+        resolve={resolver(locale, new Set(destinations.items.map((d) => d.slug)), site.hiddenPages, site.publicSections)}
         itineraries={itineraries.items}
         bayLabels={destinationMessages[locale].bays}
       />
@@ -98,13 +112,17 @@ export function guideRoute(guide: Guide, locale: Locale) {
   return { generateMetadata, Page };
 }
 
+/** The route factories the app routes call (one argument each: scripts/i18n/routes-generate.mjs copies them to ja). */
+export const firstTimeGuideRoute = (locale: Locale) => guideRoute('guideFirstTime', locale);
+export const transferGuideRoute = (locale: Locale) => guideRoute('guideTransfer', locale);
+
 /** /guides and /vi/cam-nang: the travel guide hub (navigation page, always on; it links only to what is live). */
 export function hubRoute(locale: Locale) {
   const other: Locale = locale === 'en' ? 'vi' : 'en';
   const m = hubMessages[locale];
 
   async function generateMetadata(): Promise<Metadata> {
-    const site = await getSite(locale);
+    const [site, alternates] = await Promise.all([getSite(locale), hubAlternates('guides')]);
     return pageMetadata({
       locale,
       site: siteInfo(site),
@@ -112,15 +130,17 @@ export function hubRoute(locale: Locale) {
       description: m.metaDescription,
       path: sectionPath(locale, 'guides'),
       alternatePath: sectionPath(other, 'guides'),
+      alternates,
     });
   }
 
   async function Page() {
-    const [site, destinations, itineraries, list] = await Promise.all([
+    const [site, destinations, itineraries, list, alternates] = await Promise.all([
       getSite(locale),
       listDestinations(locale),
       listItineraries(locale),
       listArticles(locale, null, 1),
+      hubAlternates('guides'),
     ]);
     // Ships from the live itinerary listing (each once), with the bay they sail.
     const cruises = new Map<number, HubCruise>();
@@ -131,7 +151,7 @@ export function hubRoute(locale: Locale) {
     const seen = new Set<number>();
     return (
       <HubView
-        chrome={{ locale, site, t: getMessages(locale), alternateHref: sectionPath(other, 'guides') }}
+        chrome={{ locale, site, t: getMessages(locale), alternateHref: sectionPath(other, 'guides'), alternates }}
         places={destinations.items}
         cruises={[...cruises.values()]}
         articles={articles

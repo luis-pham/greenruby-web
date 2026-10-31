@@ -57,3 +57,21 @@ test('guides only reference routes that have listed operators, and selector anch
     for (const anchor of Object.values(g.selector!.labels.operatorsAnchor)) assert.ok(ids.has(anchor!), `missing section #${anchor}`);
   }
 });
+
+test('every text a shown service renders has Japanese copy in Japanese punctuation', () => {
+  const fields = ['vehicle', 'pickupLocations', 'dropoffLocations', 'departureTimes', 'estimatedDuration', 'luggage', 'note'] as const;
+  const shown = SERVICES.filter((s) => s.listed && s.verificationStatus !== 'unverified');
+  assert.ok(shown.length > 0);
+  for (const s of shown) {
+    for (const f of fields) {
+      const text = s[f];
+      if (!text) continue;
+      const where = `${s.operatorId} ${s.routeId} ${s.transportType}.${f}`;
+      assert.ok(text.ja, `${where}: no ja`);
+      // Japanese ranges use 〜 and full-width brackets; operator names (Latin) stay as they are.
+      assert.doesNotMatch(text.ja, /\d–\d|[()]|, /, `${where}: half-width range or punctuation in ja`);
+      // OperatorTable appends 。 after the luggage line.
+      if (f === 'luggage') assert.doesNotMatch(text.ja, /。$/, `${where}: luggage ends with 。`);
+    }
+  }
+});

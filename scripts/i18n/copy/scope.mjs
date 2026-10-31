@@ -5,18 +5,26 @@
 export const OUT_OF_SCOPE = {
   'src/views/brand-facts/messages.ts': 'Brand facts page: commercial facts deferred to G3; section not routed for ja',
   'src/views/eco/messages.ts': 'Eco dashboard: environmental figures (commercial facts); section not routed for ja',
-  'src/views/guides/operators.ts': 'Travel guides (excluded content type); section not routed for ja',
-  'src/views/guides/OperatorTable.tsx': 'Travel guides (excluded content type); section not routed for ja',
-  'src/views/guides/hub-messages.ts': 'Travel guides hub (excluded content type); section not routed for ja',
   'src/views/legal/booking-terms.ts': 'Legal document (booking terms): separate legal approval; section not routed for ja',
   'src/views/legal/messages.ts': 'Legal pages (privacy, terms, safety, payment methods): separate legal approval; not routed for ja',
   'src/views/legal/cookie-policy.ts': 'Legal document (cookie policy): separate legal approval; not routed for ja',
 };
 
+/**
+ * Translated (2026-11-01, travel guides routed for ja) but checked by their own tests, not by the row inventory:
+ * the operator registry keeps hidden rows (listed: false) untranslated, and its notes join shared constants.
+ * See src/views/guides/operators.test.ts and the guide content structure checks.
+ */
+export const OWN_CHECKS = {
+  'src/views/guides/operators.ts': 'Travel guides: operator registry (shown rows have ja; hidden rows never render)',
+  'src/views/guides/OperatorTable.tsx': 'Travel guides: operator table labels and ja formatting',
+  'src/views/guides/hub-messages.ts': 'Travel guides hub copy (en/vi/ja objects)',
+};
+
 /** Not copy: URL segments, URL paths, locale metadata, components or channel keys. */
 export const TECHNICAL = {
   'src/lib/i18n.ts': 'URL segments and locale metadata (ja uses English URL segments by design)',
-  'src/lib/guide-links.ts': 'URL paths of guide articles (ja links fall back to the English guides)',
+  'src/lib/guide-links.ts': 'URL paths of guide articles (ja links its own articles once its blog is public)',
   'src/views/blog/paths.ts': 'URL slug of the news category',
   'src/components/layout/LanguageSwitcher.tsx': 'flag components per language',
   'src/components/layout/index.tsx': 'chat channel keys per language (not text)',

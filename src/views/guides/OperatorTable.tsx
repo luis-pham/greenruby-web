@@ -1,4 +1,5 @@
 import { byLocale, inLocale, type Locale } from '@/lib/i18n';
+import { labelled, wordSpace } from '@/lib/typography';
 import { fareRanges, listedServices, operatorById, TRANSPORT_CHECKED, type FareRange, type Operator, type RouteId, type Service } from './operators';
 import s from './guide.module.css';
 
@@ -49,45 +50,89 @@ const LABEL_COPY = {
     types: { 'shared-limousine': 'Limousine ghép', bus: 'Xe khách', 'private-car': 'Xe riêng' },
     checked: (date: string) => `Giá và giờ chạy theo công bố, kiểm tra ngày ${date}. Nhà xe có thể thay đổi mà không báo trước, hãy xác nhận khi đặt. Các nhà xe này không phải đối tác của Green Ruby.`,
   },
+  ja: {
+    operator: '運行会社',
+    vehicle: '車両',
+    fare: '料金',
+    pickup: '乗車場所',
+    dropoff: '降車場所',
+    booking: '予約',
+    departures: '出発時刻',
+    duration: '所要時間',
+    luggage: '荷物',
+    perSeat: '／席',
+    perVehicle: '／台',
+    // Placed after the amount for ja ("1,600,000 VND〜／台"), see fareText.
+    from: '〜',
+    askFare: '運行会社に確認',
+    website: 'ウェブサイト',
+    bookOn: 'Vexereで予約',
+    whatsapp: 'WhatsApp',
+    zalo: 'Zalo',
+    domestic: 'ベトナム国内のみ',
+    status: { confirmed: '運行会社のウェブサイト', indicative: '予約前に要確認', agentOnly: '予約サイトのみ' },
+    types: { 'shared-limousine': '乗り合いリムジン', bus: '長距離バス', 'private-car': '専用車' },
+    checked: (date: string) => `料金と時刻は各社が公表している情報で、${date}に確認したものです。運行会社は予告なく変更することがあるため、ご予約時にご確認ください。これらの会社はGreen Rubyの提携先ではありません。`,
+  },
 } as const;
 const LABELS = byLocale<(typeof LABEL_COPY)[keyof typeof LABEL_COPY]>(LABEL_COPY);
 
 export function checkedDate(locale: Locale, iso = TRANSPORT_CHECKED): string {
   const [y, m, d] = iso.split('-').map(Number);
   if (locale === 'vi') return `${d}/${m}/${y}`;
+  if (locale === 'ja') return `${y}年${m}月${d}日`;
   return new Date(Date.UTC(y, m - 1, d)).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
 }
 
 const digits = (n: number, locale: Locale) => n.toLocaleString('en-US').replace(/,/g, locale === 'vi' ? '.' : ',');
 
-/** One amount or a range in the local style: "260,000–360,000 VND", "US$60–120"; VI "260.000–360.000đ", "60–120 USD". */
+/** Unspaced languages (ja) write ranges with a wave dash: "260,000〜360,000 VND" (glossary §2). */
+const rangeDash = (locale: Locale) => (wordSpace(locale) ? '–' : '〜');
+
+/** One amount or a range in the local style: "260,000–360,000 VND", "US$60–120"; VI "260.000–360.000đ", "60–120 USD"; JA "260,000〜360,000 VND". */
 function money(min: number, max: number, currency: 'VND' | 'USD', locale: Locale): string {
-  const amount = min === max ? digits(min, locale) : `${digits(min, locale)}–${digits(max, locale)}`;
+  const amount = min === max ? digits(min, locale) : `${digits(min, locale)}${rangeDash(locale)}${digits(max, locale)}`;
   if (currency === 'USD') return locale === 'vi' ? `${amount} USD` : `US$${amount}`;
   return locale === 'vi' ? `${amount}đ` : `${amount} VND`;
 }
 
-/** "260,000–360,000 VND per seat", "from 1,600,000 VND per vehicle", "US$15 per seat" (VI: "260.000–360.000đ/ghế"). */
+/**
+ * "260,000–360,000 VND per seat", "from 1,600,000 VND per vehicle", "US$15 per seat" (VI: "260.000–360.000đ/ghế";
+ * JA: "260,000〜360,000 VND／席", "1,600,000 VND〜／台": the "from" mark follows the amount and no space precedes the unit).
+ */
 export function fareText(r: Omit<FareRange, 'transportType'>, locale: Locale): string {
   const t = LABELS[locale];
   const unit = r.unit === 'seat' ? t.perSeat : t.perVehicle;
+  const amount = money(r.min, r.open ? r.min : r.max, r.currency, locale);
+  if (!wordSpace(locale)) return `${amount}${r.open ? t.from : ''}${unit}`;
   const sep = locale === 'vi' ? '' : ' ';
-  return `${r.open ? `${t.from} ` : ''}${money(r.min, r.open ? r.min : r.max, r.currency, locale)}${sep}${unit}`;
+  return `${r.open ? `${t.from} ` : ''}${amount}${sep}${unit}`;
 }
 
-export const routeFares = (route: RouteId, locale: Locale) => fareRanges(route).map((r) => `${LABELS[locale].types[r.transportType]}: ${fareText(r, locale)}`);
+export const routeFares = (route: RouteId, locale: Locale) => fareRanges(route).map((r) => labelled(LABELS[locale].types[r.transportType], fareText(r, locale), locale));
+
+/** Inline punctuation: en/vi keep the exact JSX text nodes they had (': ', ' (', ')', '.'); ja uses full-width forms. */
+const punct = (locale: Locale) =>
+  wordSpace(locale) ? { colon: ': ', open: ' (', close: ')', stop: '.' } : { colon: '：', open: '（', close: '）', stop: '。' };
 
 const ext = { target: '_blank', rel: 'nofollow noopener noreferrer' } as const;
 
 /** Phone, WhatsApp and Zalo links; 1900 numbers are shown as Vietnam-only. */
 export function OperatorContacts({ operator, locale }: { operator: Operator; locale: Locale }) {
   const t = LABELS[locale];
+  const pn = punct(locale);
   return (
     <>
       {operator.phones.map((p) => (
         <span key={p.display} className={s.opContact}>
           {p.e164 ? <a href={`tel:+${p.e164}`}>{p.display}</a> : <a href={`tel:${p.display.replace(/\s/g, '')}`}>{p.display}</a>}
-          {!p.e164 && <small> ({t.domestic})</small>}
+          {!p.e164 && (
+            <small>
+              {pn.open}
+              {t.domestic}
+              {pn.close}
+            </small>
+          )}
           {p.whatsapp && p.e164 && (
             <>
               {' · '}
@@ -122,6 +167,7 @@ function statusLabel(service: Service, locale: Locale) {
  */
 export function OperatorTable({ routes, locale, caption }: { routes: readonly RouteId[]; locale: Locale; caption?: string }) {
   const t = LABELS[locale];
+  const p = punct(locale);
   const rows = listedServices(routes);
   if (rows.length === 0) return null;
   return (
@@ -154,12 +200,16 @@ export function OperatorTable({ routes, locale, caption }: { routes: readonly Ro
                     <small className={s.opStatus}>{statusLabel(row, locale)}</small>
                     {row.departureTimes && (
                       <small>
-                        {t.departures}: {inLocale(row.departureTimes, locale)}
+                        {t.departures}
+                        {p.colon}
+                        {inLocale(row.departureTimes, locale)}
                       </small>
                     )}
                     {row.estimatedDuration && (
                       <small>
-                        {t.duration}: {inLocale(row.estimatedDuration, locale)}
+                        {t.duration}
+                        {p.colon}
+                        {inLocale(row.estimatedDuration, locale)}
                       </small>
                     )}
                   </th>
@@ -184,8 +234,11 @@ export function OperatorTable({ routes, locale, caption }: { routes: readonly Ro
                       {(row.note && inLocale(row.note, locale))}
                       {row.luggage && (
                         <>
-                          {row.note && ' '}
-                          {t.luggage}: {inLocale(row.luggage, locale)}.
+                          {row.note && wordSpace(locale)}
+                          {t.luggage}
+                          {p.colon}
+                          {inLocale(row.luggage, locale)}
+                          {p.stop}
                         </>
                       )}
                     </td>

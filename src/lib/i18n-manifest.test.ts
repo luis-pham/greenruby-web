@@ -54,11 +54,11 @@ test('a section whose tree is incomplete is not served; the rest of the locale i
   assert.ok(ja.sections.includes('cabin') && ja.sections.includes('news'));
 });
 
-test('a section name in i18n.ts segments is not a route: ja never lists legal, booking terms or guide pages', () => {
+test('a section name in i18n.ts segments is not a route: ja never lists legal or booking terms pages', () => {
   const ja = entry(appRoutes, all, 'ja');
   // Phase 2B: booking is an intl section (its route tree exists); its terms stay English only.
   assert.ok(ja.sections.includes('booking'));
-  for (const section of ['bookingTerms', 'legal', 'privacyPolicy', 'guides', 'ecoDashboard', 'termsAndConditions']) {
+  for (const section of ['bookingTerms', 'legal', 'privacyPolicy', 'guideFirstTime', 'guideTransfer', 'ecoDashboard', 'termsAndConditions']) {
     assert.equal(ja.sections.includes(section), false, section);
   }
 });

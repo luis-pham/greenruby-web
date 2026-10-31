@@ -5,7 +5,7 @@ import { DEFAULT_SOCIAL_IMAGE } from '@/lib/seo';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SmartLink } from '@/components/ui';
 import { guideLinks } from '@/lib/guide-links';
-import { byLocale, homePath, sectionPath } from '@/lib/i18n';
+import { byLocale, homePath } from '@/lib/i18n';
 import { sectionHref } from '@/lib/section-links';
 import { siteInfo } from '@/lib/site-info';
 import { absoluteImageUrl, absoluteUrl, siteUrl } from '@/lib/site-url';
@@ -171,7 +171,7 @@ export function ArticleView({ article, chrome }: { article: Article; chrome: Chr
               ))}
               {fallbackCards.map((card, i) => (
                 <li key={card.section}>
-                  <SmartLink className={s.relatedCard} href={sectionPath(locale, card.section)}>
+                  <SmartLink className={s.relatedCard} href={sectionHref(locale, card.section, chrome.site.publicSections)}>
                     <span className={s.relatedKicker}>{pad(related.length + i + 1)} &nbsp;/&nbsp; {card.kicker}</span>
                     <h3>{card.title}</h3>
                     <p>{card.body}</p>
@@ -194,7 +194,7 @@ export function ArticleView({ article, chrome }: { article: Article; chrome: Chr
             </div>
             <div className={s.bannerActions}>
               <ButtonLink href={sectionHref(locale, 'itinerary', chrome.site.publicSections)}>{m.bannerPrimary}</ButtonLink>
-              <ButtonLink href={sectionPath(locale, 'booking')} variant="lightOutline">{m.bannerSecondary}</ButtonLink>
+              <ButtonLink href={sectionHref(locale, 'booking', chrome.site.publicSections)} variant="lightOutline">{m.bannerSecondary}</ButtonLink>
             </div>
           </div>
         </section>

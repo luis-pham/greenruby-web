@@ -19,6 +19,8 @@ export const hubRoutes: Record<string, IntlSection> = {
   '': 'home', itinerary: 'itinerary', experiences: 'experiences', destinations: 'destinations', blog: 'blog', news: 'news', 'faq/[[...path]]': 'faq',
   // Static pages (phase 1E-c): public only while their CMS page row is published for the language.
   services: 'services', 'gallery/[[...path]]': 'gallery', 'about-us': 'aboutUs', contact: 'contact',
+  // Travel guide hub: public while one of its guides is (each guide page 404s on its own while unpublished).
+  guides: 'guides',
 };
 
 /** '/(ja)/ja/cruise/[file]/page' → '/(ja)/ja/cruise/[file]'; anything that is not a page → null. */

@@ -33,3 +33,14 @@ test('a new language links its own hubs only when they are public (phase 2C), ot
   assert.equal(open.find((l) => l.key === 'destinations')?.href, '/ja/destinations');
   assert.deepEqual(travelGuideLinks('vi', labels, [], undefined).map((l) => l.href), travelGuideLinks('vi', labels).map((l) => l.href));
 });
+
+test('Japanese travel guides and guide articles: own pages once public, English before', () => {
+  const closed = travelGuideLinks('ja', labels, [], ['home']);
+  assert.equal(closed.find((l) => l.key === 'firstTimeGuide')?.href, '/guides/first-time-halong-bay-cruise');
+  assert.equal(closed.find((l) => l.key === 'bestTime')?.href, '/blog/travel-tips/best-time-to-visit-halong-bay.html');
+  const open = travelGuideLinks('ja', labels, [], ['guides', 'guideFirstTime', 'guideTransfer', 'blog']);
+  assert.equal(open.find((l) => l.key === 'firstTimeGuide')?.href, '/ja/guides/first-time-halong-bay-cruise');
+  assert.equal(open.find((l) => l.key === 'transferGuide')?.href, '/ja/guides/hanoi-to-halong-bay');
+  assert.equal(open.find((l) => l.key === 'bestTime')?.href, '/ja/blog/travel-tips/best-time-to-visit-halong-bay.html');
+  assert.equal(open.find((l) => l.key === 'bayComparison')?.href, '/ja/blog/destinations-itineraries/ha-long-bay-vs-lan-ha-bay-which-cruise.html');
+});

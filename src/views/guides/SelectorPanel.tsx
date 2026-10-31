@@ -1,4 +1,5 @@
 import type { Locale } from '@/lib/i18n';
+import { wordSpace } from '@/lib/typography';
 import { listedServices, operatorById, type Area, type Operator } from './operators';
 import { OperatorContacts, routeFares } from './OperatorTable';
 import type { SelectorLabels } from './TransferSelector';
@@ -17,6 +18,8 @@ export function SelectorPanel({ origin, locale, labels }: { origin: Origin; loca
   const out = unique(listedServices([`${area}-halong`]).map((x) => x.operatorId));
   const back = unique(listedServices([`halong-${area}`]).map((x) => x.operatorId));
   const anchor = labels.operatorsAnchor[origin];
+  // ja: the label already ends with '：', names are joined with '、' and the line ends with '。'.
+  const spaced = wordSpace(locale) === ' ';
   return (
     <div className={s.selectorOps}>
       <div>
@@ -46,7 +49,10 @@ export function SelectorPanel({ origin, locale, labels }: { origin: Origin; loca
         )}
         {back.length > 0 && (
           <small>
-            {labels.returnOperators} {back.map((op) => op.operatorName).join(', ')}.
+            {labels.returnOperators}
+            {wordSpace(locale)}
+            {back.map((op) => op.operatorName).join(spaced ? ', ' : '、')}
+            {spaced ? '.' : '。'}
           </small>
         )}
         {anchor && out.length > 0 && <a href={`#${anchor}`}>{labels.seeTable}</a>}

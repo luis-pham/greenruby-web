@@ -5,6 +5,7 @@ import { SmartLink, TextLink } from '@/components/ui';
 import type { ItinerarySummary } from '@/lib/api/schemas';
 import { homePath, itineraryPath, sectionPath } from '@/lib/i18n';
 import { organizationRef } from '@/lib/organization';
+import { wordSpace } from '@/lib/typography';
 import { siteInfo } from '@/lib/site-info';
 import { absoluteUrl, siteUrl } from '@/lib/site-url';
 import { BoardingTimeline } from './BoardingTimeline';
@@ -83,6 +84,8 @@ export function GuideView({
         <TransferSelector
           key={key}
           {...sel}
+          // Only unspaced languages (ja) get the prop, so the en/vi props (and RSC payload) stay as they were.
+          {...(wordSpace(locale) ? {} : { unspaced: true as const })}
           panels={Object.fromEntries(sel.origins.map((o) => [o.key, <SelectorPanel key={o.key} origin={o.key} locale={locale} labels={sel.labels} />]))}
         />
       );
@@ -211,7 +214,7 @@ export function GuideView({
               ) : null;
             })}
           </ul>
-          <TextLink href={resolve('contact') ?? homePath(locale)}>{locale === 'vi' ? 'Liên hệ đặt chỗ' : 'Contact reservations'}</TextLink>
+          <TextLink href={resolve('contact') ?? homePath(locale)}>{locale === 'vi' ? 'Liên hệ đặt chỗ' : locale === 'ja' ? '予約担当チームに問い合わせる' : 'Contact reservations'}</TextLink>
         </div>
       </section>
 

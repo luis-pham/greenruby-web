@@ -89,16 +89,24 @@ export function homePath(locale: Locale): string {
  * Sections an intl locale has (its generated route tree, intl-routes.ts): content the CMS publishes per row,
  * (phase 1E-c) the static pages whose CMS page row is their publication (services, gallery, about us, contact), and
  * (phase 2B) the booking wizard and payment-link page (/ja/booking, /ja/booking/pay: noindex, never in a sitemap; the
- * locale books the English inventory in USD, CMS booking.price_list_for_locale).
+ * locale books the English inventory in USD, CMS booking.price_list_for_locale), and (2026-11-01) the travel guide hub
+ * with its two guides, whose copy lives in views/guides and whose CMS page rows are their publication.
  */
-export const intlSections = ['home', 'cruise', 'cabin', 'itinerary', 'experiences', 'destinations', 'blog', 'news', 'faq', 'services', 'gallery', 'aboutUs', 'contact', 'booking'] as const;
+export const intlSections = ['home', 'cruise', 'cabin', 'itinerary', 'experiences', 'destinations', 'blog', 'news', 'faq', 'services', 'gallery', 'aboutUs', 'contact', 'booking', 'guides'] as const;
+
+/** Pages that belong to an intl section without being one (their routes sit under it): the two travel guides. */
+export const intlSubsections: Partial<Record<Section, (typeof intlSections)[number]>> = { guideFirstTime: 'guides', guideTransfer: 'guides' };
+
+/** The intl section a section's page belongs to (itself, or its parent for the travel guides); null when none. */
+export const intlSectionOf = (section: Section): (typeof intlSections)[number] | null =>
+  (intlSections as readonly string[]).includes(section) ? (section as (typeof intlSections)[number]) : (intlSubsections[section] ?? null);
 
 /**
  * en/vi: the section in that language. An intl locale has no route for the other sections (legal, booking terms,
- * guides, brand facts, eco), so its links to them go to English.
+ * brand facts, eco), so its links to them go to English.
  */
 export function sectionPath(locale: Locale, section: Section): string {
-  const target = isLegacyLocale(locale) || (intlSections as readonly string[]).includes(section) ? locale : defaultLocale;
+  const target = isLegacyLocale(locale) || intlSectionOf(section) ? locale : defaultLocale;
   return `${prefix(target)}/${segments[section][target]}`;
 }
 

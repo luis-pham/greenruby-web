@@ -52,4 +52,28 @@ const vi: HubMessages = {
   journal: { title: 'Từ Nhật ký hành trình', lede: 'Bài viết mới về mùa du lịch, so sánh và du lịch xanh.', all: 'Tất cả bài viết' },
 };
 
-export const hubMessages = byLocale<HubMessages>({ en, vi });
+// DRAFT (2026-11-01): machine-assisted Japanese, not yet reviewed by a native editor.
+const ja: HubMessages = {
+  metaTitle: 'ハロン湾旅行ガイド：見どころ・旅の計画・クルーズ',
+  metaDescription: 'ハロン湾とランハ湾の旅行ガイドはこちらから。どこへ行くか、どう行くか、いつ訪れるか、クルーズの選び方をご案内します。',
+  eyebrow: 'ハロン湾・ランハ湾',
+  title: 'ハロン湾',
+  titleEm: '旅行ガイド',
+  lead: '2つの湾について当社が公開しているすべてのガイドを、計画している内容ごとにまとめました。各カードから、そのテーマを詳しく解説するページへ移動できます。',
+  plan: { title: '旅の計画', lede: 'いつ行くか、何泊するか、どちらの湾にするか、港までどう行くか。' },
+  places: {
+    title: '見どころ',
+    lede: '湾内の洞窟、島、村。それぞれの訪問の内容と、立ち寄りを予定している行程をご紹介します。',
+    hub: '見どころをすべて見る',
+  },
+  cruises: {
+    title: 'クルーズを選ぶ',
+    lede: '2隻の船、4種類の行程、ご予約前に比較したいポイント。',
+    itineraries: ['すべての行程', '2つの湾、1泊または2泊。日ごとのプログラムを並べて比較できます。'],
+    luxury: ['環境に配慮したラグジュアリークルーズ完全ガイド', 'ご予約前に確認したいこと：認証、技術、2つの湾。'],
+    ship: (bay: string) => `${bay}を航行する船：客室、設備、行程。`,
+  },
+  journal: { title: '旅のコラムから', lede: '季節、比較記事、環境への取り組みに関する最新の記事。', all: '旅のコラムの記事一覧' },
+};
+
+export const hubMessages = byLocale<HubMessages>({ en, vi, ja });

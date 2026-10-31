@@ -40,19 +40,38 @@ export type SelectorLabels = {
 
 const fill = (template: string, values: Record<string, string>) => template.replace(/\{(\w+)\}/g, (_, k) => values[k] ?? '');
 
-/** "2.5–3 hours" (localised decimal) or, under two hours, "50–70 min". */
-function duration([a, b]: [number, number], labels: SelectorLabels): string {
-  if (b < 120) return `${a}–${b} ${labels.minutes}`;
+/**
+ * Range dash and the space before a unit. Unspaced languages (ja) use a wave dash and no space: "2.5〜3時間" (glossary
+ * §2, rule T23); en/vi keep "–" and " ".
+ */
+const style = (unspaced?: boolean) => (unspaced ? { dash: '〜', space: '' } : { dash: '–', space: ' ' });
+
+/** "2.5–3 hours" (localised decimal) or, under two hours, "50–70 min"; ja "2.5〜3時間", "50〜70分". */
+function duration([a, b]: [number, number], labels: SelectorLabels, unspaced?: boolean): string {
+  const { dash, space } = style(unspaced);
+  if (b < 120) return `${a}${dash}${b}${space}${labels.minutes}`;
   const h = (m: number) => String(Math.round((m / 60) * 2) / 2).replace('.', labels.decimal);
-  return `${h(a)}–${h(b)} ${labels.hours}`;
+  return `${h(a)}${dash}${h(b)}${space}${labels.hours}`;
 }
 
 /**
  * "Where are you starting from?" → options, a suggested departure window, fares, operators and last-day
  * guidance (estimates only). Every origin's panel is in the server HTML; the radios only toggle `hidden`.
+ * `unspaced` is passed (true) only for languages written without spaces (ja); en/vi omit it, so their props are unchanged.
  */
-export function TransferSelector({ origins, labels, panels = {} }: { origins: SelectorOrigin[]; labels: SelectorLabels; panels?: Partial<Record<Origin, ReactNode>> }) {
+export function TransferSelector({
+  origins,
+  labels,
+  panels = {},
+  unspaced,
+}: {
+  origins: SelectorOrigin[];
+  labels: SelectorLabels;
+  panels?: Partial<Record<Origin, ReactNode>>;
+  unspaced?: true;
+}) {
   const [key, setKey] = useState<Origin>(origins[0].key);
+  const { dash, space } = style(unspaced);
   const id = useId();
   return (
     <div className={s.selector}>
@@ -77,14 +96,16 @@ export function TransferSelector({ origins, labels, panels = {} }: { origins: Se
             <div className={s.selectorFigures}>
               <div>
                 <span>{labels.road}</span>
-                {road ? <b>{duration(road, labels)}</b> : <small>{labels.roadUnknown}</small>}
+                {road ? <b>{duration(road, labels, unspaced)}</b> : <small>{labels.roadUnknown}</small>}
               </div>
               <div>
                 <span>{labels.depart}</span>
                 {leave ? (
                   <>
                     <b>
-                      {leave[0]}–{leave[1]}
+                      {leave[0]}
+                      {dash}
+                      {leave[1]}
                     </b>
                     <small>{shuttle ? fill(labels.departShuttle, { from: shuttle[0], to: shuttle[1] }) : labels.departNote}</small>
                   </>
@@ -95,12 +116,24 @@ export function TransferSelector({ origins, labels, panels = {} }: { origins: Se
               <div>
                 <span>{labels.lastDay}</span>
                 <b>
-                  {DISEMBARK[0]}–{DISEMBARK[1]}
+                  {DISEMBARK[0]}
+                  {dash}
+                  {DISEMBARK[1]}
                 </b>
                 <small>
                   {labels.disembark}
-                  {back && !origin.airport && <> {fill(labels.returnBack, { origin: origin.label, from: back[0], to: back[1] })}</>}
-                  {origin.airport && <> {labels.airportAdvice}</>}
+                  {back && !origin.airport && (
+                    <>
+                      {space}
+                      {fill(labels.returnBack, { origin: origin.label, from: back[0], to: back[1] })}
+                    </>
+                  )}
+                  {origin.airport && (
+                    <>
+                      {space}
+                      {labels.airportAdvice}
+                    </>
+                  )}
                 </small>
               </div>
             </div>

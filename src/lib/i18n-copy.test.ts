@@ -12,7 +12,8 @@ type Row = { id: string; file: string; kind: string; en: string; ja: string | nu
 const { rows } = extract() as { rows: Row[] };
 const OUT_OF_SCOPE: Record<string, string> = scope.OUT_OF_SCOPE;
 const TECHNICAL: Record<string, string> = scope.TECHNICAL;
-const inScope = rows.filter((r) => !OUT_OF_SCOPE[r.file] && !TECHNICAL[r.file] && r.kind !== 'spread');
+const OWN_CHECKS: Record<string, string> = scope.OWN_CHECKS;
+const inScope = rows.filter((r) => !OUT_OF_SCOPE[r.file] && !TECHNICAL[r.file] && !OWN_CHECKS[r.file] && r.kind !== 'spread');
 const vars = (s: string) => (s.match(/\$\{[^}]+\}/g) ?? []).map((v) => v.replace(/\s+/g, '')).sort();
 /** Identifiers interpolated by a function's template literals (what the reader actually sees). */
 const shown = (src: string) => new Set((src.match(/\$\{[^}]+\}/g) ?? []).flatMap((v) => v.match(/[A-Za-z_$][\w$]*/g) ?? []));
@@ -39,7 +40,7 @@ describe('Japanese interface copy', () => {
     }
   });
 
-  it('adds no Japanese to out-of-scope sections (legal, guides, brand facts, eco)', () => {
+  it('adds no Japanese to out-of-scope sections (legal, brand facts, eco)', () => {
     const partial = rows.filter((r) => OUT_OF_SCOPE[r.file] && r.ja !== null).map((r) => r.id);
     assert.deepEqual(partial, []);
   });

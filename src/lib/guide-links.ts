@@ -1,4 +1,4 @@
-import { inLocale, type Locale } from './i18n.ts';
+import { isLegacyLocale, type Locale } from './i18n.ts';
 import { sectionHref } from './section-links.ts';
 
 /**
@@ -13,22 +13,31 @@ const ARTICLES = {
     en: '/blog/eco-sustainability/the-complete-guide-to-eco-friendly-luxury-cruises-in-ha-long-bay-2026.html',
     vi: '/vi/blog/hanh-trinh/kinh-nghiem-chon-du-thuyen-ha-long-cao-cap.html',
   },
-  // EN 236 / VI 265.
+  // EN 236 / VI 265 / JA (2026-11-01).
   bestTime: {
     en: '/blog/travel-tips/best-time-to-visit-halong-bay.html',
     vi: '/vi/blog/hanh-trinh/di-ha-long-mua-nao-dep.html',
+    ja: '/ja/blog/travel-tips/best-time-to-visit-halong-bay.html',
   },
-  // EN 222 / VI 223.
+  // EN 222 / VI 223 / JA (2026-11-01).
   bayComparison: {
     en: '/blog/destinations/ha-long-bay-vs-lan-ha-bay-which-cruise.html',
     vi: '/vi/blog/hanh-trinh/nen-chon-du-thuyen-ha-long-hay-lan-ha.html',
+    ja: '/ja/blog/destinations-itineraries/ha-long-bay-vs-lan-ha-bay-which-cruise.html',
   },
-} as const;
+} as const satisfies Record<string, { en: string; vi: string; ja?: string }>;
 
 export type GuideArticle = keyof typeof ARTICLES;
 
-export function guideArticlePath(locale: Locale, article: GuideArticle): string {
-  return inLocale(ARTICLES[article], locale);
+/**
+ * The article in the language. A new language links its own copy only while its blog is public (`publicSections`),
+ * otherwise (or without a copy) the English article.
+ */
+export function guideArticlePath(locale: Locale, article: GuideArticle, publicSections?: readonly string[]): string {
+  const paths: { en: string; vi: string; ja?: string } = ARTICLES[article];
+  if (isLegacyLocale(locale)) return paths[locale as 'en' | 'vi'];
+  const own = (paths as Partial<Record<Locale, string>>)[locale];
+  return own && publicSections?.includes('blog') ? own : paths.en;
 }
 
 /** CMS page code (app_page) of each hub an editor can switch off; see Site.hiddenPages. */
@@ -48,11 +57,11 @@ export function guideLinks(locale: Locale, hiddenPages: readonly string[] = [], 
     hub: sectionHref(locale, 'guides', publicSections),
     journal: sectionHref(locale, 'blog', publicSections),
     firstTime: hub('guideFirstTime'),
-    bestTime: guideArticlePath(locale, 'bestTime'),
-    bayComparison: guideArticlePath(locale, 'bayComparison'),
+    bestTime: guideArticlePath(locale, 'bestTime', publicSections),
+    bayComparison: guideArticlePath(locale, 'bayComparison', publicSections),
     destinations: hub('destinations'),
     transfer: hub('guideTransfer'),
-    luxuryPillar: guideArticlePath(locale, 'luxuryPillar'),
+    luxuryPillar: guideArticlePath(locale, 'luxuryPillar', publicSections),
   };
 }
 
