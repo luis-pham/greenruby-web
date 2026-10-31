@@ -1,0 +1,356 @@
+{
+ "alternate": {
+  "id": 1,
+  "lang": "vi",
+  "slug": "green-ruby-1"
+ },
+ "amenities": [
+  {
+   "icon": "/upload/2026/06/10/wifi.svg",
+   "name": "Wi-Fi"
+  },
+  {
+   "icon": "/upload/2026/06/10/entertainment.svg",
+   "name": "Entertainment"
+  },
+  {
+   "icon": "/upload/2026/06/10/dining.svg",
+   "name": "All Dining"
+  },
+  {
+   "icon": "/upload/2026/06/10/swimming-pool.svg",
+   "name": "Swimming pool"
+  },
+  {
+   "icon": "/upload/2026/06/10/coffee-tea.svg",
+   "name": "Soda & Water"
+  }
+ ],
+ "bay": "ha-long",
+ "cabins": [
+  {
+   "area": 120,
+   "cabinClass": "Ocean View",
+   "capacity": 3,
+   "cruise": {
+    "id": 3,
+    "name": "Green Ruby 1"
+   },
+   "id": 24,
+   "image": "/upload/2026/06/10/tt-2-30-1-1.jpg",
+   "name": "Imperial Suite",
+   "slug": "imperial-suite",
+   "summary": "Green Ruby's signature suite features panoramic ocean views, a balcony Jacuzzi, private in-suite dining and bar, an expansive terrace, and dedicated butler service.",
+   "view": "Ocean view"
+  },
+  {
+   "area": 38,
+   "cabinClass": "Ocean View",
+   "capacity": 2,
+   "cruise": {
+    "id": 3,
+    "name": "Green Ruby 1"
+   },
+   "id": 62,
+   "image": "/upload/2026/06/10/b0f600856344e21abb55.jpg",
+   "name": "Ocean Breeze Premium",
+   "slug": "ocean-breeze-premium",
+   "summary": "A bright and tranquil retreat with elevated ocean views, featuring a bathtub and separate shower, bringing the beauty of the sea closer to your stay.",
+   "view": "Sea view"
+  },
+  {
+   "area": 38,
+   "cabinClass": "Ocean View",
+   "capacity": 2,
+   "cruise": {
+    "id": 3,
+    "name": "Green Ruby 1"
+   },
+   "id": 8,
+   "image": "/upload/2026/06/10/c193c2cbde0a5f54061b.jpg",
+   "name": "Serenity Deluxe",
+   "slug": "serenity-deluxe",
+   "summary": "Cozy and elegant cabin featuring a bathtub and separate shower for a relaxing stay.",
+   "view": "Ocean view"
+  },
+  {
+   "area": 80,
+   "cabinClass": "Suite",
+   "capacity": 2,
+   "cruise": {
+    "id": 3,
+    "name": "Green Ruby 1"
+   },
+   "id": 9,
+   "image": "/upload/2026/06/10/dfab74596698e7c6be89.jpg",
+   "name": "Royal Romance Suite",
+   "slug": "royal-romance-suite",
+   "summary": "Green Ruby’s premier suite, featuring panoramic ocean views, a premium Jacuzzi bathtub, a spacious private terrace, and dedicated butler service for an effortlessly luxurious experience.",
+   "view": "Ocean view"
+  }
+ ],
+ "capacity": 136,
+ "contentHtml": "",
+ "cover": "/upload/2026/06/10/a1ea43d13010b14ee801.jpg",
+ "descriptionDesignHtml": "",
+ "experiences": [
+  {
+   "duration": "60",
+   "id": 8,
+   "image": "/upload/2026/07/16/kayaking-green-ruby-halong-bay-2.png",
+   "name": "Kayaking",
+   "slug": "kayaking",
+   "summary": "Paddle through hidden lagoons and limestone caves of Ha Long Bay at your own pace."
+  },
+  {
+   "duration": "60",
+   "id": 14,
+   "image": "/upload/2026/07/16/cooking-class-greenruby-halong-bay.png",
+   "name": "Cooking Demonstration",
+   "slug": "cooking-demonstration",
+   "summary": "Learn to prepare a signature Vietnamese dish with our onboard chef — fresh from the bay."
+  },
+  {
+   "duration": "30",
+   "id": 15,
+   "image": "/upload/2026/07/16/squid-fishing-green-ruby-cruises-4.png",
+   "name": "Squid Fishing",
+   "slug": "squid-fishing",
+   "summary": "Cast a line under the stars in the heart of Ha Long Bay — a local tradition after dark."
+  },
+  {
+   "duration": "30",
+   "id": 21,
+   "image": "/upload/2026/07/16/tai-chi-green-ruby-halong-1.png",
+   "name": "Tai Chi Session",
+   "slug": "tai-chi-session",
+   "summary": "Start your morning with a guided Tai Chi session on the sundeck — bay views, open sky."
+  },
+  {
+   "duration": "60",
+   "id": 37,
+   "image": null,
+   "name": "Swimming & Beach",
+   "slug": "swimming-beach",
+   "summary": "Dive into the emerald waters of Ha Long Bay at a pristine, secluded swimming spot."
+  },
+  {
+   "duration": "60",
+   "id": 38,
+   "image": null,
+   "name": "Bamboo Boat Excursion",
+   "slug": "bamboo-boat-excursion",
+   "summary": "Row through floating villages and sea caves aboard a traditional Vietnamese bamboo boat."
+  },
+  {
+   "duration": "60",
+   "id": 6,
+   "image": "/upload/2026/07/16/sunrise-green-ruby-halong-1.png",
+   "name": "Sunset on the Bay",
+   "slug": "sunset-on-the-bay",
+   "summary": "Sip a cocktail as golden light dances over Ha Long Bay's limestone peaks."
+  },
+  {
+   "duration": "30",
+   "id": 7,
+   "image": "/upload/2026/03/10/img-81-600x901-jpg-7.png",
+   "name": "Evening Meditation",
+   "slug": "evening-meditation",
+   "summary": "Close the day with a guided 30-minute meditation on deck as the bay settles into evening calm."
+  },
+  {
+   "duration": "100",
+   "id": 22,
+   "image": "/upload/2026/07/16/tai-chi-green-ruby-halong-3.png",
+   "name": "Sunset Yoga & Mindfulness on Sundeck",
+   "slug": "sunset-yoga-mindfulness-on-sundeck",
+   "summary": "All the rooms with unique designed: Large private sun terrace, stunning view through"
+  },
+  {
+   "duration": "30",
+   "id": 23,
+   "image": "/upload/2026/03/10/img-81-600x901-jpg-5.png",
+   "name": "Sunset on Deck",
+   "slug": "sunset-on-deck",
+   "summary": "Watch the bay glow into evening gold."
+  }
+ ],
+ "facilities": [
+  {
+   "group": "Restaurant",
+   "id": 26,
+   "image": "/upload/2026/03/10/bar-ha-long-1-png-1720505875.png",
+   "name": "Fine Dining Restaurant",
+   "summary": "Vietnamese and international cuisine with panoramic bay windows — all meals included in your fare."
+  },
+  {
+   "group": "Bar",
+   "id": 64,
+   "image": null,
+   "name": "Sky Bar & Lounge",
+   "summary": "Panoramic bay views, signature cocktails, and sunset moments — the social heart of Green Ruby."
+  },
+  {
+   "group": "Swimming pool",
+   "id": 67,
+   "image": null,
+   "name": "Sundeck Pool",
+   "summary": "Infinity-style saltwater pool on the Sundeck, with open sky and wide views across the bay."
+  },
+  {
+   "group": "Gym",
+   "id": 69,
+   "image": null,
+   "name": "Spa & Wellness Center",
+   "summary": "Massage therapies and wellness treatments designed for complete relaxation at sea."
+  },
+  {
+   "group": "Restaurant",
+   "id": 58,
+   "image": "/upload/2026/03/10/bar-ha-long-1-png-1720505875.png",
+   "name": "Specialty Restaurant",
+   "summary": "Private dining on the third deck for intimate gatherings and special culinary experiences."
+  },
+  {
+   "group": "Bar",
+   "id": 65,
+   "image": null,
+   "name": "Wine & Cigar Corner",
+   "summary": "A refined corner for premium wines and hand-selected cigars in a quietly elegant atmosphere."
+  },
+  {
+   "group": "Swimming pool",
+   "id": 66,
+   "image": null,
+   "name": "Main Deck Swimming Pool",
+   "summary": "Outdoor freshwater pool on the Main Deck with open bay views and sun loungers."
+  },
+  {
+   "group": "Swimming pool",
+   "id": 68,
+   "image": null,
+   "name": "Sundeck",
+   "summary": "Open-air rooftop deck for sunbathing, Tai Chi, and watching Ha Long Bay unfold around you."
+  },
+  {
+   "group": "Gym",
+   "id": 70,
+   "image": null,
+   "name": "Fitness Area",
+   "summary": "Modern onboard gym for guests wishing to maintain their routine — with bay views throughout."
+  },
+  {
+   "group": "Event room",
+   "id": 71,
+   "image": null,
+   "name": "Conference & Event Space",
+   "summary": "Flexible venue for corporate retreats, private celebrations, and onboard events — with full AV support."
+  }
+ ],
+ "gallery": [],
+ "greenTechnology": [
+  {
+   "description": "Green Ruby 1 utilizes a solar energy system, an advanced wastewater treatment system, and environmentally friendly materials, minimizing its impact on the Ha Long Bay ecosystem",
+   "icon": "/upload/2026/03/09/leaf.png",
+   "title": "Green Technology"
+  }
+ ],
+ "id": 3,
+ "image": "/upload/2026/06/10/a1ea43d13010b14ee801.jpg",
+ "itineraries": [
+  {
+   "bay": "ha-long",
+   "cruiseId": 3,
+   "cruiseName": "Green Ruby 1",
+   "cruiseSlug": "green-ruby-1",
+   "currency": "USD",
+   "description": "Two days at the heart of Ha Long Bay: kayak through Luon Cave, climb Ti Top Island for the panorama, spend the evening aboard with a cooking class and squid fishing, then visit Sung Sot Cave the next morning.",
+   "destinations": [
+    "Ha Long Bay",
+    "Luon Cave",
+    "Ti Top Island",
+    "Sung Sot Cave"
+   ],
+   "duration": 2,
+   "fromPrice": null,
+   "image": "/upload/2026/03/13/3n2d-lh.png",
+   "itineraryId": 4,
+   "name": "The Halong Escape - 2 Days 1 Night",
+   "nextDeparture": null,
+   "slug": "the-halong-escape-2-days-1-night",
+   "startTime": "08:00"
+  },
+  {
+   "bay": "ha-long",
+   "cruiseId": 3,
+   "cruiseName": "Green Ruby 1",
+   "cruiseSlug": "green-ruby-1",
+   "currency": "USD",
+   "description": "One more day to go deeper: on day two a private day boat takes you to Cua Van floating village, the archaeological Tien Ong Cave and a pearl farm, quieter corners of the bay the two-day voyage doesn't reach.",
+   "destinations": [
+    "Luon Cave",
+    "Ti Top Island",
+    "Cua Van Fishing Village",
+    "Tien Ong Cave",
+    "Pearl Farm",
+    "Sung Sot Cave"
+   ],
+   "duration": 3,
+   "fromPrice": null,
+   "image": "/upload/2026/03/09/img-81-600x901-jpg-1.png",
+   "itineraryId": 3,
+   "name": "The Halong Immersion - 3 Days 2 Nights",
+   "nextDeparture": null,
+   "slug": "the-halong-immersion-3-days-2-nights",
+   "startTime": "08:00"
+  }
+ ],
+ "length": 121,
+ "name": "Green Ruby 1",
+ "seo": {
+  "description": "46 private cabins, 120 m² suite, and eco-luxury on UNESCO's most iconic waters.",
+  "title": "Green Ruby 1"
+ },
+ "services": {
+  "included": [
+   {
+    "description": "Luxury accommodations with private facilities.",
+    "id": 14,
+    "image": "/upload/2026/03/13/sailboat.png",
+    "name": "Premium Cabins"
+   },
+   {
+    "description": "Gourmet Vietnamese cuisine with international options",
+    "id": 53,
+    "image": "/upload/2026/03/13/utensils.png",
+    "name": "All meals onboard"
+   },
+   {
+    "description": "Luxury accommodations with private facilities",
+    "id": 54,
+    "image": "/upload/2026/03/13/ship.png",
+    "name": "Luxury cabin with A/C"
+   },
+   {
+    "description": "Professional English-speaking guide to assist throughout the journey.",
+    "id": 55,
+    "image": "/upload/2026/03/13/headset.png",
+    "name": "English speaking guide"
+   },
+   {
+    "description": "All entrance fees and sightseeing tickets included in the itinerary.",
+    "id": 57,
+    "image": "/upload/2026/03/13/ticket.png",
+    "name": "All sightseeing tickets"
+   }
+  ],
+  "optional": []
+ },
+ "slug": "green-ruby-1",
+ "starRating": null,
+ "summary": "46 private cabins, 120 m² suite, and eco-luxury on UNESCO's most iconic waters.",
+ "totalCabin": 46,
+ "totalFloor": 4,
+ "updatedAt": "2026-10-19T17:09:30+07:00",
+ "yearBuilt": 2026
+}

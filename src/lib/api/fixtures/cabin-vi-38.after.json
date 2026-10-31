@@ -1,0 +1,165 @@
+{
+ "alternate": {
+  "id": 24,
+  "lang": "en"
+ },
+ "amenities": [
+  {
+   "icon": "/upload/2026/03/09/ticket-svg.png",
+   "name": "Wi-Fi miễn Phí"
+  },
+  {
+   "icon": "/upload/2026/03/09/dungeon.png",
+   "name": "Giải trí"
+  },
+  {
+   "icon": "/upload/2026/03/09/utensils-2.png",
+   "name": "Nhà hàng cao cấp"
+  },
+  {
+   "icon": "/upload/2026/03/09/mug-saucer.png",
+   "name": "Nước ngọt & nước lọc"
+  },
+  {
+   "icon": "/upload/2026/03/09/person-swimming.png",
+   "name": "Hồ bơi"
+  },
+  {
+   "icon": "/upload/2026/03/09/dumbbell.png",
+   "name": "Các lớp thể dục / lớp luyện tập thể hình"
+  }
+ ],
+ "area": 120,
+ "booking": {
+  "cabinId": 38
+ },
+ "cabinClass": "Ocean View",
+ "capacity": 2,
+ "contentHtml": "Suite biểu tượng của Green Ruby với tầm nhìn đại dương panorama rộng mở, bồn Jacuzzi cao cấp ngoài ban công, khu ăn uống và bar riêng tư tích hợp trong phòng, sân hiên rộng lớn và dịch vụ butler riêng cho kỳ nghỉ xa hoa đỉnh cao.\nBan công riêng với Jacuzzi ngoài trời · Cửa sổ view đại dương panorama · Bộ chăn ga gối đệm cao cấp · Điều hòa · Phòng tắm riêng với vòi sen và bồn tắm · Tiện nghi phòng tắm cao cấp · Áo choàng và dép · Máy sấy tóc · Mini bar · Nước suối miễn phí · Máy pha cà phê &amp; trà · Két an toàn · Tủ quần áo và khu để hành lý · Bàn làm việc / bàn trang điểm · Smart TV / hệ thống giải trí · Wi-Fi · Điện thoại · Dọn phòng hàng ngày · Dịch vụ butler · Dịch vụ ăn uống tại phòng riêng · Bar trong phòng riêng · AI companion",
+ "cruise": {
+  "id": 1,
+  "name": "Green Ruby 1",
+  "slug": "green-ruby-1"
+ },
+ "discountPercent": 0,
+ "gallery": [
+  {
+   "alt": "Imperial Suite",
+   "src": "/upload/2026/06/13/tongthong-9.jpg"
+  },
+  {
+   "alt": "Imperial Suite",
+   "src": "/upload/2026/06/13/tongthong-7.jpg"
+  },
+  {
+   "alt": "Imperial Suite",
+   "src": "/upload/2026/06/13/tongthong-8.jpg"
+  },
+  {
+   "alt": "Imperial Suite",
+   "src": "/upload/2026/06/13/tongthong-6.jpg"
+  },
+  {
+   "alt": "Imperial Suite",
+   "src": "/upload/2026/06/13/tongthong-5.jpg"
+  },
+  {
+   "alt": "Imperial Suite",
+   "src": "/upload/2026/06/13/tongthong-3.jpg"
+  },
+  {
+   "alt": "Imperial Suite",
+   "src": "/upload/2026/06/13/tongthong-4.jpg"
+  },
+  {
+   "alt": "Imperial Suite",
+   "src": "/upload/2026/06/13/tongthong-2.jpg"
+  },
+  {
+   "alt": "Imperial Suite",
+   "src": "/upload/2026/06/13/tongthong-1.jpg"
+  }
+ ],
+ "id": 38,
+ "image": "/upload/2026/06/13/tongthong-1.jpg",
+ "name": "Imperial Suite",
+ "otherCabins": [
+  {
+   "area": 80,
+   "cabinClass": "Ocean View",
+   "capacity": 2,
+   "cruise": {
+    "id": 1,
+    "name": "Green Ruby 1"
+   },
+   "id": 41,
+   "image": "/upload/2026/06/13/1b3aaef25c3edd60842f.jpg",
+   "name": "Royal Romance Suite",
+   "slug": "royal-romance-suite",
+   "summary": "Suite hàng đầu của Green Ruby với tầm nhìn đại dương panorama, bồn Jacuzzi cao cấp, sân hiên riêng rộng rãi và dịch vụ butler riêng cho trải nghiệm xa hoa effortless.",
+   "view": "Hướng biển"
+  },
+  {
+   "area": 38,
+   "cabinClass": "Ocean View",
+   "capacity": 2,
+   "cruise": {
+    "id": 1,
+    "name": "Green Ruby 1"
+   },
+   "id": 43,
+   "image": "/upload/2026/06/10/b0f600856344e21abb55.jpg",
+   "name": "Ocean Breeze Premium",
+   "slug": "ocean-breeze-premium",
+   "summary": "Không gian nghỉ dưỡng thoáng sáng và yên tĩnh với tầm nhìn đại dương từ tầng cao",
+   "view": "Hướng biển"
+  },
+  {
+   "area": 38,
+   "cabinClass": "Ocean View",
+   "capacity": 2,
+   "cruise": {
+    "id": 1,
+    "name": "Green Ruby 1"
+   },
+   "id": 44,
+   "image": "/upload/2026/06/10/c193c2cbde0a5f54061b.jpg",
+   "name": "Serenity Deluxe",
+   "slug": "serenity-deluxe",
+   "summary": "Cabin ấm cúng và thanh lịch với bồn tắm và buồng tắm vòi sen riêng biệt cho kỳ nghỉ thư giãn.",
+   "view": "Hướng biển"
+  }
+ ],
+ "overCapacity": {
+  "adult": 0,
+  "child2to5": 0,
+  "child6to12": 0,
+  "infant": 0
+ },
+ "pricing": {
+  "currency": "VND",
+  "fromPrice": null,
+  "matrix": [],
+  "showPublic": false
+ },
+ "rooms": [],
+ "seo": {
+  "description": "Imperial Suite trên Green Ruby 1: tầm nhìn panorama Vịnh Hạ Long, Jacuzzi ngoài ban công, bàn ăn và quầy bar riêng, sân hiên rộng, butler riêng.",
+  "title": "Imperial Suite – Phòng Jacuzzi Hạ Long | Green Ruby Cruises"
+ },
+ "slug": "imperial-suite",
+ "suitableFor": [
+  {
+   "name": "Cặp đôi"
+  },
+  {
+   "name": "Nhóm bạn"
+  },
+  {
+   "name": "Gia đình"
+  }
+ ],
+ "summary": "Suite biểu tượng của Green Ruby với tầm nhìn đại dương panorama rộng mở, bồn Jacuzzi cao cấp ngoài ban công, khu ăn uống và bar riêng tư tích hợp trong phòng, sân hiên rộng lớn và dịch vụ butler riêng",
+ "updatedAt": "2026-10-19T17:36:56+07:00",
+ "view": "Hướng biển"
+}

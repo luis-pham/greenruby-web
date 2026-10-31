@@ -1,7 +1,7 @@
 import 'server-only';
 import { cacheLife, cacheTag } from 'next/cache';
 import { z } from 'zod';
-import type { Locale } from '@/lib/i18n';
+import { isLegacyLocale, type Locale } from '@/lib/i18n';
 import { getContent } from './client';
 import {
   cabinListSchema,
@@ -56,7 +56,11 @@ export async function listItineraries(locale: Locale) {
   cacheLife('hours');
   cacheTag('content', 'itineraries', 'page:itinerary');
   const list = await getContent('/itineraries', { lang: locale }, itineraryListSchema);
-  if (!list) throw new Error(`Itinerary list missing for ${locale}`);
+  if (!list) {
+    // An intl language answers 404 for a section it does not serve (yet): nothing listed. en/vi always have it.
+    if (!isLegacyLocale(locale)) return itineraryListSchema.parse({ seo: { title: null, description: null }, items: [] });
+    throw new Error(`Itinerary list missing for ${locale}`);
+  }
   return list;
 }
 

@@ -1,0 +1,161 @@
+{
+ "alternate": {
+  "id": 38,
+  "lang": "vi"
+ },
+ "amenities": [
+  {
+   "icon": "/upload/2026/06/10/wifi.svg",
+   "name": "Wi-Fi"
+  },
+  {
+   "icon": "/upload/2026/06/10/entertainment.svg",
+   "name": "Entertainment"
+  },
+  {
+   "icon": "/upload/2026/06/10/dining.svg",
+   "name": "All Dining"
+  },
+  {
+   "icon": "/upload/2026/06/10/coffee-tea.svg",
+   "name": "Soda & Water"
+  },
+  {
+   "icon": "/upload/2026/06/10/swimming-pool.svg",
+   "name": "Swimming pool"
+  },
+  {
+   "icon": "/upload/2026/06/10/fitness.svg",
+   "name": "Fitness Classes"
+  }
+ ],
+ "area": 120,
+ "cabinClass": "Ocean View",
+ "capacity": 3,
+ "contentHtml": "",
+ "cruise": {
+  "id": 3,
+  "name": "Green Ruby 1",
+  "slug": "green-ruby-1"
+ },
+ "discountPercent": 0,
+ "gallery": [
+  {
+   "alt": "Imperial Suite",
+   "src": "/upload/2026/06/13/tongthong-9.jpg"
+  },
+  {
+   "alt": "Imperial Suite",
+   "src": "/upload/2026/06/13/tongthong-7.jpg"
+  },
+  {
+   "alt": "Imperial Suite",
+   "src": "/upload/2026/06/13/tongthong-8.jpg"
+  },
+  {
+   "alt": "Imperial Suite",
+   "src": "/upload/2026/06/13/tongthong-6.jpg"
+  },
+  {
+   "alt": "Imperial Suite",
+   "src": "/upload/2026/06/13/tongthong-5.jpg"
+  },
+  {
+   "alt": "Imperial Suite",
+   "src": "/upload/2026/06/13/tongthong-3.jpg"
+  },
+  {
+   "alt": "Imperial Suite",
+   "src": "/upload/2026/06/13/tongthong-4.jpg"
+  },
+  {
+   "alt": "Imperial Suite",
+   "src": "/upload/2026/06/13/tongthong-2.jpg"
+  },
+  {
+   "alt": "Imperial Suite",
+   "src": "/upload/2026/06/13/tongthong-1.jpg"
+  }
+ ],
+ "id": 24,
+ "image": "/upload/2026/06/10/tt-2-30-1-1.jpg",
+ "name": "Imperial Suite",
+ "otherCabins": [
+  {
+   "area": 38,
+   "cabinClass": "Ocean View",
+   "capacity": 2,
+   "cruise": {
+    "id": 3,
+    "name": "Green Ruby 1"
+   },
+   "id": 62,
+   "image": "/upload/2026/06/10/b0f600856344e21abb55.jpg",
+   "name": "Ocean Breeze Premium",
+   "slug": "ocean-breeze-premium",
+   "summary": "A bright and tranquil retreat with elevated ocean views, featuring a bathtub and separate shower, bringing the beauty of the sea closer to your stay.",
+   "view": "Sea view"
+  },
+  {
+   "area": 38,
+   "cabinClass": "Ocean View",
+   "capacity": 2,
+   "cruise": {
+    "id": 3,
+    "name": "Green Ruby 1"
+   },
+   "id": 8,
+   "image": "/upload/2026/06/10/c193c2cbde0a5f54061b.jpg",
+   "name": "Serenity Deluxe",
+   "slug": "serenity-deluxe",
+   "summary": "Cozy and elegant cabin featuring a bathtub and separate shower for a relaxing stay.",
+   "view": "Ocean view"
+  },
+  {
+   "area": 80,
+   "cabinClass": "Suite",
+   "capacity": 2,
+   "cruise": {
+    "id": 3,
+    "name": "Green Ruby 1"
+   },
+   "id": 9,
+   "image": "/upload/2026/06/10/dfab74596698e7c6be89.jpg",
+   "name": "Royal Romance Suite",
+   "slug": "royal-romance-suite",
+   "summary": "Green Ruby’s premier suite, featuring panoramic ocean views, a premium Jacuzzi bathtub, a spacious private terrace, and dedicated butler service for an effortlessly luxurious experience.",
+   "view": "Ocean view"
+  }
+ ],
+ "overCapacity": {
+  "adult": 3,
+  "child2to5": 0,
+  "child6to12": 0,
+  "infant": 0
+ },
+ "pricing": {
+  "currency": "USD",
+  "fromPrice": null,
+  "matrix": [],
+  "showPublic": false
+ },
+ "rooms": [
+  {
+   "description": null,
+   "title": "01 queen-sized bed or 02 single beds"
+  }
+ ],
+ "seo": {
+  "description": "Imperial Suite on Green Ruby 1: panoramic Ha Long Bay views, a balcony Jacuzzi, private in-suite dining and bar, a wide terrace and a dedicated butler.",
+  "title": "Imperial Suite with Jacuzzi · Ha Long | Green Ruby Cruises"
+ },
+ "slug": "imperial-suite",
+ "suitableFor": [
+  {
+   "name": "Event room"
+  }
+ ],
+ "summary": "Green Ruby's signature suite features panoramic ocean views, a balcony Jacuzzi, private in-suite dining and bar, an expansive terrace, and dedicated butler service.",
+ "updatedAt": "2026-10-26T07:14:17+07:00",
+ "view": "Ocean view"
+}

@@ -1,0 +1,39 @@
+{
+ "default": "en",
+ "locales": [
+  {
+   "code": "en",
+   "direction": "ltr",
+   "effectivePublic": true,
+   "englishName": "English",
+   "hreflang": "en",
+   "intlTag": "en-US",
+   "isDefault": true,
+   "nativeName": "English",
+   "ogLocale": "en_US",
+   "priceList": "en",
+   "routeStyle": "legacy",
+   "sections": null,
+   "status": "public",
+   "urlPrefix": "",
+   "xDefaultPriority": 1
+  },
+  {
+   "code": "vi",
+   "direction": "ltr",
+   "effectivePublic": true,
+   "englishName": "Vietnamese",
+   "hreflang": "vi",
+   "intlTag": "vi-VN",
+   "isDefault": false,
+   "nativeName": "Tiếng Việt",
+   "ogLocale": "vi_VN",
+   "priceList": "vi",
+   "routeStyle": "legacy",
+   "sections": null,
+   "status": "public",
+   "urlPrefix": "vi",
+   "xDefaultPriority": 2
+  }
+ ]
+}

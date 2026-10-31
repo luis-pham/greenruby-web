@@ -1,0 +1,398 @@
+{
+ "activities": [
+  {
+   "duration": "60",
+   "id": 6,
+   "image": "/upload/2026/07/16/sunrise-green-ruby-halong-1.png",
+   "name": "Sunset on the Bay",
+   "slug": "sunset-on-the-bay",
+   "summary": "Sip a cocktail as golden light dances over Ha Long Bay's limestone peaks."
+  },
+  {
+   "duration": "30",
+   "id": 7,
+   "image": "/upload/2026/03/10/img-81-600x901-jpg-7.png",
+   "name": "Evening Meditation",
+   "slug": "evening-meditation",
+   "summary": "Close the day with a guided 30-minute meditation on deck as the bay settles into evening calm."
+  },
+  {
+   "duration": "60",
+   "id": 8,
+   "image": "/upload/2026/07/16/kayaking-green-ruby-halong-bay-2.png",
+   "name": "Kayaking",
+   "slug": "kayaking",
+   "summary": "Paddle through hidden lagoons and limestone caves of Ha Long Bay at your own pace."
+  },
+  {
+   "duration": "60",
+   "id": 14,
+   "image": "/upload/2026/07/16/cooking-class-greenruby-halong-bay.png",
+   "name": "Cooking Demonstration",
+   "slug": "cooking-demonstration",
+   "summary": "Learn to prepare a signature Vietnamese dish with our onboard chef — fresh from the bay."
+  },
+  {
+   "duration": "30",
+   "id": 21,
+   "image": "/upload/2026/07/16/tai-chi-green-ruby-halong-1.png",
+   "name": "Tai Chi Session",
+   "slug": "tai-chi-session",
+   "summary": "Start your morning with a guided Tai Chi session on the sundeck — bay views, open sky."
+  },
+  {
+   "duration": "100",
+   "id": 22,
+   "image": "/upload/2026/07/16/tai-chi-green-ruby-halong-3.png",
+   "name": "Sunset Yoga & Mindfulness on Sundeck",
+   "slug": "sunset-yoga-mindfulness-on-sundeck",
+   "summary": "All the rooms with unique designed: Large private sun terrace, stunning view through"
+  },
+  {
+   "duration": "30",
+   "id": 23,
+   "image": "/upload/2026/03/10/img-81-600x901-jpg-5.png",
+   "name": "Sunset on Deck",
+   "slug": "sunset-on-deck",
+   "summary": "Watch the bay glow into evening gold."
+  }
+ ],
+ "alternate": {
+  "cruiseId": 1,
+  "itineraryId": 8,
+  "lang": "vi",
+  "slug": "3-ngay-2-dem-dau-an-ha-long"
+ },
+ "bay": "ha-long",
+ "booking": {
+  "cruiseId": 3,
+  "itineraryId": 3
+ },
+ "cabins": [
+  {
+   "area": 120,
+   "cabinClass": "Ocean View",
+   "capacity": 3,
+   "cruise": {
+    "id": 3,
+    "name": "Green Ruby 1"
+   },
+   "id": 24,
+   "image": "/upload/2026/06/10/tt-2-30-1-1.jpg",
+   "name": "Imperial Suite",
+   "slug": "imperial-suite",
+   "summary": "Green Ruby's signature suite features panoramic ocean views, a balcony Jacuzzi, private in-suite dining and bar, an expansive terrace, and dedicated butler service.",
+   "view": "Ocean view"
+  },
+  {
+   "area": 38,
+   "cabinClass": "Ocean View",
+   "capacity": 2,
+   "cruise": {
+    "id": 3,
+    "name": "Green Ruby 1"
+   },
+   "id": 62,
+   "image": "/upload/2026/06/10/b0f600856344e21abb55.jpg",
+   "name": "Ocean Breeze Premium",
+   "slug": "ocean-breeze-premium",
+   "summary": "A bright and tranquil retreat with elevated ocean views, featuring a bathtub and separate shower, bringing the beauty of the sea closer to your stay.",
+   "view": "Sea view"
+  },
+  {
+   "area": 38,
+   "cabinClass": "Ocean View",
+   "capacity": 2,
+   "cruise": {
+    "id": 3,
+    "name": "Green Ruby 1"
+   },
+   "id": 8,
+   "image": "/upload/2026/06/10/c193c2cbde0a5f54061b.jpg",
+   "name": "Serenity Deluxe",
+   "slug": "serenity-deluxe",
+   "summary": "Cozy and elegant cabin featuring a bathtub and separate shower for a relaxing stay.",
+   "view": "Ocean view"
+  },
+  {
+   "area": 80,
+   "cabinClass": "Suite",
+   "capacity": 2,
+   "cruise": {
+    "id": 3,
+    "name": "Green Ruby 1"
+   },
+   "id": 9,
+   "image": "/upload/2026/06/10/dfab74596698e7c6be89.jpg",
+   "name": "Royal Romance Suite",
+   "slug": "royal-romance-suite",
+   "summary": "Green Ruby’s premier suite, featuring panoramic ocean views, a premium Jacuzzi bathtub, a spacious private terrace, and dedicated butler service for an effortlessly luxurious experience.",
+   "view": "Ocean view"
+  }
+ ],
+ "canonical": {
+  "cruiseId": 3,
+  "itineraryId": 3,
+  "slug": "the-halong-immersion-3-days-2-nights"
+ },
+ "cover": "/upload/2026/03/13/3n2d-hl.png",
+ "cruise": {
+  "capacity": 136,
+  "id": 3,
+  "image": "/upload/2026/06/10/a1ea43d13010b14ee801.jpg",
+  "length": 121,
+  "name": "Green Ruby 1",
+  "slug": "green-ruby-1"
+ },
+ "cruiseId": 3,
+ "cruiseName": "Green Ruby 1",
+ "cruiseSlug": "green-ruby-1",
+ "currency": "USD",
+ "days": [
+  {
+   "day": 1,
+   "details": [
+    {
+     "descriptionHtml": "Pick-up in Hanoi around 07:30–08:00 and transfer to Ha Long (about 2.5 hours).",
+     "time": "07:30",
+     "title": "Transfer to Halong"
+    },
+    {
+     "descriptionHtml": "Estimated arrival in Ha Long. Check-in starts at the Green Ruby VIP lounge at Tuan Chau, where the crew takes care of your luggage and its transfer to the ship. Welcome drinks and water are served, and items from the gift shop can be ordered.",
+     "time": "10:45",
+     "title": "VIP Lounge Check-in"
+    },
+    {
+     "descriptionHtml": "Guests are taken by tender boat to board the ship in Ha Long Bay.",
+     "time": "11:45",
+     "title": "Embarkation"
+    },
+    {
+     "descriptionHtml": "A safety briefing and an overview of the itinerary are given in the restaurant, after which you are shown to your cabin and given your key.",
+     "time": "12:30",
+     "title": "Safety Briefing & Cabin Check-in"
+    },
+    {
+     "descriptionHtml": "Lunch is served as the ship sails among hundreds of limestone islets and small beaches.",
+     "time": "13:00",
+     "title": "Lunch on Board"
+    },
+    {
+     "descriptionHtml": "Explore Luon Cave: kayak or take a bamboo boat through a natural archway into a quiet lagoon enclosed by tall cliffs.",
+     "time": "15:30",
+     "title": "Luon Cave Exploration"
+    },
+    {
+     "descriptionHtml": "Visit Ti Top Island: swim in clear water when conditions allow, or climb to the summit for a panoramic view of the bay.",
+     "time": "16:30",
+     "title": "Ti Top Island"
+    },
+    {
+     "descriptionHtml": "Back on the ship, relax and watch the sunset, or join the onboard activities: Vietnamese cooking class, happy hour, spa treatments, the pool, the Captain's Wheel &amp; Engine Tour, and Gallery &amp; Alley boat tours.",
+     "time": "17:30",
+     "title": "Sunset & Onboard Activities"
+    },
+    {
+     "descriptionHtml": "A deluxe dinner on board amid the calm of Ha Long Bay. The crew briefs you on the next day's schedule, introduces the menus and notes any dietary preferences, and the cooking-class winner is announced.",
+     "time": "19:00",
+     "title": "Dinner & Evening Program"
+    },
+    {
+     "descriptionHtml": "Squid fishing, a spa massage (book on board), a drink on deck or at the bar, films on the big screen on the sundeck, in the bar or the function room, board games in the restaurant or reception area, and fruit and vegetable carving with the chef.",
+     "time": "21:00",
+     "title": "Late Night Leisure"
+    }
+   ],
+   "title": null
+  },
+  {
+   "day": 2,
+   "details": [
+    {
+     "descriptionHtml": "Gentle Tai Chi and breathing exercises at sunrise.",
+     "time": "06:15",
+     "title": "Tai Chi & Sunrise"
+    },
+    {
+     "descriptionHtml": "Breakfast on board.",
+     "time": "07:00",
+     "title": "Breakfast"
+    },
+    {
+     "descriptionHtml": "Transfer to a dedicated day boat to explore quieter corners of the bay.",
+     "time": "08:30",
+     "title": "Day Boat Transfer"
+    },
+    {
+     "descriptionHtml": "Visit Cua Van, once one of the bay's best-known floating fishing villages. Its families moved ashore in 2014, and the village is now seen from the water by bamboo boat.",
+     "time": "10:00",
+     "title": "Cua Van Fishing Village"
+    },
+    {
+     "descriptionHtml": "Explore Tien Ong Cave, an archaeological site with traces of prehistoric habitation.",
+     "time": "11:30",
+     "title": "Tien Ong Cave"
+    },
+    {
+     "descriptionHtml": "Lunch is served on the day boat as it cruises through calm water.",
+     "time": "12:30",
+     "title": "Lunch on Day Boat"
+    },
+    {
+     "descriptionHtml": "Visit a pearl farm and learn how pearls are cultivated and worked.",
+     "time": "14:00",
+     "title": "Pearl Farm Visit"
+    },
+    {
+     "descriptionHtml": "Return to the ship and relax.",
+     "time": "15:30",
+     "title": "Return & Relax"
+    },
+    {
+     "descriptionHtml": "Dinner on board and a second night on the bay.",
+     "time": "19:00",
+     "title": "Dinner & Overnight"
+    }
+   ],
+   "title": null
+  },
+  {
+   "day": 3,
+   "details": [
+    {
+     "descriptionHtml": "Gentle stretching and mindful breathing as the sun rises over the bay.",
+     "time": "06:15",
+     "title": "Tai Chi & Sunrise"
+    },
+    {
+     "descriptionHtml": "Visit Sung Sot (Surprise) Cave, one of the bay's best-known caves, with vast cathedral-like chambers.",
+     "time": "08:00",
+     "title": "Sung Sot Cave"
+    },
+    {
+     "descriptionHtml": "A leisurely brunch is served as the ship returns to port, bringing the voyage to a close.",
+     "time": "09:30",
+     "title": "Brunch & Return to Port"
+    }
+   ],
+   "title": null
+  }
+ ],
+ "departures": [],
+ "description": "One more day to go deeper: on day two a private day boat takes you to Cua Van floating village, the archaeological Tien Ong Cave and a pearl farm, quieter corners of the bay the two-day voyage doesn't reach.",
+ "descriptionHtml": "One more day to go deeper: on day two a private day boat takes you to Cua Van floating village, the archaeological Tien Ong Cave and a pearl farm, quieter corners of the bay the two-day voyage doesn't reach.",
+ "destinations": [
+  "Luon Cave",
+  "Ti Top Island",
+  "Cua Van Fishing Village",
+  "Tien Ong Cave",
+  "Pearl Farm",
+  "Sung Sot Cave"
+ ],
+ "duration": 3,
+ "faqs": [
+  {
+   "answerHtml": "<p>It adds a day by private day boat: Cua Van floating village, the archaeological Tien Ong Cave, a pearl farm and lunch on board the day boat, plus a second night on the bay.</p>",
+   "question": "How is the Ha Long Bay 3 days 2 nights cruise different from 2 days 1 night?"
+  },
+  {
+   "answerHtml": "<p>Sunrise stretching at 06:15, Sung Sot Cave at 08:00, then a leisurely brunch as the ship returns to port (about 09:30–11:30).</p>",
+   "question": "What happens on the last day of the Ha Long Bay 3 days 2 nights cruise?"
+  },
+  {
+   "answerHtml": "<p>Check in at Green Ruby's VIP lounge at Tuan Chau around 10:45; a tender boat takes you to the ship at 11:45. If you come from Hanoi, pick-up is at 08:00 (about 2.5 hours).</p>",
+   "question": "Where and when do I board the Ha Long Bay cruise?"
+  },
+  {
+   "answerHtml": "<p>Your fare covers all meals as per the itinerary (breakfast, lunch, dinner, and a farewell brunch), accommodation in a private air-conditioned cabin, all sightseeing entrance fees, kayaking and bamboo boat activities (kayaking in Lan Ha Bay is temporarily suspended under local regulations as of October 2026), cooking class and morning Tai Chi, an English/Vietnamese-speaking guide, and the dedicated day boat excursion on Day 2 (3D2N itineraries only).</p>\n<p>Not included: beverages, spa treatments, Hanoi–Ha Long transfers, and personal expenses.</p>",
+   "question": "What's included in the cruise price?"
+  },
+  {
+   "answerHtml": "<p>Transfers are not included in the cruise fare. Shared limousine shuttle service between Hanoi and Ha Long is available at an additional charge, and private transfers can also be arranged upon request.</p>",
+   "question": "Is hotel transfer included - private car or shuttle?"
+  },
+  {
+   "answerHtml": "<p>Cancellations 30 days or more before departure: full refund of the cruise amount paid. 15–29 days: 50% of the total booking value. 7–14 days: 75%. 0–6 days or no-show: 100%, no refund. We recommend travel insurance to cover unexpected changes. Full conditions: <a href=\"/booking-terms-and-conditions#cancellation\">Booking Terms &amp; Conditions</a>.</p>",
+   "question": "What is your cancellation and refund policy?"
+  },
+  {
+   "answerHtml": "<p>October to April brings cool, dry, comfortable weather and is the most popular season - October-November and March-April are especially pleasant. May to September is warm and great for swimming, but it's also the storm season, so itineraries may occasionally change for safety.</p>",
+   "question": "When is the best time of year to cruise Ha Long and Lan Ha Bay?"
+  },
+  {
+   "answerHtml": "<p>Bring light clothing, swimwear, sunglasses, sun protection, a hat, comfortable shoes, any personal medication, your passport/ID, and a camera. In winter, add a warm layer for evenings on deck.</p>",
+   "question": "What should I pack?"
+  }
+ ],
+ "fromPrice": null,
+ "gallery": [],
+ "image": "/upload/2026/03/09/img-81-600x901-jpg-1.png",
+ "importantNotes": [
+  "Cancellation: full refund 30+ days before departure; 50% charge 15–29 days; 75% charge 7–14 days; no refund under 7 days or no-show",
+  "Children policy: Under 2 free, 5-11 75% charge",
+  "Check-in: 12:00 PM _ Check-out: 11:00 AM",
+  "What to bring: Passport, swimsuit, sunscreen"
+ ],
+ "itineraryId": 3,
+ "name": "The Halong Immersion - 3 Days 2 Nights",
+ "nextDeparture": null,
+ "seo": {
+  "description": "Ha Long Bay 3 days 2 nights aboard Green Ruby 1: Luon Cave, Ti Top Island, Cua Van floating village, Tien Ong Cave, a pearl farm and Sung Sot Cave.",
+  "title": "Ha Long Bay Cruise 3 Days 2 Nights | Green Ruby Cruises"
+ },
+ "services": {
+  "included": [
+   {
+    "description": "Luxury accommodations with private facilities.",
+    "id": 14,
+    "image": "/upload/2026/03/13/sailboat.png",
+    "name": "Premium Cabins"
+   },
+   {
+    "description": "Gourmet Vietnamese cuisine with international options",
+    "id": 53,
+    "image": "/upload/2026/03/13/utensils.png",
+    "name": "All meals onboard"
+   },
+   {
+    "description": "Luxury accommodations with private facilities",
+    "id": 54,
+    "image": "/upload/2026/03/13/ship.png",
+    "name": "Luxury cabin with A/C"
+   }
+  ],
+  "optional": [
+   {
+    "description": null,
+    "id": 60,
+    "image": "/upload/2026/03/13/ticket-svg-3.png",
+    "name": "Personal expenses",
+    "price": null
+   },
+   {
+    "description": null,
+    "id": 61,
+    "image": "/upload/2026/03/13/ticket-svg-2.png",
+    "name": "Transportation to harbor",
+    "price": null
+   },
+   {
+    "description": null,
+    "id": 62,
+    "image": "/upload/2026/03/13/ticket-svg-1.png",
+    "name": "Tips for crew",
+    "price": null
+   },
+   {
+    "description": null,
+    "id": 63,
+    "image": "/upload/2026/03/13/ticket-svg.png",
+    "name": "Other services not mentioned",
+    "price": null
+   }
+  ]
+ },
+ "slug": "the-halong-immersion-3-days-2-nights",
+ "startTime": "08:00",
+ "updatedAt": "2026-10-19T21:30:32+07:00"
+}

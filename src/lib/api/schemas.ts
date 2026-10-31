@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { cabinBooking, itineraryBooking, legacyAlternate, localeCode, multilingualFields } from './contract.ts';
 
 const menuItem: z.ZodType<MenuItem, unknown> = z.lazy(() =>
   z.object({
@@ -56,12 +57,16 @@ export const cabinSchema = cabinSummarySchema.extend({
     currency: z.enum(['USD', 'VND']),
     fromPrice: z.number().nullable(),
     matrix: z.array(z.object({ duration: z.number(), guest: z.number(), price: z.number() })),
+    /** Price-list language the prices come from (en USD, vi VND); planned with the locale registry (1B/1C). */
+    priceList: localeCode.optional().catch(undefined),
   }),
+  booking: cabinBooking,
   cruise: z.object({ id: z.number(), name: z.string(), slug: z.string() }),
   otherCabins: z.array(cabinSummarySchema),
   // Optional until every Laravel deploy has app_cabin.seo_*; title already falls back to "{cabin} · {ship}".
   seo: z.object({ title: z.string().nullable(), description: z.string().nullable() }).optional(),
-  alternate: z.object({ lang: z.enum(['en', 'vi']), id: z.number() }).nullable(),
+  alternate: legacyAlternate({ id: z.number() }),
+  ...multilingualFields,
   updatedAt: z.string().nullable(),
 });
 export type Cabin = z.infer<typeof cabinSchema>;
@@ -166,7 +171,9 @@ export const itinerarySchema = itinerarySummarySchema.extend({
   departures: z.array(z.string()),
   cabins: z.array(cabinSummarySchema),
   faqs: z.array(faq),
-  alternate: z.object({ lang: z.enum(['en', 'vi']), cruiseId: z.number(), itineraryId: z.number(), slug: z.string() }).nullable(),
+  booking: itineraryBooking,
+  alternate: legacyAlternate({ cruiseId: z.number(), itineraryId: z.number(), slug: z.string() }),
+  ...multilingualFields,
   updatedAt: optionalText,
 });
 export type Itinerary = z.infer<typeof itinerarySchema>;
@@ -196,7 +203,8 @@ export const cruiseSchema = z.object({
   itineraries: z.array(itinerarySummarySchema),
   gallery: z.array(galleryItem),
   seo: z.object({ title: optionalText, description: optionalText }),
-  alternate: z.object({ lang: z.enum(['en', 'vi']), id: z.number(), slug: z.string() }).nullable(),
+  alternate: legacyAlternate({ id: z.number(), slug: z.string() }),
+  ...multilingualFields,
   updatedAt: optionalText,
 });
 export type Cruise = z.infer<typeof cruiseSchema>;

@@ -1,0 +1,427 @@
+{
+ "activities": [
+  {
+   "duration": "60",
+   "id": 28,
+   "image": "/upload/2026/07/16/sunrise-green-ruby-halong-4.png",
+   "name": "Ngắm hoàng hôn trên vịnh",
+   "slug": "ngam-hoang-hon-tren-vinh",
+   "summary": "Nhâm nhi cocktail khi ánh hoàng hôn vàng rực phủ lên những dãy núi đá vôi của Ha Long Bay."
+  },
+  {
+   "duration": "30",
+   "id": 29,
+   "image": "/upload/2026/03/10/img-81-600x901-jpg-7.png",
+   "name": "Thiền buổi tối",
+   "slug": "thien-buoi-toi",
+   "summary": "Khép lại một ngày với buổi thiền buổi tối đầy thư thái. Thả lỏng tâm trí, tái tạo năng lượng cho cơ thể và tận hưởng bầu không khí yên bình xung quanh."
+  },
+  {
+   "duration": "60",
+   "id": 30,
+   "image": "/upload/2026/07/16/kayaking-green-ruby-halong-bay-1.png",
+   "name": "Trải nghiệm chèo kayak",
+   "slug": "trai-nghiem-cheo-kayak",
+   "summary": "Chèo kayak khám phá những đầm nước ẩn mình và hang đá vôi trong không gian yên bình."
+  },
+  {
+   "duration": "60",
+   "id": 31,
+   "image": "/upload/2026/07/16/cooking-class-green-ruby-cruises-halong-6.png",
+   "name": "Lớp học nấu ăn",
+   "slug": "lop-hoc-nau-an",
+   "summary": "Học cách chế biến một món ăn Việt Nam cùng đầu bếp của chúng tôi."
+  },
+  {
+   "duration": "30",
+   "id": 32,
+   "image": "/upload/2026/07/16/squid-fishing-green-ruby-cruises.png",
+   "name": "Câu mực",
+   "slug": "cau-muc",
+   "summary": "Đánh thức cơ thể và tâm trí với những chuyển động nhẹ nhàng buổi sáng."
+  },
+  {
+   "duration": "30",
+   "id": 33,
+   "image": "/upload/2026/03/10/img-81-600x901-jpg-4.png",
+   "name": "Thái Cực Quyền lúc bình minh",
+   "slug": "thai-cuc-quyen-luc-binh-minh",
+   "summary": "Đánh thức cơ thể và tâm trí với những chuyển động nhẹ nhàng buổi sáng."
+  },
+  {
+   "duration": "100",
+   "id": 34,
+   "image": "/upload/2026/07/16/tai-chi-green-ruby-halong-3.png",
+   "name": "Yoga và thiền trên boong tàu",
+   "slug": "yoga-va-thien-tren-boong-tau",
+   "summary": "Tất cả các phòng đều được thiết kế độc đáo, sở hữu sân hiên tắm nắng riêng rộng rãi và tầm nhìn tuyệt đẹp."
+  }
+ ],
+ "alternate": {
+  "cruiseId": 3,
+  "itineraryId": 3,
+  "lang": "en",
+  "slug": "the-halong-immersion-3-days-2-nights"
+ },
+ "bay": "ha-long",
+ "booking": {
+  "cruiseId": 1,
+  "itineraryId": 8
+ },
+ "cabins": [
+  {
+   "area": 120,
+   "cabinClass": "Ocean View",
+   "capacity": 2,
+   "cruise": {
+    "id": 1,
+    "name": "Green Ruby 1"
+   },
+   "id": 38,
+   "image": "/upload/2026/06/13/tongthong-1.jpg",
+   "name": "Imperial Suite",
+   "slug": "imperial-suite",
+   "summary": "Suite biểu tượng của Green Ruby với tầm nhìn đại dương panorama rộng mở, bồn Jacuzzi cao cấp ngoài ban công, khu ăn uống và bar riêng tư tích hợp trong phòng, sân hiên rộng lớn và dịch vụ butler riêng",
+   "view": "Hướng biển"
+  },
+  {
+   "area": 80,
+   "cabinClass": "Ocean View",
+   "capacity": 2,
+   "cruise": {
+    "id": 1,
+    "name": "Green Ruby 1"
+   },
+   "id": 41,
+   "image": "/upload/2026/06/13/1b3aaef25c3edd60842f.jpg",
+   "name": "Royal Romance Suite",
+   "slug": "royal-romance-suite",
+   "summary": "Suite hàng đầu của Green Ruby với tầm nhìn đại dương panorama, bồn Jacuzzi cao cấp, sân hiên riêng rộng rãi và dịch vụ butler riêng cho trải nghiệm xa hoa effortless.",
+   "view": "Hướng biển"
+  },
+  {
+   "area": 38,
+   "cabinClass": "Ocean View",
+   "capacity": 2,
+   "cruise": {
+    "id": 1,
+    "name": "Green Ruby 1"
+   },
+   "id": 43,
+   "image": "/upload/2026/06/10/b0f600856344e21abb55.jpg",
+   "name": "Ocean Breeze Premium",
+   "slug": "ocean-breeze-premium",
+   "summary": "Không gian nghỉ dưỡng thoáng sáng và yên tĩnh với tầm nhìn đại dương từ tầng cao",
+   "view": "Hướng biển"
+  },
+  {
+   "area": 38,
+   "cabinClass": "Ocean View",
+   "capacity": 2,
+   "cruise": {
+    "id": 1,
+    "name": "Green Ruby 1"
+   },
+   "id": 44,
+   "image": "/upload/2026/06/10/c193c2cbde0a5f54061b.jpg",
+   "name": "Serenity Deluxe",
+   "slug": "serenity-deluxe",
+   "summary": "Cabin ấm cúng và thanh lịch với bồn tắm và buồng tắm vòi sen riêng biệt cho kỳ nghỉ thư giãn.",
+   "view": "Hướng biển"
+  }
+ ],
+ "canonical": {
+  "cruiseId": 1,
+  "itineraryId": 8,
+  "slug": "3-ngay-2-dem-dau-an-ha-long"
+ },
+ "cover": "/upload/2026/03/13/3n2d-hl.png",
+ "cruise": {
+  "capacity": 136,
+  "id": 1,
+  "image": "/upload/2026/06/10/a1ea43d13010b14ee801.jpg",
+  "length": 121,
+  "name": "Green Ruby 1",
+  "slug": "green-ruby-1"
+ },
+ "cruiseId": 1,
+ "cruiseName": "Green Ruby 1",
+ "cruiseSlug": "green-ruby-1",
+ "currency": "VND",
+ "days": [
+  {
+   "day": 1,
+   "details": [
+    {
+     "descriptionHtml": "Đón khách tại Hà Nội khoảng 07:30–08:00, di chuyển đi Hạ Long (khoảng 2,5 giờ).",
+     "time": "07:30",
+     "title": "Đón & Di chuyển"
+    },
+    {
+     "descriptionHtml": "Đến phòng chờ VIP Tuần Châu: làm thủ tục, kiểm tra hành lý, đồ uống chào mừng, gift shop.",
+     "time": "10:45",
+     "title": "Check-in VIP Lounge"
+    },
+    {
+     "descriptionHtml": "Tender boat đưa khách lên du thuyền trên Vịnh Hạ Long.",
+     "time": "11:45",
+     "title": "Lên tàu"
+    },
+    {
+     "descriptionHtml": "Hướng dẫn an toàn và giới thiệu hành trình tại nhà hàng, sau đó nhận phòng, phát chìa khóa.",
+     "time": "12:30",
+     "title": "Hướng dẫn an toàn & Nhận phòng"
+    },
+    {
+     "descriptionHtml": "Dùng bữa trưa khi tàu đi qua hàng trăm đảo đá vôi và bãi biển hoang sơ.",
+     "time": "13:00",
+     "title": "Ăn trưa trên tàu"
+    },
+    {
+     "descriptionHtml": "Chèo kayak hoặc đi thuyền nan qua vòm đá tự nhiên vào hồ nước yên bình giữa những vách núi cao.",
+     "time": "15:30",
+     "title": "Khám phá Hang Luồn"
+    },
+    {
+     "descriptionHtml": "Tắm biển trong làn nước trong xanh hoặc leo lên đỉnh ngắm toàn cảnh vịnh.",
+     "time": "16:30",
+     "title": "Đảo Ti Tốp"
+    },
+    {
+     "descriptionHtml": "Về tàu chính, nghỉ ngơi, ngắm hoàng hôn hoặc tham gia hoạt động trên tàu: lớp học nấu ăn (cuộc thi nấu ăn), happy hour ngắm hoàng hôn, spa, bơi tại hồ bơi, tham quan buồng lái &amp; khoang máy.",
+     "time": "17:30",
+     "title": "Hoàng hôn & Hoạt động trên tàu"
+    },
+    {
+     "descriptionHtml": "Bữa tối thượng hạng trên tàu giữa khung cảnh yên bình của Vịnh Hạ Long. Giới thiệu lịch trình ngày hôm sau, thực đơn và trao giải cuộc thi nấu ăn.",
+     "time": "19:00",
+     "title": "Bữa tối"
+    },
+    {
+     "descriptionHtml": "Câu mực, đặt spa massage, thư giãn tại bar hoặc trên boong, chiếu phim màn hình lớn, board game, tỉa rau củ quả cùng đầu bếp.",
+     "time": "21:00",
+     "title": "Hoạt động tự do"
+    }
+   ],
+   "title": null
+  },
+  {
+   "day": 2,
+   "details": [
+    {
+     "descriptionHtml": "Giãn cơ nhẹ nhàng và hít thở, chiêm ngưỡng sự tĩnh lặng của thiên nhiên.",
+     "time": "06:15",
+     "title": "Đón bình minh"
+    },
+    {
+     "descriptionHtml": "Dùng bữa sáng trên tàu.",
+     "time": "07:00",
+     "title": "Ăn sáng"
+    },
+    {
+     "descriptionHtml": "Chuyển sang thuyền day boat riêng để khám phá những góc vịnh yên tĩnh hơn.",
+     "time": "08:30",
+     "title": "Chuyển sang day boat"
+    },
+    {
+     "descriptionHtml": "Khám phá nhịp sống bình dị tại một trong những làng chài nổi đẹp nhất vịnh.",
+     "time": "10:00",
+     "title": "Làng chài Cửa Vạn"
+    },
+    {
+     "descriptionHtml": "Khám phá hang động khảo cổ còn lưu nhiều dấu tích cư trú của người xưa.",
+     "time": "11:30",
+     "title": "Hang Tiên Ông"
+    },
+    {
+     "descriptionHtml": "Dùng bữa trưa khi thuyền đi qua vùng nước yên bình.",
+     "time": "12:30",
+     "title": "Bữa trưa trên day boat"
+    },
+    {
+     "descriptionHtml": "Tìm hiểu nghệ thuật nuôi cấy và chế tác ngọc trai tinh tế.",
+     "time": "14:00",
+     "title": "Cơ sở nuôi cấy ngọc trai"
+    },
+    {
+     "descriptionHtml": "Trở về tàu chính, nghỉ ngơi và thư giãn.",
+     "time": "15:30",
+     "title": "Trở về tàu chính & Thư giãn"
+    },
+    {
+     "descriptionHtml": "Dùng bữa tối và nghỉ đêm trên vịnh.",
+     "time": "19:00",
+     "title": "Bữa tối & Nghỉ đêm trên vịnh"
+    }
+   ],
+   "title": null
+  },
+  {
+   "day": 3,
+   "details": [
+    {
+     "descriptionHtml": "Giãn cơ nhẹ nhàng và hít thở chánh niệm khi bình minh lên trên vịnh.",
+     "time": "06:15",
+     "title": "Đón bình minh"
+    },
+    {
+     "descriptionHtml": "Khám phá một trong những hang động kỳ vĩ nhất vịnh, nổi tiếng với những khoang hang rộng lớn như thánh đường.",
+     "time": "08:00",
+     "title": "Hang Sửng Sốt"
+    },
+    {
+     "descriptionHtml": "Dùng bữa brunch thong thả khi tàu trở về bến, khép lại chuyến đi đáng nhớ (09:30 – 11:30).",
+     "time": "09:30",
+     "title": "Brunch & Trở về bến"
+    }
+   ],
+   "title": null
+  }
+ ],
+ "departures": [],
+ "description": "Thêm một ngày để đi sâu hơn: ngày thứ hai bạn chuyển sang day boat riêng, thăm làng chài Cửa Vạn, hang khảo cổ Tiên Ông và trại ngọc trai, ở những góc vịnh yên tĩnh mà hành trình 2 ngày không tới.",
+ "descriptionHtml": "Thêm một ngày để đi sâu hơn: ngày thứ hai bạn chuyển sang day boat riêng, thăm làng chài Cửa Vạn, hang khảo cổ Tiên Ông và trại ngọc trai, ở những góc vịnh yên tĩnh mà hành trình 2 ngày không tới.",
+ "destinations": [
+  "Hang Luồn",
+  "Đảo Ti Tốp",
+  "Làng chài Cửa Vạn",
+  "Hang Tiên Ông",
+  "Trại ngọc trai",
+  "Hang Sửng Sốt"
+ ],
+ "duration": 3,
+ "faqs": [
+  {
+   "answerHtml": "<p>Bản 3 ngày 2 đêm thêm một ngày đi day boat riêng: thăm làng chài Cửa Vạn, Hang Tiên Ông (hang khảo cổ), cơ sở nuôi cấy ngọc trai, ăn trưa ngay trên day boat, và thêm một đêm nữa trên vịnh.</p>",
+   "question": "Hạ Long 3 ngày 2 đêm khác 2 ngày 1 đêm thế nào?"
+  },
+  {
+   "answerHtml": "<p>Bạn giãn cơ đón bình minh lúc 06:15, thăm Hang Sửng Sốt lúc 08:00, sau đó dùng bữa brunch khi tàu về bến (khoảng 09:30 – 11:30).</p>",
+   "question": "Ngày cuối hành trình Hạ Long 3 ngày 2 đêm có gì?"
+  },
+  {
+   "answerHtml": "<p>Bạn làm thủ tục tại phòng chờ VIP của Green Ruby ở Tuần Châu khoảng 10:45, sau đó tender boat đưa ra tàu lúc 11:45. Nếu đi xe từ Hà Nội, xe đón lúc 08:00 (khoảng 2,5 giờ).</p>",
+   "question": "Hành trình Hạ Long lên tàu ở đâu, mấy giờ?"
+  },
+  {
+   "answerHtml": "<p>Giá tour bao gồm: toàn bộ bữa ăn theo lịch trình (sáng, trưa, tối và brunch ngày cuối), chỗ ở trong cabin riêng có điều hòa, vé tham quan tại tất cả điểm trong hành trình, chèo kayak và thuyền nan (kayak tại vịnh Lan Hạ tạm dừng theo quy định địa phương, cập nhật tháng 10/2026), lớp nấu ăn và Thái Cực Quyền buổi sáng, hướng dẫn viên tiếng Anh/Việt và chuyến day boat ngày 2 (chỉ áp dụng hành trình 3N2Đ).</p>\n<p>Không bao gồm: đồ uống, dịch vụ spa, xe đưa đón Hà Nội – Hạ Long và các chi phí cá nhân phát sinh.</p>",
+   "question": "Giá đã bao gồm những gì?"
+  },
+  {
+   "answerHtml": "<p>Có. Dịch vụ xe limousine ghép từ Hà Nội về Tuần Châu có sẵn với phụ phí, hoặc đặt xe riêng theo yêu cầu. Từ sân bay Cát Bi (Hải Phòng) chỉ khoảng 45 phút — 1 tiếng.</p>",
+   "question": "Xe đưa đón từ Hà Nội có không?"
+  },
+  {
+   "answerHtml": "<p>Hủy từ 30 ngày trở lên trước ngày khởi hành: hoàn 100% số tiền đã thanh toán cho du thuyền. Hủy 15–29 ngày trước: phí 50% tổng giá trị đặt chỗ. Hủy 7–14 ngày: phí 75%. Hủy 0–6 ngày hoặc không đến: phí 100%, không hoàn tiền. Điều kiện đầy đủ: <a href=\"/vi/dieu-khoan-dat-tour#cancellation\">Điều khoản đặt du thuyền</a>.</p>",
+   "question": "Hủy thì mất bao nhiêu?"
+  },
+  {
+   "answerHtml": "<p>Tháng 10 đến tháng 4 thời tiết mát, ít mưa, biển êm — lý tưởng nhất. Tháng 11 và tháng 3 là đẹp nhất trong năm. Tháng 5–9 nóng và có thể có mưa bão, nhưng biển xanh hơn và đông đẹp hơn để bơi.</p>",
+   "question": "Đi tháng mấy là đẹp nhất?"
+  },
+  {
+   "answerHtml": "<p>Hộ chiếu hoặc CCCD, quần áo nhẹ, đồ bơi, dép đi biển, mũ, kem chống nắng, máy ảnh và thuốc cá nhân nếu có. Mùa đông nên mang thêm áo ấm cho buổi tối trên boong.</p>",
+   "question": "Nên mang theo gì khi đi du thuyền?"
+  }
+ ],
+ "fromPrice": null,
+ "gallery": [
+  {
+   "alt": "3 ngày 2 đêm – Dấu Ấn Hạ Long",
+   "src": "/upload/2026/03/13/2n3d-hl-1.png"
+  },
+  {
+   "alt": "3 ngày 2 đêm – Dấu Ấn Hạ Long",
+   "src": "/upload/2026/03/12/1661448723night-time-meditation-1.jpg"
+  },
+  {
+   "alt": "3 ngày 2 đêm – Dấu Ấn Hạ Long",
+   "src": "/upload/2026/03/03/abe1f0acda3486a3ce6597569ced9eac9e14a0ac.jpg"
+  },
+  {
+   "alt": "3 ngày 2 đêm – Dấu Ấn Hạ Long",
+   "src": "/upload/2026/03/10/image9-jmdjeyz.png"
+  },
+  {
+   "alt": "3 ngày 2 đêm – Dấu Ấn Hạ Long",
+   "src": "/upload/2026/03/10/img-creating-an-authentic-dining-experience.jpg"
+  },
+  {
+   "alt": "3 ngày 2 đêm – Dấu Ấn Hạ Long",
+   "src": "/upload/2026/03/10/bar-ha-long-1-png-1720505875.png"
+  },
+  {
+   "alt": "3 ngày 2 đêm – Dấu Ấn Hạ Long",
+   "src": "/upload/2026/03/10/grand-ball-room-5.jpg"
+  }
+ ],
+ "image": "/upload/2026/03/09/img-81-600x901-jpg-1.png",
+ "importantNotes": [
+  "Chính sách hủy: hoàn 100% nếu hủy trước 30 ngày; mất 50% khi hủy 15–29 ngày; mất 75% khi hủy 7–14 ngày; không hoàn tiền nếu hủy dưới 7 ngày hoặc không đến",
+  "Chính sách trẻ em: Dưới 2 tuổi miễn phí, từ 5–11 tuổi tính 75% phí",
+  "Giờ nhận phòng: 12:00 _ Giờ trả phòng: 11:00",
+  "Cần mang theo: Hộ chiếu, đồ bơi, kem chống nắng"
+ ],
+ "itineraryId": 8,
+ "name": "3 ngày 2 đêm – Dấu Ấn Hạ Long",
+ "nextDeparture": null,
+ "seo": {
+  "description": "Du thuyền Hạ Long 3 ngày 2 đêm trên Green Ruby 1: Hang Luồn, đảo Ti Tốp, làng chài Cửa Vạn, Hang Tiên Ông, trại ngọc trai và Hang Sửng Sốt.",
+  "title": "Du Thuyền Hạ Long 3 Ngày 2 Đêm | Green Ruby Cruises"
+ },
+ "services": {
+  "included": [
+   {
+    "description": "Ẩm thực Việt Nam đặc sắc kết hợp các món quốc tế.",
+    "id": 64,
+    "image": "/upload/2026/03/13/utensils.png",
+    "name": "Tất cả các bữa ăn trên tàu"
+   },
+   {
+    "description": "Chỗ ở sang trọng với tiện nghi riêng và máy lạnh.",
+    "id": 65,
+    "image": "/upload/2026/03/13/ship.png",
+    "name": "Cabin hạng sang có máy lạnh"
+   },
+   {
+    "description": "Khám phá các vịnh nhỏ và hang động ẩn mình.",
+    "id": 67,
+    "image": "/upload/2026/03/13/sailboat.png",
+    "name": "Chèo thuyền kayak và bơi lội"
+   }
+  ],
+  "optional": [
+   {
+    "description": null,
+    "id": 71,
+    "image": "/upload/2026/03/13/ticket-svg-3.png",
+    "name": "Chi phí cá nhân",
+    "price": null
+   },
+   {
+    "description": null,
+    "id": 72,
+    "image": "/upload/2026/03/13/ticket-svg-2.png",
+    "name": "Di chuyển tới bến cảng",
+    "price": null
+   },
+   {
+    "description": null,
+    "id": 73,
+    "image": "/upload/2026/03/13/ticket-svg-1.png",
+    "name": "Tip cho hướng dẫn viên",
+    "price": null
+   },
+   {
+    "description": null,
+    "id": 74,
+    "image": "/upload/2026/03/13/ticket-svg.png",
+    "name": "Các dịch vụ khác không được đề cập",
+    "price": null
+   }
+  ]
+ },
+ "slug": "3-ngay-2-dem-dau-an-ha-long",
+ "startTime": "08:00",
+ "updatedAt": "2026-10-19T21:30:32+07:00"
+}
