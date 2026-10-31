@@ -4,6 +4,9 @@ import { timingSafeEqual } from 'node:crypto';
 // Called by Laravel after an admin saves content:
 //   POST /api/revalidate  { "secret": "...", "tags": ["cabin:24", "cabins"] }
 // Stale pages keep being served while fresh ones render in the background.
+// "expire": true (sent only when a language's site status changes, i18n:locale) expires the tags at once instead:
+// with stale-while-revalidate a page could regenerate from a stale inner entry and keep the old hreflang set for
+// its whole lifetime, and a language that opens or closes must change every page that links it in one pass.
 
 const matches = (given: string, expected: string) => {
   const a = Buffer.from(given);
@@ -15,13 +18,13 @@ export async function POST(request: Request) {
   const expected = process.env.REVALIDATE_SECRET;
   if (!expected) return Response.json({ error: 'revalidate_not_configured' }, { status: 503 });
 
-  const body = (await request.json().catch(() => null)) as { secret?: unknown; tags?: unknown } | null;
+  const body = (await request.json().catch(() => null)) as { secret?: unknown; tags?: unknown; expire?: unknown } | null;
   if (typeof body?.secret !== 'string' || !matches(body.secret, expected)) {
     return Response.json({ error: 'unauthorized' }, { status: 401 });
   }
   const tags = Array.isArray(body.tags) ? body.tags.filter((t): t is string => typeof t === 'string' && t.length <= 100) : [];
   if (tags.length === 0) return Response.json({ error: 'no_tags' }, { status: 422 });
 
-  for (const tag of tags) revalidateTag(tag, 'max');
+  for (const tag of tags) revalidateTag(tag, body.expire === true ? { expire: 0 } : 'max');
   return Response.json({ revalidated: tags });
 }
