@@ -1,0 +1,75 @@
+# Paths captured in addition to every sitemap <loc> (capture.mjs). One path per line; "#" starts a comment.
+# Ids/slugs are real rows of the content snapshot (docs/i18n-audit/phase-0/01-database-baseline.md).
+# Expected behaviour is recorded by the capture itself; comments only explain why a path is here.
+
+# Legacy redirects kept from Laravel (next.config.ts redirects + legacy route shims)
+/en
+/en/cruise/green-ruby-1-3.html
+/en/blog
+/service
+/experience
+/experience/sunset-on-the-bay-6.html
+/about/brand-facts
+/vi/diem-den
+/vi/diem-den/hang-sung-sot
+/destinations/titop-island
+/destinations/dark-and-bright-cave
+
+# Non-canonical detail slugs -> 308 to the canonical slug (src/proxy.ts + route factories)
+/cruise/old-name-3.html
+/vi/du-thuyen/ten-cu-1.html
+/cabin/old-name-24.html
+/vi/phong-nghi/ten-cu-38.html
+/itinerary/old-name-3-3.html
+/vi/hanh-trinh/ten-cu-1-8.html
+/experiences/old-name-6.html
+
+# Blog pagination / legacy shapes
+/blog/page-1
+/vi/blog/trang-1
+/blog/page-999
+/blog/the-complete-guide-to-eco-friendly-luxury-cruises-in-ha-long-bay-2026-221.html
+/blog/search
+/vi/blog/tim-kiem
+
+# Legal pages are noindex (not in sitemaps) except booking terms
+/legal
+/privacy-policy
+/terms-and-conditions
+/payment-methods
+/cookie-policy
+/safety-policies
+/vi/phap-ly
+/vi/chinh-sach-bao-mat
+/vi/dieu-khoan-dieu-kien
+/vi/phuong-thuc-thanh-toan
+/vi/chinh-sach-cookie
+/vi/chinh-sach-an-toan
+
+# Booking and payment (noindex pages)
+/booking
+/vi/booking
+/booking/pay
+/vi/booking/pay
+
+# Draft / hidden content must stay 404
+/destinations/luon-cave
+/vi/dia-diem-tham-quan/hang-luon
+/guides/first-time-halong-bay-cruise
+/vi/cam-nang/lan-dau-di-du-thuyen-ha-long
+
+# 404 shapes (11-critical-review.md E-9): styled global 404 vs bare error document
+/xyz
+/vi/xyz
+/cruise
+/ja
+/ja/cruise/green-ruby-1-3.html
+/zh-tw
+/cruise/missing-99999.html
+/vi/du-thuyen/missing-99999.html
+/destinations/does-not-exist
+
+# Non-HTML public files
+/robots.txt
+/llms.txt
+/llms-full.txt

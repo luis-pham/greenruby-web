@@ -1,0 +1,1569 @@
+{
+  "description": "Observed EN/VI URL shapes (Phase 0 baseline). Phase 1 URL builders must reproduce path, canonical and hreflang exactly.",
+  "source": {
+    "capture": "fresh/seo-warm-a",
+    "urlCount": 186,
+    "origin": "https://greenrubycruises.com"
+  },
+  "shapes": [
+    {
+      "category": "home",
+      "kind": "hub",
+      "locale": "en",
+      "path": "/",
+      "expect": {
+        "status": 200,
+        "lang": "en",
+        "canonical": "/",
+        "hreflang": [
+          "en /",
+          "vi /vi",
+          "x-default /"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "static",
+      "kind": "page",
+      "locale": "en",
+      "path": "/about-us",
+      "expect": {
+        "status": 200,
+        "lang": "en",
+        "canonical": "/about-us",
+        "hreflang": [
+          "en /about-us",
+          "vi /vi/gioi-thieu",
+          "x-default /about-us"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "static",
+      "kind": "page",
+      "locale": "en",
+      "path": "/about-us/brand-facts",
+      "expect": {
+        "status": 200,
+        "lang": "en",
+        "canonical": "/about-us/brand-facts",
+        "hreflang": [
+          "en /about-us/brand-facts",
+          "vi /vi/gioi-thieu/thong-tin-thuong-hieu",
+          "x-default /about-us/brand-facts"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "blog",
+      "kind": "hub",
+      "locale": "en",
+      "path": "/blog",
+      "expect": {
+        "status": 200,
+        "lang": "en",
+        "canonical": "/blog",
+        "hreflang": [
+          "en /blog",
+          "vi /vi/blog",
+          "x-default /blog"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "blog",
+      "kind": "category",
+      "locale": "en",
+      "path": "/blog/destinations",
+      "expect": {
+        "status": 200,
+        "lang": "en",
+        "canonical": "/blog/destinations",
+        "hreflang": [
+          "en /blog/destinations",
+          "vi /vi/blog/hanh-trinh",
+          "x-default /blog/destinations"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "blog",
+      "kind": "article",
+      "locale": "en",
+      "path": "/blog/destinations/ha-long-bay-vs-lan-ha-bay-which-cruise.html",
+      "expect": {
+        "status": 200,
+        "lang": "en",
+        "canonical": "/blog/destinations/ha-long-bay-vs-lan-ha-bay-which-cruise.html",
+        "hreflang": [
+          "en /blog/destinations/ha-long-bay-vs-lan-ha-bay-which-cruise.html",
+          "vi /vi/blog/hanh-trinh/nen-chon-du-thuyen-ha-long-hay-lan-ha.html",
+          "x-default /blog/destinations/ha-long-bay-vs-lan-ha-bay-which-cruise.html"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "blog",
+      "kind": "category",
+      "locale": "en",
+      "path": "/blog/eco-sustainability",
+      "expect": {
+        "status": 200,
+        "lang": "en",
+        "canonical": "/blog/eco-sustainability",
+        "hreflang": [
+          "en /blog/eco-sustainability",
+          "x-default /blog/eco-sustainability"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "blog",
+      "kind": "article",
+      "locale": "en",
+      "path": "/blog/eco-sustainability/the-complete-guide-to-eco-friendly-luxury-cruises-in-ha-long-bay-2026.html",
+      "expect": {
+        "status": 200,
+        "lang": "en",
+        "canonical": "/blog/eco-sustainability/the-complete-guide-to-eco-friendly-luxury-cruises-in-ha-long-bay-2026.html",
+        "hreflang": [
+          "en /blog/eco-sustainability/the-complete-guide-to-eco-friendly-luxury-cruises-in-ha-long-bay-2026.html",
+          "x-default /blog/eco-sustainability/the-complete-guide-to-eco-friendly-luxury-cruises-in-ha-long-bay-2026.html"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "booking",
+      "kind": "page",
+      "locale": "en",
+      "path": "/booking",
+      "expect": {
+        "status": 200,
+        "lang": "en",
+        "canonical": "/booking",
+        "hreflang": [],
+        "robots": "noindex, follow"
+      }
+    },
+    {
+      "category": "legal",
+      "kind": "page",
+      "locale": "en",
+      "path": "/booking-terms-and-conditions",
+      "expect": {
+        "status": 200,
+        "lang": "en",
+        "canonical": "/booking-terms-and-conditions",
+        "hreflang": [
+          "en /booking-terms-and-conditions",
+          "vi /vi/dieu-khoan-dat-tour",
+          "x-default /booking-terms-and-conditions"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "booking",
+      "kind": "page",
+      "locale": "en",
+      "path": "/booking/pay",
+      "expect": {
+        "status": 200,
+        "lang": "en",
+        "canonical": "/booking/pay",
+        "hreflang": [],
+        "robots": "noindex, follow"
+      }
+    },
+    {
+      "category": "cabin",
+      "kind": "detail",
+      "locale": "en",
+      "path": "/cabin/imperial-suite-24.html",
+      "ids": {
+        "id": 24
+      },
+      "expect": {
+        "status": 200,
+        "lang": "en",
+        "canonical": "/cabin/imperial-suite-24.html",
+        "hreflang": [
+          "en /cabin/imperial-suite-24.html",
+          "vi /vi/phong-nghi/imperial-suite-38.html",
+          "x-default /cabin/imperial-suite-24.html"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "cabin",
+      "kind": "detail",
+      "locale": "en",
+      "path": "/cabin/imperial-suite-72.html",
+      "ids": {
+        "id": 72
+      },
+      "expect": {
+        "status": 200,
+        "lang": "en",
+        "canonical": "/cabin/imperial-suite-72.html",
+        "hreflang": [
+          "en /cabin/imperial-suite-72.html",
+          "vi /vi/phong-nghi/imperial-suite-73.html",
+          "x-default /cabin/imperial-suite-72.html"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "static",
+      "kind": "page",
+      "locale": "en",
+      "path": "/contact",
+      "expect": {
+        "status": 200,
+        "lang": "en",
+        "canonical": "/contact",
+        "hreflang": [
+          "en /contact",
+          "vi /vi/lien-he",
+          "x-default /contact"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "legal",
+      "kind": "page",
+      "locale": "en",
+      "path": "/cookie-policy",
+      "expect": {
+        "status": 200,
+        "lang": "en",
+        "canonical": "/cookie-policy",
+        "hreflang": [],
+        "robots": "noindex, follow"
+      }
+    },
+    {
+      "category": "cruise",
+      "kind": "detail",
+      "locale": "en",
+      "path": "/cruise/green-ruby-1-3.html",
+      "ids": {
+        "id": 3
+      },
+      "expect": {
+        "status": 200,
+        "lang": "en",
+        "canonical": "/cruise/green-ruby-1-3.html",
+        "hreflang": [
+          "en /cruise/green-ruby-1-3.html",
+          "vi /vi/du-thuyen/green-ruby-1-1.html",
+          "x-default /cruise/green-ruby-1-3.html"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "cruise",
+      "kind": "detail",
+      "locale": "en",
+      "path": "/cruise/green-ruby-2-4.html",
+      "ids": {
+        "id": 4
+      },
+      "expect": {
+        "status": 200,
+        "lang": "en",
+        "canonical": "/cruise/green-ruby-2-4.html",
+        "hreflang": [
+          "en /cruise/green-ruby-2-4.html",
+          "vi /vi/du-thuyen/green-ruby-2-2.html",
+          "x-default /cruise/green-ruby-2-4.html"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "destination",
+      "kind": "hub",
+      "locale": "en",
+      "path": "/destinations",
+      "expect": {
+        "status": 200,
+        "lang": "en",
+        "canonical": "/destinations",
+        "hreflang": [
+          "en /destinations",
+          "vi /vi/dia-diem-tham-quan",
+          "x-default /destinations"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "destination",
+      "kind": "detail",
+      "locale": "en",
+      "path": "/destinations/ao-ech-lagoon",
+      "expect": {
+        "status": 200,
+        "lang": "en",
+        "canonical": "/destinations/ao-ech-lagoon",
+        "hreflang": [
+          "en /destinations/ao-ech-lagoon",
+          "vi /vi/dia-diem-tham-quan/ao-ech",
+          "x-default /destinations/ao-ech-lagoon"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "destination",
+      "kind": "detail",
+      "locale": "en",
+      "path": "/destinations/ba-trai-dao-beach",
+      "expect": {
+        "status": 200,
+        "lang": "en",
+        "canonical": "/destinations/ba-trai-dao-beach",
+        "hreflang": [
+          "en /destinations/ba-trai-dao-beach",
+          "vi /vi/dia-diem-tham-quan/bai-ba-trai-dao",
+          "x-default /destinations/ba-trai-dao-beach"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "static",
+      "kind": "page",
+      "locale": "en",
+      "path": "/eco-dashboard",
+      "expect": {
+        "status": 200,
+        "lang": "en",
+        "canonical": "/eco-dashboard",
+        "hreflang": [
+          "en /eco-dashboard",
+          "vi /vi/bao-cao-sinh-thai",
+          "x-default /eco-dashboard"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "experience",
+      "kind": "hub",
+      "locale": "en",
+      "path": "/experiences",
+      "expect": {
+        "status": 200,
+        "lang": "en",
+        "canonical": "/experiences",
+        "hreflang": [
+          "en /experiences",
+          "vi /vi/hoat-dong-trai-nghiem",
+          "x-default /experiences"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "experience",
+      "kind": "detail",
+      "locale": "en",
+      "path": "/experiences/bamboo-boat-excursion-38.html",
+      "ids": {
+        "id": 38
+      },
+      "expect": {
+        "status": 200,
+        "lang": "en",
+        "canonical": "/experiences/bamboo-boat-excursion-38.html",
+        "hreflang": [
+          "en /experiences/bamboo-boat-excursion-38.html",
+          "vi /vi/hoat-dong-trai-nghiem/thuyen-nan-kham-pha-41.html",
+          "x-default /experiences/bamboo-boat-excursion-38.html"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "experience",
+      "kind": "detail",
+      "locale": "en",
+      "path": "/experiences/cooking-demonstration-14.html",
+      "ids": {
+        "id": 14
+      },
+      "expect": {
+        "status": 200,
+        "lang": "en",
+        "canonical": "/experiences/cooking-demonstration-14.html",
+        "hreflang": [
+          "en /experiences/cooking-demonstration-14.html",
+          "vi /vi/hoat-dong-trai-nghiem/lop-hoc-nau-an-31.html",
+          "x-default /experiences/cooking-demonstration-14.html"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "faq",
+      "kind": "hub",
+      "locale": "en",
+      "path": "/faq",
+      "expect": {
+        "status": 200,
+        "lang": "en",
+        "canonical": "/faq",
+        "hreflang": [
+          "en /faq",
+          "vi /vi/cau-hoi-thuong-gap",
+          "x-default /faq"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "faq",
+      "kind": "category",
+      "locale": "en",
+      "path": "/faq/bookings-payments",
+      "expect": {
+        "status": 200,
+        "lang": "en",
+        "canonical": "/faq/bookings-payments",
+        "hreflang": [
+          "en /faq/bookings-payments",
+          "vi /vi/cau-hoi-thuong-gap/dat-cho-va-thanh-toan",
+          "x-default /faq/bookings-payments"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "faq",
+      "kind": "category",
+      "locale": "en",
+      "path": "/faq/eco-technology-connectivity",
+      "expect": {
+        "status": 200,
+        "lang": "en",
+        "canonical": "/faq/eco-technology-connectivity",
+        "hreflang": [
+          "en /faq/eco-technology-connectivity",
+          "vi /vi/cau-hoi-thuong-gap/cong-nghe-xanh",
+          "x-default /faq/eco-technology-connectivity"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "gallery",
+      "kind": "hub",
+      "locale": "en",
+      "path": "/gallery",
+      "expect": {
+        "status": 200,
+        "lang": "en",
+        "canonical": "/gallery",
+        "hreflang": [
+          "en /gallery",
+          "vi /vi/thu-vien",
+          "x-default /gallery"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "gallery",
+      "kind": "category",
+      "locale": "en",
+      "path": "/gallery/activities",
+      "expect": {
+        "status": 200,
+        "lang": "en",
+        "canonical": "/gallery/activities",
+        "hreflang": [
+          "en /gallery/activities",
+          "vi /vi/thu-vien/hoat-dong",
+          "x-default /gallery/activities"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "gallery",
+      "kind": "category",
+      "locale": "en",
+      "path": "/gallery/cabins-suites",
+      "expect": {
+        "status": 200,
+        "lang": "en",
+        "canonical": "/gallery/cabins-suites",
+        "hreflang": [
+          "en /gallery/cabins-suites",
+          "vi /vi/thu-vien/cabin-suite",
+          "x-default /gallery/cabins-suites"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "guides",
+      "kind": "hub",
+      "locale": "en",
+      "path": "/guides",
+      "expect": {
+        "status": 200,
+        "lang": "en",
+        "canonical": "/guides",
+        "hreflang": [
+          "en /guides",
+          "vi /vi/cam-nang",
+          "x-default /guides"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "guides",
+      "kind": "detail",
+      "locale": "en",
+      "path": "/guides/first-time-halong-bay-cruise",
+      "expect": {
+        "status": 200,
+        "lang": "en",
+        "canonical": "/guides/first-time-halong-bay-cruise",
+        "hreflang": [
+          "en /guides/first-time-halong-bay-cruise",
+          "vi /vi/cam-nang/lan-dau-di-du-thuyen-ha-long",
+          "x-default /guides/first-time-halong-bay-cruise"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "guides",
+      "kind": "detail",
+      "locale": "en",
+      "path": "/guides/hanoi-to-halong-bay",
+      "expect": {
+        "status": 200,
+        "lang": "en",
+        "canonical": "/guides/hanoi-to-halong-bay",
+        "hreflang": [
+          "en /guides/hanoi-to-halong-bay",
+          "vi /vi/cam-nang/ha-noi-di-ha-long",
+          "x-default /guides/hanoi-to-halong-bay"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "itinerary",
+      "kind": "hub",
+      "locale": "en",
+      "path": "/itinerary",
+      "expect": {
+        "status": 200,
+        "lang": "en",
+        "canonical": "/itinerary",
+        "hreflang": [
+          "en /itinerary",
+          "vi /vi/hanh-trinh",
+          "x-default /itinerary"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "itinerary",
+      "kind": "detail",
+      "locale": "en",
+      "path": "/itinerary/the-halong-escape-2-days-1-night-3-4.html",
+      "ids": {
+        "cruiseId": 3,
+        "itineraryId": 4
+      },
+      "expect": {
+        "status": 200,
+        "lang": "en",
+        "canonical": "/itinerary/the-halong-escape-2-days-1-night-3-4.html",
+        "hreflang": [
+          "en /itinerary/the-halong-escape-2-days-1-night-3-4.html",
+          "vi /vi/hanh-trinh/2-ngay-1-dem-mot-thoang-ha-long-1-9.html",
+          "x-default /itinerary/the-halong-escape-2-days-1-night-3-4.html"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "itinerary",
+      "kind": "detail",
+      "locale": "en",
+      "path": "/itinerary/the-halong-immersion-3-days-2-nights-3-3.html",
+      "ids": {
+        "cruiseId": 3,
+        "itineraryId": 3
+      },
+      "expect": {
+        "status": 200,
+        "lang": "en",
+        "canonical": "/itinerary/the-halong-immersion-3-days-2-nights-3-3.html",
+        "hreflang": [
+          "en /itinerary/the-halong-immersion-3-days-2-nights-3-3.html",
+          "vi /vi/hanh-trinh/3-ngay-2-dem-dau-an-ha-long-1-8.html",
+          "x-default /itinerary/the-halong-immersion-3-days-2-nights-3-3.html"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "legal",
+      "kind": "page",
+      "locale": "en",
+      "path": "/legal",
+      "expect": {
+        "status": 200,
+        "lang": "en",
+        "canonical": "/legal",
+        "hreflang": [],
+        "robots": "noindex, follow"
+      }
+    },
+    {
+      "category": "legal",
+      "kind": "page",
+      "locale": "en",
+      "path": "/payment-methods",
+      "expect": {
+        "status": 200,
+        "lang": "en",
+        "canonical": "/payment-methods",
+        "hreflang": [],
+        "robots": "noindex, follow"
+      }
+    },
+    {
+      "category": "legal",
+      "kind": "page",
+      "locale": "en",
+      "path": "/privacy-policy",
+      "expect": {
+        "status": 200,
+        "lang": "en",
+        "canonical": "/privacy-policy",
+        "hreflang": [],
+        "robots": "noindex, follow"
+      }
+    },
+    {
+      "category": "legal",
+      "kind": "page",
+      "locale": "en",
+      "path": "/safety-policies",
+      "expect": {
+        "status": 200,
+        "lang": "en",
+        "canonical": "/safety-policies",
+        "hreflang": [],
+        "robots": "noindex, follow"
+      }
+    },
+    {
+      "category": "static",
+      "kind": "page",
+      "locale": "en",
+      "path": "/services",
+      "expect": {
+        "status": 200,
+        "lang": "en",
+        "canonical": "/services",
+        "hreflang": [
+          "en /services",
+          "vi /vi/dich-vu",
+          "x-default /services"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "legal",
+      "kind": "page",
+      "locale": "en",
+      "path": "/terms-and-conditions",
+      "expect": {
+        "status": 200,
+        "lang": "en",
+        "canonical": "/terms-and-conditions",
+        "hreflang": [],
+        "robots": "noindex, follow"
+      }
+    },
+    {
+      "category": "home",
+      "kind": "hub",
+      "locale": "vi",
+      "path": "/vi",
+      "expect": {
+        "status": 200,
+        "lang": "vi",
+        "canonical": "/vi",
+        "hreflang": [
+          "en /",
+          "vi /vi",
+          "x-default /"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "static",
+      "kind": "page",
+      "locale": "vi",
+      "path": "/vi/bao-cao-sinh-thai",
+      "expect": {
+        "status": 200,
+        "lang": "vi",
+        "canonical": "/vi/bao-cao-sinh-thai",
+        "hreflang": [
+          "en /eco-dashboard",
+          "vi /vi/bao-cao-sinh-thai",
+          "x-default /eco-dashboard"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "blog",
+      "kind": "hub",
+      "locale": "vi",
+      "path": "/vi/blog",
+      "expect": {
+        "status": 200,
+        "lang": "vi",
+        "canonical": "/vi/blog",
+        "hreflang": [
+          "en /blog",
+          "vi /vi/blog",
+          "x-default /blog"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "blog",
+      "kind": "category",
+      "locale": "vi",
+      "path": "/vi/blog/hanh-trinh",
+      "expect": {
+        "status": 200,
+        "lang": "vi",
+        "canonical": "/vi/blog/hanh-trinh",
+        "hreflang": [
+          "en /blog/destinations",
+          "vi /vi/blog/hanh-trinh",
+          "x-default /blog/destinations"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "blog",
+      "kind": "article",
+      "locale": "vi",
+      "path": "/vi/blog/hanh-trinh/di-ha-long-mua-nao-dep.html",
+      "expect": {
+        "status": 200,
+        "lang": "vi",
+        "canonical": "/vi/blog/hanh-trinh/di-ha-long-mua-nao-dep.html",
+        "hreflang": [
+          "en /blog/travel-tips/best-time-to-visit-halong-bay.html",
+          "vi /vi/blog/hanh-trinh/di-ha-long-mua-nao-dep.html",
+          "x-default /blog/travel-tips/best-time-to-visit-halong-bay.html"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "blog",
+      "kind": "article",
+      "locale": "vi",
+      "path": "/vi/blog/hanh-trinh/kinh-nghiem-chon-du-thuyen-ha-long-cao-cap.html",
+      "expect": {
+        "status": 200,
+        "lang": "vi",
+        "canonical": "/vi/blog/hanh-trinh/kinh-nghiem-chon-du-thuyen-ha-long-cao-cap.html",
+        "hreflang": [
+          "vi /vi/blog/hanh-trinh/kinh-nghiem-chon-du-thuyen-ha-long-cao-cap.html",
+          "x-default /vi/blog/hanh-trinh/kinh-nghiem-chon-du-thuyen-ha-long-cao-cap.html"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "blog",
+      "kind": "category",
+      "locale": "vi",
+      "path": "/vi/blog/tim-kiem",
+      "expect": {
+        "status": 200,
+        "lang": "vi",
+        "canonical": "/vi/blog/tim-kiem",
+        "hreflang": [],
+        "robots": "noindex, follow"
+      }
+    },
+    {
+      "category": "booking",
+      "kind": "page",
+      "locale": "vi",
+      "path": "/vi/booking",
+      "expect": {
+        "status": 200,
+        "lang": "vi",
+        "canonical": "/vi/booking",
+        "hreflang": [],
+        "robots": "noindex, follow"
+      }
+    },
+    {
+      "category": "booking",
+      "kind": "page",
+      "locale": "vi",
+      "path": "/vi/booking/pay",
+      "expect": {
+        "status": 200,
+        "lang": "vi",
+        "canonical": "/vi/booking/pay",
+        "hreflang": [],
+        "robots": "noindex, follow"
+      }
+    },
+    {
+      "category": "guides",
+      "kind": "hub",
+      "locale": "vi",
+      "path": "/vi/cam-nang",
+      "expect": {
+        "status": 200,
+        "lang": "vi",
+        "canonical": "/vi/cam-nang",
+        "hreflang": [
+          "en /guides",
+          "vi /vi/cam-nang",
+          "x-default /guides"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "guides",
+      "kind": "detail",
+      "locale": "vi",
+      "path": "/vi/cam-nang/ha-noi-di-ha-long",
+      "expect": {
+        "status": 200,
+        "lang": "vi",
+        "canonical": "/vi/cam-nang/ha-noi-di-ha-long",
+        "hreflang": [
+          "en /guides/hanoi-to-halong-bay",
+          "vi /vi/cam-nang/ha-noi-di-ha-long",
+          "x-default /guides/hanoi-to-halong-bay"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "guides",
+      "kind": "detail",
+      "locale": "vi",
+      "path": "/vi/cam-nang/lan-dau-di-du-thuyen-ha-long",
+      "expect": {
+        "status": 200,
+        "lang": "vi",
+        "canonical": "/vi/cam-nang/lan-dau-di-du-thuyen-ha-long",
+        "hreflang": [
+          "en /guides/first-time-halong-bay-cruise",
+          "vi /vi/cam-nang/lan-dau-di-du-thuyen-ha-long",
+          "x-default /guides/first-time-halong-bay-cruise"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "faq",
+      "kind": "hub",
+      "locale": "vi",
+      "path": "/vi/cau-hoi-thuong-gap",
+      "expect": {
+        "status": 200,
+        "lang": "vi",
+        "canonical": "/vi/cau-hoi-thuong-gap",
+        "hreflang": [
+          "en /faq",
+          "vi /vi/cau-hoi-thuong-gap",
+          "x-default /faq"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "faq",
+      "kind": "category",
+      "locale": "vi",
+      "path": "/vi/cau-hoi-thuong-gap/an-toan-khach-hang",
+      "expect": {
+        "status": 200,
+        "lang": "vi",
+        "canonical": "/vi/cau-hoi-thuong-gap/an-toan-khach-hang",
+        "hreflang": [
+          "en /faq/safety-guest-special",
+          "vi /vi/cau-hoi-thuong-gap/an-toan-khach-hang",
+          "x-default /faq/safety-guest-special"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "faq",
+      "kind": "category",
+      "locale": "vi",
+      "path": "/vi/cau-hoi-thuong-gap/cong-nghe-xanh",
+      "expect": {
+        "status": 200,
+        "lang": "vi",
+        "canonical": "/vi/cau-hoi-thuong-gap/cong-nghe-xanh",
+        "hreflang": [
+          "en /faq/eco-technology-connectivity",
+          "vi /vi/cau-hoi-thuong-gap/cong-nghe-xanh",
+          "x-default /faq/eco-technology-connectivity"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "legal",
+      "kind": "page",
+      "locale": "vi",
+      "path": "/vi/chinh-sach-an-toan",
+      "expect": {
+        "status": 200,
+        "lang": "vi",
+        "canonical": "/vi/chinh-sach-an-toan",
+        "hreflang": [],
+        "robots": "noindex, follow"
+      }
+    },
+    {
+      "category": "legal",
+      "kind": "page",
+      "locale": "vi",
+      "path": "/vi/chinh-sach-bao-mat",
+      "expect": {
+        "status": 200,
+        "lang": "vi",
+        "canonical": "/vi/chinh-sach-bao-mat",
+        "hreflang": [],
+        "robots": "noindex, follow"
+      }
+    },
+    {
+      "category": "legal",
+      "kind": "page",
+      "locale": "vi",
+      "path": "/vi/chinh-sach-cookie",
+      "expect": {
+        "status": 200,
+        "lang": "vi",
+        "canonical": "/vi/chinh-sach-cookie",
+        "hreflang": [],
+        "robots": "noindex, follow"
+      }
+    },
+    {
+      "category": "destination",
+      "kind": "hub",
+      "locale": "vi",
+      "path": "/vi/dia-diem-tham-quan",
+      "expect": {
+        "status": 200,
+        "lang": "vi",
+        "canonical": "/vi/dia-diem-tham-quan",
+        "hreflang": [
+          "en /destinations",
+          "vi /vi/dia-diem-tham-quan",
+          "x-default /destinations"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "destination",
+      "kind": "detail",
+      "locale": "vi",
+      "path": "/vi/dia-diem-tham-quan/ao-ech",
+      "expect": {
+        "status": 200,
+        "lang": "vi",
+        "canonical": "/vi/dia-diem-tham-quan/ao-ech",
+        "hreflang": [
+          "en /destinations/ao-ech-lagoon",
+          "vi /vi/dia-diem-tham-quan/ao-ech",
+          "x-default /destinations/ao-ech-lagoon"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "destination",
+      "kind": "detail",
+      "locale": "vi",
+      "path": "/vi/dia-diem-tham-quan/bai-ba-trai-dao",
+      "expect": {
+        "status": 200,
+        "lang": "vi",
+        "canonical": "/vi/dia-diem-tham-quan/bai-ba-trai-dao",
+        "hreflang": [
+          "en /destinations/ba-trai-dao-beach",
+          "vi /vi/dia-diem-tham-quan/bai-ba-trai-dao",
+          "x-default /destinations/ba-trai-dao-beach"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "static",
+      "kind": "page",
+      "locale": "vi",
+      "path": "/vi/dich-vu",
+      "expect": {
+        "status": 200,
+        "lang": "vi",
+        "canonical": "/vi/dich-vu",
+        "hreflang": [
+          "en /services",
+          "vi /vi/dich-vu",
+          "x-default /services"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "legal",
+      "kind": "page",
+      "locale": "vi",
+      "path": "/vi/dieu-khoan-dat-tour",
+      "expect": {
+        "status": 200,
+        "lang": "vi",
+        "canonical": "/vi/dieu-khoan-dat-tour",
+        "hreflang": [
+          "en /booking-terms-and-conditions",
+          "vi /vi/dieu-khoan-dat-tour",
+          "x-default /booking-terms-and-conditions"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "legal",
+      "kind": "page",
+      "locale": "vi",
+      "path": "/vi/dieu-khoan-dieu-kien",
+      "expect": {
+        "status": 200,
+        "lang": "vi",
+        "canonical": "/vi/dieu-khoan-dieu-kien",
+        "hreflang": [],
+        "robots": "noindex, follow"
+      }
+    },
+    {
+      "category": "cruise",
+      "kind": "detail",
+      "locale": "vi",
+      "path": "/vi/du-thuyen/green-ruby-1-1.html",
+      "ids": {
+        "id": 1
+      },
+      "expect": {
+        "status": 200,
+        "lang": "vi",
+        "canonical": "/vi/du-thuyen/green-ruby-1-1.html",
+        "hreflang": [
+          "en /cruise/green-ruby-1-3.html",
+          "vi /vi/du-thuyen/green-ruby-1-1.html",
+          "x-default /cruise/green-ruby-1-3.html"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "cruise",
+      "kind": "detail",
+      "locale": "vi",
+      "path": "/vi/du-thuyen/green-ruby-2-2.html",
+      "ids": {
+        "id": 2
+      },
+      "expect": {
+        "status": 200,
+        "lang": "vi",
+        "canonical": "/vi/du-thuyen/green-ruby-2-2.html",
+        "hreflang": [
+          "en /cruise/green-ruby-2-4.html",
+          "vi /vi/du-thuyen/green-ruby-2-2.html",
+          "x-default /cruise/green-ruby-2-4.html"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "static",
+      "kind": "page",
+      "locale": "vi",
+      "path": "/vi/gioi-thieu",
+      "expect": {
+        "status": 200,
+        "lang": "vi",
+        "canonical": "/vi/gioi-thieu",
+        "hreflang": [
+          "en /about-us",
+          "vi /vi/gioi-thieu",
+          "x-default /about-us"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "static",
+      "kind": "page",
+      "locale": "vi",
+      "path": "/vi/gioi-thieu/thong-tin-thuong-hieu",
+      "expect": {
+        "status": 200,
+        "lang": "vi",
+        "canonical": "/vi/gioi-thieu/thong-tin-thuong-hieu",
+        "hreflang": [
+          "en /about-us/brand-facts",
+          "vi /vi/gioi-thieu/thong-tin-thuong-hieu",
+          "x-default /about-us/brand-facts"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "itinerary",
+      "kind": "hub",
+      "locale": "vi",
+      "path": "/vi/hanh-trinh",
+      "expect": {
+        "status": 200,
+        "lang": "vi",
+        "canonical": "/vi/hanh-trinh",
+        "hreflang": [
+          "en /itinerary",
+          "vi /vi/hanh-trinh",
+          "x-default /itinerary"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "itinerary",
+      "kind": "detail",
+      "locale": "vi",
+      "path": "/vi/hanh-trinh/2-ngay-1-dem-mot-thoang-ha-long-1-9.html",
+      "ids": {
+        "cruiseId": 1,
+        "itineraryId": 9
+      },
+      "expect": {
+        "status": 200,
+        "lang": "vi",
+        "canonical": "/vi/hanh-trinh/2-ngay-1-dem-mot-thoang-ha-long-1-9.html",
+        "hreflang": [
+          "en /itinerary/the-halong-escape-2-days-1-night-3-4.html",
+          "vi /vi/hanh-trinh/2-ngay-1-dem-mot-thoang-ha-long-1-9.html",
+          "x-default /itinerary/the-halong-escape-2-days-1-night-3-4.html"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "itinerary",
+      "kind": "detail",
+      "locale": "vi",
+      "path": "/vi/hanh-trinh/2-ngay-1-dem-mot-thoang-lan-ha-2-5.html",
+      "ids": {
+        "cruiseId": 2,
+        "itineraryId": 5
+      },
+      "expect": {
+        "status": 200,
+        "lang": "vi",
+        "canonical": "/vi/hanh-trinh/2-ngay-1-dem-mot-thoang-lan-ha-2-5.html",
+        "hreflang": [
+          "en /itinerary/the-lan-ha-escape-2-days-1-night-4-2.html",
+          "vi /vi/hanh-trinh/2-ngay-1-dem-mot-thoang-lan-ha-2-5.html",
+          "x-default /itinerary/the-lan-ha-escape-2-days-1-night-4-2.html"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "experience",
+      "kind": "hub",
+      "locale": "vi",
+      "path": "/vi/hoat-dong-trai-nghiem",
+      "expect": {
+        "status": 200,
+        "lang": "vi",
+        "canonical": "/vi/hoat-dong-trai-nghiem",
+        "hreflang": [
+          "en /experiences",
+          "vi /vi/hoat-dong-trai-nghiem",
+          "x-default /experiences"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "experience",
+      "kind": "detail",
+      "locale": "vi",
+      "path": "/vi/hoat-dong-trai-nghiem/cau-muc-32.html",
+      "ids": {
+        "id": 32
+      },
+      "expect": {
+        "status": 200,
+        "lang": "vi",
+        "canonical": "/vi/hoat-dong-trai-nghiem/cau-muc-32.html",
+        "hreflang": [
+          "en /experiences/squid-fishing-15.html",
+          "vi /vi/hoat-dong-trai-nghiem/cau-muc-32.html",
+          "x-default /experiences/squid-fishing-15.html"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "experience",
+      "kind": "detail",
+      "locale": "vi",
+      "path": "/vi/hoat-dong-trai-nghiem/lop-hoc-nau-an-31.html",
+      "ids": {
+        "id": 31
+      },
+      "expect": {
+        "status": 200,
+        "lang": "vi",
+        "canonical": "/vi/hoat-dong-trai-nghiem/lop-hoc-nau-an-31.html",
+        "hreflang": [
+          "en /experiences/cooking-demonstration-14.html",
+          "vi /vi/hoat-dong-trai-nghiem/lop-hoc-nau-an-31.html",
+          "x-default /experiences/cooking-demonstration-14.html"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "static",
+      "kind": "page",
+      "locale": "vi",
+      "path": "/vi/lien-he",
+      "expect": {
+        "status": 200,
+        "lang": "vi",
+        "canonical": "/vi/lien-he",
+        "hreflang": [
+          "en /contact",
+          "vi /vi/lien-he",
+          "x-default /contact"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "legal",
+      "kind": "page",
+      "locale": "vi",
+      "path": "/vi/phap-ly",
+      "expect": {
+        "status": 200,
+        "lang": "vi",
+        "canonical": "/vi/phap-ly",
+        "hreflang": [],
+        "robots": "noindex, follow"
+      }
+    },
+    {
+      "category": "cabin",
+      "kind": "detail",
+      "locale": "vi",
+      "path": "/vi/phong-nghi/imperial-suite-38.html",
+      "ids": {
+        "id": 38
+      },
+      "expect": {
+        "status": 200,
+        "lang": "vi",
+        "canonical": "/vi/phong-nghi/imperial-suite-38.html",
+        "hreflang": [
+          "en /cabin/imperial-suite-24.html",
+          "vi /vi/phong-nghi/imperial-suite-38.html",
+          "x-default /cabin/imperial-suite-24.html"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "cabin",
+      "kind": "detail",
+      "locale": "vi",
+      "path": "/vi/phong-nghi/imperial-suite-73.html",
+      "ids": {
+        "id": 73
+      },
+      "expect": {
+        "status": 200,
+        "lang": "vi",
+        "canonical": "/vi/phong-nghi/imperial-suite-73.html",
+        "hreflang": [
+          "en /cabin/imperial-suite-72.html",
+          "vi /vi/phong-nghi/imperial-suite-73.html",
+          "x-default /cabin/imperial-suite-72.html"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "legal",
+      "kind": "page",
+      "locale": "vi",
+      "path": "/vi/phuong-thuc-thanh-toan",
+      "expect": {
+        "status": 200,
+        "lang": "vi",
+        "canonical": "/vi/phuong-thuc-thanh-toan",
+        "hreflang": [],
+        "robots": "noindex, follow"
+      }
+    },
+    {
+      "category": "gallery",
+      "kind": "hub",
+      "locale": "vi",
+      "path": "/vi/thu-vien",
+      "expect": {
+        "status": 200,
+        "lang": "vi",
+        "canonical": "/vi/thu-vien",
+        "hreflang": [
+          "en /gallery",
+          "vi /vi/thu-vien",
+          "x-default /gallery"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "gallery",
+      "kind": "category",
+      "locale": "vi",
+      "path": "/vi/thu-vien/cabin-suite",
+      "expect": {
+        "status": 200,
+        "lang": "vi",
+        "canonical": "/vi/thu-vien/cabin-suite",
+        "hreflang": [
+          "en /gallery/cabins-suites",
+          "vi /vi/thu-vien/cabin-suite",
+          "x-default /gallery/cabins-suites"
+        ],
+        "robots": null
+      }
+    },
+    {
+      "category": "gallery",
+      "kind": "category",
+      "locale": "vi",
+      "path": "/vi/thu-vien/cuoc-song-tren-tau",
+      "expect": {
+        "status": 200,
+        "lang": "vi",
+        "canonical": "/vi/thu-vien/cuoc-song-tren-tau",
+        "hreflang": [
+          "en /gallery/onboard-life",
+          "vi /vi/thu-vien/cuoc-song-tren-tau",
+          "x-default /gallery/onboard-life"
+        ],
+        "robots": null
+      }
+    }
+  ],
+  "redirects": [
+    {
+      "from": "/about/brand-facts",
+      "status": 308,
+      "to": "/about-us/brand-facts"
+    },
+    {
+      "from": "/blog/page-1",
+      "status": 308,
+      "to": "/blog"
+    },
+    {
+      "from": "/blog/the-complete-guide-to-eco-friendly-luxury-cruises-in-ha-long-bay-2026-221.html",
+      "status": 308,
+      "to": "/blog/eco-sustainability/the-complete-guide-to-eco-friendly-luxury-cruises-in-ha-long-bay-2026.html"
+    },
+    {
+      "from": "/cabin/old-name-24.html",
+      "status": 308,
+      "to": "/cabin/imperial-suite-24.html"
+    },
+    {
+      "from": "/cruise/old-name-3.html",
+      "status": 308,
+      "to": "/cruise/green-ruby-1-3.html"
+    },
+    {
+      "from": "/destinations/dark-and-bright-cave",
+      "status": 308,
+      "to": "/destinations/dark-bright-cave"
+    },
+    {
+      "from": "/destinations/titop-island",
+      "status": 308,
+      "to": "/destinations/ti-top-island"
+    },
+    {
+      "from": "/en",
+      "status": 308,
+      "to": "/"
+    },
+    {
+      "from": "/en/blog",
+      "status": 308,
+      "to": "/blog"
+    },
+    {
+      "from": "/en/cruise/green-ruby-1-3.html",
+      "status": 308,
+      "to": "/cruise/green-ruby-1-3.html"
+    },
+    {
+      "from": "/experience",
+      "status": 308,
+      "to": "/experiences"
+    },
+    {
+      "from": "/experience/sunset-on-the-bay-6.html",
+      "status": 308,
+      "to": "/experiences/sunset-on-the-bay-6.html"
+    },
+    {
+      "from": "/experiences/old-name-6.html",
+      "status": 308,
+      "to": "/experiences/sunset-on-the-bay-6.html"
+    },
+    {
+      "from": "/itinerary/old-name-3-3.html",
+      "status": 308,
+      "to": "/itinerary/the-halong-immersion-3-days-2-nights-3-3.html"
+    },
+    {
+      "from": "/service",
+      "status": 308,
+      "to": "/services"
+    },
+    {
+      "from": "/vi/blog/trang-1",
+      "status": 308,
+      "to": "/vi/blog"
+    },
+    {
+      "from": "/vi/diem-den",
+      "status": 308,
+      "to": "/vi/dia-diem-tham-quan"
+    },
+    {
+      "from": "/vi/diem-den/hang-sung-sot",
+      "status": 308,
+      "to": "/vi/dia-diem-tham-quan/hang-sung-sot"
+    },
+    {
+      "from": "/vi/du-thuyen/ten-cu-1.html",
+      "status": 308,
+      "to": "/vi/du-thuyen/green-ruby-1-1.html"
+    },
+    {
+      "from": "/vi/hanh-trinh/ten-cu-1-8.html",
+      "status": 308,
+      "to": "/vi/hanh-trinh/3-ngay-2-dem-dau-an-ha-long-1-8.html"
+    },
+    {
+      "from": "/vi/phong-nghi/ten-cu-38.html",
+      "status": 308,
+      "to": "/vi/phong-nghi/imperial-suite-38.html"
+    }
+  ],
+  "notFound": [
+    {
+      "path": "/blog/page-999",
+      "pageType": "next-error-document"
+    },
+    {
+      "path": "/cruise",
+      "pageType": "global-404"
+    },
+    {
+      "path": "/cruise/missing-99999.html",
+      "pageType": "next-error-document"
+    },
+    {
+      "path": "/destinations/does-not-exist",
+      "pageType": "next-error-document"
+    },
+    {
+      "path": "/ja",
+      "pageType": "global-404"
+    },
+    {
+      "path": "/ja/cruise/green-ruby-1-3.html",
+      "pageType": "global-404"
+    },
+    {
+      "path": "/vi/du-thuyen/missing-99999.html",
+      "pageType": "next-error-document"
+    },
+    {
+      "path": "/vi/xyz",
+      "pageType": "global-404"
+    },
+    {
+      "path": "/xyz",
+      "pageType": "global-404"
+    },
+    {
+      "path": "/zh-tw",
+      "pageType": "global-404"
+    }
+  ],
+  "shapesNotObserved": []
+}
