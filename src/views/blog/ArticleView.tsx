@@ -6,7 +6,7 @@ import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SmartLink } from '@/components/ui';
 import { guideLinks } from '@/lib/guide-links';
 import { byLocale, homePath } from '@/lib/i18n';
-import { sectionHref } from '@/lib/section-links';
+import { linkLabel, sectionHref } from '@/lib/section-links';
 import { siteInfo } from '@/lib/site-info';
 import { absoluteImageUrl, absoluteUrl, siteUrl } from '@/lib/site-url';
 import { CopyLink } from './CopyLink';
@@ -175,7 +175,7 @@ export function ArticleView({ article, chrome }: { article: Article; chrome: Chr
                     <span className={s.relatedKicker}>{pad(related.length + i + 1)} &nbsp;/&nbsp; {card.kicker}</span>
                     <h3>{card.title}</h3>
                     <p>{card.body}</p>
-                    <span className={s.linkLine}>{card.link} <span aria-hidden="true">↗︎</span></span>
+                    <span className={s.linkLine}>{linkLabel(locale, sectionHref(locale, card.section, chrome.site.publicSections), card.link)} <span aria-hidden="true">↗︎</span></span>
                   </SmartLink>
                 </li>
               ))}

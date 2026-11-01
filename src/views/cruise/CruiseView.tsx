@@ -8,7 +8,7 @@ import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SmartLink, TextLink } from '@/components/ui';
 import type { Cruise } from '@/lib/api/schemas';
 import { detailPath, experiencePath, homePath, isLegacyLocale, itineraryPath, sectionPath, type Locale } from '@/lib/i18n';
-import { sectionHref } from '@/lib/section-links';
+import { linkLabel, sectionHref } from '@/lib/section-links';
 import { siteInfo } from '@/lib/site-info';
 import { absoluteImageUrl, absoluteUrl } from '@/lib/site-url';
 import cabinStyles from '@/views/cabin/cabin.module.css';
@@ -130,7 +130,7 @@ export function CruiseView({ cruise, index, chrome, places = [] }: { cruise: Cru
                 )}
                 <div>
                   <dt>{c.fleetFacts}</dt>
-                  <dd><SmartLink href={`${sectionPath(locale, 'brandFacts')}#fleet`}>{c.fleetFactsLink}</SmartLink></dd>
+                  <dd><SmartLink href={`${sectionPath(locale, 'brandFacts')}#fleet`}>{linkLabel(locale, sectionPath(locale, 'brandFacts'), c.fleetFactsLink)}</SmartLink></dd>
                 </div>
               </dl>
             </div>
@@ -242,7 +242,7 @@ export function CruiseView({ cruise, index, chrome, places = [] }: { cruise: Cru
                     </li>
                   ))}
                 </ul>
-                <p className={s.body}><TextLink href={sectionPath(locale, 'ecoDashboard')}>{t.footer.links.ecoDashboard}</TextLink></p>
+                <p className={s.body}><TextLink href={sectionPath(locale, 'ecoDashboard')}>{linkLabel(locale, sectionPath(locale, 'ecoDashboard'), t.footer.links.ecoDashboard)}</TextLink></p>
                 <JournalLink locale={locale} />
               </div>
             </div>

@@ -5,7 +5,7 @@ import { FaqList } from '@/components/sections/Faq';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SmartLink, TextLink } from '@/components/ui';
 import { homePath, sectionPath, type Locale } from '@/lib/i18n';
-import { sectionHref } from '@/lib/section-links';
+import { linkLabel, sectionHref } from '@/lib/section-links';
 import { absoluteImageUrl, absoluteUrl } from '@/lib/site-url';
 import type { ExperienceList, ExperienceSummary } from './data';
 import { ExperienceFilter } from './ExperienceFilter';
@@ -215,7 +215,7 @@ export function ExperiencesView({ list, chrome, m }: { list: ExperienceList; chr
               <Eyebrow inverse>{m.editorialEyebrow}</Eyebrow>
               <Heading locale={locale} id="editorial-title" title={m.editorialTitle} em={m.editorialTitleEm} />
               <p>{m.editorialBody}</p>
-              <TextLink href={sectionHref(locale, 'aboutUs', chrome.site.publicSections)} inverse>{m.editorialLink}</TextLink>
+              <TextLink href={sectionHref(locale, 'aboutUs', chrome.site.publicSections)} inverse>{linkLabel(locale, sectionHref(locale, 'aboutUs', chrome.site.publicSections), m.editorialLink)}</TextLink>
             </div>
           </div>
         </section>
@@ -228,7 +228,7 @@ export function ExperiencesView({ list, chrome, m }: { list: ExperienceList; chr
                   <Eyebrow>{m.galleryEyebrow}</Eyebrow>
                   <Heading locale={locale} id="journal-title" title={m.galleryTitle} em={m.galleryTitleEm} />
                 </div>
-                <TextLink href={sectionHref(locale, 'gallery', chrome.site.publicSections)}>{m.galleryLink}</TextLink>
+                <TextLink href={sectionHref(locale, 'gallery', chrome.site.publicSections)}>{linkLabel(locale, sectionHref(locale, 'gallery', chrome.site.publicSections), m.galleryLink)}</TextLink>
               </div>
               <div className={s.galleryPhotos}>
                 {teaser.map((photo, i) => (

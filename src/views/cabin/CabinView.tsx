@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { Booking } from '@/components/booking';
 import { inventoryCabinId } from '@/lib/booking-options';
-import { sectionHref } from '@/lib/section-links';
+import { linkLabel, sectionHref } from '@/lib/section-links';
 import { PageHero, SiteFooter, type Chrome } from '@/components/layout';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, SectionHeading, SmartLink, TextLink } from '@/components/ui';
@@ -200,7 +200,7 @@ export function CabinView({
                   <p className={s.boardingNote}>{c.boarding.note}</p>
                   <p className={s.boardingLinks}>
                     {guides.transfer && <TextLink href={`${guides.transfer}#${locale === 'vi' ? 'hai-tau' : 'ships'}`}>{c.boarding.howTo}</TextLink>}
-                    <TextLink href={`${sectionPath(locale, 'brandFacts')}`}>{c.boarding.compare}</TextLink>
+                    <TextLink href={`${sectionPath(locale, 'brandFacts')}`}>{linkLabel(locale, sectionPath(locale, 'brandFacts'), c.boarding.compare)}</TextLink>
                   </p>
                 </div>
               )}
