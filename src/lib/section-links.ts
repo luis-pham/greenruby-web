@@ -17,10 +17,16 @@ const ENGLISH_ONLY: Partial<Record<Locale, string>> = { ja: '（英語版）' };
  * already does. en/vi labels are returned unchanged.
  */
 export function linkLabel(locale: Locale, href: string, label: string): string {
+  const mark = englishOnlyMark(locale, href);
+  return !mark || label.includes(mark) ? label : `${label}${mark}`;
+}
+
+/** The（英語版）mark alone, for a layout that sets it apart from the label; '' when the link needs none. */
+export function englishOnlyMark(locale: Locale, href: string): string {
   const mark = ENGLISH_ONLY[locale];
-  if (!mark || !href.startsWith('/') || label.includes(mark)) return label;
+  if (!mark || !href.startsWith('/')) return '';
   const own = `/${locale}`;
-  return href === own || href.startsWith(`${own}/`) || href.startsWith(`${own}#`) ? label : `${label}${mark}`;
+  return href === own || href.startsWith(`${own}/`) || href.startsWith(`${own}#`) ? '' : mark;
 }
 
 export function homeHref(locale: Locale, publicSections: readonly string[] | undefined): string {

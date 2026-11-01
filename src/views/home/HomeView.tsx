@@ -8,7 +8,7 @@ import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SmartLink, TextLink } from '@/components/ui';
 import type { Homepage } from '@/lib/api/schemas';
 import { detailPath, experiencePath, homePath, inLocale, itineraryPath, sectionPath, type Locale } from '@/lib/i18n';
-import { linkLabel, sectionHref } from '@/lib/section-links';
+import { englishOnlyMark, linkLabel, sectionHref } from '@/lib/section-links';
 import { siteInfo } from '@/lib/site-info';
 import { absoluteImageUrl, absoluteUrl, siteUrl } from '@/lib/site-url';
 import { cabinPath } from '@/views/cabin/CabinView';
@@ -65,6 +65,8 @@ export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
   const quoteImage = page.banner[1]?.image ?? heroImage;
   const bays = [...new Set(page.itineraries.map((i) => i.bay).filter((b): b is 'ha-long' | 'lan-ha' => b !== null))];
   const durations = [...new Set(page.itineraries.map((i) => i.duration))].sort((a, b) => a - b);
+  const ecoHref = sectionPath(locale, 'ecoDashboard');
+  const ecoMark = englishOnlyMark(locale, ecoHref);
   const largestSuite = Math.max(0, ...page.cabins.map((c) => c.area ?? 0));
   const bayOfCruise = (cruiseId: number) => page.itineraries.find((i) => i.cruiseId === cruiseId)?.bay ?? null;
   const firstItineraryOfCruise = (cruiseId: number) => page.itineraries.find((i) => i.cruiseId === cruiseId);
@@ -133,7 +135,7 @@ export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
               <div className={s.glanceCell}>
                 <dt>{h.glance.commitment}</dt>
                 <dd>
-                  <strong className={s.glanceTitle}><SmartLink href={sectionPath(locale, 'ecoDashboard')}>{linkLabel(locale, sectionPath(locale, 'ecoDashboard'), h.glance.commitmentTitle)}</SmartLink></strong>
+                  <strong className={s.glanceTitle}><SmartLink href={ecoHref}>{h.glance.commitmentTitle}{ecoMark && <span className={s.glanceMark}>{ecoMark}</span>}</SmartLink></strong>
                   <span className={s.glanceDetail}>{h.glance.commitmentDetail}</span>
                 </dd>
               </div>

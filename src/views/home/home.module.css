@@ -16,6 +16,8 @@
   color: var(--color-neutral-white);
   background: #133e42;
 }
+/* The Japanese facts strip runs a line taller (two-line title), and it grows upwards: keep the same gap above it. */
+@media (min-width: 901px) { .hero:lang(ja) { padding-bottom: 190px; } }
 .heroStage { display: block; }
 .heroMedia { position: absolute; inset: 0; z-index: -2; overflow: hidden; }
 .heroImage {
@@ -148,6 +150,10 @@
   letter-spacing: -0.022em;
   color: var(--text-heading);
 }
+/* Japanese: titles break between phrases (環境配慮型／ラグジュアリー), not inside a word; the（英語版）mark is a small
+   line under the title. */
+.glanceTitle:lang(ja) { word-break: keep-all; overflow-wrap: anywhere; }
+.glanceMark { display: block; margin-top: 2px; font-family: var(--font-family-sans); font-size: var(--font-size-xs); line-height: 1.5; letter-spacing: 0; color: var(--text-muted); }
 .glanceDetail { display: block; color: var(--text-muted); font-size: var(--font-size-xs); line-height: 1.65; }
 
 /* ---------- Section heading variants ---------- */

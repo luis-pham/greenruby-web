@@ -229,7 +229,8 @@ const ja: Messages = {
       journeys: '行程',
       journeysTitle: (n: number) => `${n}種類の行程`,
       commitment: '私たちの取り組み',
-      commitmentTitle: '環境配慮型ラグジュアリー',
+      // \u200b: the line breaks between the two phrases, not inside ラグジュアリー (word-break: keep-all on the strip).
+      commitmentTitle: '環境配慮型\u200bラグジュアリー',
       commitmentDetail: '太陽光発電を併用・海水冷却式の空調',
     },
     bays: { 'ha-long': 'ハロン湾', 'lan-ha': 'ランハ湾' } as Record<string, string>,
