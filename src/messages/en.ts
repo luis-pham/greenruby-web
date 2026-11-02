@@ -144,6 +144,12 @@ const en = {
     guests: 'Guests',
     guestsCaption: (extra: number) => (extra > 0 ? `Up to ${extra} more on request` : 'Maximum occupancy'),
     guestUnit: (n: number): string => (n === 1 ? 'Guest' : 'Guests'),
+    /** Maximum guest combinations, e.g. "3 adults, or 2 adults + 2 children" (CMS occupancy limits). */
+    occupancy: (limits: { adults: number; children: number }[]) =>
+      limits
+        .map((l) => `${l.adults} adult${l.adults === 1 ? '' : 's'}${l.children > 0 ? ` + ${l.children} ${l.children === 1 ? 'child' : 'children'}` : ''}`)
+        .join(', or '),
+    occupancyCaption: (text: string) => `Up to ${text}`,
     view: 'The view',
     viewCaption: 'From your window',
     category: 'Category',
@@ -160,6 +166,7 @@ const en = {
       area: 'Area',
       occupancy: 'Occupancy',
       extraGuests: 'Extra guests',
+      maxGuests: 'Maximum guests',
       suitableFor: 'Ideal for',
     },
     extraGuests: (o: { adult: number; child6to12: number; child2to5: number; infant: number }) =>

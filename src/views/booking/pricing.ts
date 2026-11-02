@@ -19,8 +19,13 @@ export type Guests = Record<GuestType, number>;
 /** prices[duration][guestCount] = price per cabin, as returned by GET /api/booking/cabins. */
 export type PriceMatrix = Record<number, Record<number, number>>;
 
+/** One maximum guest combination: at most `adults` with at most `children` (every age, infants included). */
+export type OccupancyLimit = { adults: number; children: number };
+
 export type CabinPricing = {
   capacity: number;
+  /** Maximum combinations (CMS app_cabin.occupancy_limits, e.g. 2+2 or 3+0); empty = the per-type limits below. */
+  occupancyLimits: OccupancyLimit[];
   overCapacityAdult: number;
   overCapacityChild_6_12: number;
   overCapacityChild_2_5: number;
@@ -36,6 +41,7 @@ export type CabinPricingSource = {
   over_capacity_child_6_12?: number | string | null;
   over_capacity_child_2_5?: number | string | null;
   over_capacity_infant?: number | string | null;
+  occupancy_limits?: OccupancyLimit[] | null;
   prices?: unknown;
 };
 
@@ -64,6 +70,7 @@ export function normalizePriceMatrix(raw: unknown): PriceMatrix {
 export function toCabinPricing(cabin: CabinPricingSource, duration: number | null | undefined): CabinPricing {
   return {
     capacity: toInt(cabin.capacity) || 2,
+    occupancyLimits: Array.isArray(cabin.occupancy_limits) ? cabin.occupancy_limits : [],
     overCapacityAdult: toInt(cabin.over_capacity_adult),
     overCapacityChild_6_12: toInt(cabin.over_capacity_child_6_12),
     overCapacityChild_2_5: toInt(cabin.over_capacity_child_2_5),
@@ -73,11 +80,29 @@ export function toCabinPricing(cabin: CabinPricingSource, duration: number | nul
   };
 }
 
+const childCount = (g: Guests) => (g.children_6_12 || 0) + (g.children_2_5 || 0) + (g.infants || 0);
+
+/** Whether the guests fit one of the maximum combinations (same rule as App\Support\Occupancy::fits in the CMS). */
+export function occupancyFits(limits: readonly OccupancyLimit[], guests: Guests): boolean {
+  const children = childCount(guests);
+  return limits.some((l) => (guests.adults || 0) <= l.adults && children <= l.children);
+}
+
 /**
- * Maximum of each guest type in one cabin. An over-capacity value of 0 means "not set", which
- * falls back to 2 × capacity − 1 adults and `capacity` of each child/infant type.
+ * Maximum of each guest type in one cabin. With occupancy limits, and given the guests already chosen, each type's
+ * maximum is what still fits one of the combinations (three adults leave no room for children in "2+2, 3+0").
+ * Otherwise an over-capacity value of 0 means "not set", which falls back to 2 × capacity − 1 adults and `capacity`
+ * of each child/infant type.
  */
-export function guestLimits(cabin: CabinPricing): Guests {
+export function guestLimits(cabin: CabinPricing, guests?: Guests): Guests {
+  if (cabin.occupancyLimits.length > 0) {
+    const g = guests ?? { adults: 0, children_6_12: 0, children_2_5: 0, infants: 0 };
+    const children = childCount(g);
+    const adults = Math.max(0, ...cabin.occupancyLimits.filter((l) => children <= l.children).map((l) => l.adults));
+    const child = (type: 'children_6_12' | 'children_2_5' | 'infants') =>
+      Math.max(0, ...cabin.occupancyLimits.filter((l) => (g.adults || 0) <= l.adults).map((l) => l.children - (children - (g[type] || 0))));
+    return { adults, children_6_12: child('children_6_12'), children_2_5: child('children_2_5'), infants: child('infants') };
+  }
   const { capacity } = cabin;
   const pick = (value: number, fallback: number) => (value > 0 ? value : fallback);
   return {
@@ -88,7 +113,7 @@ export function guestLimits(cabin: CabinPricing): Guests {
   };
 }
 
-export type GuestIssue = { type: GuestType; problem: 'negative' | 'exceeds'; limit: number } | { type: 'total'; problem: 'empty' };
+export type GuestIssue = { type: GuestType; problem: 'negative' | 'exceeds'; limit: number } | { type: 'total'; problem: 'empty' | 'occupancy' };
 
 export function validateGuests(cabin: CabinPricing, guests: Guests): { valid: boolean; issues: GuestIssue[]; totalGuests: number } {
   const limits = guestLimits(cabin);
@@ -101,6 +126,7 @@ export function validateGuests(cabin: CabinPricing, guests: Guests): { valid: bo
   // Infants travel free and don't count towards occupancy.
   const totalGuests = (guests.adults || 0) + (guests.children_6_12 || 0) + (guests.children_2_5 || 0);
   if (totalGuests === 0) issues.push({ type: 'total', problem: 'empty' });
+  if (cabin.occupancyLimits.length > 0 && !occupancyFits(cabin.occupancyLimits, guests)) issues.push({ type: 'total', problem: 'occupancy' });
   return { valid: issues.length === 0, issues, totalGuests };
 }
 

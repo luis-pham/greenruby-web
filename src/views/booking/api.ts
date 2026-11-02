@@ -31,6 +31,8 @@ export type Cabin = {
   over_capacity_child_6_12: number | null;
   over_capacity_child_2_5: number | null;
   over_capacity_infant: number | null;
+  /** Maximum guest combinations (CMS 2026-11-08 migration); absent from an older CMS. */
+  occupancy_limits?: { adults: number; children: number }[] | null;
   area: number | null;
   cruise_id: number | null;
   cruise_name: string | null;

@@ -1,7 +1,7 @@
 import type { Amenity, Cabin, Itinerary, ItineraryDetail, ServerBooking } from './api';
 import type { ResultOutcome } from './format';
 import type { BookingPolicy, PaymentMethod, PaymentPlan } from './payment';
-import { guestLimits, toCabinPricing, type GuestType, type Guests } from './pricing.ts';
+import { GUEST_TYPES, guestLimits, toCabinPricing, type GuestType, type Guests } from './pricing.ts';
 
 export type Step = 1 | 2 | 3 | 4;
 export type LoadStatus = 'idle' | 'loading' | 'ready' | 'error';
@@ -136,15 +136,16 @@ export type Action =
 function newRoom(state: State, cabinId: number, guests?: Guests): State {
   const cabin = state.cabins.find((c) => c.id === cabinId);
   if (!cabin) return state;
-  const limits = guestLimits(toCabinPricing(cabin, state.itinerary?.duration));
-  const clamp = (type: GuestType) => Math.max(0, Math.min(limits[type], Math.trunc(guests?.[type] ?? 0)));
+  const pricing = toCabinPricing(cabin, state.itinerary?.duration);
+  const limits = guestLimits(pricing);
+  // Clamp one type at a time against what still fits, so carried-over guests never exceed a combination.
+  const clamped: Guests = { adults: 0, children_6_12: 0, children_2_5: 0, infants: 0 };
+  for (const type of GUEST_TYPES) clamped[type] = Math.max(0, Math.min(guestLimits(pricing, clamped)[type], Math.trunc(guests?.[type] ?? 0)));
   // Two adults is the most common party; the Laravel page started every cabin at zero guests.
   const room: Room = {
     key: state.nextRoomKey,
     cabinId,
-    guests: guests
-      ? { adults: clamp('adults'), children_6_12: clamp('children_6_12'), children_2_5: clamp('children_2_5'), infants: clamp('infants') }
-      : { adults: Math.max(1, Math.min(2, limits.adults)), children_6_12: 0, children_2_5: 0, infants: 0 },
+    guests: guests ? clamped : { adults: Math.max(1, Math.min(2, limits.adults)), children_6_12: 0, children_2_5: 0, infants: 0 },
   };
   return { ...state, rooms: [...state.rooms, room], nextRoomKey: state.nextRoomKey + 1, errors: dropCabinErrors(state.errors) };
 }
@@ -255,7 +256,7 @@ export function reducer(state: State, action: Action): State {
       const rooms = state.rooms.map((room) => {
         if (room.key !== action.key) return room;
         const cabin = state.cabins.find((c) => c.id === room.cabinId);
-        const limit = cabin ? guestLimits(toCabinPricing(cabin, state.itinerary?.duration))[action.guest] : Infinity;
+        const limit = cabin ? guestLimits(toCabinPricing(cabin, state.itinerary?.duration), room.guests)[action.guest] : Infinity;
         const value = Math.min(limit, Math.max(0, room.guests[action.guest] + action.delta));
         return value === room.guests[action.guest] ? room : { ...room, guests: { ...room.guests, [action.guest]: value } };
       });

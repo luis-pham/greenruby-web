@@ -12,7 +12,7 @@ import {
   pollPaymentStatus,
   type PayloadInput,
 } from './payment.ts';
-import { calculateCabinPrice, displayCabinPrice, formatPrice, guestLimits, normalizePriceMatrix, toCabinPricing, type Guests } from './pricing.ts';
+import { calculateCabinPrice, displayCabinPrice, formatPrice, guestLimits, normalizePriceMatrix, occupancyFits, toCabinPricing, validateGuests, type Guests } from './pricing.ts';
 import { validateStep1, validateStep2 } from './validation.ts';
 
 const g = (adults: number, children_6_12 = 0, children_2_5 = 0, infants = 0): Guests => ({ adults, children_6_12, children_2_5, infants });
@@ -35,6 +35,25 @@ describe('pricing', () => {
     assert.deepEqual(guestLimits(imperial), { adults: 3, children_6_12: 3, children_2_5: 3, infants: 3 });
     assert.equal(toCabinPricing({ capacity: 0 }, null).capacity, 2);
     assert.equal(toCabinPricing({ capacity: 0 }, null).duration, 2);
+  });
+
+  it('occupancy limits: two adults with two children, or three adults alone (agent contract III.2)', () => {
+    const room = toCabinPricing({ capacity: 2, over_capacity_adult: 3, occupancy_limits: [{ adults: 2, children: 2 }, { adults: 3, children: 0 }], prices: { '2': { '1': 80, '2': 100 } } }, 2);
+    assert.deepEqual(guestLimits(room), { adults: 3, children_6_12: 2, children_2_5: 2, infants: 2 });
+    assert.deepEqual(guestLimits(room, g(3)), { adults: 3, children_6_12: 0, children_2_5: 0, infants: 0 });
+    assert.deepEqual(guestLimits(room, g(2, 1)), { adults: 2, children_6_12: 2, children_2_5: 1, infants: 1 });
+    assert.equal(guestLimits(room, g(1, 0, 1)).adults, 2, 'a child is aboard: the third adult no longer fits');
+    assert.ok(occupancyFits(room.occupancyLimits, g(2, 1, 0, 1)));
+    assert.ok(!occupancyFits(room.occupancyLimits, g(3, 0, 0, 1)), 'infants count as children');
+    assert.ok(validateGuests(room, g(3)).valid);
+    assert.deepEqual(validateGuests(room, g(3, 1)).issues, [{ type: 'total', problem: 'occupancy' }]);
+  });
+
+  it('occupancy limits replace the per-type limits (Imperial 4+4 with capacity 3)', () => {
+    const suite = toCabinPricing({ capacity: 3, over_capacity_adult: 3, occupancy_limits: [{ adults: 4, children: 4 }], prices: { '3': { '3': 6000 } } }, 3);
+    assert.deepEqual(guestLimits(suite, g(4, 2, 1, 1)), { adults: 4, children_6_12: 2, children_2_5: 1, infants: 1 });
+    assert.ok(validateGuests(suite, g(4, 2, 1, 1)).valid);
+    assert.ok(!validateGuests(suite, g(5)).valid);
   });
 
   it('uses the matrix price up to capacity', () => {

@@ -144,6 +144,9 @@ const vi: Messages = {
     areaCaption: 'Không gian riêng tư',
     guests: 'Số khách',
     guestsCaption: (extra: number) => (extra > 0 ? `Thêm tối đa ${extra} khách theo yêu cầu` : 'Sức chứa tối đa'),
+    occupancy: (limits: { adults: number; children: number }[]) =>
+      limits.map((l) => `${l.adults} người lớn${l.children > 0 ? ` + ${l.children} trẻ em` : ''}`).join(', hoặc '),
+    occupancyCaption: (text: string) => `Tối đa ${text}`,
     guestUnit: () => 'Khách',
     view: 'Tầm nhìn',
     viewCaption: 'Từ cửa sổ phòng',
@@ -161,6 +164,7 @@ const vi: Messages = {
       area: 'Diện tích',
       occupancy: 'Sức chứa',
       extraGuests: 'Khách thêm',
+      maxGuests: 'Số khách tối đa',
       suitableFor: 'Phù hợp với',
     },
     extraGuests: (o: { adult: number; child6to12: number; child2to5: number; infant: number }) =>

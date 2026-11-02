@@ -263,7 +263,7 @@ export function StepBookingInfo({ t, locale, state, dispatch, currency, routeIma
           ) : (
             <ul className={s.pickedList}>
               {rooms.map(({ room, cabin, unitPrice }, i) => {
-                const limits = guestLimits(toCabinPricing(cabin, itinerary?.duration));
+                const limits = guestLimits(toCabinPricing(cabin, itinerary?.duration), room.guests);
                 const cabinLabel = `${cabin.name} #${i + 1}`;
                 return (
                   <li key={room.key} className={cx(s.pickedItem, errors[`cabin_${i}`] && s.pickedInvalid)}>

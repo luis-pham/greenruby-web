@@ -52,6 +52,9 @@ export function CabinView({
   const bookingUrl = `${sectionHref(locale, 'booking', chrome.site.publicSections)}${bookCabin ? `?cabin_id=${bookCabin}` : ''}`;
   const contactUrl = sectionHref(locale, 'contact', chrome.site.publicSections);
   const extra = cabin.overCapacity.adult + cabin.overCapacity.child6to12 + cabin.overCapacity.child2to5 + cabin.overCapacity.infant;
+  // Maximum combinations from the CMS ("3 adults, or 2 adults + 2 children"); null while the cabin uses overCapacity.
+  const occupancy = cabin.occupancyLimits.length > 0 ? c.occupancy(cabin.occupancyLimits) : null;
+  const maxGuests = occupancy ? Math.max(...cabin.occupancyLimits.map((l) => l.adults + l.children)) : (cabin.capacity ?? 0) + extra;
   const { pricing } = cabin;
   const durations = [...new Set(pricing.matrix.map((r) => r.duration))].sort((a, b) => a - b);
   const guests = [...new Set(pricing.matrix.map((r) => r.guest))].sort((a, b) => a - b);
@@ -105,7 +108,7 @@ export function CabinView({
             {cabin.capacity != null && (
               <div className={s.fact}>
                 <dt>{c.guests}</dt>
-                <dd><span className={s.factValue}>{cabin.capacity}{wordSpace(locale)}{c.guestUnit(cabin.capacity)}</span><span className={s.factCaption}>{c.guestsCaption(extra)}</span></dd>
+                <dd><span className={s.factValue}>{cabin.capacity}{wordSpace(locale)}{c.guestUnit(cabin.capacity)}</span><span className={s.factCaption}>{occupancy ? c.occupancyCaption(occupancy) : c.guestsCaption(extra)}</span></dd>
               </div>
             )}
             {cabin.view && (
@@ -144,7 +147,11 @@ export function CabinView({
                 {cabin.view && <div className={s.glanceRow}><dt>{c.glance.view}</dt><dd>{cabin.view}</dd></div>}
                 {cabin.area != null && <div className={s.glanceRow}><dt>{c.glance.area}</dt><dd>{cabin.area} m²</dd></div>}
                 {cabin.capacity != null && <div className={s.glanceRow}><dt>{c.glance.occupancy}</dt><dd>{cabin.capacity}{wordSpace(locale)}{c.guestUnit(cabin.capacity).toLowerCase()}</dd></div>}
-                <div className={s.glanceRow}><dt>{c.glance.extraGuests}</dt><dd>{c.extraGuests(cabin.overCapacity)}</dd></div>
+                {occupancy ? (
+                  <div className={s.glanceRow}><dt>{c.glance.maxGuests}</dt><dd>{occupancy}</dd></div>
+                ) : (
+                  <div className={s.glanceRow}><dt>{c.glance.extraGuests}</dt><dd>{c.extraGuests(cabin.overCapacity)}</dd></div>
+                )}
                 {cabin.suitableFor.length > 0 && (
                   <div className={s.glanceRow}><dt>{c.glance.suitableFor}</dt><dd>{cabin.suitableFor.map((a) => a.name).join(', ')}</dd></div>
                 )}
@@ -357,7 +364,7 @@ export function CabinView({
           description: cabin.summary ?? undefined,
           image: photos.map((p) => absoluteImageUrl(p.src)),
           ...(cabin.area != null && { floorSize: { '@type': 'QuantitativeValue', value: cabin.area, unitCode: 'MTK' } }),
-          ...(cabin.capacity != null && { occupancy: { '@type': 'QuantitativeValue', maxValue: cabin.capacity + extra } }),
+          ...(cabin.capacity != null && { occupancy: { '@type': 'QuantitativeValue', maxValue: maxGuests } }),
           amenityFeature: cabin.amenities.map((a) => ({ '@type': 'LocationFeatureSpecification', name: a.name, value: true })),
           containedInPlace: { '@type': 'Accommodation', name: cabin.cruise.name, url: absoluteUrl(cruiseUrl) },
           ...(pricing.showPublic &&

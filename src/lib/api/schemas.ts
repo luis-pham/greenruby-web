@@ -50,6 +50,8 @@ export const cabinSchema = cabinSummarySchema.extend({
     child2to5: z.number(),
     infant: z.number(),
   }),
+  // Maximum guest combinations (CMS 2026-11-08); [] = the per-type overCapacity limits apply.
+  occupancyLimits: z.array(z.object({ adults: z.number(), children: z.number() })).default([]),
   discountPercent: z.number().nullable(),
   rooms: z.array(z.object({ title: z.string(), description: z.string().nullable() })),
   amenities: z.array(z.object({ name: z.string(), icon: z.string().nullable() })),

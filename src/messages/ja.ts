@@ -148,6 +148,9 @@ const ja: Messages = {
     areaCaption: '客室の専有面積',
     guests: '定員',
     guestsCaption: (extra: number) => (extra > 0 ? `ご希望により最大${extra}名まで追加可能` : '最大定員'),
+    occupancy: (limits: { adults: number; children: number }[]) =>
+      limits.map((l) => `大人${l.adults}名${l.children > 0 ? `＋お子さま${l.children}名` : ''}`).join('、または'),
+    occupancyCaption: (text: string) => `最大：${text}`,
     guestUnit: () => '名',
     view: '眺望',
     viewCaption: '客室の窓から',
@@ -165,6 +168,7 @@ const ja: Messages = {
       area: '広さ',
       occupancy: '定員',
       extraGuests: '追加可能な人数',
+      maxGuests: '最大人数',
       suitableFor: 'こんな方に',
     },
     extraGuests: (o: { adult: number; child6to12: number; child2to5: number; infant: number }) =>
