@@ -45,7 +45,7 @@ const en = {
     ['Operating company', LEGAL_NAME],
     ['Fleet', 'Two sister ships'],
     ['Destinations', 'Ha Long Bay & Lan Ha Bay, Vietnam'],
-    ['Expected service start', 'February 2027 (provisional)'],
+    ['Service start', 'February 2027 (first sailings)'],
   ],
   sections: {
     identity: {
@@ -86,7 +86,7 @@ const en = {
         ] as string[],
       },
       /** Status line in the ship cards (empty = the table's `status`). */
-      cardStatus: 'Operating status: Not yet in service. Expected launch: February 2027 (provisional).',
+      cardStatus: 'Operating status: Not yet in service. First sailings: February 2027.',
       thSpec: 'Specification',
       rows: {
         bay: 'Planned cruising area',
@@ -99,13 +99,13 @@ const en = {
         boarding: 'Boarding arrangements',
         status: 'Operating status',
         /** Extra row with `launch` (empty label = no row). */
-        launch: 'Expected service start',
+        launch: 'Service start',
       },
       bays: { 'ha-long': 'Ha Long Bay', 'lan-ha': 'Lan Ha Bay' },
       boarding: { 'ha-long': 'Transfer from Tuan Chau to the vessel in Ha Long Bay', 'lan-ha': 'Transfer from Tuan Chau to Gia Luan, then embarkation in Lan Ha Bay' },
       categories: '4',
       status: 'Pre-launch',
-      launch: 'February 2027 (provisional)',
+      launch: 'February 2027',
       /** "{name}" is replaced by the ship name. */
       vesselPage: 'Explore {name}',
       /** Paragraphs right under the spec table. */
@@ -212,15 +212,15 @@ const en = {
     status: {
       label: 'Operating status',
       title: 'Operating and booking status',
-      lede: 'Green Ruby 1 and Green Ruby 2 have not yet entered regular passenger service.',
+      lede: 'Green Ruby 1 and Green Ruby 2 begin regular passenger service in February 2027.',
       body: [
         'Their planned itineraries have been published to help guests and travel partners explore the programmes and make enquiries ahead of launch.',
         'The publication of an itinerary does not confirm that a particular departure is operating or available to book.',
       ] as string[],
       cardsTitle: '',
       cards: [
-        ['Green Ruby 1 · Ha Long Bay', 'Not yet in service', 'Expected to begin operating from February 2027, subject to final preparations, relevant approvals and confirmation of the departure schedule. This is a provisional launch period, not a confirmed sailing date.'],
-        ['Green Ruby 2 · Lan Ha Bay', 'Not yet in service', 'Expected to begin operating from February 2027, subject to final preparations, relevant approvals and confirmation of the departure schedule. This is a provisional launch period, not a confirmed sailing date.'],
+        ['Green Ruby 1 · Ha Long Bay', 'Not yet in service', 'First sailings in February 2027. Individual departure dates are confirmed by the reservations team.'],
+        ['Green Ruby 2 · Lan Ha Bay', 'Not yet in service', 'First sailings in February 2027. Individual departure dates are confirmed by the reservations team.'],
       ],
       rows: [] as FactRow[],
       blocks: [
@@ -300,10 +300,10 @@ const en = {
       label: 'Press and partners',
       title: 'For media and travel partners',
       lede: 'The following description may be used by travel agents, tour operators, directories and media organisations when introducing Green Ruby Cruises.',
-      body: ['Please retain the provisional status of the launch dates and the current certification status when quoting or adapting the information.'] as string[],
+      body: ['Please retain the current certification status when quoting or adapting the information.'] as string[],
       boilerplateLabel: 'Approved brand description',
       boilerplate:
-        'Green Ruby Cruises is a Vietnamese luxury overnight cruise brand operated by TPX Joint Stock Company. Its fleet comprises two sister ships: Green Ruby 1, planned for Ha Long Bay, and Green Ruby 2, planned for Lan Ha Bay. Each vessel is designed with 46 cabins across four categories, including the 120 m² Imperial Suite. The ships incorporate planned solar power, seawater-cooled air conditioning, heat recovery and onboard wastewater treatment systems. Green Ruby is preparing for Green Globe certification but is not yet certified. Both vessels are expected to enter service from February 2027, subject to final confirmation.',
+        'Green Ruby Cruises is a Vietnamese luxury overnight cruise brand operated by TPX Joint Stock Company. Its fleet comprises two sister ships: Green Ruby 1, planned for Ha Long Bay, and Green Ruby 2, planned for Lan Ha Bay. Each vessel is designed with 46 cabins across four categories, including the 120 m² Imperial Suite. The ships incorporate planned solar power, seawater-cooled air conditioning, heat recovery and onboard wastewater treatment systems. Green Ruby is preparing for Green Globe certification but is not yet certified. Both vessels begin sailing in February 2027.',
       copy: 'Copy description',
       filesTitle: 'Brand assets and documentation',
       files: [
@@ -345,7 +345,7 @@ const vi: Messages = {
     ['Doanh nghiệp vận hành', 'Công ty Cổ phần TPX'],
     ['Đội tàu', 'Green Ruby 1 và Green Ruby 2'],
     ['Khu vực hoạt động dự kiến', 'Vịnh Hạ Long và vịnh Lan Hạ'],
-    ['Thời điểm vận hành dự kiến', 'Từ tháng 2/2027, chưa xác nhận chính thức'],
+    ['Thời điểm vận hành', 'Từ tháng 2/2027'],
   ],
   sections: {
     identity: {
@@ -383,7 +383,7 @@ const vi: Messages = {
           'Tàu được phát triển theo cùng thiết kế với Green Ruby 1, có 46 phòng nghỉ thuộc bốn hạng phòng, chiều dài thiết kế 121 m và sức chứa dự kiến 136 người.',
         ],
       },
-      cardStatus: 'Tình trạng: Đang chuẩn bị vận hành. Dự kiến bắt đầu từ tháng 2/2027, thời điểm chính thức chưa được xác nhận.',
+      cardStatus: 'Tình trạng: Đang chuẩn bị vận hành. Chạy chuyến đầu tiên từ tháng 2/2027.',
       thSpec: 'Thông số',
       rows: {
         bay: 'Khu vực khai thác',
@@ -477,12 +477,12 @@ const vi: Messages = {
     status: {
       label: 'Tình trạng',
       title: 'Tình trạng vận hành và đặt chỗ',
-      lede: 'Green Ruby 1 và Green Ruby 2 hiện chưa chính thức đi vào hoạt động.',
+      lede: 'Green Ruby 1 và Green Ruby 2 bắt đầu đón khách từ tháng 2/2027.',
       body: ['Các hành trình đã được công bố để khách hàng và đối tác tìm hiểu, lên kế hoạch du lịch và gửi yêu cầu đặt chỗ trước thời điểm khai thác.'],
       cardsTitle: 'Tình trạng từng tàu',
       cards: [
-        ['Green Ruby 1 · Vịnh Hạ Long', 'Chưa vận hành', 'Dự kiến bắt đầu từ tháng 2/2027, chưa xác nhận ngày khởi hành chính thức.'],
-        ['Green Ruby 2 · Vịnh Lan Hạ', 'Chưa vận hành', 'Dự kiến bắt đầu từ tháng 2/2027, chưa xác nhận ngày khởi hành chính thức.'],
+        ['Green Ruby 1 · Vịnh Hạ Long', 'Chưa vận hành', 'Chạy chuyến đầu tiên từ tháng 2/2027. Ngày khởi hành cụ thể do bộ phận đặt chỗ xác nhận.'],
+        ['Green Ruby 2 · Vịnh Lan Hạ', 'Chưa vận hành', 'Chạy chuyến đầu tiên từ tháng 2/2027. Ngày khởi hành cụ thể do bộ phận đặt chỗ xác nhận.'],
       ],
       rows: [],
       blocks: [
@@ -550,7 +550,7 @@ const vi: Messages = {
       boilerplate: [
         'Green Ruby Cruises là thương hiệu du thuyền nghỉ đêm cao cấp tại Việt Nam, do Công ty Cổ phần TPX vận hành. Đội tàu gồm Green Ruby 1 phục vụ tuyến vịnh Hạ Long và Green Ruby 2 phục vụ tuyến vịnh Lan Hạ, mỗi tàu dự kiến có 46 phòng nghỉ thuộc bốn hạng phòng.',
         'Hai tàu được thiết kế với các giải pháp tiết kiệm năng lượng, bao gồm điện mặt trời, hệ thống điều hòa làm mát bằng nước biển và thu hồi nhiệt. Green Ruby hiện đang chuẩn bị tham gia quy trình chứng nhận Green Globe và chưa được cấp chứng nhận.',
-        'Các hành trình dự kiến bắt đầu từ tháng 2/2027, tùy tiến độ hoàn thiện và các điều kiện vận hành chính thức.',
+        'Các hành trình bắt đầu từ tháng 2/2027.',
       ].join('\n\n'),
       copy: 'Sao chép mô tả',
       filesTitle: 'Tài liệu và thông tin xác minh',

@@ -282,7 +282,7 @@ const transfer: GuideContent = {
       { href: 'faq', title: 'Frequently asked questions', body: 'Booking, payment, cancellation and life on board.' },
     ],
   },
-  estimateNote: 'All durations on this page are estimates for normal conditions, not schedules or guarantees. Operator fares and timetables are as published on the date shown under each table. Check-in and boarding details follow Green Ruby’s published plan and remain provisional until the ships enter service, expected in February 2027.',
+  estimateNote: 'All durations on this page are estimates for normal conditions, not schedules or guarantees. Operator fares and timetables are as published on the date shown under each table. Check-in and boarding details follow Green Ruby’s published plan and remain provisional until the ships enter service in February 2027.',
   selector: {
     labels: {
       title: 'Ways to reach Tuan Chau from {origin}',

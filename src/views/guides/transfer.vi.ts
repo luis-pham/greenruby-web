@@ -278,7 +278,7 @@ const transfer: GuideContent = {
       { href: 'faq', title: 'Câu hỏi thường gặp', body: 'Đặt chỗ, thanh toán, hủy và sinh hoạt trên tàu.' },
     ],
   },
-  estimateNote: 'Mọi thời gian trên trang này là ước tính trong điều kiện bình thường, không phải lịch chạy hay cam kết. Giá và giờ chạy của nhà xe theo công bố vào ngày ghi dưới mỗi bảng. Thông tin check-in và lên tàu theo kế hoạch Green Ruby đã công bố, có thể điều chỉnh trước khi tàu chính thức hoạt động, dự kiến từ tháng 2/2027.',
+  estimateNote: 'Mọi thời gian trên trang này là ước tính trong điều kiện bình thường, không phải lịch chạy hay cam kết. Giá và giờ chạy của nhà xe theo công bố vào ngày ghi dưới mỗi bảng. Thông tin check-in và lên tàu theo kế hoạch Green Ruby đã công bố, có thể điều chỉnh trước khi tàu bắt đầu hoạt động từ tháng 2/2027.',
   selector: {
     labels: {
       title: 'Các cách đến Tuần Châu từ {origin}',

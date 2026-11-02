@@ -124,7 +124,7 @@ const ja: Messages = {
       board: '乗船',
       back: '帰着',
       places: '途中の立ち寄り先',
-      note: '公開中の行程に基づく予定です。時刻は運航開始（2027年2月予定）までは暫定です。',
+      note: '公開中の行程に基づく予定です。時刻は2027年2月の運航開始までは暫定です。',
       howTo: '乗船日の流れ',
       compare: 'Green Ruby 1とGreen Ruby 2を比較',
       byBay: {
@@ -276,6 +276,7 @@ const ja: Messages = {
     facilitiesTitleEm: '心ゆくまでくつろぐ',
     facilitiesBody: 'スイートの外にも、大切なひとときのための空間があります。より美しい旅のかたちを船上でお楽しみください。',
     facilitiesLink: '船内サービスを見る',
+    facilitiesShipLink: '船内の施設を見る',
     experiencesEyebrow: '心に残るひととき',
     experiencesTitle: '旅の魅力は、',
     experiencesTitleEm: '体験のなかに',
@@ -307,7 +308,7 @@ const ja: Messages = {
     h1: 'ハロン湾・ランハ湾のクルーズ行程',
     heroTitle: '旅ごとに、',
     heroTitleEm: 'それぞれの物語を',
-    // Facts from the published itineraries (check-in, Hanoi transfer); service starts February 2027 (provisional).
+    // Facts from the published itineraries (check-in, Hanoi transfer); service starts February 2027.
     heroBody: 'ハロン湾ではGreen Ruby 1、ランハ湾ではGreen Ruby 2で巡る宿泊クルーズです（1泊2日または2泊3日）。どの行程も、10:45頃のトゥアンチャウ（Tuan Chau）でのチェックインから始まります。ハノイからの送迎（07:30〜08:00頃お迎え、所要約2.5時間）もご希望に応じて手配いたします。',
     heroPrimary: 'クルーズ行程を見る',
     heroSecondary: '1泊と2泊の違い',
@@ -431,7 +432,7 @@ const ja: Messages = {
     decks: 'デッキ数',
     decksCaption: '船内を巡る楽しみ',
     built: '建造予定年',
-    builtCaption: '2027年2月就航予定（暫定）',
+    builtCaption: '2027年2月就航',
     tabs: { overview: '概要', suites: '客室・スイート', onboard: '船内での過ごし方', moments: '体験', eco: '環境技術', journeys: 'クルーズ行程', services: 'サービス' },
     introEyebrow: (name: string) => `${name}へようこそ`,
     introTitle: '湾を楽しむ、',

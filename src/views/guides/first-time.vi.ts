@@ -115,7 +115,7 @@ const firstTime: GuideContent = {
         },
         { p: 'Trước khi đặt, bạn nên kiểm tra danh sách dịch vụ bao gồm và không bao gồm trong báo giá chính thức. Đây là cách tốt nhất để tránh những khoản chi phí ngoài dự kiến.' },
         { p: 'Bạn cũng cần đọc kỹ điều kiện [thanh toán](/vi/phuong-thuc-thanh-toan), đặt cọc và hủy chuyến. Theo chính sách Green Ruby đã công bố ([câu hỏi thường gặp](faq)), khách hủy trước ngày khởi hành từ 30 ngày trở lên được hoàn lại toàn bộ tiền đã thanh toán; mức phí hủy tăng dần khi ngày khởi hành đến gần và không hoàn tiền đối với trường hợp hủy trong vòng 7 ngày. Các điều khoản áp dụng cần được xác nhận tại thời điểm đặt chỗ.' },
-        { note: '**Lưu ý:** Green Ruby 1 và Green Ruby 2 dự kiến bắt đầu khai thác từ tháng 2/2027. Đây vẫn là thời điểm dự kiến, chưa phải lịch khởi hành chính thức.' },
+        { note: '**Lưu ý:** Green Ruby 1 và Green Ruby 2 bắt đầu khai thác từ tháng 2/2027. Ngày khởi hành cụ thể được xác nhận khi đặt chỗ.' },
       ],
     },
     {
@@ -231,7 +231,7 @@ const firstTime: GuideContent = {
       blocks: [
         { p: 'Green Ruby Cruises dự kiến khai thác hai du thuyền với các hành trình nghỉ đêm trên vịnh Hạ Long và Lan Hạ. Mỗi tàu có chương trình 2 ngày 1 đêm và 3 ngày 2 đêm.' },
         { widget: 'itineraries' },
-        { note: 'Các hành trình trên đang trong giai đoạn chuẩn bị khai thác. Lịch khởi hành dự kiến từ tháng 2/2027 và có thể được điều chỉnh trước khi chính thức đưa tàu vào hoạt động.' },
+        { note: 'Các hành trình trên đang trong giai đoạn chuẩn bị khai thác. Tàu bắt đầu khai thác từ tháng 2/2027; chương trình có thể được điều chỉnh trước thời điểm đó.' },
       ],
     },
   ],
@@ -257,7 +257,7 @@ const firstTime: GuideContent = {
       { href: 'luxuryPillar', title: 'Kinh nghiệm chọn du thuyền Hạ Long cao cấp', body: 'Những điều cần biết về hành trình, hạng phòng, tiện nghi và chi phí trước khi đặt du thuyền nghỉ đêm.' },
     ],
   },
-  estimateNote: 'Thời gian di chuyển, lịch trình tham quan và các thông tin vận hành trong bài mang tính tham khảo. Hai du thuyền Green Ruby dự kiến bắt đầu khai thác từ tháng 2/2027; ngày khởi hành và chương trình chính thức có thể được điều chỉnh.',
+  estimateNote: 'Thời gian di chuyển, lịch trình tham quan và các thông tin vận hành trong bài mang tính tham khảo. Hai du thuyền Green Ruby bắt đầu khai thác từ tháng 2/2027; ngày khởi hành cụ thể và chương trình có thể được điều chỉnh.',
   timeline: {
     label: 'Chọn tàu',
     note: 'Các mốc thời gian trên chỉ mang tính tham khảo theo chương trình đã công bố. Lịch trình có thể điều chỉnh tùy theo tình hình thời tiết, điều kiện khai thác và quy định của cơ quan chức năng.',

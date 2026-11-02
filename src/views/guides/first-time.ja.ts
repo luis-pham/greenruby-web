@@ -108,7 +108,7 @@ const firstTime: GuideContent = {
         },
         // REVIEW: LEGAL — cancellation wording mirrors the English (glossary §11.5 policy conflict); 予約確認書 per glossary §11.3 is pending.
         { p: 'ご予約を確定する前に、お選びの[行程](itineraries)の料金に含まれるもの・含まれないもの、キャンセル条件を必ずご確認ください。また、予約確認書に記載された内容もご確認ください。Green Rubyが公開しているキャンセルポリシー（[よくあるご質問](faq)参照）では、出発の30日以上前のキャンセルは全額返金され、その後は出発日が近づくにつれてキャンセル料が上がり、出発まで7日以内のキャンセルは返金されません。適用される条件はご予約時に確定します。' },
-        { note: 'Green Rubyの船は2027年2月の就航を予定しています（暫定）。料金と出発日はご予約時に確定します。' },
+        { note: 'Green Rubyの船は2027年2月に就航します。料金と出発日はご予約時に確定します。' },
       ],
     },
     {
@@ -228,7 +228,7 @@ const firstTime: GuideContent = {
       { href: 'luxuryPillar', title: 'ハロン湾の環境に配慮したラグジュアリークルーズ（英語版）', body: '本当に環境負荷の低いクルーズとは何か、その主張をどう確かめるか。' },
     ],
   },
-  estimateNote: 'このページの移動時間と所要時間は目安であり、スケジュールではありません。Green Rubyの行程は、就航（2027年2月予定）までは暫定です。',
+  estimateNote: 'このページの移動時間と所要時間は目安であり、スケジュールではありません。Green Rubyの行程は、2027年2月の就航までは暫定です。',
   timeline: {
     label: '船を選択',
     note: 'Green Rubyが公開している行程に基づく時刻です。暫定であり、当日の天候や港の指示により変更される場合があります。',

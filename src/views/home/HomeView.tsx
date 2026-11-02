@@ -65,6 +65,10 @@ export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
   const quoteImage = page.banner[1]?.image ?? heroImage;
   const bays = [...new Set(page.itineraries.map((i) => i.bay).filter((b): b is 'ha-long' | 'lan-ha' => b !== null))];
   const durations = [...new Set(page.itineraries.map((i) => i.duration))].sort((a, b) => a - b);
+  // "Life on board": the ship's spaces (facilities); the picked services only while the CMS does not send them.
+  const onboard = page.facilities.length > 0
+    ? page.facilities.map((f) => ({ id: f.id, name: f.name, text: f.summary }))
+    : page.services.map((sv) => ({ id: sv.id, name: sv.name, text: sv.description }));
   const ecoHref = sectionPath(locale, 'ecoDashboard');
   const ecoMark = englishOnlyMark(locale, ecoHref);
   const largestSuite = Math.max(0, ...page.cabins.map((c) => c.area ?? 0));
@@ -298,7 +302,7 @@ export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
           </section>
         )}
 
-        {page.services.length > 0 && (
+        {onboard.length > 0 && (
           <section className={cx(s.section, s.facilities)} id="facilities" aria-labelledby="facilities-title">
             <div className="container">
               <Head
@@ -307,16 +311,22 @@ export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
                 body={h.facilitiesBody}
               />
               <ul className={s.facilitiesGrid}>
-                {page.services.slice(0, 4).map((service, i, all) => (
-                  <li key={service.id} className={s.facility}>
+                {onboard.slice(0, 4).map((item, i, all) => (
+                  <li key={item.id} className={s.facility}>
                     <span className={s.facilityNumber}>{pad(i + 1)} — {pad(all.length)}</span>
-                    <FacilityIcon name={service.name} className={s.facilityIcon} />
-                    <h3>{service.name}</h3>
-                    {service.description && <p>{service.description}</p>}
+                    <FacilityIcon name={item.name} className={s.facilityIcon} />
+                    <h3>{item.name}</h3>
+                    {item.text && <p>{item.text}</p>}
                   </li>
                 ))}
               </ul>
-              <div className={s.experiencesMore}><TextLink href={sectionHref(locale, 'services', chrome.site.publicSections)}>{h.facilitiesLink}</TextLink></div>
+              <div className={s.experiencesMore}>
+                {page.facilitiesCruise && page.facilities.length > 0 ? (
+                  <TextLink href={`${detailPath(locale, 'cruise', page.facilitiesCruise.slug, page.facilitiesCruise.id)}#onboard`}>{h.facilitiesShipLink}</TextLink>
+                ) : (
+                  <TextLink href={sectionHref(locale, 'services', chrome.site.publicSections)}>{h.facilitiesLink}</TextLink>
+                )}
+              </div>
             </div>
           </section>
         )}

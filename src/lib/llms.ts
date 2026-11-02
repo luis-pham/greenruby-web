@@ -128,7 +128,7 @@ function header(core: Core, full: boolean): string[] {
     `# ${info.name}`,
     '',
     `> ${info.name} is preparing to launch ${cruises.length > 0 ? `${cruises.length} ` : ''}eco-luxury overnight cruise ships on Ha Long Bay and Lan Ha Bay in northern Vietnam. ` +
-      'The ships are not yet in service: operations are expected to start in February 2027 (provisional date). ' +
+      'The ships are not yet in service: first sailings are in February 2027. ' +
       `Planned check-in: ${DEPARTURE_POINT} (map: ${MAPS_URL}). Planned itineraries run 2 days/1 night or 3 days/2 nights. ` +
       'The site is in English (no URL prefix) and Vietnamese (/vi/ with translated paths); every page is server-rendered with schema.org JSON-LD.',
     '',

@@ -119,7 +119,7 @@ const en = {
       board: 'Boarding',
       back: 'Back on shore',
       places: 'Places on the way',
-      note: 'Planned arrangements from the published itineraries; times are provisional until sailings begin (expected February 2027).',
+      note: 'Planned arrangements from the published itineraries; times are provisional until sailings begin in February 2027.',
       howTo: 'How boarding day works',
       compare: 'Compare Green Ruby 1 and Green Ruby 2',
       byBay: {
@@ -270,6 +270,7 @@ const en = {
     facilitiesTitleEm: 'Effortless indulgence.',
     facilitiesBody: 'Beyond your suite, discover spaces designed for meaningful moments and a more beautiful way to travel.',
     facilitiesLink: 'Explore onboard services',
+    facilitiesShipLink: 'Explore life on board',
     experiencesEyebrow: 'Moments worth keeping',
     experiencesTitle: 'The beauty is in the',
     experiencesTitleEm: 'experience.',
@@ -301,7 +302,7 @@ const en = {
     h1: 'Ha Long & Lan Ha Bay Cruise Itineraries',
     heroTitle: 'Every journey has its',
     heroTitleEm: 'own story.',
-    // Facts from the published itineraries (check-in, Hanoi transfer); service starts February 2027 (provisional).
+    // Facts from the published itineraries (check-in, Hanoi transfer); service starts February 2027.
     heroBody: 'Overnight cruises on Ha Long Bay aboard Green Ruby 1 and on Lan Ha Bay aboard Green Ruby 2, for 2 days / 1 night or 3 days / 2 nights. Every itinerary starts with check-in at Tuan Chau around 10:45; a transfer from Hanoi (pick-up around 07:30–08:00, about 2.5 hours) can be arranged on request.',
     heroPrimary: 'Explore our itineraries',
     heroSecondary: '2 days or 3 days?',
@@ -425,7 +426,7 @@ const en = {
     decks: 'Decks',
     decksCaption: 'Spaces to explore',
     built: 'Planned build year',
-    builtCaption: 'Service expected from February 2027 (provisional)',
+    builtCaption: 'In service from February 2027',
     tabs: { overview: 'Overview', suites: 'Cabins & suites', onboard: 'Life on board', moments: 'Experiences', eco: 'Eco technology', journeys: 'Itineraries', services: 'Services' },
     introEyebrow: (name: string) => `Welcome aboard ${name}`,
     introTitle: 'A beautiful new way to',

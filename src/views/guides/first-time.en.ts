@@ -3,7 +3,7 @@ import type { GuideContent } from './types';
 // Edited 2026-10-24 after an editorial review (softer claims on motion, optional activities, flight timing).
 // Facts used here: Green Ruby's published itineraries and FAQs (check-in ~10:45 at the Tuan Chau lounge,
 // tender ~11:45, GR2 via Gia Luan Pier, inclusions, cancellation policy), brand facts (both ships planned,
-// service expected February 2027, provisional), UNESCO listing. Travel times are estimates.
+// service from February 2027), UNESCO listing. Travel times are estimates.
 
 const firstTime: GuideContent = {
   metaTitle: 'First Time on a Halong Bay Cruise? A Practical Guide',
@@ -107,7 +107,7 @@ const firstTime: GuideContent = {
           },
         },
         { p: 'Always review the inclusions, exclusions and cancellation terms for your chosen [itinerary](itineraries) before confirming a booking, and check the inclusions listed in your booking confirmation. Under Green Ruby’s published cancellation policy (see the [FAQ](faq)), cancellations 30 days or more before departure are refunded in full, charges then increase as the departure date approaches, and cancellations within 7 days are non-refundable. The terms that apply are confirmed at booking.' },
-        { note: 'Green Ruby’s ships are planned to enter service in February 2027 (provisional). Fares and departure dates are confirmed at booking.' },
+        { note: 'Green Ruby’s ships begin sailing in February 2027. Fares and departure dates are confirmed at booking.' },
       ],
     },
     {
@@ -225,7 +225,7 @@ const firstTime: GuideContent = {
       { href: 'luxuryPillar', title: 'Eco-friendly luxury cruises in Ha Long Bay', body: 'What makes a cruise genuinely lower-impact, and how to check the claims.' },
     ],
   },
-  estimateNote: 'Travel times and durations on this page are estimates, not schedules. Green Ruby’s itineraries are provisional until the ships enter service, expected in February 2027.',
+  estimateNote: 'Travel times and durations on this page are estimates, not schedules. Green Ruby’s itineraries are provisional until the ships enter service in February 2027.',
   timeline: {
     label: 'Choose your ship',
     note: 'Times from Green Ruby’s published itineraries; provisional, and subject to weather and port instructions on the day.',

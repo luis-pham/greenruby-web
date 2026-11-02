@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 
-// Line icons for the homepage "Life on board" cards. The cards come from the CMS (homepage-service), so the
-// icon is picked from the service name in any site language; unknown names get the compass.
+// Line icons for the homepage "Life on board" cards. The cards come from the CMS (the ship's facilities, or the
+// homepage-service picks), so the icon is picked from the name in any site language; unknown names get the compass.
 
 type Kind = 'dining' | 'bar' | 'entertainment' | 'wellness' | 'pool' | 'cabin' | 'default';
 

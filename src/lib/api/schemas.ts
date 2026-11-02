@@ -112,6 +112,9 @@ export const homepageSchema = z.object({
   ),
   cabins: z.array(cabinSummarySchema),
   services: z.array(z.object({ id: z.number(), name: z.string(), description: optionalText, image: optionalText })),
+  // "Life on board": the first homepage ship's facilities (CMS 2026-11-02); absent from an older CMS, then services.
+  facilities: z.array(z.object({ id: z.number(), name: z.string(), summary: optionalText })).default([]),
+  facilitiesCruise: z.object({ id: z.number(), slug: z.string() }).nullable().default(null),
   experiences: z.array(
     z.object({ id: z.number(), slug: z.string(), name: z.string(), summary: optionalText, image: optionalText, group: optionalText, duration: optionalText }),
   ),
