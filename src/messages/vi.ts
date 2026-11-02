@@ -723,9 +723,10 @@ const vi: Messages = {
       noAmenities: 'Chưa chọn tiện ích',
       policies: 'Chính sách đặt chỗ',
       policyItems: [
-        'Hủy trước 7 ngày khởi hành: Miễn phí.',
-        'Hủy trước 3-7 ngày: Phí 50%.',
-        'Hủy trong vòng 3 ngày: Phí 100%.',
+        'Hủy từ 30 ngày trở lên trước khởi hành: miễn phí.',
+        'Hủy trước 15–29 ngày: phí 50% tổng giá trị đặt chỗ.',
+        'Hủy trước 7–14 ngày: phí 75% tổng giá trị đặt chỗ.',
+        'Hủy trong 0–6 ngày hoặc không đến: phí 100% tổng giá trị đặt chỗ.',
       ],
       estimatedTotal: 'Tổng tạm tính',
       totalNote: 'Số tiền cuối cùng do hệ thống tính theo giá hiện hành và được xác nhận qua email.',

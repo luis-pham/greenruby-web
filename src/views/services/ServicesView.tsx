@@ -228,7 +228,7 @@ export function ServicesView({
                   <div className={s.spaces}>
                     {spaces.map((cabin) => {
                       const url = cabinIds.includes(cabin.id) ? detailPath(locale, 'cabin', cabin.slug, cabin.id) : null;
-                      const facts = [cabin.cruise?.name, cabin.area ? m.celebrations.area(cabin.area) : null, cabin.capacity ? m.celebrations.guests(cabin.capacity) : null].filter(Boolean);
+                      const facts = [cabin.cruise?.name, cabin.area ? m.celebrations.area(cabin.area) : null].filter(Boolean);
                       return (
                         <article key={cabin.id} className={s.space}>
                           {url ? (

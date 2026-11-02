@@ -133,6 +133,11 @@ const HANOI_DOOR: L = {
   vi: 'Đón tận nơi ở các quận trung tâm Hà Nội, gồm Hoàn Kiếm (phố cổ) và Ba Đình',
   ja: 'ホアンキエム（旧市街）やバーディンなど、ハノイ中心部の各区のホテルでお迎え',
 };
+const HANOI_DROP: L = {
+  en: 'Hotel drop-off in central Hanoi districts, incl. Hoan Kiem (Old Quarter) and Ba Dinh',
+  vi: 'Trả tận nơi ở các quận trung tâm Hà Nội, gồm Hoàn Kiếm (phố cổ) và Ba Đình',
+  ja: 'ホアンキエム（旧市街）やバーディンなど、ハノイ中心部の各区のホテルまでお送りします',
+};
 
 export const SERVICES: Service[] = [
   // Hanoi ↔ Ha Long
@@ -317,7 +322,7 @@ export const SERVICES: Service[] = [
     transportType: 'shared-limousine',
     vehicle: { en: '9-seat limousine van', vi: 'Limousine 9 chỗ', ja: '9人乗りリムジンバン' },
     pickupLocations: { en: 'Tuan Chau, Bai Chay or your Ha Long address (port rule below)', vi: 'Tuần Châu, Bãi Cháy hoặc địa chỉ ở Hạ Long (xem quy định vào cảng)', ja: 'トゥアンチャウ、バイチャイ、またはハロンのご指定の住所（港のルールは下記）' },
-    dropoffLocations: HANOI_DOOR,
+    dropoffLocations: HANOI_DROP,
     tuanChau: 'door',
     fareMin: 260000,
     fareMax: 360000,

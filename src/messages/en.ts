@@ -728,9 +728,10 @@ const en = {
       noAmenities: 'No additional amenities selected',
       policies: 'Booking policies',
       policyItems: [
-        'Cancellation 7 days before departure: Free.',
-        'Cancellation 3-7 days before: 50% charge.',
-        'Cancellation under 3 days: 100% charge.',
+        '30 days or more before departure: no cancellation charge.',
+        '15–29 days before: 50% of the total booking value.',
+        '7–14 days before: 75% of the total booking value.',
+        '0–6 days before, or no-show: 100% of the total booking value.',
       ],
       estimatedTotal: 'Estimated total',
       totalNote: 'The final amount is calculated by our system from current rates and confirmed by email.',

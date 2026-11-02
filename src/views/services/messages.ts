@@ -83,7 +83,6 @@ const en = {
     viewSpace: 'View the space',
     proposal: 'Request a proposal',
     area: (m2: number) => `${m2} m²`,
-    guests: (n: number) => `Up to ${n} guests`,
   },
   process: {
     eyebrow: 'Make it yours',
@@ -215,7 +214,6 @@ const vi: ServicesMessages = {
     viewSpace: 'Xem không gian',
     proposal: 'Yêu cầu báo giá',
     area: (m2: number) => `${m2} m²`,
-    guests: (n: number) => `Tối đa ${n} khách`,
   },
   process: {
     eyebrow: 'Theo cách của bạn',
@@ -342,7 +340,6 @@ const ja: ServicesMessages = {
     viewSpace: '空間を見る',
     proposal: 'プランの提案を依頼',
     area: (m2: number) => `${m2}m²`,
-    guests: (n: number) => `最大${n}名`,
   },
   process: {
     eyebrow: 'お好みに合わせて',
