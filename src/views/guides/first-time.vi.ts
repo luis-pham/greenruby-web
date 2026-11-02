@@ -141,7 +141,7 @@ const firstTime: GuideContent = {
         { p: 'Từ trung tâm Hà Nội đến khu vực Tuần Châu, quãng đường di chuyển bằng ô tô thường khoảng 160–180 km tùy điểm xuất phát và tuyến đường.' },
         { p: 'Nếu đi xe riêng, hành trình thường mất khoảng 2,5–3 giờ trong điều kiện giao thông thuận lợi. Xe limousine ghép khách có thể mất thêm thời gian do cần đón khách tại nhiều địa điểm hoặc dừng nghỉ dọc đường.' },
         { p: 'Đây chỉ là thời gian tham khảo. Nếu đi vào cuối tuần, dịp lễ hoặc có lịch trình gấp, bạn nên dự phòng thêm thời gian.' },
-        { p: 'Theo kế hoạch, Green Ruby sẽ hỗ trợ đặt xe limousine ghép khách hoặc xe riêng theo yêu cầu. Chi phí đưa đón được tính riêng, không mặc nhiên bao gồm trong giá du thuyền.' },
+        { p: 'Green Ruby có thể sắp xếp xe riêng theo yêu cầu. Chi phí đưa đón được tính riêng, không mặc nhiên bao gồm trong giá du thuyền.' },
         { p: 'Để so sánh các phương tiện và tìm hiểu đường đến bến Tuần Châu từ Hà Nội, Nội Bài, Cát Bi hoặc Vân Đồn, bạn có thể tham khảo [hướng dẫn di chuyển Hà Nội – Hạ Long](transfer).' },
       ],
     },

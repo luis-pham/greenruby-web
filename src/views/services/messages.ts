@@ -38,10 +38,10 @@ const en = {
     title: 'A graceful start to',
     titleEm: 'every escape.',
     paragraphs: [
-      'The road from Hanoi to the bay should feel like part of the experience, not another detail to manage. Green Ruby can assist with transfer arrangements, whether you prefer a shared limousine or a private journey.',
+      'The road from Hanoi to the bay should feel like part of the experience, not another detail to manage. Green Ruby can arrange a private transfer between your hotel and the cruise terminal.',
       'Share your hotel, travel date and group size with our team to discuss the most suitable option.',
     ],
-    points: ['Hanoi to the Tuan Chau departure area', 'Shared or private transfer options on request', 'Transfer charges confirmed separately'],
+    points: ['Hanoi to the Tuan Chau departure area', 'Private transfer on request', 'Transfer charges confirmed separately'],
     stamp: ['The journey', 'begins', 'before boarding'],
     cta: 'Arrange your arrival',
   },
@@ -58,6 +58,7 @@ const en = {
         'Scheduled sightseeing and entrance fees',
         'Standard kayaking, bamboo boat and onboard activities as listed in your itinerary',
         'Drinking water and onboard guest assistance',
+        '24-hour reception, daily housekeeping and turndown service',
       ],
       foot: 'Included items can vary with the selected itinerary; please confirm the final inclusions when booking.',
     },
@@ -67,7 +68,7 @@ const en = {
       items: [
         'Hanoi–Ha Long transfers and private transportation',
         'Selected spa treatments and massage packages',
-        'Photography, drone filming and welcome arrangements',
+        'Photography, drone filming, celebration decorations and private dining',
         'Other beverages and personal purchases',
       ],
       foot: 'Optional items, pricing, permissions and availability should be confirmed before booking.',
@@ -105,7 +106,7 @@ const en = {
       {
         question: 'Are transfers from Hanoi included in the cruise fare?',
         answerHtml:
-          '<p>Transfers are not part of the standard fare. A shared limousine or private transportation can be arranged at an additional charge.</p>',
+          '<p>Transfers are not part of the standard fare. A private transfer can be arranged at an additional charge.</p>',
       },
       {
         question: 'Are spa and massage treatments included?',
@@ -169,10 +170,10 @@ const vi: ServicesMessages = {
     title: 'Khởi đầu nhẹ nhàng cho',
     titleEm: 'mọi chuyến đi.',
     paragraphs: [
-      'Quãng đường từ Hà Nội ra vịnh nên là một phần của trải nghiệm, chứ không phải thêm một việc phải lo. Green Ruby có thể hỗ trợ sắp xếp xe đưa đón, dù bạn muốn đi limousine ghép hay xe riêng.',
+      'Quãng đường từ Hà Nội ra vịnh nên là một phần của trải nghiệm, chứ không phải thêm một việc phải lo. Green Ruby có thể sắp xếp xe riêng đưa đón giữa khách sạn và bến tàu.',
       'Hãy cho chúng tôi biết khách sạn, ngày đi và số người trong đoàn để được tư vấn phương án phù hợp nhất.',
     ],
-    points: ['Từ Hà Nội đến khu vực đón khách tại Tuần Châu', 'Xe ghép hoặc xe riêng theo yêu cầu', 'Phí đưa đón được báo riêng'],
+    points: ['Từ Hà Nội đến khu vực đón khách tại Tuần Châu', 'Xe riêng theo yêu cầu', 'Phí đưa đón được báo riêng'],
     stamp: ['Hành trình', 'bắt đầu', 'trước khi lên tàu'],
     cta: 'Sắp xếp đưa đón',
   },
@@ -189,6 +190,7 @@ const vi: ServicesMessages = {
         'Các điểm tham quan theo lịch trình và vé vào cửa',
         'Chèo kayak, đò tre và các hoạt động trên tàu như ghi trong lịch trình',
         'Nước uống và đội ngũ hỗ trợ khách trên tàu',
+        'Lễ tân 24 giờ, dọn phòng hằng ngày và chuẩn bị phòng buổi tối',
       ],
       foot: 'Các mục bao gồm có thể khác nhau tùy lịch trình; vui lòng xác nhận lại khi đặt chỗ.',
     },
@@ -198,7 +200,7 @@ const vi: ServicesMessages = {
       items: [
         'Xe đưa đón Hà Nội – Hạ Long và xe riêng',
         'Một số liệu trình spa và gói massage',
-        'Chụp ảnh, quay phim bằng drone và chuẩn bị đón tiếp đặc biệt',
+        'Chụp ảnh, quay phim bằng drone, trang trí tiệc kỷ niệm và bữa ăn riêng tư',
         'Đồ uống khác và chi tiêu cá nhân',
       ],
       foot: 'Vui lòng xác nhận dịch vụ, giá, giấy phép và tình trạng trước khi đặt.',
@@ -235,7 +237,7 @@ const vi: ServicesMessages = {
     items: [
       {
         question: 'Giá du thuyền đã bao gồm xe đưa đón từ Hà Nội chưa?',
-        answerHtml: '<p>Xe đưa đón không nằm trong giá tiêu chuẩn. Chúng tôi có thể sắp xếp limousine ghép hoặc xe riêng với chi phí bổ sung.</p>',
+        answerHtml: '<p>Xe đưa đón không nằm trong giá tiêu chuẩn. Chúng tôi có thể sắp xếp xe riêng với chi phí bổ sung.</p>',
       },
       {
         question: 'Spa và massage có được bao gồm không?',
@@ -295,10 +297,10 @@ const ja: ServicesMessages = {
     title: 'どの旅も、',
     titleEm: '心地よい始まりを',
     paragraphs: [
-      'ハノイから湾までの道のりも、手配に追われる時間ではなく旅の一部であってほしいと考えています。乗合リムジンでも専用車でも、Green Rubyが送迎の手配をお手伝いします。',
+      'ハノイから湾までの道のりも、手配に追われる時間ではなく旅の一部であってほしいと考えています。Green Rubyがホテルとクルーズターミナル間の専用車送迎を手配します。',
       'ご宿泊のホテル、ご旅行日、人数をお知らせいただければ、最適な方法をご提案します。',
     ],
-    points: ['ハノイからトゥアンチャウ（Tuan Chau）の出発エリアまで', 'ご希望に応じて乗合または専用車の送迎', '送迎料金は別途ご案内'],
+    points: ['ハノイからトゥアンチャウ（Tuan Chau）の出発エリアまで', 'ご希望に応じて専用車で送迎', '送迎料金は別途ご案内'],
     stamp: ['旅は', '乗船の前から', '始まっています'],
     cta: '送迎を相談する',
   },
@@ -315,6 +317,7 @@ const ja: ServicesMessages = {
         '予定された観光と入場料',
         '行程に記載された通常のカヤック、竹舟、船内アクティビティ',
         '飲料水と船内スタッフによるサポート',
+        '24時間対応フロント、毎日の客室清掃、ターンダウンサービス',
       ],
       foot: '含まれる内容は選択する行程により異なる場合があります。最終的な内容はご予約時にご確認ください。',
     },
@@ -324,7 +327,7 @@ const ja: ServicesMessages = {
       items: [
         'ハノイ〜ハロン間の送迎と専用車',
         '一部のスパトリートメントとマッサージパッケージ',
-        '写真撮影、ドローン撮影、お出迎えの演出',
+        '写真撮影、ドローン撮影、お祝いの装飾、プライベートダイニング',
         'その他のお飲み物と個人的なご購入品',
       ],
       foot: 'オプションの内容、料金、許可、空き状況はご予約前にご確認ください。',
@@ -362,7 +365,7 @@ const ja: ServicesMessages = {
       {
         question: 'ハノイからの送迎はクルーズ料金に含まれていますか？',
         answerHtml:
-          '<p>送迎は標準料金に含まれていません。乗合リムジンまたは専用車を追加料金で手配できます。</p>',
+          '<p>送迎は標準料金に含まれていません。専用車での送迎を追加料金で手配できます。</p>',
       },
       {
         question: 'スパやマッサージは料金に含まれていますか？',

@@ -130,7 +130,7 @@ const firstTime: GuideContent = {
       title: 'Getting from Hanoi to the cruise terminal',
       blocks: [
         { p: 'Tuan Chau is around 160–180 km from central Hanoi by expressway. Allow around 2.5 to 3 hours by private car and a little more by shared limousine van, which stops for other passengers and a rest break. All times are estimates: traffic out of Hanoi and holiday weekends make the biggest difference.' },
-        { p: 'Transfers are not included in the cruise fare. Green Ruby’s published plan is to offer a shared limousine shuttle and private cars on request at extra cost. The [Hanoi to Halong Bay transfer guide](transfer) compares every option, including arrivals at Noi Bai, Cat Bi and Van Don airports.' },
+        { p: 'Transfers are not included in the cruise fare. Green Ruby can arrange a private car on request at extra cost. The [Hanoi to Halong Bay transfer guide](transfer) compares every option, including arrivals at Noi Bai, Cat Bi and Van Don airports.' },
       ],
     },
     {
