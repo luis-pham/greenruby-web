@@ -6,7 +6,7 @@ import type { GuideContent } from './types';
 // Gia Luan Pier stays Latin (glossary §3). Lines marked REVIEW need a decision from the editor or owner.
 
 const firstTime: GuideContent = {
-  metaTitle: 'はじめてのハロン湾クルーズ：実践ガイド',
+  metaTitle: 'はじめてのハロン湾クルーズ｜選び方・料金に含まれるもの・持ち物',
   metaDescription:
     'ハロン湾クルーズは行く価値があるか、どちらの湾で何泊にするか、料金に含まれるもの、乗船日の流れ、持ち物、初めての方によくある失敗をご案内します。',
   breadcrumb: 'はじめてのクルーズガイド',

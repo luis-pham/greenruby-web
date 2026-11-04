@@ -8,9 +8,9 @@ import type { GuideContent } from './types';
 // use common Japanese travel-media forms and need native review. Lines marked REVIEW need a decision.
 
 const transfer: GuideContent = {
-  metaTitle: 'ハノイからハロン湾へ：リムジン・バス・送迎の料金',
+  metaTitle: 'ハロン湾への行き方｜ハノイからリムジン・バス・専用車の料金と時間',
   metaDescription:
-    'ハノイからハロン湾へ、リムジン、専用車、バスで行く方法。2026年10月に確認した運行会社・料金・時刻表に加え、ノイバイ、ニンビン、タムコックからトゥアンチャウ港への行き方もご案内します。',
+    'ハノイからハロン湾への行き方を比較。乗り合いリムジン、専用車、高速バスの料金・所要時間・時刻表（2026年10月確認）と、空港やニンビンからトゥアンチャウ港への移動もご案内します。',
   breadcrumb: 'ハノイからハロン湾へ',
   eyebrow: '旅行ガイド',
   title: 'ハノイからハロン湾への行き方：送迎とクルーズ港',

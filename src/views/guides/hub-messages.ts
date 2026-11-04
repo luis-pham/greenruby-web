@@ -55,7 +55,7 @@ const vi: HubMessages = {
 // DRAFT (2026-11-01): machine-assisted Japanese, not yet reviewed by a native editor.
 const ja: HubMessages = {
   metaTitle: 'ハロン湾旅行ガイド：見どころ・旅の計画・クルーズ',
-  metaDescription: 'ハロン湾とランハ湾の旅行ガイドはこちらから。どこへ行くか、どう行くか、いつ訪れるか、クルーズの選び方をご案内します。',
+  metaDescription: 'ハロン湾・ランハ湾の旅行ガイド。ハノイからの行き方、天気とベストシーズン、主な観光スポット、はじめてのクルーズの選び方までまとめています。',
   eyebrow: 'ハロン湾・ランハ湾',
   title: 'ハロン湾',
   titleEm: '旅行ガイド',

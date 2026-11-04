@@ -20,6 +20,18 @@ export const wordSpace = (locale: Locale): ' ' | '' => (UNSPACED.has(locale) ? '
  */
 export const headline = (text: string, locale: Locale): string => (UNSPACED.has(locale) ? text.replace(/。+$/, '') : text);
 
+/**
+ * The decorative Latin full stop some display headings end with (`Kayaking.`). Japanese headings take neither a Latin
+ * "." nor a closing 。, so it is dropped there; en/vi keep it.
+ */
+export const headlineStop = (locale: Locale): boolean => !UNSPACED.has(locale);
+
+/**
+ * Joins a topic and a noun heading: `Bookings & Payments Frequently Asked Questions` /
+ * `ご予約・お支払いのよくあるご質問`. ' ' for en/vi (unchanged), 'の' for Japanese.
+ */
+export const topicJoin = (locale: Locale): ' ' | 'の' | '' => (locale === 'ja' ? 'の' : wordSpace(locale));
+
 /** `Next departure: 15 Feb 2027` / `次回の出発日：2027年2月15日` (full-width colon, no space, as in the glossary). */
 export const labelled = (label: string, value: string, locale: Locale): string => `${label}${UNSPACED.has(locale) ? '：' : ': '}${value}`;
 

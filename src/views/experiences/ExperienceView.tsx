@@ -15,7 +15,7 @@ import { PhotoJournal, type Photo } from './PhotoJournal';
 import { SectionNav } from './SectionNav';
 import { cardImage, durationMinutes, experienceUrl, pad, tabLabel, timeRange } from './shared';
 import s from './experience.module.css';
-import { wordSpace } from '@/lib/typography';
+import { headlineStop, wordSpace } from '@/lib/typography';
 
 const plain = (html: string) => html.replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ').trim();
 
@@ -157,7 +157,7 @@ export function ExperienceView({
               <Eyebrow inverse>{tab ? m.kicker[tab] : m.kickerFallback}</Eyebrow>
               <h1 className={cx(s.heroTitle, x.name.length > 16 && s.heroTitleLong)}>
                 {x.name}
-                <em>.</em>
+                {headlineStop(locale) && <em>.</em>}
               </h1>
               {x.summary && <p className={s.heroDesc}>{x.summary}</p>}
               <div className={s.heroActions}>

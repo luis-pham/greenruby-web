@@ -11,7 +11,7 @@ import { faqPath, type FaqEntry, type FaqList } from './data';
 import { FaqSearch } from './FaqSearch';
 import { faqMessages } from './messages';
 import s from './faq.module.css';
-import { wordSpace } from '@/lib/typography';
+import { topicJoin, wordSpace } from '@/lib/typography';
 
 const pad = (n: number) => String(n).padStart(2, '0');
 
@@ -75,7 +75,7 @@ export function FaqView({ list, chrome }: { list: FaqList; chrome: Chrome }) {
           ...(current ? [{ label: current.name, href: faqPath(locale, current.slug) }] : []),
         ]}
         eyebrow={f.heroEyebrow}
-        title={current ? <>{current.name}{wordSpace(locale)}<em>{f.breadcrumb}</em></> : <>{f.heroTitle}{wordSpace(locale)}<em>{f.heroTitleEm}</em></>}
+        title={current ? <>{current.name}{topicJoin(locale)}<em>{f.breadcrumb}</em></> : <>{f.heroTitle}{wordSpace(locale)}<em>{f.heroTitleEm}</em></>}
         lead={f.heroBody}
         actions={
           <>

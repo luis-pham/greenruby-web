@@ -2,13 +2,29 @@
 // half-width spaces and uses the full-width colon.
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
-import { labelled, splitAt, wordSpace } from './typography.ts';
+import { headlineStop, labelled, splitAt, topicJoin, wordSpace } from './typography.ts';
 
 describe('wordSpace', () => {
   it('is the JSX space it replaces for en/vi, nothing for ja', () => {
     assert.equal(wordSpace('en'), ' ');
     assert.equal(wordSpace('vi'), ' ');
     assert.equal(wordSpace('ja'), '');
+  });
+});
+
+describe('headlineStop', () => {
+  it('keeps the decorative full stop for en/vi, drops it for ja', () => {
+    assert.equal(headlineStop('en'), true);
+    assert.equal(headlineStop('vi'), true);
+    assert.equal(headlineStop('ja'), false);
+  });
+});
+
+describe('topicJoin', () => {
+  it('is the JSX space for en/vi and の for ja', () => {
+    assert.equal(topicJoin('en'), ' ');
+    assert.equal(topicJoin('vi'), ' ');
+    assert.equal(`ご予約・お支払い${topicJoin('ja')}よくあるご質問`, 'ご予約・お支払いのよくあるご質問');
   });
 });
 
