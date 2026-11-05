@@ -232,4 +232,81 @@ const ja: GalleryMessages = {
   schemaName: 'Green Ruby Cruisesフォトギャラリー',
 };
 
-export const galleryMessages = byLocale({ en, vi, ja });
+const fr: GalleryMessages = {
+  breadcrumb: 'Galerie',
+  metaTitle: 'Galerie photos',
+  pageSuffix: (page) => ` - Page ${page}`,
+  categoryDescription: (name) =>
+    `${name} : les images des croisières Green Ruby en baie d’Halong et en baie de Lan Ha. Cabines, restauration, activités et paysages de la baie.`,
+  heroEyebrow: 'Green Ruby en images',
+  heroTitle: 'Mille façons de',
+  heroTitleEm: 'se souvenir.',
+  heroBody:
+    "La beauté paisible de la baie. Le confort d’un refuge à soi. Ces instants, grands et petits, qui donnent à un voyage toute sa saveur.",
+  heroPrimary: 'Parcourir la galerie',
+  heroSecondary: "Découvrir l’expérience 360°",
+  heroFolio: 'Halong · Lan Ha / La croisière en images',
+  listEyebrow: 'La collection de photos',
+  filterLabel: 'Filtrer la galerie par catégorie',
+  browseBy: 'Parcourir par',
+  all: 'Tous les instants',
+  showing: (from, to, total) =>
+    total === 0 ? 'Aucune photo pour le moment' : `Photos ${pad(from)} à ${pad(to)} sur ${pad(total)}`,
+  viewHint: 'Sélectionnez une image pour l’agrandir',
+  enlarge: (alt) => `Agrandir : ${alt}`,
+  empty: 'Cette collection ne contient pas encore de photos. Essayez une autre catégorie.',
+  more: "Voir plus de photos",
+  morePage: (page, last) => `Page ${page} sur ${last}`,
+  allSeen: 'Vous avez parcouru toutes les photos de cette collection',
+  paginationLabel: 'Pages de la galerie',
+  previous: 'Précédent',
+  next: 'Suivant',
+  photoAlt: (category, n, total) => `${category} à bord de Green Ruby Cruises, photo ${n} sur ${total}`,
+  photoAltGeneric: "Green Ruby Cruises en baie d’Halong et en baie de Lan Ha",
+  categoryCopy: {
+    onboard: 'Salons, ponts et salles à manger : les espaces partagés où le rythme des journées sur la baie ralentit.',
+    suites: 'Un aperçu de nos cabines et suites, pensées pour le calme, le confort et la vue sur la baie.',
+    activities: "Tai-chi au lever du soleil, kayak autour de la grotte Luon en baie d’Halong et soirées de pêche au calamar depuis le pont.",
+    nature: "Pitons calcaires, eaux émeraude et lumière changeante sur la baie d’Halong et la baie de Lan Ha.",
+    moments: 'Ces petits instants qui jalonnent une croisière, des premières découvertes aux derniers couchers de soleil à bord.',
+  },
+  lightbox: {
+    label: 'Visionneuse de photos',
+    close: 'Fermer',
+    previous: 'Image précédente',
+    next: 'Image suivante',
+  },
+  virtualEyebrow: 'Expérience immersive',
+  virtualTitle: 'Montez à bord.',
+  virtualTitleEm: 'Attardez-vous un peu.',
+  virtualBody:
+    "Certains lieux se découvrent sous tous les angles. Explorez-les à 360° et faites-vous une idée de la croisière avant le départ.",
+  virtualCta: "Lancer l’expérience 360°",
+  virtualStamp: 'Expérience 360°',
+  virtualOpen: (n) => `Ouvrir l’expérience 360° n° ${n}`,
+  virtualNote: 'Faites glisser, balayez ou utilisez les flèches du clavier pour regarder autour de vous. La vidéo est lue sans le son et ne se charge qu’à l’ouverture.',
+  viewer: {
+    label: 'Visionneuse 360°',
+    close: 'Fermer',
+    loading: 'Chargement de la vue 360°…',
+    unsupported: 'Votre navigateur ne peut pas afficher la vue 360° : la vidéo est donc lue en version classique.',
+    hint: 'Faites glisser pour regarder autour de vous',
+  },
+  momentsEyebrow: 'Souvenirs de croisière',
+  momentsTitle: 'Faits pour',
+  momentsTitleEm: 'durer.',
+  momentsBody:
+    "Du calme d’un matin sur la baie à la joie d’une découverte partagée, ces instants finissent par faire partie de votre histoire.",
+  momentFallbackTag: 'Expérience',
+  momentLink: "Découvrir l’expérience",
+  ctaEyebrow: 'Votre prochain chapitre',
+  ctaTitle: 'Belles en photo.',
+  ctaTitleEm: 'Plus encore en vrai.',
+  ctaBody:
+    'Venez découvrir les baies par vous-même. Parcourez nos itinéraires ou échangez avec notre équipe de réservation sur votre future croisière Green Ruby.',
+  ctaPrimary: 'Voir les itinéraires',
+  ctaSecondary: 'Préparer votre croisière',
+  schemaName: 'Galerie photos Green Ruby Cruises',
+};
+
+export const galleryMessages = byLocale({ en, vi, ja, fr });

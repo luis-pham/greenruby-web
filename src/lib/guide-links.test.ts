@@ -51,6 +51,9 @@ test('a Japanese link to an English-only page says （英語版）; en/vi labels
   assert.equal(linkLabel('ja', '/ja/guides', '旅行ガイド'), '旅行ガイド');
   assert.equal(linkLabel('ja', '/privacy-policy', 'プライバシーポリシー（英語版）'), 'プライバシーポリシー（英語版）');
   assert.equal(linkLabel('ja', 'https://drive.google.com/x', '電子パンフレット'), '電子パンフレット');
+  assert.equal(linkLabel('fr', '/safety-policies', 'Sécurité (en anglais)'), 'Sécurité (en anglais)', 'no second mark whatever the space');
+  assert.equal(linkLabel('fr', '/about-us', 'À propos'), 'À propos\u00a0(en anglais)');
+  assert.equal(linkLabel('fr', '/fr/guides', 'Guides'), 'Guides');
   assert.equal(linkLabel('en', '/about-us', 'About'), 'About');
   assert.equal(linkLabel('vi', '/about-us', 'Giới thiệu'), 'Giới thiệu');
 });

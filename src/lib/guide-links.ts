@@ -12,20 +12,24 @@ const ARTICLES = {
   luxuryPillar: {
     en: '/blog/eco-sustainability/the-complete-guide-to-eco-friendly-luxury-cruises-in-ha-long-bay-2026.html',
     vi: '/vi/blog/hanh-trinh/kinh-nghiem-chon-du-thuyen-ha-long-cao-cap.html',
+    // FR 289 (French slug), the translation of EN 221.
+    fr: '/fr/blog/ecotourisme/croisiere-ecoresponsable-baie-d-halong.html',
   },
   // EN 236 / VI 265 / JA (2026-11-01).
   bestTime: {
     en: '/blog/travel-tips/best-time-to-visit-halong-bay.html',
     vi: '/vi/blog/hanh-trinh/di-ha-long-mua-nao-dep.html',
     ja: '/ja/blog/travel-tips/best-time-to-visit-halong-bay.html',
+    fr: '/fr/blog/conseils-pratiques/quand-partir-en-baie-d-halong.html',
   },
   // EN 222 / VI 223 / JA (2026-11-01).
   bayComparison: {
     en: '/blog/destinations/ha-long-bay-vs-lan-ha-bay-which-cruise.html',
     vi: '/vi/blog/hanh-trinh/nen-chon-du-thuyen-ha-long-hay-lan-ha.html',
     ja: '/ja/blog/destinations-itineraries/ha-long-bay-vs-lan-ha-bay-which-cruise.html',
+    fr: '/fr/blog/destinations-et-itineraires/baie-de-lan-ha-ou-baie-d-halong.html',
   },
-} as const satisfies Record<string, { en: string; vi: string; ja?: string }>;
+} as const satisfies Record<string, { en: string; vi: string } & Partial<Record<Locale, string>>>;
 
 export type GuideArticle = keyof typeof ARTICLES;
 
@@ -34,7 +38,7 @@ export type GuideArticle = keyof typeof ARTICLES;
  * otherwise (or without a copy) the English article.
  */
 export function guideArticlePath(locale: Locale, article: GuideArticle, publicSections?: readonly string[]): string {
-  const paths: { en: string; vi: string; ja?: string } = ARTICLES[article];
+  const paths: { en: string; vi: string } & Partial<Record<Locale, string>> = ARTICLES[article];
   if (isLegacyLocale(locale)) return paths[locale as 'en' | 'vi'];
   const own = (paths as Partial<Record<Locale, string>>)[locale];
   return own && publicSections?.includes('blog') ? own : paths.en;

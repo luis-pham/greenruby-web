@@ -1,5 +1,5 @@
-import { byLocale, inLocale, type Locale } from '@/lib/i18n';
-import { labelled, wordSpace } from '@/lib/typography';
+import { byLocale, dateFormatTag, inLocale, isLegacyLocale, numberFormatTag, type Locale } from '@/lib/i18n';
+import { colonSep, labelled, wordSpace } from '@/lib/typography';
 import { fareRanges, listedServices, operatorById, TRANSPORT_CHECKED, type FareRange, type Operator, type RouteId, type Service } from './operators';
 import s from './guide.module.css';
 
@@ -74,17 +74,42 @@ const LABEL_COPY = {
     types: { 'shared-limousine': '乗り合いリムジン', bus: '長距離バス', 'private-car': '専用車' },
     checked: (date: string) => `料金と時刻は各社が公表している情報で、${date}に確認したものです。運行会社は予告なく変更することがあるため、ご予約時にご確認ください。これらの会社はGreen Rubyの提携先ではありません。`,
   },
+  fr: {
+    operator: 'Transporteur',
+    vehicle: 'Véhicule',
+    fare: 'Tarif',
+    pickup: 'Prise en charge',
+    dropoff: 'Dépose',
+    booking: 'Réservation',
+    departures: 'Départs',
+    duration: 'Durée',
+    luggage: 'Bagages',
+    perSeat: 'par place',
+    perVehicle: 'par véhicule',
+    from: 'à partir de',
+    askFare: 'À confirmer auprès du transporteur',
+    website: 'Site web',
+    bookOn: 'Réserver sur Vexere',
+    whatsapp: 'WhatsApp',
+    zalo: 'Zalo',
+    domestic: 'depuis le Vietnam uniquement',
+    status: { confirmed: 'Site du transporteur', indicative: 'À vérifier avant de réserver', agentOnly: 'Plateforme de réservation uniquement' },
+    types: { 'shared-limousine': 'Limousine partagée', bus: 'Autocar', 'private-car': 'Voiture privée' },
+    checked: (date: string) => `Tarifs et horaires tels que publiés, vérifiés le ${date}. Les transporteurs peuvent les modifier sans préavis : confirmez-les au moment de réserver. Ces compagnies ne sont pas des partenaires de Green Ruby.`,
+  },
 } as const;
 const LABELS = byLocale<(typeof LABEL_COPY)[keyof typeof LABEL_COPY]>(LABEL_COPY);
 
 export function checkedDate(locale: Locale, iso = TRANSPORT_CHECKED): string {
   const [y, m, d] = iso.split('-').map(Number);
   if (locale === 'vi') return `${d}/${m}/${y}`;
-  if (locale === 'ja') return `${y}年${m}月${d}日`;
-  return new Date(Date.UTC(y, m - 1, d)).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+  // English keeps en-GB; an intl locale writes the date its own way (ja 2026年10月27日, fr 27 octobre 2026).
+  return new Date(Date.UTC(y, m - 1, d)).toLocaleDateString(dateFormatTag(locale), { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
 }
 
-const digits = (n: number, locale: Locale) => n.toLocaleString('en-US').replace(/,/g, locale === 'vi' ? '.' : ',');
+// en/vi as before (1,000 / 1.000); an intl locale groups digits its own way (ja 1,000, fr 1 000).
+const digits = (n: number, locale: Locale) =>
+  isLegacyLocale(locale) ? n.toLocaleString('en-US').replace(/,/g, locale === 'vi' ? '.' : ',') : n.toLocaleString(numberFormatTag(locale));
 
 /** Unspaced languages (ja) write ranges with a wave dash: "260,000〜360,000 VND" (glossary §2). */
 const rangeDash = (locale: Locale) => (wordSpace(locale) ? '–' : '〜');
@@ -113,7 +138,7 @@ export const routeFares = (route: RouteId, locale: Locale) => fareRanges(route).
 
 /** Inline punctuation: en/vi keep the exact JSX text nodes they had (': ', ' (', ')', '.'); ja uses full-width forms. */
 const punct = (locale: Locale) =>
-  wordSpace(locale) ? { colon: ': ', open: ' (', close: ')', stop: '.' } : { colon: '：', open: '（', close: '）', stop: '。' };
+  wordSpace(locale) ? { colon: colonSep(locale), open: ' (', close: ')', stop: '.' } : { colon: '：', open: '（', close: '）', stop: '。' };
 
 const ext = { target: '_blank', rel: 'nofollow noopener noreferrer' } as const;
 

@@ -1,7 +1,7 @@
 // Compiled locales (phase 1D-b). en/vi are the legacy site (unprefixed EN, /vi + Vietnamese segments). ja is an
 // 'intl' locale: /ja + the English segments (docs/i18n-audit/12 §7). Compiling a locale does not make it public:
 // the CMS serves it only once it is effectively public and every web instance lists it in its manifest.
-export const locales = ['en', 'vi', 'ja'] as const;
+export const locales = ['en', 'vi', 'ja', 'fr'] as const;
 export type Locale = (typeof locales)[number];
 export const defaultLocale: Locale = 'en';
 
@@ -27,6 +27,7 @@ export const localeInfo: Record<Locale, { nativeName: string; code: string; href
   en: { nativeName: 'English', code: 'EN', hreflang: 'en', ogLocale: 'en_US', intlTag: 'en-US' },
   vi: { nativeName: 'Tiếng Việt', code: 'VI', hreflang: 'vi', ogLocale: 'vi_VN', intlTag: 'vi-VN' },
   ja: { nativeName: '日本語', code: 'JA', hreflang: 'ja', ogLocale: 'ja_JP', intlTag: 'ja-JP' },
+  fr: { nativeName: 'Français', code: 'FR', hreflang: 'fr', ogLocale: 'fr_FR', intlTag: 'fr-FR' },
 };
 
 const intlTagOf = (locale: string): string | undefined => (localeInfo as Partial<Record<string, { intlTag: string }>>)[locale]?.intlTag;
@@ -38,45 +39,49 @@ export const dateFormatTag = (locale: string): string => (locale === 'en' ? 'en-
 export const numberFormatTag = (locale: string): string => intlTagOf(locale) ?? 'en-US';
 
 // English URLs have no prefix; Vietnamese URLs use /vi plus translated segments, matching Laravel's
-// FeUtils::getLocalizedFrontendPathSegmentMap(); intl locales use /{code} plus the English segments (PathBuilder).
+// FeUtils::getLocalizedFrontendPathSegmentMap(); intl locales use /{code} plus the English segments (PathBuilder), so
+// the table lists the legacy locales only and a new language needs no row here.
 const segments = {
-  cruise: { en: 'cruise', vi: 'du-thuyen', ja: 'cruise' },
-  cabin: { en: 'cabin', vi: 'phong-nghi', ja: 'cabin' },
-  itinerary: { en: 'itinerary', vi: 'hanh-trinh', ja: 'itinerary' },
-  experiences: { en: 'experiences', vi: 'hoat-dong-trai-nghiem', ja: 'experiences' },
-  services: { en: 'services', vi: 'dich-vu', ja: 'services' },
-  gallery: { en: 'gallery', vi: 'thu-vien', ja: 'gallery' },
-  contact: { en: 'contact', vi: 'lien-he', ja: 'contact' },
-  aboutUs: { en: 'about-us', vi: 'gioi-thieu', ja: 'about-us' },
-  faq: { en: 'faq', vi: 'cau-hoi-thuong-gap', ja: 'faq' },
-  blog: { en: 'blog', vi: 'blog', ja: 'blog' },
+  cruise: { en: 'cruise', vi: 'du-thuyen' },
+  cabin: { en: 'cabin', vi: 'phong-nghi' },
+  itinerary: { en: 'itinerary', vi: 'hanh-trinh' },
+  experiences: { en: 'experiences', vi: 'hoat-dong-trai-nghiem' },
+  services: { en: 'services', vi: 'dich-vu' },
+  gallery: { en: 'gallery', vi: 'thu-vien' },
+  contact: { en: 'contact', vi: 'lien-he' },
+  aboutUs: { en: 'about-us', vi: 'gioi-thieu' },
+  faq: { en: 'faq', vi: 'cau-hoi-thuong-gap' },
+  blog: { en: 'blog', vi: 'blog' },
   // Company news: articles of the CMS category of the same slug (news / tin-tuc), kept out of /blog.
-  news: { en: 'news', vi: 'tin-tuc', ja: 'news' },
-  booking: { en: 'booking', vi: 'booking', ja: 'booking' },
-  privacyPolicy: { en: 'privacy-policy', vi: 'chinh-sach-bao-mat', ja: 'privacy-policy' },
-  legal: { en: 'legal', vi: 'phap-ly', ja: 'legal' },
-  safetyPolicies: { en: 'safety-policies', vi: 'chinh-sach-an-toan', ja: 'safety-policies' },
-  termsAndConditions: { en: 'terms-and-conditions', vi: 'dieu-khoan-dieu-kien', ja: 'terms-and-conditions' },
-  paymentMethods: { en: 'payment-methods', vi: 'phuong-thuc-thanh-toan', ja: 'payment-methods' },
-  cookiePolicy: { en: 'cookie-policy', vi: 'chinh-sach-cookie', ja: 'cookie-policy' },
-  bookingTerms: { en: 'booking-terms-and-conditions', vi: 'dieu-khoan-dat-tour', ja: 'booking-terms-and-conditions' },
-  ecoDashboard: { en: 'eco-dashboard', vi: 'bao-cao-sinh-thai', ja: 'eco-dashboard' },
-  brandFacts: { en: 'about-us/brand-facts', vi: 'gioi-thieu/thong-tin-thuong-hieu', ja: 'about-us/brand-facts' },
+  news: { en: 'news', vi: 'tin-tuc' },
+  booking: { en: 'booking', vi: 'booking' },
+  privacyPolicy: { en: 'privacy-policy', vi: 'chinh-sach-bao-mat' },
+  legal: { en: 'legal', vi: 'phap-ly' },
+  safetyPolicies: { en: 'safety-policies', vi: 'chinh-sach-an-toan' },
+  termsAndConditions: { en: 'terms-and-conditions', vi: 'dieu-khoan-dieu-kien' },
+  paymentMethods: { en: 'payment-methods', vi: 'phuong-thuc-thanh-toan' },
+  cookiePolicy: { en: 'cookie-policy', vi: 'chinh-sach-cookie' },
+  bookingTerms: { en: 'booking-terms-and-conditions', vi: 'dieu-khoan-dat-tour' },
+  ecoDashboard: { en: 'eco-dashboard', vi: 'bao-cao-sinh-thai' },
+  brandFacts: { en: 'about-us/brand-facts', vi: 'gioi-thieu/thong-tin-thuong-hieu' },
   // Travel guide (Next.js only; Laravel's SitemapController mirrors these paths). `guides` is the hub.
-  guides: { en: 'guides', vi: 'cam-nang', ja: 'guides' },
-  destinations: { en: 'destinations', vi: 'dia-diem-tham-quan', ja: 'destinations' },
-  guideFirstTime: { en: 'guides/first-time-halong-bay-cruise', vi: 'cam-nang/lan-dau-di-du-thuyen-ha-long', ja: 'guides/first-time-halong-bay-cruise' },
-  guideTransfer: { en: 'guides/hanoi-to-halong-bay', vi: 'cam-nang/ha-noi-di-ha-long', ja: 'guides/hanoi-to-halong-bay' },
+  guides: { en: 'guides', vi: 'cam-nang' },
+  destinations: { en: 'destinations', vi: 'dia-diem-tham-quan' },
+  guideFirstTime: { en: 'guides/first-time-halong-bay-cruise', vi: 'cam-nang/lan-dau-di-du-thuyen-ha-long' },
+  guideTransfer: { en: 'guides/hanoi-to-halong-bay', vi: 'cam-nang/ha-noi-di-ha-long' },
 } as const;
 
 export type Section = keyof typeof segments;
+
+/** A section's path segment in `locale`: its own for en/vi, the English one for every intl locale. */
+const segmentIn = (section: Section, locale: Locale): string => segments[section][isLegacyLocale(locale) ? locale : 'en'];
 
 /** Every section name (PathBuilder::SEGMENTS). Which of them a locale really serves comes from its route tree (intl-routes.ts). */
 export const sections = Object.keys(segments) as Section[];
 
 /** The section whose single-segment path is `segment` in `locale` ('du-thuyen', vi → cruise); null when none. */
 export function segmentOf(segment: string, locale: Locale): Section | null {
-  return sections.find((section) => segments[section][locale] === segment) ?? null;
+  return sections.find((section) => segmentIn(section, locale) === segment) ?? null;
 }
 
 const prefix = (locale: Locale) => (locale === defaultLocale ? '' : `/${locale}`);
@@ -107,7 +112,7 @@ export const intlSectionOf = (section: Section): (typeof intlSections)[number] |
  */
 export function sectionPath(locale: Locale, section: Section): string {
   const target = isLegacyLocale(locale) || intlSectionOf(section) ? locale : defaultLocale;
-  return `${prefix(target)}/${segments[section][target]}`;
+  return `${prefix(target)}/${segmentIn(section, target)}`;
 }
 
 export function detailPath(locale: Locale, section: 'cruise' | 'cabin', slug: string, id: number): string {

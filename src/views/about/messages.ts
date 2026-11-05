@@ -317,7 +317,111 @@ const ja: AboutMessages = {
   },
 };
 
-export const aboutMessages = byLocale<AboutMessages>({ en, vi, ja });
+const fr: AboutMessages = {
+  metaTitle: 'À propos de Green Ruby Cruises',
+  metaDescription:
+    "L’histoire de Green Ruby : un luxe réfléchi, des navires conçus pour réduire leur empreinte et un lien étroit avec la baie d’Halong, la baie de Lan Ha et leurs habitants.",
+  breadcrumb: 'À propos',
+  hero: {
+    eyebrow: "L’histoire de Green Ruby Cruises",
+    title: 'Le luxe, avec',
+    titleEm: 'une empreinte plus légère.',
+    body: "Nous pensons que la plus belle façon de découvrir les baies du Vietnam est celle qui respecte leur beauté et contribue à préserver le monde qui les entoure.",
+    primary: 'Découvrir notre histoire',
+    secondary: 'Nos engagements',
+  },
+  values: {
+    label: 'Ce qui façonne la philosophie Green Ruby',
+    items: [
+      { icon: 'compass', tag: 'Philosophie', title: 'Une autre idée du luxe', body: "Moins de distractions, plus d’instants qui comptent sur l’eau." },
+      { icon: 'leaf', tag: 'Environnement', title: 'Respecter la baie', body: 'Des technologies et des choix quotidiens pensés pour réduire notre empreinte.' },
+      { icon: 'people', tag: 'Communauté', title: 'Ancrés dans le territoire', body: 'Des liens plus étroits avec les habitants et les traditions de la région.' },
+    ],
+  },
+  subnav: {
+    label: 'Sections de la page À propos',
+    story: 'Notre histoire',
+    approach: 'Notre démarche',
+    community: 'Communauté locale',
+    collection: 'Nos navires',
+    progress: 'Où nous en sommes',
+  },
+  story: {
+    eyebrow: 'Notre histoire',
+    title: 'La baie mérite',
+    titleEm: 'mieux.',
+    lead: "Certains lieux nous invitent à ralentir, à regarder de plus près et à voyager autrement.",
+    link: 'Découvrir nos navires',
+    stamp: ['Une façon', 'plus réfléchie', 'de naviguer'],
+  },
+  statement: {
+    index: 'Le regard Green Ruby',
+    line1: "Le vrai luxe, ce n’est pas d’avoir plus.",
+    line2: "C’est découvrir",
+    em: 'ce qui compte.',
+    footer: "De l’air pour respirer. De l’espace pour se retrouver. Une baie qui mérite d’être protégée.",
+  },
+  technology: {
+    eyebrow: 'Une conception réfléchie',
+    title: 'Notre démarche pour un',
+    titleEm: 'voyage plus responsable.',
+    body: "Prendre soin de la baie commence en coulisses. Nos navires associent des équipements efficaces à des choix concrets dans notre fonctionnement au quotidien.",
+    micro: 'Technologie et conception',
+    foot: 'Objectifs de conception',
+    qualifier:
+      "Les caractéristiques de conception et les objectifs environnementaux décrivent le fonctionnement prévu de nos navires ; il ne s’agit pas de résultats d’exploitation vérifiés de manière indépendante.",
+  },
+  impact: {
+    eyebrow: 'Notre impact',
+    wastewater: 'Eaux usées traitées',
+    co2: 'Tonnes de CO₂ évitées par an (solaire, estimation)',
+    solar: 'Panneaux solaires en toiture',
+  },
+  community: {
+    eyebrow: 'Au-delà du navire',
+    title: 'Notre territoire.',
+    titleEm: 'Notre responsabilité.',
+    body: "Protéger une destination, c’est aussi s’engager auprès de celles et ceux qui y vivent.",
+    link: 'Contacter notre équipe',
+  },
+  collection: {
+    eyebrow: 'Nos navires',
+    title: (n: number): string => (n === 2 ? 'Deux navires.' : 'Notre flotte.'),
+    titleEm: 'Une même philosophie.',
+    body: "Deux baies différentes, la même attention à bord. Découvrez les deux visages de l’expérience Green Ruby et les baies où nos navires vous emmènent.",
+    vessel: (i: number, bay: string | null) => `Navire ${String(i).padStart(2, '0')}${bay ? ` / ${bay}` : ''}`,
+    explore: (name: string) => `Découvrir ${name}`,
+  },
+  standards: {
+    eyebrow: 'Transparents sur nos progrès',
+    title: 'La confiance se construit',
+    titleEm: 'dans la transparence.',
+    body: "Nous préférons partager notre démarche plutôt que laisser croire qu’une certification a déjà été obtenue. Voici où nous en sommes aujourd’hui.",
+    label: 'Démarches de certification environnementale',
+    // No French eco article exists; like Vietnamese and Japanese, French readers get only the brand facts link.
+    guide: null,
+    facts: "Les chiffres environnementaux et leur statut",
+  },
+  cta: {
+    eyebrow: 'Une autre façon de voir la baie',
+    title: 'Voyager avec élégance.',
+    titleEm: 'Respecter les lieux.',
+    body: 'Trouvez la croisière Green Ruby qui réunit paysages grandioses, confort généreux et un lien plus profond avec les lieux.',
+    primary: 'Découvrir nos itinéraires',
+    secondary: 'Contacter notre équipe',
+  },
+  honest: {
+    solar: "Des panneaux solaires d’environ 70 kW installés en toiture contribuent, le jour, à alimenter l’éclairage, la production d’eau chaude et les équipements de bord. Associés à une climatisation à eau de mer, ils sont conçus pour réduire d’environ 40 % la consommation d’énergie à bord ; les économies mesurées seront publiées une fois les navires en service.",
+    water: "100 % des eaux usées font l’objet d’un traitement biologique à bord avant leur rejet, afin de protéger les fragiles habitats marins de la baie.",
+    plastic: "Bouteilles réutilisables, produits d’accueil en grand format et emballages fournisseurs allégés en plastique font partie de notre plan pour le fonctionnement quotidien à bord.",
+    energy: "Un système récupère la chaleur dégagée par les moteurs et les groupes électrogènes pour la production d’eau chaude et la climatisation.",
+    local: "Nous souhaitons nous approvisionner autant que possible auprès des pêcheurs et des agriculteurs locaux, et privilégier les talents de la région pour recruter et former notre équipage.",
+    cleanup: "Nous prévoyons des opérations de nettoyage du littoral ouvertes aux passagers, ainsi que des présentations à bord sur l’écosystème de la baie et sur la manière dont les voyageurs peuvent alléger leur impact.",
+    culture: "Nous espérons soutenir l’éducation à l’environnement dans les écoles locales, l’accès des jeunes aux métiers de la mer et des collaborations qui font vivre l’artisanat et les traditions de la baie.",
+  },
+};
+
+export const aboutMessages = byLocale<AboutMessages>({ en, vi, ja, fr });
 
 type HonestTopic = keyof AboutMessages['honest'];
 

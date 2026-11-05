@@ -19,7 +19,8 @@ const SRC = join(ROOT, 'src');
 const walkDir = (dir) =>
   readdirSync(dir).flatMap((name) => {
     const p = join(dir, name);
-    if (statSync(p).isDirectory()) return name === 'node_modules' || name.startsWith('(ja)') ? [] : walkDir(p);
+    // skip the generated intl route trees ((ja), (fr) …): they only re-export the English shims
+    if (statSync(p).isDirectory()) return name === 'node_modules' || /^\((?!en\)|vi\))[a-z]{2}\)$/.test(name) ? [] : walkDir(p);
     return /\.(ts|tsx)$/.test(name) && !/\.test\.ts$/.test(name) && !name.endsWith('.d.ts') ? [p] : [];
   });
 
@@ -92,8 +93,8 @@ function scanFile(file) {
     if (isCopyObject(n)) {
       const get = (k) => n.properties.find((p) => propName(p) === k);
       const val = (k) => { const p = get(k); return p ? (ts.isShorthandPropertyAssignment(p) ? p.name : p.initializer) : null; };
-      nodes.push({ binding: bindingName(n), en: val('en'), vi: val('vi'), ja: val('ja'), line: sf.getLineAndCharacterOfPosition(n.getStart()).line + 1 });
-      for (const k of ['en', 'vi', 'ja']) {
+      nodes.push({ binding: bindingName(n), en: val('en'), vi: val('vi'), ja: val(TARGET), line: sf.getLineAndCharacterOfPosition(n.getStart()).line + 1 });
+      for (const k of ['en', 'vi', TARGET]) {
         const v = val(k);
         const target = v && ts.isIdentifier(v) && consts.has(v.text) ? consts.get(v.text).initializer : v;
         if (target) inCopy.add(target);
@@ -113,7 +114,7 @@ function scanFile(file) {
     ts.forEachChild(n, visit);
   };
   // the main dictionaries are whole files
-  const dict = /src\/messages\/(en|vi|ja)\.ts$/.exec(file);
+  const dict = /src\/messages\/([a-z]{2})\.ts$/.exec(file);
   if (!dict) visit(sf);
   else {
     // hard-coded scan still useful? dictionaries are copy by definition
@@ -130,10 +131,14 @@ function dictionaryNode() {
       return decl ? { sf, consts, value: decl.initializer } : null;
     } catch { return null; }
   };
-  return { en: get('en'), vi: get('vi'), ja: get('ja') };
+  return { en: get('en'), vi: get('vi'), ja: get(TARGET) };
 }
 
-export function extract() {
+/** The intl locale whose copy fills the `ja*` fields of each row (historical names; default 'ja'). */
+let TARGET = 'ja';
+
+export function extract(target = 'ja') {
+  TARGET = target;
   const rows = [];
   const hard = [];
   const index = (list) => new Map(list.map((l) => [l.path, l]));
@@ -148,7 +153,7 @@ export function extract() {
   const d = dictionaryNode();
   push('src/messages/en.ts', 'messages', leaves(d.en.value, d.en.consts), d.vi ? leaves(d.vi.value, d.vi.consts) : [], d.ja ? leaves(d.ja.value, d.ja.consts) : null);
   for (const file of walkDir(SRC)) {
-    if (/src\/messages\/(en|vi|ja)\.ts$/.test(file)) continue;
+    if (/src\/messages\/([a-z]{2})\.ts$/.test(file)) continue;
     const { rel, consts, nodes, hardcoded } = scanFile(file);
     for (const h of hardcoded) hard.push({ file: rel, ...h });
     for (const n of nodes) {

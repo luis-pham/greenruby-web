@@ -10,7 +10,7 @@ export function sectionHref(locale: Locale, section: Section, publicSections: re
 }
 
 /** What a new language appends to a link label whose page exists only in English (glossary §10). */
-const ENGLISH_ONLY: Partial<Record<Locale, string>> = { ja: '（英語版）' };
+const ENGLISH_ONLY: Partial<Record<Locale, string>> = { ja: '（英語版）', fr: ' (en anglais)' };
 
 /**
  * `label` for a link to `href`: a new language's link that goes to an English page says so（英語版）, unless the label
@@ -18,7 +18,7 @@ const ENGLISH_ONLY: Partial<Record<Locale, string>> = { ja: '（英語版）' };
  */
 export function linkLabel(locale: Locale, href: string, label: string): string {
   const mark = englishOnlyMark(locale, href);
-  return !mark || label.includes(mark) ? label : `${label}${mark}`;
+  return !mark || label.includes(mark.trim()) ? label : `${label}${mark}`; // fr marks start with a no-break space, labels may not
 }
 
 /** The（英語版）mark alone, for a layout that sets it apart from the label; '' when the link needs none. */

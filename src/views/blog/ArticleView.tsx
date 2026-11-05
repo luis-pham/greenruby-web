@@ -26,6 +26,7 @@ const PLAN = byLocale<{ title: string; firstTime: string; transfer: string; dest
   en: { title: 'Plan your trip', firstTime: 'First-time cruise guide', transfer: 'Hanoi to Ha Long Bay', destinations: 'Places to visit', hub: 'All travel guides' },
   vi: { title: 'Chuẩn bị chuyến đi', firstTime: 'Lần đầu đi du thuyền', transfer: 'Hà Nội đi Hạ Long', destinations: 'Địa điểm tham quan', hub: 'Tất cả cẩm nang' },
   ja: { title: '旅の準備', firstTime: '初めてのクルーズガイド', transfer: 'ハノイからハロン湾へ', destinations: '見どころ', hub: '旅行ガイド一覧' },
+  fr: { title: 'Préparer votre voyage', firstTime: 'Guide de la première croisière', transfer: 'De Hanoï à la baie d’Halong', destinations: 'Lieux à découvrir', hub: 'Tous nos guides de voyage' },
 });
 
 /** Blog article, or a company news article (category news / tin-tuc: /news/{slug}.html). */

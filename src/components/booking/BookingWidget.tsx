@@ -3,7 +3,7 @@
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { dateFormatTag, numberFormatTag, sectionPath, type Locale } from '@/lib/i18n';
 import type { BookingData, BookingOption } from '@/lib/booking-options';
-import { wordSpace } from '@/lib/typography';
+import { wordSpace, colonSep } from '@/lib/typography';
 import { bookingMessages, type BookingMessages } from './messages';
 import s from './booking.module.css';
 
@@ -163,7 +163,7 @@ export function BookingPanel({ locale, data, cabinId, contact }: Props) {
       {hasDates ? (
         <>
           <Calendar key={`${optionIndex}`} locale={locale} dates={option.departures} value={date} onChange={setDate} t={t} />
-          <p className={s.selected}>{date ? <>{t.selected}: <strong>{formatDay(date, locale)}</strong></> : t.chooseDate}</p>
+          <p className={s.selected}>{date ? <>{t.selected}{colonSep(locale)}<strong>{formatDay(date, locale)}</strong></> : t.chooseDate}</p>
         </>
       ) : (
         <div className={s.soon}>

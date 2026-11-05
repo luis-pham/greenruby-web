@@ -198,4 +198,70 @@ const ja: FaqMessages = {
   contactCaption: '湾でお会いしましょう。',
 };
 
-export const faqMessages = byLocale({ en, vi, ja });
+const fr: FaqMessages = {
+  breadcrumb: 'Questions fréquentes',
+  metaTitle: 'Questions fréquentes',
+  metaDescription:
+    'Réponses aux questions fréquentes sur les croisières Green Ruby en baie d’Halong et en baie de Lan Ha : itinéraires, réservation et paiement, cabines, vie à bord et technologies vertes.',
+  pageSuffix: (page) => ` - Page ${page}`,
+  categoryDescription: (name) =>
+    `${name} : réponses de notre service réservations aux questions fréquentes sur les croisières Green Ruby en baie d’Halong et en baie de Lan Ha.`,
+  heroEyebrow: 'Le guide Green Ruby',
+  heroTitle: 'Un peu de clarté.',
+  heroTitleEm: 'Un voyage plus serein.',
+  heroBody:
+    'Du choix de la baie aux détails de la vie à bord, des réponses claires pour voyager en toute confiance.',
+  heroPrimary: 'Parcourir les questions',
+  heroSecondary: 'Contacter notre équipe',
+  artKicker: 'Vos questions pratiques',
+  artTitle: 'Avant d’embarquer.',
+  questions: (n) => (n === 1 ? '1 question' : `${n} questions`),
+  introEyebrow: 'Tout ce qu’il faut savoir',
+  introTitle: 'Vos questions,',
+  introTitleEm: 'des réponses claires.',
+  introBody:
+    'Parcourez les thèmes ou recherchez un point précis. L’essentiel des informations pratiques, réuni en un seul endroit.',
+  topicsKicker: 'Parcourir par thème',
+  topicsLabel: 'Thèmes de la FAQ',
+  allTopics: 'Toutes les questions',
+  helpTitle: 'Besoin d’un conseil personnalisé ?',
+  helpBody: 'Notre service réservations vous aide pour vos demandes particulières, l’organisation de votre voyage et les détails de réservation.',
+  helpLink: 'Échanger avec notre équipe',
+  search: {
+    label: 'Rechercher dans les questions fréquentes',
+    placeholder: 'Rechercher une question, par ex. paiement ou tenue',
+    clear: 'Effacer',
+    found: (n) => (n === 1 ? '1 question trouvée' : `${n} questions trouvées`),
+    expandAll: 'Tout déplier',
+    collapseAll: 'Tout replier',
+    emptyTitle: 'Aucune question trouvée',
+    emptyBody: 'Essayez un autre terme, ou contactez notre équipe : nous serons heureux de vous aider.',
+    reset: 'Afficher toutes les questions',
+  },
+  otherGroup: 'Autres questions',
+  emptyGroup: 'Ce thème ne compte pas encore de questions.',
+  paginationLabel: 'Pages de la FAQ',
+  previous: 'Précédent',
+  next: 'Suivant',
+  assuranceEyebrow: 'Préparer en toute confiance',
+  assuranceTitle: 'Un départ en douceur',
+  assuranceTitleEm: 'pour un voyage à part.',
+  assuranceBody:
+    'Notre équipe vous accompagne de la première question à la confirmation finale, pour que vous puissiez vous concentrer sur ce qui vous attend sur la baie.',
+  assuranceCta: 'Découvrir nos itinéraires',
+  steps: [
+    { title: 'Trouver votre croisière idéale', body: 'Découvrez la baie d’Halong et la baie de Lan Ha, puis choisissez l’itinéraire et la cabine qui vous conviennent.' },
+    { title: 'Préciser les détails', body: 'Envoyez une demande de réservation avec vos dates ; notre service réservations vous renseigne sur les disponibilités, les prestations incluses, les options de transfert et les conditions de réservation.' },
+    { title: 'Préparer votre départ', body: 'Recevez votre confirmation et les informations d’arrivée une fois les départs ouverts, et savourez l’attente de votre croisière.' },
+  ],
+  contactEyebrow: 'Réservations personnalisées',
+  contactTitle: 'Une question',
+  contactTitleEm: 'en tête ?',
+  contactBody:
+    'Une occasion particulière, une suite précise ou une question sur votre arrivée : nous serons ravis de vous aider à préparer votre voyage.',
+  contactPrimary: 'Contacter notre équipe',
+  contactEmail: 'Envoyer un e-mail',
+  contactCaption: 'À bientôt sur la baie.',
+};
+
+export const faqMessages = byLocale({ en, vi, ja, fr });

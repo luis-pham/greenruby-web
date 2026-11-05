@@ -3,7 +3,7 @@ import { FaqList } from '@/components/sections/Faq';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { SmartLink, TextLink } from '@/components/ui';
 import type { ItinerarySummary } from '@/lib/api/schemas';
-import { homePath, itineraryPath, sectionPath } from '@/lib/i18n';
+import { homePath, inLocale, itineraryPath, sectionPath, type LegacyCopy } from '@/lib/i18n';
 import { organizationRef } from '@/lib/organization';
 import { wordSpace } from '@/lib/typography';
 import { siteInfo } from '@/lib/site-info';
@@ -14,6 +14,8 @@ import { SelectorPanel } from './SelectorPanel';
 import { plainText, RichText, type LinkResolver } from './Rich';
 import { TransferSelector } from './TransferSelector';
 import type { Block, GuideContent } from './types';
+
+const CONTACT_RESERVATIONS: LegacyCopy<string> = { en: 'Contact reservations', vi: 'Liên hệ đặt chỗ', ja: '予約担当チームに問い合わせる', fr: 'Contacter le service réservations' };
 import s from './guide.module.css';
 
 const escapeHtml = (value: string) => value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -214,7 +216,7 @@ export function GuideView({
               ) : null;
             })}
           </ul>
-          <TextLink href={resolve('contact') ?? homePath(locale)}>{locale === 'vi' ? 'Liên hệ đặt chỗ' : locale === 'ja' ? '予約担当チームに問い合わせる' : 'Contact reservations'}</TextLink>
+          <TextLink href={resolve('contact') ?? homePath(locale)}>{inLocale(CONTACT_RESERVATIONS, locale)}</TextLink>
         </div>
       </section>
 

@@ -76,4 +76,27 @@ const ja: HubMessages = {
   journal: { title: '旅のコラムから', lede: '季節、比較記事、環境への取り組みに関する最新の記事。', all: '旅のコラムの記事一覧' },
 };
 
-export const hubMessages = byLocale<HubMessages>({ en, vi, ja });
+const fr: HubMessages = {
+  metaTitle: 'Guide pratique de la baie d’Halong',
+  metaDescription: "Nos guides de la baie d’Halong et de la baie de Lan Ha : où aller, comment s’y rendre, quand partir et comment choisir sa croisière.",
+  eyebrow: "Baie d’Halong · Baie de Lan Ha",
+  title: "Baie d’Halong",
+  titleEm: 'guide de voyage',
+  lead: "Retrouvez nos guides pour choisir votre croisière, préparer vos déplacements et découvrir les sites des deux baies.",
+  plan: { title: 'Préparer votre voyage', lede: "Quand partir, combien de nuits, quelle baie choisir et comment rejoindre le port." },
+  places: {
+    title: 'Sites à visiter',
+    lede: "Grottes, îles et villages des deux baies : le déroulement des visites et les itinéraires qui prévoient d’y faire escale.",
+    hub: 'Voir tous les sites à visiter',
+  },
+  cruises: {
+    title: 'Choisir votre croisière',
+    lede: 'Les deux navires, les quatre itinéraires et les points à comparer avant de réserver.',
+    itineraries: ['Tous les itinéraires', 'Deux baies, une ou deux nuits : les programmes jour par jour, côte à côte.'],
+    luxury: ['Le guide complet des croisières de luxe écoresponsables (en anglais)', 'Ce qu’il faut vérifier avant de réserver : certifications, technologies et les deux baies.'],
+    ship: (bay: string) => `${bay} : le navire, ses cabines, ses équipements et ses itinéraires.`,
+  },
+  journal: { title: 'Extraits du carnet de voyage', lede: 'Nos derniers articles sur les saisons, les comparatifs et le tourisme durable.', all: 'Tous les articles du carnet de voyage' },
+};
+
+export const hubMessages = byLocale<HubMessages>({ en, vi, ja, fr });

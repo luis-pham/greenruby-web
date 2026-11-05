@@ -405,6 +405,7 @@ const CHAT_CHANNELS = byLocale<ChannelKey[]>({
   vi: ['call', 'zalo', 'messenger', 'ai'],
   // Channel keys, not copy: Japanese guests are international guests, so they get the English channels.
   ja: ['call', 'whatsapp', 'ai'],
+  fr: ['call', 'whatsapp', 'ai'],
 });
 
 export function SiteFooter({ locale, site, t }: Pick<Chrome, 'locale' | 'site' | 't'>) {

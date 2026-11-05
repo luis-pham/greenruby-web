@@ -32,3 +32,13 @@ export function FlagJP() {
     </svg>
   );
 }
+
+export function FlagFR() {
+  return (
+    <svg viewBox="0 0 30 20" aria-hidden="true">
+      <rect width="10" height="20" fill="#002654" />
+      <rect x="10" width="10" height="20" fill="#fff" />
+      <rect x="20" width="10" height="20" fill="#CE1126" />
+    </svg>
+  );
+}

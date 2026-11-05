@@ -32,8 +32,14 @@ export const headlineStop = (locale: Locale): boolean => !UNSPACED.has(locale);
  */
 export const topicJoin = (locale: Locale): ' ' | 'の' | '' => (locale === 'ja' ? 'の' : wordSpace(locale));
 
-/** `Next departure: 15 Feb 2027` / `次回の出発日：2027年2月15日` (full-width colon, no space, as in the glossary). */
-export const labelled = (label: string, value: string, locale: Locale): string => `${label}${UNSPACED.has(locale) ? '：' : ': '}${value}`;
+/** Languages that put a (non-breaking) space before the colon: `Prochain départ : …` (fr-FR typography). */
+const SPACED_COLON: ReadonlySet<string> = new Set(['fr']);
+
+/** The separator after a label: ': ' (en/vi, unchanged), '：' (ja), ' : ' with U+00A0 before the colon (fr). */
+export const colonSep = (locale: Locale): string => (UNSPACED.has(locale) ? '：' : SPACED_COLON.has(locale) ? '\u00a0: ' : ': ');
+
+/** `Next departure: 15 Feb 2027` / `次回の出発日：2027年2月15日` / `Prochain départ : 15 février 2027`. */
+export const labelled = (label: string, value: string, locale: Locale): string => `${label}${colonSep(locale)}${value}`;
 
 /**
  * Splits copy at a `{name}` placeholder, so a language can place an element (a link) mid-sentence:

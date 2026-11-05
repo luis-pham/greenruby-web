@@ -33,6 +33,7 @@ describe('labelled', () => {
     assert.equal(labelled('Next departure', '15 Feb 2027', 'en'), 'Next departure: 15 Feb 2027');
     assert.equal(labelled('Khởi hành gần nhất', '15 thg 2, 2027', 'vi'), 'Khởi hành gần nhất: 15 thg 2, 2027');
     assert.equal(labelled('次回の出発日', '2027年2月15日', 'ja'), '次回の出発日：2027年2月15日');
+    assert.equal(labelled('Prochain départ', '15 février 2027', 'fr'), 'Prochain départ\u00a0: 15 février 2027');
   });
   it('is the template it replaces for en/vi', () => {
     for (const locale of ['en', 'vi'] as const) assert.equal(labelled('A', 'b', locale), `${'A'}: ${'b'}`);
