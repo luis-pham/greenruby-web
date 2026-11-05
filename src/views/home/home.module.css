@@ -16,8 +16,6 @@
   color: var(--color-neutral-white);
   background: #133e42;
 }
-/* The Japanese facts strip runs a line taller (two-line title), and it grows upwards: keep the same gap above it. */
-@media (min-width: 901px) { .hero:lang(ja) { padding-bottom: 190px; } }
 .heroStage { display: block; }
 .heroMedia { position: absolute; inset: 0; z-index: -2; overflow: hidden; }
 .heroImage {
@@ -114,8 +112,9 @@
   .heroImage, .heroSlide { transition: none; }
 }
 
-/* Facts strip overlapping the bottom of the hero. */
-.glance { position: absolute; left: 0; right: 0; bottom: -68px; z-index: 4; }
+/* Facts strip overlapping the bottom of the hero. In the page flow, pulled 90px up over the hero: a taller strip
+   (wrapped Japanese or French titles) pushes the fleet section down instead of growing up into the booking bar. */
+.glance { position: relative; z-index: 4; margin-top: -90px; }
 .glanceGrid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -162,7 +161,7 @@
 .heading { margin: 18px 0 0; font-size: clamp(36px, 4.3vw, 64px); line-height: 1.12; }
 
 /* ---------- Fleet ---------- */
-.fleet { position: relative; overflow: hidden; padding: 190px 0 118px; background: var(--bg-page); }
+.fleet { position: relative; overflow: hidden; padding: 122px 0 118px; background: var(--bg-page); }
 .fleet::before {
   content: 'GREEN RUBY';
   position: absolute;
@@ -416,11 +415,11 @@
 }
 @media (max-width: 900px) {
   .hero { min-height: 790px; padding-bottom: 210px; }
-  .glance { bottom: -133px; }
+  .glance { margin-top: -133px; }
   .glanceGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .glanceCell:nth-child(n + 3) { border-top: 1px solid var(--border-default); }
   .glanceCell:nth-child(3)::before { display: none; }
-  .fleet { padding-top: 224px; }
+  .fleet { padding-top: 91px; }
   .fleetIntro { grid-template-columns: 1fr; gap: 13px; margin-bottom: 35px; }
   .fleetGrid { grid-template-columns: 1fr; }
   .fleetVisual { aspect-ratio: 1.7 / 1; }
@@ -439,10 +438,10 @@
   .heroCopy { margin-top: 100px; }
   .heroTitle { font-size: 48px; line-height: 1.11; }
   .heroBody { font-size: 14px; }
-  .glance { bottom: -148px; }
+  .glance { margin-top: -151px; }
   .glanceCell { min-height: 148px; padding: 20px 17px 18px; }
   .glanceTitle { font-size: clamp(19px, 5.2vw, 24px); }
-  .fleet { padding-top: 227px; }
+  .fleet { padding-top: 79px; }
   .fleetVisual { aspect-ratio: 1.12 / 1; }
   .fleetPhotoTop, .fleetPhotoBottom { left: 22px; right: 22px; }
   .fleetBody { padding: 26px 23px 30px; }

@@ -112,41 +112,42 @@ export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
           }
           labels={h.heroSlides}
         />
-        <div className={s.glance}>
-          <div className="container">
-            <dl className={s.glanceGrid} aria-label={h.glanceLabel}>
-              <div className={s.glanceCell}>
-                <dt>{h.glance.fleet}</dt>
-                <dd>
-                  <strong className={s.glanceTitle}>{h.glance.fleetTitle(page.cruises.length)}</strong>
-                  <span className={s.glanceDetail}>{page.cruises.map((c) => c.name).join(' & ')}</span>
-                </dd>
-              </div>
-              <div className={s.glanceCell}>
-                <dt>{h.glance.destinations}</dt>
-                <dd>
-                  <strong className={s.glanceTitle}>{h.glance.destinationsTitle(bays.length)}</strong>
-                  <span className={s.glanceDetail}>{bays.map((b) => h.bays[b]).join(' & ')}</span>
-                </dd>
-              </div>
-              <div className={s.glanceCell}>
-                <dt>{h.glance.journeys}</dt>
-                <dd>
-                  <strong className={s.glanceTitle}>{h.glance.journeysTitle(page.itineraries.length)}</strong>
-                  <span className={s.glanceDetail}>{durations.map((d) => h.duration(d)).join(' / ')}</span>
-                </dd>
-              </div>
-              <div className={s.glanceCell}>
-                <dt>{h.glance.commitment}</dt>
-                <dd>
-                  <strong className={s.glanceTitle}><SmartLink href={ecoHref}>{h.glance.commitmentTitle}{ecoMark && <span className={s.glanceMark}>{ecoMark}</span>}</SmartLink></strong>
-                  <span className={s.glanceDetail}>{h.glance.commitmentDetail}</span>
-                </dd>
-              </div>
-            </dl>
-          </div>
-        </div>
       </header>
+      {/* After the hero, pulled up over its lower edge (CSS): a taller strip pushes the page down. */}
+      <div className={s.glance}>
+        <div className="container">
+          <dl className={s.glanceGrid} aria-label={h.glanceLabel}>
+            <div className={s.glanceCell}>
+              <dt>{h.glance.fleet}</dt>
+              <dd>
+                <strong className={s.glanceTitle}>{h.glance.fleetTitle(page.cruises.length)}</strong>
+                <span className={s.glanceDetail}>{page.cruises.map((c) => c.name).join(' & ')}</span>
+              </dd>
+            </div>
+            <div className={s.glanceCell}>
+              <dt>{h.glance.destinations}</dt>
+              <dd>
+                <strong className={s.glanceTitle}>{h.glance.destinationsTitle(bays.length)}</strong>
+                <span className={s.glanceDetail}>{bays.map((b) => h.bays[b]).join(' & ')}</span>
+              </dd>
+            </div>
+            <div className={s.glanceCell}>
+              <dt>{h.glance.journeys}</dt>
+              <dd>
+                <strong className={s.glanceTitle}>{h.glance.journeysTitle(page.itineraries.length)}</strong>
+                <span className={s.glanceDetail}>{durations.map((d) => h.duration(d)).join(' / ')}</span>
+              </dd>
+            </div>
+            <div className={s.glanceCell}>
+              <dt>{h.glance.commitment}</dt>
+              <dd>
+                <strong className={s.glanceTitle}><SmartLink href={ecoHref}>{h.glance.commitmentTitle}{ecoMark && <span className={s.glanceMark}>{ecoMark.trim()}</span>}</SmartLink></strong>
+                <span className={s.glanceDetail}>{h.glance.commitmentDetail}</span>
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </div>
 
       <main>
         {page.cruises.length > 0 && (

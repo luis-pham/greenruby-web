@@ -78,13 +78,16 @@ export function Topbar({ site, t }: Pick<Chrome, 'site' | 't'>) {
 /**
  * Viewport width below which the desktop menu collapses into the menu button. The header spans the
  * 1300px content column (so the logo lines up with the page); a CMS menu too long for it always
- * collapses. Width estimate: 14px uppercase with 0.12em tracking.
+ * collapses. Width estimate, measured in the browser: 14px uppercase with 0.12em tracking is about 9.7px a
+ * Latin character and 15px a CJK one; flags + booking button are about 160px plus 7.7px a label character
+ * (the fixed 275px of the English button made the shorter-label French menu "too long" at every width).
  */
-function menuBreakpoint(links: NavLink[]): number {
-  const chars = links.reduce((n, l) => n + l.label.length, 0);
+const textWidth = (text: string) => [...text].reduce((w, ch) => w + (/[⺀-鿿가-힯＀-￯]/.test(ch) ? 15 : 9.7), 0);
+
+function menuBreakpoint(links: NavLink[], bookLabel: string): number {
   const chevrons = links.filter((l) => l.children.length > 0).length;
-  const menu = chars * 10.2 + chevrons * 21 + Math.max(0, links.length - 1) * 28;
-  const needed = menu + 80 + 275 + 50; // menu, logo, flags + booking button, gaps
+  const menu = links.reduce((w, l) => w + textWidth(l.label), 0) + chevrons * 21 + Math.max(0, links.length - 1) * 28;
+  const needed = menu + 80 + 160 + bookLabel.length * 7.7 + 50; // menu, logo, flags + booking button, gaps
   const column = 1300 - 2 * 46; // content column inside the container padding
   if (needed > column) return 100000;
   return Math.round(Math.max(1200, needed + 2 * 46 + 16));
@@ -144,7 +147,7 @@ export function SiteNav({ locale, site, t, alternateHref, alternates, currentHre
   });
   // The brand already links home, so the home item is left out of the desktop menu.
   const desktopLinks = links.filter((link) => link.href !== homeHref(locale, site.publicSections));
-  const collapseAt = menuBreakpoint(desktopLinks);
+  const collapseAt = menuBreakpoint(desktopLinks, t.nav.book);
   const isCurrent = (link: NavLink) => link.href === currentHref || link.children.some((c) => c.href === currentHref);
   return (
     <nav className={s.nav} aria-label={t.nav.label}>
