@@ -221,7 +221,7 @@ export function BookingWizard({ locale, t, contact, homeHref, bookingHref, priva
       .then((items) => dispatch({ type: 'amenitiesLoaded', itineraryId: id, items }))
       .catch(() => ctrl.signal.aborted || dispatch({ type: 'amenitiesLoaded', itineraryId: id, items: [] }));
     bookingApi
-      .itineraryDetail(itinerary.itinerary_id, ctrl.signal)
+      .itineraryDetail(locale, itinerary.itinerary_id, ctrl.signal)
       .then((detail) => dispatch({ type: 'detailLoaded', itineraryId: id, detail }))
       .catch(() => ctrl.signal.aborted || dispatch({ type: 'detailLoaded', itineraryId: id, detail: null }));
     return () => ctrl.abort();

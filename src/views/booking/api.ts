@@ -105,8 +105,8 @@ export const bookingApi = {
     return items<Itinerary>(await getJson('/api/booking/itineraries', { lang, unique: 'itinerary', date }, signal));
   },
 
-  async itineraryDetail(itineraryId: number, signal?: AbortSignal): Promise<ItineraryDetail> {
-    const data = await getJson(`/api/booking/itinerary/${encodeURIComponent(itineraryId)}`, {}, signal);
+  async itineraryDetail(lang: Locale, itineraryId: number, signal?: AbortSignal): Promise<ItineraryDetail> {
+    const data = await getJson(`/api/booking/itinerary/${encodeURIComponent(itineraryId)}`, { lang }, signal);
     if (!data.success) throw new Error('Unexpected response');
     return {
       activities: Array.isArray(data.activities) ? (data.activities as ItineraryDetail['activities']) : [],
