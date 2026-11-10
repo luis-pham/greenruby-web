@@ -25,7 +25,7 @@
   opacity: 0;
   transition: opacity 1.125s var(--motion-easing-standard);
 }
-.heroImageActive { opacity: 1; animation: heroDrift 6.25s var(--motion-easing-out) both; }
+.heroImageActive { opacity: 1; animation: heroDrift 8s var(--motion-easing-out) both; }
 @keyframes heroDrift { from { transform: scale(1.06); } to { transform: scale(1); } }
 .heroSlides { display: grid; }
 .heroSlide {
@@ -71,6 +71,7 @@
   align-items: flex-end;
   gap: var(--space-4);
   transform: translateY(-38%);
+  text-shadow: 0 1px 10px rgba(4, 22, 23, 0.55); /* stays readable over bright sea and sky */
 }
 .heroNav ol { display: flex; flex-direction: column; gap: 6px; margin: 0; padding: 0; list-style: none; }
 .heroNav ol button {
@@ -80,27 +81,27 @@
   padding: 6px 0;
   border: 0;
   background: none;
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(255, 255, 255, 0.8);
   cursor: pointer;
   transition: color var(--motion-duration-fast);
 }
 .heroNav ol button:hover, .heroNav ol button:focus-visible { color: var(--color-neutral-white); }
 .heroNavNum { font-family: var(--font-family-serif); font-size: var(--font-size-md); letter-spacing: 0.04em; }
-.heroNavTrack { position: relative; width: 2px; height: 46px; overflow: hidden; background: rgba(255, 255, 255, 0.28); }
+.heroNavTrack { position: relative; width: 2px; height: 46px; overflow: hidden; background: rgba(255, 255, 255, 0.45); }
 .heroNavFill { position: absolute; inset: 0; background: var(--text-inverse-accent); transform-origin: top; animation: heroProgress linear forwards; }
 @keyframes heroProgress { from { transform: scaleY(0); } to { transform: scaleY(1); } }
 .heroNavActive { color: var(--color-neutral-white) !important; }
 .heroNavActive .heroNavNum { color: var(--text-inverse-accent); }
-.heroNavTotal { color: rgba(255, 255, 255, 0.6); font-size: var(--font-size-label); letter-spacing: 0.18em; }
+.heroNavTotal { color: rgba(255, 255, 255, 0.8); font-size: var(--font-size-label); letter-spacing: 0.18em; }
 .heroNavPause {
   display: grid;
   place-items: center;
   width: 34px;
   height: 34px;
   margin-right: -16px;
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.65);
   border-radius: var(--radius-full);
-  background: transparent;
+  background: rgba(4, 22, 23, 0.28);
   color: var(--color-neutral-white);
   cursor: pointer;
   transition: background var(--motion-duration-fast), border-color var(--motion-duration-fast);
@@ -182,10 +183,8 @@
 .collectionMark small { margin-left: 9px; font: var(--font-weight-bold) var(--font-size-label) var(--font-family-sans); letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); }
 .fleetGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; align-items: stretch; }
 .fleetCard { display: flex; flex-direction: column; min-width: 0; background: var(--bg-surface); box-shadow: 0 18px 52px rgba(28, 57, 46, 0.07); transition: box-shadow 0.35s; }
-.fleetCard:hover { box-shadow: 0 24px 64px rgba(24, 48, 40, 0.12); }
 .fleetVisual { position: relative; display: block; aspect-ratio: 1.38 / 1; overflow: hidden; background: #47695f; color: var(--color-neutral-white); }
-.fleetVisual img { object-fit: cover; filter: saturate(0.83); transition: transform 0.75s var(--motion-easing-out), filter 0.5s; }
-.fleetCard:hover .fleetVisual img { transform: scale(1.055); filter: saturate(0.99); }
+.fleetVisual img { object-fit: cover; filter: saturate(0.83); transition: transform 0.7s var(--motion-easing-out), filter 0.5s; }
 .fleetVisual::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(4, 28, 26, 0.36), transparent 30%, transparent 46%, rgba(4, 30, 27, 0.8)); }
 .fleetPhotoTop,
 .fleetPhotoBottom { position: absolute; z-index: 1; left: 32px; right: 32px; }
@@ -193,7 +192,6 @@
 .fleetPhotoBottom { bottom: 26px; display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; }
 .fleetPhotoBottom strong { font-family: var(--font-family-serif); font-size: clamp(36px, 3.9vw, 57px); font-weight: var(--font-weight-regular); line-height: 1.08; letter-spacing: -0.035em; }
 .fleetPhotoIcon { flex: 0 0 auto; width: 44px; height: 44px; display: grid; place-items: center; border: 1px solid rgba(243, 243, 233, 0.6); border-radius: var(--radius-full); font-size: 22px; transition: background var(--motion-duration-fast); }
-.fleetCard:hover .fleetPhotoIcon { background: rgba(255, 255, 255, 0.17); }
 .fleetBody { display: flex; flex-direction: column; flex: 1; padding: 32px 34px 35px; }
 .fleetCategory { color: var(--text-accent); font-size: var(--font-size-label); font-weight: var(--font-weight-bold); letter-spacing: 0.16em; text-transform: uppercase; }
 .fleetBody h3 { margin: 16px 0 14px; font-size: clamp(27px, 2.6vw, 36px); line-height: 1.23; }
@@ -238,12 +236,10 @@
 }
 .tabActive { background: var(--bg-brand); color: var(--color-neutral-white); }
 .journeyGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 27px; }
-.journeyCard { display: flex; flex-direction: column; overflow: hidden; background: #f7f6f1; border: 1px solid #ecebe4; transition: transform var(--motion-duration-fast), box-shadow var(--motion-duration-fast); }
+.journeyCard { position: relative; display: flex; flex-direction: column; overflow: hidden; background: #f7f6f1; border: 1px solid #ecebe4; transition: box-shadow var(--motion-duration-base); }
 .journeyCard[hidden] { display: none; }
-.journeyCard:hover { transform: translateY(-4px); box-shadow: 0 17px 40px rgba(28, 52, 36, 0.08); }
 .journeyPhoto { position: relative; height: 310px; overflow: hidden; background: #557471; }
-.journeyPhoto img { object-fit: cover; transition: transform 0.6s; }
-.journeyCard:hover .journeyPhoto img { transform: scale(1.04); }
+.journeyPhoto img { object-fit: cover; transition: transform 0.7s var(--motion-easing-out); }
 .photoLabel {
   position: absolute;
   bottom: 20px;
@@ -295,6 +291,7 @@
 }
 .carouselTrack::-webkit-scrollbar { display: none; }
 .roomCard {
+  position: relative;
   flex: 0 0 calc((100% - (var(--visible) - 1) * var(--gutter)) / var(--visible));
   display: flex;
   flex-direction: column;
@@ -303,8 +300,7 @@
   background: var(--bg-surface);
 }
 .roomImg { position: relative; aspect-ratio: 1.12 / 1; overflow: hidden; background: #d6d2c7; }
-.roomImg img { object-fit: cover; transition: transform 0.65s; }
-.roomCard:hover .roomImg img { transform: scale(1.045); }
+.roomImg img { object-fit: cover; transition: transform 0.7s var(--motion-easing-out); }
 .roomContent { display: flex; flex-direction: column; flex: 1; padding: 24px 24px 26px; }
 /* Tier — area */
 .roomMeta {
@@ -367,14 +363,34 @@
   .featuredCollection .roomCard:not(:first-child) .roomSummary { display: none; }
 }
 
+/* ---------- Card links and hover (shared) ----------
+   Journey, suite and experience cards are clickable as a whole: the title link stretches over the card;
+   the card's own text link sits above it. Hover effects only for real pointers, so taps on phones don't
+   leave a card stuck zoomed. One zoom for every photo: 4%, 0.7s, ease-out. */
+.journeyDetails h3 a::after,
+.roomContent h3 a::after,
+.experienceCard h3 a::after { content: ''; position: absolute; inset: 0; z-index: 1; }
+.journeyMeta a, .roomCta a { position: relative; z-index: 2; }
+@media (hover: hover) {
+  .fleetCard:hover { box-shadow: 0 24px 64px rgba(24, 48, 40, 0.12); }
+  .fleetCard:hover .fleetVisual img { transform: scale(1.04); filter: saturate(0.99); }
+  .fleetCard:hover .fleetPhotoIcon { background: rgba(255, 255, 255, 0.17); }
+  .journeyCard:hover { box-shadow: 0 17px 40px rgba(28, 52, 36, 0.08); }
+  .journeyCard:hover .journeyPhoto img,
+  .roomCard:hover .roomImg img,
+  .experienceCard:hover .experiencePicture img { transform: scale(1.04); }
+  .journeyCard:hover h3 a, .roomCard:hover h3 a { color: var(--text-accent); }
+  .experienceCard:hover h3 a { color: var(--text-inverse-accent); }
+  .facility:hover { background: #f1eee4; border-color: #d0c4a8; }
+  .facility:hover .facilityIcon { color: var(--text-heading); transform: translateY(-2px); }
+}
+
 /* ---------- Facilities ---------- */
 .facilities { background: var(--bg-surface); }
 .facilitiesGrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; list-style: none; margin: 0; padding: 0; }
 .facility { display: flex; flex-direction: column; min-width: 0; min-height: 250px; padding: 26px 25px 30px; background: #f7f6f0; border: 1px solid #eeede5; transition: background var(--motion-duration-fast), border-color var(--motion-duration-fast); }
-.facility:hover { background: #f1eee4; border-color: #d0c4a8; }
 .facilityNumber { color: var(--text-accent); font-size: var(--font-size-label); font-weight: var(--font-weight-bold); letter-spacing: 0.16em; }
 .facilityIcon { width: 52px; height: 52px; margin-top: 22px; color: var(--text-accent); transition: color var(--motion-duration-fast), transform var(--motion-duration-base) var(--motion-easing-out); }
-.facility:hover .facilityIcon { color: var(--text-heading); transform: translateY(-2px); }
 .facility h3 { margin: 22px 0 8px; font-size: 24px; line-height: 1.2; }
 .facility p { margin: 0; color: var(--text-muted); font-size: 13px; line-height: 1.8; }
 
@@ -384,13 +400,11 @@
 .experiences .heading em { color: var(--text-inverse-accent); }
 .experiences .head p { color: #b8c9c2; }
 .experienceGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: 52px; }
-.experienceCard { display: flex; flex-direction: column; min-width: 0; }
+.experienceCard { position: relative; display: flex; flex-direction: column; min-width: 0; }
 .experiencePicture { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: #365958; }
-.experiencePicture img { object-fit: cover; transition: transform 0.6s; }
-.experienceCard:hover .experiencePicture img { transform: scale(1.06); }
+.experiencePicture img { object-fit: cover; transition: transform 0.7s var(--motion-easing-out); }
 .experienceCard .experienceIndex { margin-top: 26px; color: var(--color-gold-200); font-size: var(--font-size-label); letter-spacing: 0.18em; text-transform: uppercase; }
 .experienceCard h3 { margin: 10px 0; font-size: 27px; color: var(--color-neutral-white); }
-.experienceCard h3 a:hover { color: var(--text-inverse-accent); }
 .experienceCard p { max-width: 320px; margin: 0; color: #b9c8c1; font-size: 13px; line-height: 1.8; }
 .experiencesMore { margin-top: 48px; }
 
@@ -516,7 +530,6 @@
   }
   .journeyGrid::-webkit-scrollbar { display: none; }
   .journeyCard, .roomCard { flex: 0 0 min(70%, 440px); scroll-snap-align: start; }
-  .journeyCard:hover { transform: none; }
 }
 @media (max-width: 600px) {
   .journeyCard, .roomCard { flex-basis: 86%; }
