@@ -17,7 +17,7 @@
   list-style: none;
   background: #fbf9f4;
   border: 1px solid #ece6d9;
-  border-top: 2px solid var(--action-primary);
+  border-top: 1px solid var(--color-gold-200);
   box-shadow: var(--shadow-md);
 }
 .value { display: flex; align-items: flex-start; gap: 19px; min-width: 0; padding: 33px 32px 35px; }

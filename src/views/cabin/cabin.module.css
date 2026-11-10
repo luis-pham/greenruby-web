@@ -10,7 +10,7 @@
   margin: 0;
   background: var(--color-neutral-paper);
   border: 1px solid #e7ddc9;
-  border-top: 2px solid var(--action-primary);
+  border-top: 1px solid var(--color-gold-200);
   box-shadow: var(--shadow-md);
 }
 .fact { display: flex; flex-direction: column; justify-content: center; padding: 29px 30px 32px; min-width: 0; }

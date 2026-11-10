@@ -13,7 +13,7 @@
   margin: 0;
   background: var(--color-neutral-paper);
   border: 1px solid #dfd5c2;
-  border-top: 2px solid var(--action-primary);
+  border-top: 1px solid var(--color-gold-200);
   box-shadow: var(--shadow-md);
 }
 .railItem { display: flex; flex-direction: column; justify-content: center; min-width: 0; padding: 27px 37px; }

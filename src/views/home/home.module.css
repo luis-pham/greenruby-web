@@ -122,7 +122,7 @@
   margin: 0;
   background: var(--color-neutral-paper);
   border: 1px solid rgba(191, 180, 157, 0.44);
-  border-top: 2px solid var(--action-primary);
+  border-top: 1px solid var(--color-gold-200);
   box-shadow: 0 26px 60px rgba(8, 38, 32, 0.16);
   color: var(--text-heading);
 }
