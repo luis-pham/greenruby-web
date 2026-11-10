@@ -123,7 +123,7 @@
   background: var(--color-neutral-paper);
   border: 1px solid rgba(191, 180, 157, 0.44);
   border-top: 1px solid var(--color-gold-200);
-  box-shadow: 0 26px 60px rgba(8, 38, 32, 0.16);
+  box-shadow: 0 10px 30px rgba(8, 38, 32, 0.07);
   color: var(--text-heading);
 }
 .glanceCell { position: relative; display: flex; flex-direction: column; justify-content: center; min-width: 0; padding: 25px 27px 27px; }
