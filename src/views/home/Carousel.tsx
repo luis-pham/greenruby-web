@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
+import { useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import s from './home.module.css';
 
 /** Horizontal scroll-snap track with prev/next buttons. Slides are server-rendered children. */
@@ -10,6 +10,7 @@ export function Carousel({
   caption,
   previous,
   next,
+  featured = false,
   children,
 }: {
   label: string;
@@ -17,6 +18,8 @@ export function Carousel({
   caption: string;
   previous: string;
   next: string;
+  /** Desktop (≥1200px) only: first slide becomes a large featured card, the rest stack beside it; no arrows. */
+  featured?: boolean;
   children: ReactNode;
 }) {
   const track = useRef<HTMLDivElement>(null);
@@ -41,7 +44,13 @@ export function Carousel({
   };
 
   return (
-    <div role="region" aria-roledescription="carousel" aria-label={label}>
+    <div
+      role="region"
+      aria-roledescription="carousel"
+      aria-label={label}
+      className={featured ? s.featuredCollection : undefined}
+      style={featured ? ({ '--stacked': Math.max(1, count - 1) } as CSSProperties) : undefined}
+    >
       <div className={s.carouselToolbar}>
         <p className={s.carouselCaption}>
           {caption} <span aria-hidden="true">/</span> <strong>{String(count).padStart(2, '0')}</strong>

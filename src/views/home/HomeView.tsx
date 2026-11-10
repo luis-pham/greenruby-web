@@ -278,11 +278,18 @@ export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
           <section className={s.section} id="suites" aria-labelledby="suites-title">
             <div className="container">
               <Head eyebrow={h.suitesEyebrow} title={<Heading locale={locale} id="suites-title" title={h.suitesTitle} em={h.suitesTitleEm} />} body={h.suitesBody} />
-              <Carousel label={h.suitesCollection} count={page.cabins.length} caption={h.suitesCollection} previous={h.previous} next={h.next}>
-                {page.cabins.map((cabin) => (
+              <Carousel label={h.suitesCollection} count={page.cabins.length} caption={h.suitesCollection} previous={h.previous} next={h.next} featured>
+                {page.cabins.map((cabin, i) => (
                   <article key={cabin.id} className={s.roomCard}>
                     <div className={s.roomImg}>
-                      {cabin.image && <Image src={cabin.image} alt={cabin.name} fill sizes="(max-width: 600px) 100vw, (max-width: 1160px) 50vw, 33vw" />}
+                      {cabin.image && (
+                        <Image
+                          src={cabin.image}
+                          alt={cabin.name}
+                          fill
+                          sizes={i === 0 ? '(max-width: 600px) 100vw, (max-width: 1160px) 50vw, (max-width: 1199px) 33vw, 720px' : '(max-width: 600px) 100vw, (max-width: 1160px) 50vw, (max-width: 1199px) 33vw, 520px'}
+                        />
+                      )}
                     </div>
                     <div className={s.roomContent}>
                       <p className={s.roomMeta}>

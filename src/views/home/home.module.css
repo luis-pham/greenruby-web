@@ -338,6 +338,35 @@
 }
 .roomCta { margin-top: auto; }
 
+/* Desktop only: featured first suite (≈55%) + the others stacked beside it (≈45%). Tablet/mobile keep the carousel. */
+@media (min-width: 1200px) {
+  .featuredCollection .carouselControls { display: none; } /* every suite is in view: the arrows would do nothing */
+  .featuredCollection .carouselTrack {
+    display: grid;
+    grid-template-columns: minmax(0, 55fr) minmax(0, 45fr);
+    grid-template-rows: repeat(var(--stacked, 3), 1fr);
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+  .featuredCollection .roomCard:first-child { grid-row: 1 / -1; }
+  /* At least 16:9; when the stacked cards run taller, the photo (not empty space) takes the extra height. */
+  .featuredCollection .roomCard:first-child .roomImg { flex: 1 0 auto; aspect-ratio: 16 / 9; }
+  .featuredCollection .roomCard:first-child .roomContent { flex: none; padding: 30px 34px 32px; }
+  .featuredCollection .roomCard:first-child .roomContent h3 { font-size: 32px; }
+  .featuredCollection .roomCard:first-child .roomSummary { min-height: 0; }
+
+  /* Photo inset in the white card, same 18px as the text's top/bottom padding. */
+  .featuredCollection .roomCard:not(:first-child) { flex-direction: row; padding: 18px 0 18px 18px; }
+  /* 16:9; only when the text runs taller does the photo stretch (cover) with it. */
+  .featuredCollection .roomCard:not(:first-child) .roomImg { flex: 0 0 52%; aspect-ratio: 16 / 9; }
+  .featuredCollection .roomCard:not(:first-child) .roomContent { padding: 0 24px 0 26px; }
+  .featuredCollection .roomCard:not(:first-child) .roomContent > * { flex-shrink: 0; } /* long text grows the card, never collapses */
+  .featuredCollection .roomCard:not(:first-child) .roomMeta { margin-bottom: 10px; }
+  .featuredCollection .roomCard:not(:first-child) .roomContent h3 { font-size: 23px; }
+  .featuredCollection .roomCard:not(:first-child) .roomHighlights { margin-bottom: 16px; white-space: normal; }
+  .featuredCollection .roomCard:not(:first-child) .roomSummary { display: none; }
+}
+
 /* ---------- Facilities ---------- */
 .facilities { background: var(--bg-surface); }
 .facilitiesGrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; list-style: none; margin: 0; padding: 0; }
