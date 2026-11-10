@@ -388,7 +388,7 @@
 .experiencePicture { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: #365958; }
 .experiencePicture img { object-fit: cover; transition: transform 0.6s; }
 .experienceCard:hover .experiencePicture img { transform: scale(1.06); }
-.experienceIndex { margin-top: 26px; color: var(--color-gold-200); font-size: var(--font-size-label); letter-spacing: 0.18em; text-transform: uppercase; }
+.experienceCard .experienceIndex { margin-top: 26px; color: var(--color-gold-200); font-size: var(--font-size-label); letter-spacing: 0.18em; text-transform: uppercase; }
 .experienceCard h3 { margin: 10px 0; font-size: 27px; color: var(--color-neutral-white); }
 .experienceCard h3 a:hover { color: var(--text-inverse-accent); }
 .experienceCard p { max-width: 320px; margin: 0; color: #b9c8c1; font-size: 13px; line-height: 1.8; }
