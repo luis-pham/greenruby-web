@@ -7,7 +7,7 @@
 .textLink { display: inline-block; margin-top: 20px; font-size: var(--font-size-sm); text-decoration: none; border-bottom: 1px solid var(--color-gold-500); padding-bottom: 6px; }
 
 /* Stats strip */
-.stats { border-top: 1px solid var(--border-default); border-bottom: 1px solid var(--border-default); background: var(--bg-surface, #fbfaf7); }
+.stats { border-bottom: 1px solid var(--border-default); background: var(--bg-surface, #fbfaf7); }
 .statGrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 0; }
 .statGrid > div { padding: 24px 26px; border-right: 1px solid var(--border-default); min-width: 0; }
 .statGrid > div:first-child { padding-left: 0; }

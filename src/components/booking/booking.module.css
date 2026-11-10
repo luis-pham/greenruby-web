@@ -37,7 +37,7 @@
 .cta:focus-visible { outline: 2px solid var(--action-focus); outline-offset: 2px; }
 
 /* Panel */
-.panel { padding: 24px 20px 20px; background: var(--bg-surface); border-top: 2px solid var(--action-primary); box-shadow: var(--shadow-sm); }
+.panel { padding: 24px 20px 20px; background: var(--bg-surface); border-top: 1px solid var(--color-gold-200); box-shadow: var(--shadow-sm); }
 .panel .cta { width: 100%; margin-top: 16px; padding: 0 14px; letter-spacing: 0.05em; white-space: nowrap; }
 
 .voyages { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin: 18px 0 4px; }

@@ -51,7 +51,7 @@
 .dayNav a:hover { color: var(--text-heading); background: #ebe9df; }
 .dayNav a span { font: var(--font-weight-regular) 27px var(--font-family-serif); }
 .sideBooking { position: sticky; top: 24px; margin-top: 28px; }
-.sideCard { padding: 26px 24px; background: var(--bg-surface); border-top: 2px solid var(--action-primary); }
+.sideCard { padding: 26px 24px; background: var(--bg-surface); border-top: 1px solid var(--color-gold-200); }
 .sideCard h3 { margin: 0 0 8px; font-size: 22px; }
 .sideCard p { margin: 0 0 18px; color: var(--text-muted); font-size: 13px; line-height: 1.7; }
 .sideCard a { width: 100%; }

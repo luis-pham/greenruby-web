@@ -19,7 +19,7 @@ a.channelValue:hover { color: var(--text-accent); }
 .channelLink:hover { color: var(--text-heading); }
 .responseNote { display: flex; align-items: center; gap: var(--space-3); margin: var(--space-6) 0 0; color: var(--text-muted); font-size: var(--font-size-sm); }
 .responseNote::before { content: ''; width: 8px; height: 8px; border-radius: var(--radius-full); background: #3f8a62; box-shadow: 0 0 0 4px rgba(63, 138, 98, 0.15); }
-.formCard { padding: var(--space-12); background: var(--bg-surface); border-top: 2px solid var(--action-primary); box-shadow: var(--shadow-md); }
+.formCard { padding: var(--space-12); background: var(--bg-surface); border-top: 1px solid var(--color-gold-200); box-shadow: var(--shadow-md); }
 .formHeading { margin: var(--space-4) 0 var(--space-8); font-size: var(--font-size-xl); line-height: var(--font-leading-snug); }
 
 /* ---------- Form ---------- */
@@ -64,7 +64,7 @@ a.channelValue:hover { color: var(--text-accent); }
 /* ---------- Steps ---------- */
 .stepsSection { background: var(--bg-surface-alt); }
 .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; counter-reset: step; }
-.step { padding: 34px 30px; background: var(--bg-page); border-top: 2px solid var(--action-primary); }
+.step { padding: 34px 30px; background: var(--bg-page); border-top: 1px solid var(--color-gold-200); }
 .step::before { counter-increment: step; content: '0' counter(step); display: block; margin-bottom: 18px; font: var(--font-weight-regular) 30px/1 var(--font-family-serif); color: var(--action-primary); }
 .step h3 { margin: 0 0 10px; font-size: 24px; }
 .step p { margin: 0; font-size: 13px; line-height: 1.85; color: var(--text-muted); }

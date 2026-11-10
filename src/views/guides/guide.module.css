@@ -1,7 +1,7 @@
 /* Long-form guides (first-time cruise, transfers), same editorial vocabulary as brand facts. */
 
 /* At a glance */
-.glance { border-top: 1px solid var(--border-default); border-bottom: 1px solid var(--border-default); background: var(--bg-surface); }
+.glance { border-bottom: 1px solid var(--border-default); background: var(--bg-surface); }
 .glanceTitle { margin: 0; padding-top: var(--space-6); color: var(--text-accent); font-family: var(--font-family-sans); font-size: var(--font-size-label); font-weight: var(--font-weight-bold); letter-spacing: var(--font-tracking-wider); text-transform: uppercase; }
 .glanceGrid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); margin: 0; }
 .glanceGrid > div { min-width: 0; padding: var(--space-4) var(--space-5) var(--space-6); border-right: 1px solid var(--border-default); }
@@ -158,7 +158,7 @@
   .glanceGrid > div { padding: var(--space-4) 0; border-right: 0; border-bottom: 1px solid var(--border-default); }
   .glanceGrid > div:last-child { border-bottom: 0; }
   .glanceGrid[data-cols] { grid-template-columns: 1fr; }
-  .glanceGrid[data-cols] > div { padding: var(--space-4) 0; border-top: 0; }
+  .glanceGrid[data-cols] > div:nth-child(n) { padding: var(--space-4) 0; border-top: 0; }
   .itineraries, .selectorFigures { grid-template-columns: 1fr; }
   .selectorFigures > div { border-right: 0; border-bottom: 1px solid var(--border-default); }
   .selectorFigures > div:last-child { border-bottom: 0; }
