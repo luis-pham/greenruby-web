@@ -257,8 +257,9 @@ const fr: Messages = {
     guestCapacity: 'Capacité',
     cabins: 'Cabines privées',
     decks: 'Ponts',
-    explore: (name: string) => `Découvrir le ${name}`,
-    bayJourneys: (bay: string) => `Croisières ${inBay(bay)}`,
+    // Home fleet card: short enough to sit on one line next to each other, like the English pair.
+    explore: (name: string) => `Voir le ${name}`,
+    bayJourneys: (bay: string) => `Croisières à ${bay.replace(/^Baie (d’|d'|de )/, '')}`,
     storyEyebrow: 'L’esprit Green Ruby',
     storyTitle: 'Certains voyages se',
     storyTitleEm: 'ressentent.',
