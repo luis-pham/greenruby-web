@@ -1,4 +1,4 @@
-.heading { margin: 18px 0 0; font-size: clamp(36px, 4.3vw, 62px); line-height: 1.12; }
+.heading { margin: 18px 0 0; font-size: var(--font-size-2xl); line-height: 1.12; }
 .heading em { font-style: italic; color: var(--text-accent); }
 .body { color: var(--text-muted); font-size: 14px; line-height: 1.94; }
 .body > * + * { margin-top: 1em; }
@@ -113,7 +113,7 @@
 .ctaImage { z-index: -2; object-fit: cover; }
 .cta::after { content: ''; position: absolute; inset: 0; z-index: -1; background: rgba(4, 29, 26, 0.72); }
 .ctaInner { max-width: 770px; padding: 70px 25px; }
-.ctaInner .heading { color: var(--color-neutral-white); font-size: clamp(38px, 5vw, 64px); }
+.ctaInner .heading { color: var(--color-neutral-white); font-size: var(--font-size-section-cta); }
 .ctaInner .heading em { color: var(--text-inverse-accent); }
 .ctaInner p { max-width: 520px; margin: 17px auto 27px; color: #e5e8df; font-size: 14px; line-height: 1.85; }
 .ctaLinks { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 18px; }

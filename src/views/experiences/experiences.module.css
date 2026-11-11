@@ -2,7 +2,7 @@
 
 .heading {
   margin: 17px 0 0;
-  font-size: clamp(39px, 4.6vw, 66px);
+  font-size: var(--font-size-2xl);
   line-height: 1.17;
   letter-spacing: -0.042em;
 }
@@ -292,7 +292,7 @@
   background: var(--bg-inverse);
   color: var(--text-inverse);
 }
-.editorialCopy .heading { margin: 18px 0; font-size: clamp(39px, 4vw, 55px); color: var(--color-neutral-white); }
+.editorialCopy .heading { margin: 18px 0; font-size: var(--font-size-2xl); color: var(--color-neutral-white); }
 .editorialCopy .heading em { color: var(--text-inverse-accent); }
 .editorialCopy p { max-width: 400px; margin-bottom: 20px; color: var(--color-green-100); font-size: 14px; line-height: 1.93; }
 
@@ -307,7 +307,7 @@
 /* ---------- FAQ ---------- */
 .faq { padding: 94px 0 107px; }
 .faqInner { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 100px; }
-.faq .heading { margin-bottom: 23px; font-size: 48px; }
+.faq .heading { margin-bottom: 23px; font-size: var(--font-size-2xl); }
 
 /* ---------- CTA ---------- */
 .cta { padding: 107px 0 114px; background: var(--bg-inverse); color: var(--color-neutral-white); }
@@ -316,7 +316,7 @@
   max-width: 850px;
   margin: 17px 0 23px;
   color: var(--color-neutral-white);
-  font-size: clamp(47px, 5.2vw, 77px);
+  font-size: var(--font-size-section-cta);
   line-height: 1.17;
   letter-spacing: -0.042em;
 }
@@ -375,7 +375,7 @@
   .stripItem strong { font-size: 20px; }
   .signature { padding: var(--space-12) 0 22px; }
   .sectionIntro { grid-template-columns: 1fr; gap: 6px; margin-bottom: 33px; }
-  .heading { font-size: 43px; }
+  .heading { font-size: var(--font-size-2xl); }
   .signatureGrid,
   .collectionGrid { grid-template-columns: 1fr; gap: 22px; }
   .cardImage,
@@ -399,16 +399,16 @@
   .editorialGrid { grid-template-columns: 1fr; }
   .editorialVisual { height: 290px; }
   .editorialCopy { padding: 45px 26px; }
-  .editorialCopy .heading { font-size: 40px; }
+  .editorialCopy .heading { font-size: var(--font-size-2xl); }
   .galleryTeaser { padding: 76px 0; }
   .galleryHead { flex-direction: column; align-items: flex-start; }
   .galleryPhotos { grid-template-columns: 1fr 1fr; gap: 9px; }
   .galleryCell { aspect-ratio: 1 / 1; }
   .galleryCell:nth-child(3) { display: none; }
   .faq { padding: 74px 0; }
-  .faq .heading { font-size: 43px; }
+  .faq .heading { font-size: var(--font-size-2xl); }
   .cta { padding: 78px 0 86px; }
   .ctaInner { flex-direction: column; align-items: flex-start; gap: 30px; }
-  .ctaHeading { font-size: 47px; }
+  .ctaHeading { font-size: var(--font-size-section-cta); }
   .ctaActions { flex-direction: row; flex-wrap: wrap; }
 }

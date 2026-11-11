@@ -1,5 +1,5 @@
 /* FAQ hub and topic pages: green-ruby-faq-v1.html. */
-.sectionTitle { margin: 15px 0 0; font-size: clamp(39px, 4vw, 58px); line-height: 1.19; letter-spacing: -0.04em; }
+.sectionTitle { margin: 15px 0 0; font-size: var(--font-size-2xl); line-height: 1.19; letter-spacing: -0.04em; }
 .sectionTitle em { display: block; font-style: italic; color: var(--text-accent); }
 .lead { max-width: 460px; margin: 0 0 3px; color: var(--text-muted); font-size: 14px; line-height: 1.9; }
 
@@ -111,7 +111,7 @@
 /* ---------- Assurance steps ---------- */
 .assurance { padding: 100px 0 105px; background: var(--bg-brand); color: var(--bg-page); }
 .assuranceGrid { display: grid; grid-template-columns: 0.82fr 1.18fr; gap: 110px; align-items: center; }
-.assurance .sectionTitle { color: var(--color-neutral-white); font-size: clamp(39px, 4.2vw, 63px); }
+.assurance .sectionTitle { color: var(--color-neutral-white); font-size: var(--font-size-2xl); }
 .assurance .sectionTitle em { color: var(--text-inverse-accent); }
 .assurance .lead { margin: 20px 0 28px; color: var(--color-green-100); }
 .steps { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--border-inverse); }
@@ -124,7 +124,7 @@
 .contact { padding: 112px 0; background: var(--bg-surface-alt); }
 .contactBox { display: grid; grid-template-columns: 1.08fr 0.92fr; align-items: stretch; min-height: 370px; background: var(--color-neutral-paper); }
 .contactCopy { padding: 70px 68px; }
-.contactCopy h2 { margin: 17px 0 19px; font-size: clamp(37px, 3.8vw, 55px); line-height: 1.2; letter-spacing: -0.035em; }
+.contactCopy h2 { margin: 17px 0 19px; font-size: var(--font-size-2xl); line-height: 1.2; letter-spacing: -0.035em; }
 .contactCopy h2 em { font-style: italic; color: var(--text-accent); }
 .contactCopy > p { max-width: 400px; margin: 0 0 28px; color: var(--text-muted); font-size: var(--font-size-sm); line-height: 1.9; }
 .contactActions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
@@ -188,7 +188,7 @@
   .quickIcon { width: 43px; height: 43px; }
   .quickLink strong { font-size: 19px; }
   .faqSection { padding: 70px 0 85px; }
-  .sectionTitle { font-size: 39px; }
+  .sectionTitle { font-size: var(--font-size-2xl); }
   .intro { margin-bottom: 27px; }
   .topics { grid-template-columns: 1fr 1fr; }
   .topic { min-height: 50px; padding: 10px 6px; font-size: var(--font-size-label); }
@@ -204,11 +204,11 @@
   .accordion > div > details > div { padding: 0 10px 21px 0; font-size: var(--font-size-xs); }
   .group { margin-bottom: 36px; }
   .assurance { padding: 73px 0; }
-  .assurance .sectionTitle { font-size: 39px; }
+  .assurance .sectionTitle { font-size: var(--font-size-2xl); }
   .step { grid-template-columns: 42px 1fr; gap: 13px; padding: 24px 0; }
   .step h3 { font-size: 21px; }
   .contact { padding: 75px 0; }
   .contactCopy { padding: 39px 25px; }
-  .contactCopy h2 { font-size: 36px; }
+  .contactCopy h2 { font-size: var(--font-size-2xl); }
   .contactVisual { min-height: 240px; }
 }

@@ -158,7 +158,7 @@
 /* ---------- CTA ---------- */
 .cta { padding: 105px var(--space-gutter); background: var(--bg-brand); color: var(--color-neutral-white); text-align: center; }
 .cta .micro { color: var(--text-inverse-accent); }
-.cta h2 { max-width: 870px; margin: 18px auto; color: var(--color-neutral-white); font-size: clamp(41px, 5.7vw, 74px); line-height: 1.16; letter-spacing: -0.04em; }
+.cta h2 { max-width: 870px; margin: 18px auto; color: var(--color-neutral-white); font-size: var(--font-size-section-cta); line-height: 1.16; letter-spacing: -0.04em; }
 .cta h2 em { color: var(--text-inverse-accent); font-style: italic; }
 .cta p { max-width: 580px; margin: 0 auto 30px; color: var(--text-inverse-muted); font-size: var(--font-size-base); line-height: 1.9; }
 

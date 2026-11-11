@@ -159,7 +159,7 @@
 /* ---------- Section heading variants ---------- */
 .head { display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; margin-bottom: 50px; }
 .head p { max-width: 385px; margin: 0 0 8px; color: var(--text-muted); font-size: var(--font-size-base); line-height: 1.9; }
-.heading { margin: 18px 0 0; font-size: clamp(36px, 4.3vw, 64px); line-height: 1.12; }
+.heading { margin: 18px 0 0; font-size: var(--font-size-2xl); line-height: 1.12; }
 
 /* ---------- Fleet ---------- */
 .fleet { position: relative; overflow: hidden; padding: 122px 0 118px; background: var(--bg-page); }
@@ -190,7 +190,7 @@
 .fleetPhotoBottom { position: absolute; z-index: 1; left: 32px; right: 32px; }
 .fleetPhotoTop { top: 29px; display: flex; justify-content: space-between; font-size: var(--font-size-label); font-weight: var(--font-weight-bold); letter-spacing: 0.16em; text-transform: uppercase; }
 .fleetPhotoBottom { bottom: 26px; display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; }
-.fleetPhotoBottom strong { font-family: var(--font-family-serif); font-size: clamp(36px, 3.9vw, 57px); font-weight: var(--font-weight-regular); line-height: 1.08; letter-spacing: -0.035em; }
+.fleetPhotoBottom strong { font-family: var(--font-family-serif); font-size: clamp(34px, 3.3vw, 48px); font-weight: var(--font-weight-regular); line-height: 1.08; letter-spacing: -0.035em; }
 .fleetPhotoIcon { flex: 0 0 auto; width: 44px; height: 44px; display: grid; place-items: center; border: 1px solid rgba(243, 243, 233, 0.6); border-radius: var(--radius-full); font-size: 22px; transition: background var(--motion-duration-fast); }
 .fleetBody { display: flex; flex-direction: column; flex: 1; padding: 32px 34px 35px; }
 .fleetCategory { color: var(--text-accent); font-size: var(--font-size-label); font-weight: var(--font-weight-bold); letter-spacing: 0.16em; text-transform: uppercase; }
@@ -441,7 +441,7 @@
 .quote { position: relative; isolation: isolate; overflow: hidden; display: grid; place-items: center; min-height: 470px; text-align: center; color: var(--color-neutral-white); background: #1e5550; }
 .quoteImage { z-index: -1; object-fit: cover; object-position: center 54%; filter: brightness(0.37) saturate(0.7); }
 .quoteInner { padding: 70px 30px; }
-.quoteInner h2 { max-width: 800px; margin: 20px auto 16px; color: var(--color-neutral-white); font-size: var(--font-size-3xl); line-height: 1.17; }
+.quoteInner h2 { max-width: 800px; margin: 20px auto 16px; color: var(--color-neutral-white); font-size: var(--font-size-section-cta); line-height: 1.17; }
 .quoteInner h2 em { color: var(--text-inverse-accent); }
 .quoteInner p { max-width: 520px; margin: 0 auto 30px; color: #e6e9e3; font-size: 14px; line-height: 1.8; }
 

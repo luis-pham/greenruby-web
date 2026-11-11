@@ -1,5 +1,5 @@
 .section { padding: var(--space-section-y) 0; }
-.heading { margin: 18px 0 0; font-size: clamp(36px, 4.5vw, 64px); line-height: 1.15; letter-spacing: -0.04em; }
+.heading { margin: 18px 0 0; font-size: var(--font-size-2xl); line-height: 1.15; letter-spacing: -0.04em; }
 .heading em { font-style: italic; color: var(--text-accent); }
 .body { color: var(--text-muted); font-size: 14px; line-height: 1.95; }
 .body > * + * { margin-top: 1em; }

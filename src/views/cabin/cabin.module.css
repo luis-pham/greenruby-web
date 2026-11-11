@@ -137,7 +137,7 @@
 .ctaImage { z-index: -2; object-fit: cover; filter: saturate(0.75); }
 .cta::after { content: ''; position: absolute; inset: 0; z-index: -1; background: rgba(8, 42, 42, 0.85); }
 .ctaInner { max-width: 790px; padding: 75px 20px; }
-.ctaInner h2 { margin: 18px 0; color: var(--color-neutral-white); font-size: var(--font-size-3xl); }
+.ctaInner h2 { margin: 18px 0; color: var(--color-neutral-white); font-size: var(--font-size-section-cta); }
 .ctaInner p { margin: 0 auto 30px; max-width: 500px; color: var(--color-green-100); font-size: 14px; line-height: 1.9; }
 .ctaLinks { display: flex; justify-content: center; align-items: center; gap: 18px; flex-wrap: wrap; }
 

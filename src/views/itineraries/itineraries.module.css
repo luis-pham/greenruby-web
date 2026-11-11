@@ -1,5 +1,5 @@
 .section { padding: var(--space-section-y) 0; }
-.heading { margin: 18px 0 0; font-size: clamp(36px, 4.3vw, 64px); line-height: 1.12; }
+.heading { margin: 18px 0 0; font-size: var(--font-size-2xl); line-height: 1.12; }
 .heading em { font-style: italic; color: var(--text-accent); }
 .head { display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; margin-bottom: 44px; }
 .head p { max-width: 400px; margin: 0 0 8px; color: var(--text-muted); font-size: var(--font-size-base); line-height: 1.9; }
@@ -105,7 +105,7 @@
 .ctaImage { z-index: -2; object-fit: cover; }
 .cta::after { content: ''; position: absolute; inset: 0; z-index: -1; background: rgba(4, 29, 26, 0.7); }
 .ctaInner { max-width: 770px; padding: 70px 25px; }
-.ctaInner h2 { margin: 19px auto 17px; color: var(--color-neutral-white); font-size: clamp(40px, 5.4vw, 68px); line-height: 1.19; }
+.ctaInner h2 { margin: 19px auto 17px; color: var(--color-neutral-white); font-size: var(--font-size-section-cta); line-height: 1.19; }
 .ctaInner h2 em { color: var(--text-inverse-accent); }
 .ctaInner p { max-width: 520px; margin: 0 auto 27px; color: #e5e8df; font-size: 14px; line-height: 1.85; }
 .ctaLinks { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 22px; }

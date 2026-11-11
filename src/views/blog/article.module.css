@@ -1,6 +1,6 @@
 /* Article detail (design: green-ruby-blog-detail-v1.html). */
 
-.heading { margin: 16px 0 0; font-size: clamp(38px, 4.2vw, 57px); line-height: 1.14; letter-spacing: -0.038em; }
+.heading { margin: 16px 0 0; font-size: var(--font-size-2xl); line-height: 1.14; letter-spacing: -0.038em; }
 .heading em { font-style: italic; color: var(--text-accent); }
 .linkLine {
   display: inline-flex;
@@ -236,7 +236,7 @@
   pointer-events: none;
 }
 .bannerInner { position: relative; display: grid; grid-template-columns: 1.3fr 0.7fr; gap: 80px; align-items: center; }
-.bannerInner h2 { margin: 20px 0 18px; color: var(--color-neutral-white); font-size: clamp(38px, 4.4vw, 60px); line-height: 1.17; letter-spacing: -0.035em; }
+.bannerInner h2 { margin: 20px 0 18px; color: var(--color-neutral-white); font-size: var(--font-size-section-cta); line-height: 1.17; letter-spacing: -0.035em; }
 .bannerInner h2 em { color: var(--text-inverse-accent); }
 .bannerInner p { max-width: 610px; color: var(--color-green-100); font-size: 14px; line-height: 1.85; }
 .bannerActions { display: flex; flex-direction: column; align-items: stretch; gap: var(--space-3); }

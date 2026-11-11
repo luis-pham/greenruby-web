@@ -1,6 +1,8 @@
 /* Blog listing, category and search pages (design: green-ruby-blog-v1.html). */
 
-.heading { margin: 18px 0 0; font-size: clamp(40px, 4.45vw, 66px); line-height: 1.14; letter-spacing: -0.038em; }
+.heading { margin: 18px 0 0; font-size: var(--font-size-2xl); line-height: 1.14; letter-spacing: -0.038em; }
+/* Listing page title (h1) keeps the larger page-title size. */
+h1.heading { font-size: clamp(40px, 4.45vw, 66px); }
 .heading em { font-style: italic; color: var(--text-accent); }
 .desc { max-width: 380px; margin: 0 0 8px; color: var(--text-muted); font-size: 14px; line-height: 1.95; }
 .sectionHead { display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; margin-bottom: 43px; }
@@ -296,7 +298,8 @@
   .heroSide { right: 20px; }
   .heroArtCaption { right: 19px; bottom: 22px; }
   .journal, .topics { padding: 72px 0 78px; }
-  .heading { font-size: 40px; }
+  .heading { font-size: var(--font-size-2xl); }
+  h1.heading { font-size: 40px; }
   .browseBar { margin-bottom: 27px; padding: 15px 0; }
   .filterList { flex-wrap: nowrap; margin-right: calc(var(--space-gutter) * -1); padding-right: var(--space-gutter); overflow-x: auto; scrollbar-width: none; }
   .filterList::-webkit-scrollbar { display: none; }
