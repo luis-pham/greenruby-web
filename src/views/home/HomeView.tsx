@@ -3,7 +3,7 @@ import Image from 'next/image';
 import type { ReactNode } from 'react';
 import { SiteFooter, SiteNav, Topbar, type Chrome } from '@/components/layout';
 import { FaqList, faqPageSchema } from '@/components/sections/Faq';
-import { organizationSchema } from '@/lib/organization';
+import { organizationSchema, SITE_ALTERNATE_NAME, SITE_NAME, WEBSITE_ID } from '@/lib/organization';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SmartLink, TextLink } from '@/components/ui';
 import type { Homepage } from '@/lib/api/schemas';
@@ -430,7 +430,7 @@ export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
           '@context': 'https://schema.org',
           '@graph': [
             organizationSchema(site, heroImage ? { image: absoluteImageUrl(heroImage) } : {}),
-            { '@type': 'WebSite', '@id': `${siteUrl}/#website`, url: siteUrl, name: info.name, inLanguage: locale, publisher: { '@id': `${siteUrl}/#organization` } },
+            { '@type': 'WebSite', '@id': WEBSITE_ID, url: siteUrl, name: SITE_NAME, alternateName: SITE_ALTERNATE_NAME, inLanguage: locale, publisher: { '@id': `${siteUrl}/#organization` } },
             {
               '@type': 'ItemList',
               name: h.journeysEyebrow,

@@ -12,6 +12,15 @@ import { siteUrl } from '@/lib/site-url';
 export const ORGANIZATION_ID = `${siteUrl}/#organization`;
 
 /**
+ * The brand as Google should show it above results (Site Name, developers.google.com/search/docs/appearance/site-names):
+ * one fixed name for the domain, the same on every language's homepage, plus the short alternate. Kept out of the CMS
+ * `website-name` config on purpose, so a translated or edited config value cannot change the site name.
+ */
+export const SITE_NAME = 'Green Ruby Cruises';
+export const SITE_ALTERNATE_NAME = 'Green Ruby';
+export const WEBSITE_ID = `${siteUrl}/#website`;
+
+/**
  * Official Google Maps place "Green Ruby Cruises": the guest lounge at Tuan Chau, which is also the office
  * (owner-provided 2026-10-25; same place as the 2026-10-20 link, matches GEO below).
  */
