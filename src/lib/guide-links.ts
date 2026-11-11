@@ -6,11 +6,8 @@ import { sectionHref } from './section-links.ts';
  * (app_article.slug), so they don't change when a title is edited; if one is moved to another category
  * or unpublished, update it here (the footer links to these on every page).
  *
- * es/de: Spanish/German slugs set with content:slug (es drafts 2026-11-11); they must be set the same way on production before
- * the Spanish blog is public (until then guideArticlePath() gives /es pages the English article).
- *
- * de: no German article paths yet: they are added once the German slugs are set with content:slug (until then /de
- * pages link the English article).
+ * es/de: Spanish/German slugs set with content:slug (es/de drafts 2026-11-11); they must be set the same way on production
+ * before that language's blog is public (until then guideArticlePath() gives the page the English article).
  */
 const ARTICLES = {
   // Not a translation pair: EN 221 is the eco-luxury guide, VI 240 the "choosing a luxury cruise" guide.
