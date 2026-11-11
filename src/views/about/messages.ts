@@ -525,7 +525,112 @@ const es: AboutMessages = {
   },
 };
 
-export const aboutMessages = byLocale<AboutMessages>({ en, vi, ja, fr, es });
+const de: AboutMessages = {
+  metaTitle: 'Über Green Ruby Cruises',
+  metaDescription:
+    'Die Geschichte von Green Ruby: leiser Luxus, Schiffe mit kleinerem Fußabdruck und eine enge Verbindung zur Halong-Bucht, zur Lan-Ha-Bucht und ihren Menschen.',
+  breadcrumb: 'Über uns',
+  hero: {
+    eyebrow: 'Die Geschichte von Green Ruby Cruises',
+    title: 'Luxus mit',
+    titleEm: 'leichterem Fußabdruck.',
+    body: 'Wir glauben: Die schönste Art, Vietnams Buchten zu erleben, ist eine, die ihre Schönheit respektiert und hilft, die Umgebung zu schützen.',
+    primary: 'Unsere Geschichte',
+    secondary: 'Unsere Verpflichtungen',
+  },
+  values: {
+    label: 'Was die Haltung von Green Ruby prägt',
+    items: [
+      { icon: 'compass', tag: 'Haltung', title: 'Bewusster Luxus', body: 'Weniger Ablenkung. Mehr Momente, die zählen, auf dem Wasser.' },
+      { icon: 'leaf', tag: 'Umwelt', title: 'Respekt vor der Bucht', body: 'Technik und tägliche Entscheidungen, die unseren Fußabdruck verringern sollen.' },
+      { icon: 'people', tag: 'Gemeinschaft', title: 'Mit der Region verbunden', body: 'Eine engere Verbindung zu den Menschen und Traditionen der Region.' },
+    ],
+  },
+  subnav: {
+    label: 'Abschnitte der Seite „Über uns“',
+    story: 'Unsere Geschichte',
+    approach: 'Unser Ansatz',
+    community: 'Gemeinschaft vor Ort',
+    collection: 'Unsere Schiffe',
+    progress: 'Unser Stand',
+  },
+  story: {
+    eyebrow: 'Unsere Geschichte',
+    title: 'Die Bucht verdient',
+    titleEm: 'mehr Sorgfalt.',
+    lead: 'Manche Orte verlangen, dass wir langsamer werden, genauer hinsehen und anders reisen.',
+    link: 'Unsere Schiffe kennenlernen',
+    stamp: ['Eine', 'bewusstere Art', 'zu reisen'],
+  },
+  statement: {
+    index: 'Die Sicht von Green Ruby',
+    line1: 'Wahrer Luxus heißt nicht, mehr zu haben.',
+    line2: 'Sondern zu entdecken,',
+    em: 'worauf es ankommt.',
+    footer: 'Raum zum Durchatmen. Zeit füreinander. Eine Bucht, die Schutz verdient.',
+  },
+  technology: {
+    eyebrow: 'Mit Bedacht geplant',
+    title: 'Ein neuer Maßstab für',
+    titleEm: 'bewusstes Reisen.',
+    body: 'Der Schutz der Bucht beginnt hinter den Kulissen. Unsere Schiffe verbinden effiziente Systeme mit praktischen Veränderungen im täglichen Betrieb.',
+    micro: 'Technik & Design',
+    foot: 'Planungsziel',
+    qualifier:
+      'Ausstattungsmerkmale und Umweltziele beschreiben, wie unsere Schiffe laut Auslegung arbeiten sollen; es handelt sich nicht um unabhängig geprüfte Betriebsergebnisse.',
+  },
+  impact: {
+    eyebrow: 'Unsere Wirkung',
+    wastewater: 'Aufbereitetes Abwasser (Auslegung)',
+    co2: 'Tonnen CO₂ weniger pro Jahr (Solar, Schätzung)',
+    solar: 'Solarmodule auf dem Dach',
+  },
+  community: {
+    eyebrow: 'Über das Schiff hinaus',
+    title: 'Unsere Heimat.',
+    titleEm: 'Unsere Verantwortung.',
+    body: 'Ein Reiseziel zu schützen heißt auch, in die Menschen zu investieren, die dort leben.',
+    link: 'Mit unserem Team sprechen',
+  },
+  collection: {
+    eyebrow: 'Unsere Schiffe',
+    title: (n: number): string => (n === 2 ? 'Zwei Schiffe.' : 'Unsere Flotte.'),
+    titleEm: 'Eine Haltung.',
+    body: 'Unterschiedliche Gewässer, dieselbe Sorgfalt. Entdecken Sie die beiden Seiten von Green Ruby und wohin jedes Schiff Sie führt.',
+    vessel: (i: number, bay: string | null) => `Schiff ${String(i).padStart(2, '0')}${bay ? ` / ${bay}` : ''}`,
+    explore: (name: string) => `${name} entdecken`,
+  },
+  standards: {
+    eyebrow: 'Offen über unseren Stand',
+    title: 'Vertrauen entsteht durch',
+    titleEm: 'Transparenz.',
+    body: 'Wir zeigen lieber den Weg, als den Eindruck zu erwecken, ein Zertifikat sei bereits erteilt. So ist der Stand heute.',
+    label: 'Nachhaltigkeitsnachweise',
+    // Like French and Spanish: the about page links the eco article only in English, so German readers get only the
+    // brand facts link (an English-only page).
+    guide: null,
+    facts: 'Stand jeder Nachhaltigkeitsangabe (auf Englisch)',
+  },
+  cta: {
+    eyebrow: 'Die Bucht mit anderen Augen sehen',
+    title: 'Schön reisen.',
+    titleEm: 'Achtsam weiterziehen.',
+    body: 'Finden Sie eine Green-Ruby-Kreuzfahrt, die eindrucksvolle Landschaft, großzügigen Komfort und eine tiefere Verbindung zum Ort vereint.',
+    primary: 'Reiseverläufe entdecken',
+    secondary: 'Mit unserem Team sprechen',
+  },
+  honest: {
+    solar: 'Solarmodule mit rund 70 kW auf dem Oberdeck versorgen tagsüber Beleuchtung, Warmwasserbereitung und Bordsysteme mit. Zusammen mit der meerwassergekühlten Klimaanlage sollen sie den Energieverbrauch an Bord laut Auslegung um etwa 40 % senken; gemessene Einsparungen veröffentlichen wir, sobald wir in Fahrt sind.',
+    water: 'Laut Auslegung durchläuft das gesamte Abwasser (100 %) an Bord eine biologische Aufbereitung, bevor es eingeleitet wird, um die empfindlichen Lebensräume der Bucht zu schützen; im Betrieb wird dies noch überprüft.',
+    plastic: 'Nachfüllbare Flaschen, Pflegeprodukte in Spendern und Lieferverpackungen mit weniger Kunststoff gehören zu unserem Plan für den Alltag an Bord.',
+    energy: 'Ein System zur Abwärmerückgewinnung nutzt die Wärme von Motoren und Generatoren für Warmwasser und Klimatisierung, statt sie ungenutzt zu lassen.',
+    local: 'Wir möchten Lebensmittel, wo immer möglich, von Fischern und Landwirten aus der Region beziehen und bei der Einstellung und Ausbildung unserer Crew Menschen aus der Region bevorzugen.',
+    cleanup: 'Geplant sind Strandreinigungen, an denen Gäste teilnehmen können, sowie Vorträge an Bord über das Ökosystem der Bucht und darüber, wie Reisende ihren Einfluss verringern können.',
+    culture: 'Wir möchten Umweltbildung an Schulen in der Region fördern, jungen Menschen den Weg in maritime Berufe öffnen und Kooperationen unterstützen, die Handwerk und Traditionen der Bucht lebendig halten.',
+  },
+};
+
+export const aboutMessages = byLocale<AboutMessages>({ en, vi, ja, fr, es, de });
 
 type HonestTopic = keyof AboutMessages['honest'];
 

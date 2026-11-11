@@ -649,4 +649,133 @@ const es: ServicesMessages = {
   },
 };
 
-export const servicesMessages = byLocale<ServicesMessages>({ en, vi, ja, fr, es });
+const de: ServicesMessages = {
+  metaTitle: 'Zusatzleistungen & private Events',
+  metaDescription:
+    'Transfers, Spa-Behandlungen, Fotografie, Feiern und private Charter an Bord der Green-Ruby-Kreuzfahrten in der Halong-Bucht und der Lan-Ha-Bucht.',
+  breadcrumb: 'Services',
+  hero: {
+    eyebrow: 'Die Concierge-Leistungen von Green Ruby',
+    title: 'Jedes Detail,',
+    titleEm: 'sorgfältig bedacht.',
+    body: 'Von der entspannten Anreise bis zu den Momenten, die gefeiert werden wollen: Zusatzleistungen, mit denen Ihre Reise ganz zu Ihrer eigenen wird.',
+    primary: 'Unsere Services entdecken',
+    secondary: 'Mit unserem Team sprechen',
+    visualLabel: 'Die Kunst des persönlichen Service',
+    visualCaption: 'Für Ihre Momente gemacht.',
+  },
+  collection: {
+    heading: 'Unsere Services',
+    filterLabel: 'Services filtern',
+    all: 'Alle Services',
+    results: (n: number) => `${pad(n)} ${n === 1 ? 'Service' : 'Services'} angezeigt`,
+    included: 'Inklusive',
+    optional: 'Optionale Leistung',
+    price: (price: string) => `Ab ${price}`,
+    enquire: 'Diese Leistung anfragen',
+    enquireSubject: (name: string) => `Anfrage zu einer Green-Ruby-Leistung: ${name}`,
+    note: 'Verfügbarkeit, Preise und geltende Bedingungen bestätigt das Reservierungsteam von Green Ruby. Optionale Leistungen sind im regulären Reisepreis nicht enthalten.',
+    empty: 'Unser Team erläutert Ihnen gern, welche Services für Ihre Reise verfügbar sind.',
+  },
+  story: {
+    eyebrow: 'Vor dem Ablegen',
+    title: 'Ein entspannter Auftakt',
+    titleEm: 'für jede Auszeit.',
+    paragraphs: [
+      'Die Fahrt von Hanoi in die Bucht sollte Teil des Erlebnisses sein und nicht ein weiteres Detail, um das Sie sich kümmern müssen. Green Ruby kann einen privaten Transfer zwischen Ihrem Hotel und dem Kreuzfahrtterminal organisieren.',
+      'Nennen Sie unserem Team Ihr Hotel, Ihr Reisedatum und die Größe Ihrer Gruppe, damit wir die passende Lösung besprechen können.',
+    ],
+    points: ['Von Hanoi zum Abfahrtsbereich Tuan Chau', 'Privater Transfer auf Anfrage', 'Transferkosten werden gesondert bestätigt'],
+    stamp: ['Die Reise', 'beginnt', 'vor dem Einschiffen'],
+    cta: 'Anreise organisieren',
+  },
+  inclusions: {
+    eyebrow: 'Klar informiert reisen',
+    title: 'Was zur Reise gehört',
+    titleEm: 'und was wir für Sie organisieren.',
+    body: 'Eine einfache Übersicht über inklusive Leistungen des Reiseverlaufs und optionale persönliche Services.',
+    included: {
+      label: 'Inklusive Leistungen des Reiseverlaufs',
+      title: ['Bereits Teil', 'der Reise.'],
+      items: [
+        'Ihre eigene klimatisierte Kabine und die im Reiseverlauf genannten Mahlzeiten',
+        'Geplante Besichtigungen und Eintrittsgelder',
+        'Kajak, Bambusboot und Aktivitäten an Bord laut Reiseverlauf (Kajakfahren in der Lan-Ha-Bucht ist aufgrund örtlicher Vorschriften vorübergehend ausgesetzt)',
+        'Trinkwasser und Betreuung der Gäste an Bord',
+        'Rezeption rund um die Uhr, tägliche Zimmerreinigung und Abendservice',
+      ],
+      foot: 'Die inklusiven Leistungen können je nach Reiseverlauf variieren; bitte lassen Sie sie sich bei der Buchung bestätigen.',
+    },
+    optional: {
+      label: 'Persönliche Extras',
+      title: ['Sorgfältig organisiert,', 'auf Anfrage.'],
+      items: [
+        'Transfers Hanoi–Halong und private Beförderung',
+        'Ausgewählte Spa-Behandlungen und Massagepakete',
+        'Fotografie, Drohnenaufnahmen, Dekoration für Feiern und private Dinner',
+        'Weitere Getränke und persönliche Einkäufe',
+      ],
+      foot: 'Optionale Leistungen, Preise, Genehmigungen und Verfügbarkeit sollten vor der Buchung bestätigt werden.',
+    },
+  },
+  celebrations: {
+    eyebrow: 'Hochzeiten & Feiern',
+    eventsEyebrow: 'Private Events',
+    eventsTitle: 'Zusammenkünfte',
+    eventsTitleEm: 'vor der Kulisse der Bucht.',
+    spaces: 'Räume für den Anlass',
+    viewSpace: 'Raum ansehen',
+    proposal: 'Angebot anfragen',
+    area: (m2: number) => `${m2} m²`,
+  },
+  process: {
+    eyebrow: 'Ganz nach Ihren Wünschen',
+    title: 'Eine persönliche Note',
+    titleEm: 'beginnt mit einem Gespräch.',
+    body: 'Wählen Sie zuerst die Reise. Nennen Sie uns die Details, die Ihnen wichtig sind. Das Reservierungsteam bestätigt, was sich organisieren lässt.',
+    steps: [
+      { tag: 'Entdecken', title: 'Reise wählen', body: 'Beginnen Sie mit Ihrer bevorzugten Bucht, dem Reiseverlauf und der Kabine – ob eine Nacht oder eine längere Reise.' },
+      { tag: 'Gestalten', title: 'Wünsche mitteilen', body: 'Fragen Sie nach Transfers, Wellness-Behandlungen, Fotografie oder einem besonderen Empfang.' },
+      { tag: 'Bestätigen', title: 'Entspannt reisen', body: 'Klären Sie Verfügbarkeit und mögliche Zusatzkosten vor der Reise mit dem Reservierungsteam.' },
+    ],
+  },
+  faq: {
+    eyebrow: 'Gut zu wissen',
+    title: 'Die Details,',
+    titleEm: 'beantwortet.',
+    body: 'Haben Sie etwas Bestimmtes vor? Unser Team klärt gern die Möglichkeiten für Ihren Reiseverlauf.',
+    link: 'Weitere häufige Fragen',
+    items: [
+      {
+        question: 'Sind Transfers ab Hanoi im Reisepreis enthalten?',
+        answerHtml:
+          '<p>Transfers gehören nicht zum regulären Reisepreis. Ein privater Transfer kann gegen Aufpreis organisiert werden.</p>',
+      },
+      {
+        question: 'Sind Spa- und Massagebehandlungen inklusive?',
+        answerHtml:
+          '<p>Spa-Behandlungen sind optional und können zusätzlich kosten. Fragen Sie das Reservierungsteam, welche Behandlungen auf Ihrer Reise angeboten werden.</p>',
+      },
+      {
+        question: 'Kann ich Fotografie oder Drohnenaufnahmen buchen?',
+        answerHtml:
+          '<p>Fotografie und Drohnenaufnahmen sind optionale Leistungen. Bitte klären Sie Verfügbarkeit, Zeitpunkt, örtliche Genehmigungen und Kosten vorab mit unserem Team.</p>',
+      },
+      {
+        question: 'Können Sie helfen, einen Anlass besonders zu gestalten?',
+        answerHtml:
+          '<p>Ja. Nennen Sie dem Reservierungsteam den Anlass und Ihre Vorstellungen; es prüft, was sich an Bord organisieren lässt.</p>',
+      },
+    ],
+  },
+  cta: {
+    eyebrow: 'Eine Reise nach Ihren Wünschen',
+    title: 'Das Besondere,',
+    titleEm: 'ganz mühelos.',
+    body: 'Erzählen Sie unserem Team, wie Sie sich Ihre Zeit in der Bucht vorstellen. Wir zeigen Ihnen die verfügbaren Services und die passende Reise dazu.',
+    primary: 'Mit unserem Team planen',
+    secondary: 'Reiseverläufe ansehen',
+  },
+};
+
+export const servicesMessages = byLocale<ServicesMessages>({ en, vi, ja, fr, es, de });

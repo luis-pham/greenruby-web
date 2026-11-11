@@ -14,6 +14,7 @@ import { destinationMessages } from '@/views/destinations/messages';
 import { listArticles } from '@/views/blog/data';
 import { articlePath } from '@/views/blog/paths';
 import firstTimeEn from './first-time.en';
+import firstTimeDe from './first-time.de';
 import firstTimeEs from './first-time.es';
 import firstTimeFr from './first-time.fr';
 import firstTimeJa from './first-time.ja';
@@ -22,6 +23,7 @@ import { GuideView } from './GuideView';
 import { HubView, type HubCruise } from './HubView';
 import { hubMessages } from './hub-messages';
 import transferEn from './transfer.en';
+import transferDe from './transfer.de';
 import transferEs from './transfer.es';
 import transferFr from './transfer.fr';
 import transferJa from './transfer.ja';
@@ -29,8 +31,8 @@ import transferVi from './transfer.vi';
 import type { GuideContent } from './types';
 
 const GUIDES = {
-  guideFirstTime: { code: 'guide-first-time', content: { en: firstTimeEn, vi: firstTimeVi, ja: firstTimeJa, fr: firstTimeFr, es: firstTimeEs } },
-  guideTransfer: { code: 'guide-transfer', content: { en: transferEn, vi: transferVi, ja: transferJa, fr: transferFr, es: transferEs } },
+  guideFirstTime: { code: 'guide-first-time', content: { en: firstTimeEn, vi: firstTimeVi, ja: firstTimeJa, fr: firstTimeFr, es: firstTimeEs, de: firstTimeDe } },
+  guideTransfer: { code: 'guide-transfer', content: { en: transferEn, vi: transferVi, ja: transferJa, fr: transferFr, es: transferEs, de: transferDe } },
 } as const satisfies Record<string, { code: 'guide-first-time' | 'guide-transfer'; content: LegacyCopy<GuideContent> }>;
 
 type Guide = keyof typeof GUIDES;

@@ -330,4 +330,70 @@ const es: FaqMessages = {
   contactCaption: 'Le esperamos en la bahía.',
 };
 
-export const faqMessages = byLocale({ en, vi, ja, fr, es });
+const de: FaqMessages = {
+  breadcrumb: 'Häufige Fragen',
+  metaTitle: 'Häufige Fragen zur Halong-Kreuzfahrt',
+  metaDescription:
+    'Antworten auf häufige Fragen zu den Green-Ruby-Kreuzfahrten in Halong-Bucht und Lan-Ha-Bucht: Reiseverläufe, Buchungsanfrage, Kabinen und Leben an Bord.',
+  pageSuffix: (page) => ` – Seite ${page}`,
+  categoryDescription: (name) =>
+    `${name}: Unser Reservierungsteam beantwortet häufige Fragen zu den Green-Ruby-Kreuzfahrten in der Halong-Bucht und der Lan-Ha-Bucht.`,
+  heroEyebrow: 'Der Green-Ruby-Ratgeber',
+  heroTitle: 'Klare Antworten.',
+  heroTitleEm: 'Eine entspanntere Reise.',
+  heroBody:
+    'Von der Wahl der Bucht bis zu den Einzelheiten des Lebens an Bord: klare Antworten, damit Sie gut vorbereitet reisen.',
+  heroPrimary: 'Zu den Fragen',
+  heroSecondary: 'Unser Team fragen',
+  artKicker: 'Sorgfältig beantwortet',
+  artTitle: 'Vor dem Ablegen.',
+  questions: (n) => (n === 1 ? '1 Frage' : `${n} Fragen`),
+  introEyebrow: 'Alles Wichtige im Überblick',
+  introTitle: 'Ihre Fragen,',
+  introTitleEm: 'klar beantwortet.',
+  introBody:
+    'Stöbern Sie nach Themen oder suchen Sie gezielt nach einem Detail. Die wichtigsten Reiseinformationen an einem Ort.',
+  topicsKicker: 'Nach Thema',
+  topicsLabel: 'Themen der häufigen Fragen',
+  allTopics: 'Alle Fragen',
+  helpTitle: 'Lieber persönlich?',
+  helpBody: 'Unser Reservierungsteam hilft Ihnen bei besonderen Wünschen, bei der Planung und bei Fragen zur Buchung.',
+  helpLink: 'Mit unserem Team sprechen',
+  search: {
+    label: 'Häufige Fragen durchsuchen',
+    placeholder: 'Frage suchen, z. B. Zahlung oder Kleiderordnung',
+    clear: 'Löschen',
+    found: (n) => (n === 1 ? '1 Frage gefunden' : `${n} Fragen gefunden`),
+    expandAll: 'Alle aufklappen',
+    collapseAll: 'Alle zuklappen',
+    emptyTitle: 'Keine Fragen gefunden',
+    emptyBody: 'Versuchen Sie einen anderen Begriff oder wenden Sie sich an unser Team – wir helfen Ihnen gern weiter.',
+    reset: 'Alle Fragen anzeigen',
+  },
+  otherGroup: 'Weitere Fragen',
+  emptyGroup: 'Zu diesem Thema gibt es noch keine Fragen.',
+  paginationLabel: 'Seiten der häufigen Fragen',
+  previous: 'Zurück',
+  next: 'Weiter',
+  assuranceEyebrow: 'Sorgfältig planen',
+  assuranceTitle: 'Ein ruhiger Auftakt',
+  assuranceTitleEm: 'für Ihre Reise.',
+  assuranceBody:
+    'Unser Team begleitet Sie von der ersten Frage bis zur endgültigen Bestätigung, damit Sie sich ganz auf die Bucht freuen können.',
+  assuranceCta: 'Reiseverläufe entdecken',
+  steps: [
+    { title: 'Die passende Reise finden', body: 'Erkunden Sie Halong-Bucht und Lan-Ha-Bucht und wählen Sie den Reiseverlauf und die Kabine, die zu Ihnen passen.' },
+    { title: 'Details klären', body: 'Senden Sie eine Buchungsanfrage mit Ihren Reisedaten; unser Reservierungsteam informiert Sie über Verfügbarkeit, inklusive Leistungen, Transferoptionen und Buchungsbedingungen.' },
+    { title: 'Vorfreude auf die Bucht', body: 'Sobald die Abfahrten freigegeben sind, erhalten Sie Ihre Bestätigung und die Anreisehinweise.' },
+  ],
+  contactEyebrow: 'Persönliche Reservierung',
+  contactTitle: 'Noch eine',
+  contactTitleEm: 'Frage offen?',
+  contactBody:
+    'Ob besonderer Anlass, eine bestimmte Suite oder eine Frage zur Anreise: Wir helfen Ihnen gern bei der Planung.',
+  contactPrimary: 'Team kontaktieren',
+  contactEmail: 'E-Mail senden',
+  contactCaption: 'Bis bald in der Bucht.',
+};
+
+export const faqMessages = byLocale({ en, vi, ja, fr, es, de });

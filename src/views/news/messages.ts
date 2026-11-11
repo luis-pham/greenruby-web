@@ -153,7 +153,37 @@ const es: Partial<BlogMessages> = {
   ],
 };
 
-const overrides = byLocale<Partial<BlogMessages>>({ en, vi, ja, fr, es });
+const de: Partial<BlogMessages> = {
+  metaTitle: 'Neuigkeiten',
+  breadcrumb: 'Neuigkeiten',
+  heroEyebrow: 'Neuigkeiten von Green Ruby',
+  heroTitle: 'Neuigkeiten von',
+  heroTitleEm: 'Green Ruby.',
+  categoryLead: 'Unternehmensnachrichten von Green Ruby Cruises.',
+  listIntro: 'Die Messen und Branchenveranstaltungen, an denen wir teilnehmen, unsere Partnerschaften und die Etappen auf dem Weg zu unseren ersten Abfahrten.',
+  latest: 'Aktuelle Meldungen',
+  storyCount: (n) => (n === 1 ? 'Meldung' : 'Meldungen'),
+  featured: 'Im Fokus',
+  journalNumber: (n) => `Neuigkeiten von Green Ruby · ${String(n).padStart(2, '0')}`,
+  readStory: 'Weiterlesen',
+  moreArticles: 'Weitere Meldungen',
+  emptyTitle: 'Neuigkeiten folgen in Kürze.',
+  emptyBodyAll: 'Hier gibt es noch keine Unternehmensnachrichten. Entdecken Sie in der Zwischenzeit unsere Kreuzfahrten.',
+  publisher: 'Green Ruby Cruises',
+  tocTitle: 'In diesem Beitrag',
+  tocMobile: 'Inhalt dieses Beitrags',
+  share: 'Beitrag teilen',
+  enjoyed: 'Meldung teilen',
+  relatedTitle: 'Weitere',
+  relatedTitleEm: 'Neuigkeiten.',
+  relatedIntro: 'Weitere Nachrichten von Green Ruby Cruises und Seiten zum Weiterlesen.',
+  fallbackCards: [
+    { kicker: 'Neuigkeiten', title: 'Alle Neuigkeiten', body: 'Alle Meldungen von Green Ruby Cruises an einem Ort.', link: 'Alle Neuigkeiten ansehen', section: 'news' },
+    ...blogMessages('de').fallbackCards.slice(1),
+  ],
+};
+
+const overrides = byLocale<Partial<BlogMessages>>({ en, vi, ja, fr, es, de });
 
 export function newsMessages(locale: Locale): BlogMessages {
   return { ...blogMessages(locale), ...overrides[locale] };

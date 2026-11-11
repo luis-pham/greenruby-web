@@ -122,4 +122,27 @@ const es: HubMessages = {
   journal: { title: 'Del cuaderno de viaje', lede: 'Artículos recientes sobre temporadas, comparativas y sostenibilidad.', all: 'Todos los artículos del cuaderno de viaje' },
 };
 
-export const hubMessages = byLocale<HubMessages>({ en, vi, ja, fr, es });
+const de: HubMessages = {
+  metaTitle: 'Reiseführer Halong-Bucht: Planung & Tipps',
+  metaDescription: 'Reiseführer für Halong-Bucht und Lan-Ha-Bucht: Sehenswürdigkeiten, Anreise, beste Reisezeit und worauf Sie bei der Wahl Ihrer Kreuzfahrt achten sollten.',
+  eyebrow: 'Halong-Bucht · Lan-Ha-Bucht',
+  title: 'Reiseführer',
+  titleEm: 'Halong-Bucht',
+  lead: 'Alle unsere Ratgeber zu den beiden Buchten, geordnet nach dem, was Sie gerade planen. Jede Karte führt zu der Seite, die das Thema ausführlich behandelt.',
+  plan: { title: 'Reise planen', lede: 'Wann reisen, wie viele Nächte, welche Bucht und wie Sie zum Hafen kommen.' },
+  places: {
+    title: 'Sehenswürdigkeiten',
+    lede: 'Höhlen, Inseln und Dörfer in den Buchten: wie ein Besuch abläuft und welche Reiseverläufe dort einen Halt vorsehen.',
+    hub: 'Alle Sehenswürdigkeiten ansehen',
+  },
+  cruises: {
+    title: 'Kreuzfahrt wählen',
+    lede: 'Die beiden Schiffe, die vier Reiseverläufe und was Sie vor der Buchungsanfrage vergleichen sollten.',
+    itineraries: ['Alle Reiseverläufe', 'Zwei Buchten, eine oder zwei Nächte: die Programme Tag für Tag im direkten Vergleich.'],
+    luxury: ['Der umfassende Ratgeber zu umweltbewussten Luxuskreuzfahrten', 'Was Sie vor der Buchung prüfen sollten: Zertifizierungen, Technik und die beiden Buchten.'],
+    ship: (bay: string) => `Das Schiff in der ${bay}: Kabinen, Ausstattung und Reiseverläufe.`,
+  },
+  journal: { title: 'Aus dem Reisejournal', lede: 'Neue Beiträge zu Reisezeiten, Vergleichen und Nachhaltigkeit.', all: 'Alle Beiträge im Reisejournal' },
+};
+
+export const hubMessages = byLocale<HubMessages>({ en, vi, ja, fr, es, de });

@@ -171,7 +171,7 @@ export function CabinView({
                 {cabin.cabinClass && <div className={s.glanceRow}><dt>{c.glance.category}</dt><dd>{cabin.cabinClass}</dd></div>}
                 {cabin.view && <div className={s.glanceRow}><dt>{c.glance.view}</dt><dd>{cabin.view}</dd></div>}
                 {cabin.area != null && <div className={s.glanceRow}><dt>{c.glance.area}</dt><dd>{cabin.area} m²</dd></div>}
-                {cabin.capacity != null && <div className={s.glanceRow}><dt>{c.glance.occupancy}</dt><dd>{cabin.capacity}{wordSpace(locale)}{c.guestUnit(cabin.capacity).toLowerCase()}</dd></div>}
+                {cabin.capacity != null && <div className={s.glanceRow}><dt>{c.glance.occupancy}</dt><dd>{cabin.capacity}{wordSpace(locale)}{locale === 'de' ? c.guestUnit(cabin.capacity) : c.guestUnit(cabin.capacity).toLowerCase() /* German nouns stay capitalised */}</dd></div>}
                 {occupancy ? (
                   <div className={s.glanceRow}><dt>{c.glance.maxGuests}</dt><dd>{occupancy}</dd></div>
                 ) : (

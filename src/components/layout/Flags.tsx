@@ -52,3 +52,14 @@ export function FlagES() {
     </svg>
   );
 }
+
+/** German edition (Germany, Austria, Switzerland): the flag of Germany. */
+export function FlagDE() {
+  return (
+    <svg viewBox="0 0 30 20" aria-hidden="true">
+      <rect width="30" height="20" fill="#000" />
+      <rect y="6.67" width="30" height="6.67" fill="#DD0000" />
+      <rect y="13.33" width="30" height="6.67" fill="#FFCE00" />
+    </svg>
+  );
+}

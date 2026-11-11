@@ -14,7 +14,7 @@ const en = {
   bays: { 'ha-long': 'Ha Long Bay', 'lan-ha': 'Lan Ha Bay' } satisfies Record<Bay, string>,
   bayIntro: {
     'ha-long': 'The classic bay of the UNESCO site: large show caves and island viewpoints, busier routes. Sailed by Green Ruby 1.',
-    'lan-ha': 'South of Ha Long, off Cat Ba Island: quieter water, kayaking lagoons and village visits. Sailed by Green Ruby 2.',
+    'lan-ha': 'South of Ha Long, off Cat Ba Island: quieter water, sheltered lagoons (kayaking temporarily suspended under local regulations) and village visits. Sailed by Green Ruby 2.',
   } satisfies Record<Bay, string>,
   categories: { cave: 'Caves', island: 'Islands & beaches', village: 'Villages', lagoon: 'Lagoons & kayaking', other: 'Other' } satisfies Record<Category, string>,
   category: { cave: 'Cave', island: 'Island', village: 'Village', lagoon: 'Lagoon', other: 'Place' } satisfies Record<Category, string>,
@@ -128,7 +128,7 @@ const vi: DestinationMessages = {
   bays: { 'ha-long': 'Vịnh Hạ Long', 'lan-ha': 'Vịnh Lan Hạ' },
   bayIntro: {
     'ha-long': 'Vùng lõi di sản UNESCO: hang động lớn, đảo có điểm ngắm cảnh, tuyến tàu đông hơn. Green Ruby 1 khai thác vịnh này.',
-    'lan-ha': 'Phía nam Hạ Long, ngoài khơi đảo Cát Bà: mặt nước yên tĩnh, áng chèo kayak và làng quê. Green Ruby 2 khai thác vịnh này.',
+    'lan-ha': 'Phía nam Hạ Long, ngoài khơi đảo Cát Bà: mặt nước yên tĩnh, những áng nước kín gió (chèo kayak đang tạm dừng theo quy định địa phương) và làng quê. Green Ruby 2 khai thác vịnh này.',
   },
   categories: { cave: 'Hang động', island: 'Đảo & bãi biển', village: 'Làng chài & làng quê', lagoon: 'Áng & chèo kayak', other: 'Khác' },
   category: { cave: 'Hang động', island: 'Đảo', village: 'Làng', lagoon: 'Áng nước', other: 'Địa điểm' },
@@ -352,7 +352,7 @@ const fr: DestinationMessages = {
   bays: { 'ha-long': 'Baie d’Halong', 'lan-ha': 'Baie de Lan Ha' },
   bayIntro: {
     'ha-long': 'La baie emblématique du site inscrit au patrimoine mondial de l’UNESCO : grandes grottes aménagées, points de vue sur les îles, itinéraires plus fréquentés. Desservie par Green Ruby 1.',
-    'lan-ha': 'Au sud de la baie d’Halong, au large de l’île de Cat Ba : des eaux plus calmes, des lagons propices au kayak et des visites de villages. Desservie par Green Ruby 2.',
+    'lan-ha': 'Au sud de la baie d’Halong, au large de l’île de Cat Ba : des eaux plus calmes, des lagons abrités (le kayak y est temporairement suspendu par la réglementation locale) et des visites de villages. Desservie par Green Ruby 2.',
   },
   categories: { cave: 'Grottes', island: 'Îles et plages', village: 'Villages', lagoon: 'Lagons et kayak', other: 'Autres' },
   category: { cave: 'Grotte', island: 'Île', village: 'Village', lagoon: 'Lagon', other: 'Lieu' },
@@ -563,7 +563,119 @@ const es: DestinationMessages = {
   },
 };
 
-export const destinationMessages = byLocale<DestinationMessages>({ en, vi, ja, fr, es });
+const de: DestinationMessages = {
+  metaTitle: 'Halong-Bucht: Sehenswürdigkeiten & Höhlen',
+  metaDescription:
+    'Höhlen, Inseln, Strände und Fischerdörfer in der Halong-Bucht und der Lan-Ha-Bucht: geplante Stopps der Green-Ruby-Kreuzfahrten und weitere Ziele.',
+  breadcrumb: 'Sehenswürdigkeiten',
+  breadcrumbGuide: 'Reiseführer',
+  eyebrow: 'Reiseführer',
+  title: 'Sehenswürdigkeiten der',
+  titleEm: 'Halong-Bucht und Lan-Ha-Bucht',
+  lead: 'Höhlen, Inseln, Strände und Fischerdörfer in beiden Buchten: wie ein Besuch abläuft, welche Orte auf den geplanten Routen von Green Ruby liegen und welche Sie auf anderem Weg besuchen.',
+  bays: { 'ha-long': 'Halong-Bucht', 'lan-ha': 'Lan-Ha-Bucht' },
+  bayIntro: {
+    'ha-long': 'Die klassische Bucht des UNESCO-Weltnaturerbes: große Schauhöhlen, Aussichtspunkte auf den Inseln, belebtere Routen. Hier fährt Green Ruby 1.',
+    'lan-ha': 'Südlich der Halong-Bucht vor der Insel Cat Ba: ruhigeres Wasser, geschützte Lagunen (Kajakfahren derzeit durch örtliche Vorschriften ausgesetzt) und Dorfbesuche. Hier fährt Green Ruby 2.',
+  },
+  categories: { cave: 'Höhlen', island: 'Inseln & Strände', village: 'Dörfer', lagoon: 'Lagunen & Kajak', other: 'Sonstiges' },
+  category: { cave: 'Höhle', island: 'Insel', village: 'Dorf', lagoon: 'Lagune', other: 'Ort' },
+  places: (n: number) => (n === 1 ? '1 Ort' : `${n} Orte`),
+  compareBays: 'Die beiden Buchten vergleichen',
+  filter: {
+    label: 'Ziele filtern',
+    search: 'Ziele suchen',
+    searchPlaceholder: 'Nach Namen suchen, z. B. Höhle',
+    bay: 'Bucht',
+    category: 'Art',
+    all: 'Alle',
+    results: (n: number) => (n === 1 ? '1 Ziel' : `${n} Ziele`),
+    empty: 'Kein Ziel entspricht diesen Filtern.',
+    reset: 'Filter zurücksetzen',
+  },
+  stop: 'Geplanter Green-Ruby-Stopp',
+  regional: 'Ausflugsziel in der Region',
+  thingsToDo: {
+    title: 'Was Sie unternehmen können',
+    lede: 'Die wichtigsten Arten von Besuchen in den beiden Buchten. Zu jedem Ort gibt es einen eigenen Ratgeber mit Zugang, Zeiten und Bedingungen.',
+    groups: {
+      cave: ['Höhlen', 'Begehbare Schauhöhlen mit Treppen sowie niedrige Durchgänge auf Höhe des Wasserspiegels, die man per Kajak oder kleinem Boot passiert.'],
+      island: ['Inseln & Strände', 'Aussichtspunkte auf den Inseln, die über Treppen erreicht werden, und kleine Strände, an denen nur bei geeigneten Bedingungen gebadet werden darf.'],
+      village: ['Fischerdörfer & Alltag', 'Ein ehemaliges schwimmendes Dorf, dessen Bewohner 2014 an Land umgesiedelt wurden, und ein Bauerndorf auf der Insel Cat Ba, das per Boot und anschließend mit dem Fahrrad oder Elektrowagen erreicht wird.'],
+      lagoon: ['Lagunen, Kajaks & kleine Boote', 'Geschütztes Wasser zwischen den Kalksteininseln, je nach Bucht und örtlichen Vorschriften per Kajak, Bambusboot oder Ruderboot erkundet.'],
+    },
+    cavesLink: 'Die Höhlen vergleichen',
+    kayakNote: 'Kajakfahren in der Lan-Ha-Bucht ist aufgrund örtlicher Vorschriften vorübergehend ausgesetzt (Stand: Oktober 2026); die Stopps in der Lan-Ha-Bucht werden daher per Boot besucht. In der Halong-Bucht erreichen Sie die Luon-Höhle per Kajak oder Bambusboot.',
+    onboard: ['Aktivitäten an Bord', 'Kochkurs, Morgensport und weitere Aktivitäten auf dem Schiff selbst finden Sie auf der Seite „Erlebnisse“.'],
+    onboardLink: 'Erlebnisse an Bord ansehen',
+  },
+  stops: {
+    title: 'Stopps der Green-Ruby-Kreuzfahrten',
+    lede: 'Orte auf den veröffentlichten Reiseverläufen von Green Ruby. Geplante, nicht garantierte Stopps: Wetter, Gezeiten und örtliche Vorschriften entscheiden am jeweiligen Tag.',
+  },
+  others: {
+    title: 'Weitere Ziele in den Buchten',
+    lede: 'Bekannte Orte in den Buchten, die auf keinem Green-Ruby-Reiseverlauf stehen. Unsere Kreuzfahrten halten hier nicht; Sie können sie separat mit den Tagesausflugsbooten der Halong-Bucht besuchen.',
+    notStop: 'Kein Green-Ruby-Stopp',
+    source: 'Quelle',
+    route: 'Besucht auf der Ausflugsroute VHL1 der Halong-Bucht (ab Tuan Chau oder dem internationalen Kreuzfahrthafen Ha Long)',
+  },
+  caves: {
+    title: 'Höhlen der Halong-Bucht und der Lan-Ha-Bucht',
+    lede: 'Wie jede Höhle besucht wird und ob sie auf einem Green-Ruby-Reiseverlauf liegt.',
+    cave: 'Höhle',
+    bay: 'Bucht',
+    visit: 'Art des Besuchs',
+    greenRuby: 'Mit Green Ruby',
+    none: 'Kein Green-Ruby-Stopp',
+  },
+  cruises: { title: 'Die Schiffe', lede: 'Green Ruby 1 fährt in der Halong-Bucht, Green Ruby 2 in der Lan-Ha-Bucht.' },
+  stopNote: 'Die Green-Ruby-Stopps stammen aus den veröffentlichten Reiseverläufen, die bis zu den ersten Abfahrten im Februar 2027 vorläufig bleiben. Andere Ausflugsziele der Region gehören zu keiner Green-Ruby-Route.',
+  readMore: 'Zum Ratgeber',
+  map: {
+    title: 'Karte der Buchten',
+    lede: 'Ziele mit geprüfter Position. Die Positionen sind ungefähr und dienen nur der Orientierung.',
+    attribution: '© OpenStreetMap-Mitwirkende',
+    listLabel: 'Ziele auf der Karte',
+  },
+  itineraries: {
+    title: 'Welche Kreuzfahrt was besucht',
+    lede: 'Geplante Stopps auf jedem Green-Ruby-Reiseverlauf. Zeiten und Stopps können sich je nach Wetter und Gezeiten ändern.',
+    days: (n: number) => `${n} Tage, ${n - 1} ${n > 2 ? 'Nächte' : 'Nacht'}`,
+    view: 'Reiseverlauf ansehen',
+  },
+  plan: {
+    title: 'Vor der Reise',
+    items: [
+      ['Das Wetter entscheidet', 'Jeder Besuch setzt voraus, dass die Boote auslaufen dürfen. Bei Sturmwarnungen, vor allem von Juni bis Oktober, können Fahrten kurzfristig ausgesetzt werden.'],
+      ['Die Gezeiten zählen', 'Niedrige Höhlendurchgänge wie Luon und Sang Toi (Dark & Bright Cave) sind nur bei passendem Wasserstand befahrbar; Ihr Guide ändert deshalb unter Umständen die Reihenfolge des Tages.'],
+      ['Treppen und Gleichgewicht', 'Schauhöhlen und Aussichtspunkte bedeuten viele Stufen; Kajak und Ruderboot erfordern etwas Gleichgewicht. Jeder Ratgeber enthält Hinweise zur Barrierefreiheit.'],
+    ],
+  },
+  guides: {
+    title: 'Den Rest der Reise planen',
+    firstTime: ['Zum ersten Mal auf Kreuzfahrt in der Halong-Bucht?', 'Was Sie erwartet, was Sie einpacken sollten und wie der Tag der Einschiffung abläuft.'],
+    transfer: ['Von Hanoi zur Halong-Bucht', 'Transfers, Häfen und realistische Fahrzeiten.'],
+    bestTime: ['Beste Reisezeit', 'Das Wetter Monat für Monat und die Sturmsaison.'],
+  },
+  detail: {
+    facts: 'Auf einen Blick',
+    plan: 'Im Programm von Green Ruby',
+    planNone: 'Dieser Ort steht auf keinem Green-Ruby-Reiseverlauf. Er ist als Ausflugsziel der Region aufgeführt, das Sie auf eigene Faust oder mit anderen Anbietern besuchen können.',
+    planNote: 'Geplante Stopps laut den veröffentlichten Reiseverläufen; vorläufig bis zu den ersten Abfahrten im Februar 2027.',
+    mapsLink: 'In Google Maps öffnen',
+    faq: 'Häufige Fragen von Reisenden',
+    sources: 'Quellen',
+    photo: 'Foto',
+    checked: 'Angaben geprüft',
+    related: 'In der Nähe und ähnliche Orte',
+    back: 'Alle Sehenswürdigkeiten',
+    ctaTitle: 'Den vollständigen Reiseverlauf ansehen',
+    ctaBody: 'Zeiten, Mahlzeiten, Kabinen und inklusive Leistungen der Kreuzfahrt, die hier einen Halt plant.',
+  },
+};
+
+export const destinationMessages = byLocale<DestinationMessages>({ en, vi, ja, fr, es, de });
 
 /**
  * How each cave is visited, by destination slug of each language (for the hub's cave table). Taken from the
@@ -610,6 +722,14 @@ export const caveVisit = byLocale<Record<string, string>>({
     'thien-cung-cave': 'A pie, subiendo escalones hasta una entrada a unos 20 m sobre el nivel del mar; unos 30–60 minutos',
     'dau-go-cave': 'A pie, unos 90 escalones empinados; luz natural en la primera de sus tres salas; unos 30–60 minutos',
   },
+  de: {
+    'sung-sot-cave': 'Zu Fuß, mit Stufen und unebenen Wegen; etwa 45–60 Minuten',
+    'luon-cave': 'Per Kajak oder Bambusboot durch einen Tunnel auf Höhe des Wasserspiegels',
+    'tien-ong-cave': 'Zu Fuß nach einem kurzen Weg; archäologische Ausstellung',
+    'dark-bright-cave': 'Per Ruderboot (Kajakfahren in der Lan-Ha-Bucht ausgesetzt)',
+    'thien-cung-cave': 'Zu Fuß, über Stufen zu einem Eingang etwa 20 m über dem Meeresspiegel; etwa 30–60 Minuten',
+    'dau-go-cave': 'Zu Fuß, etwa 90 steile Stufen; Tageslicht in der ersten von drei Kammern; etwa 30–60 Minuten',
+  },
 });
 
 /**
@@ -620,4 +740,4 @@ export const caveVisit = byLocale<Record<string, string>>({
 export type OtherPlace = { key: string; name: string; bay: Bay; category: Category; summary: string; visit: string; sources: { title: string; url: string }[] };
 
 
-export const otherPlaces = byLocale<OtherPlace[]>({ en: [], vi: [], ja: [], fr: [], es: [] });
+export const otherPlaces = byLocale<OtherPlace[]>({ en: [], vi: [], ja: [], fr: [], es: [], de: [] });

@@ -146,5 +146,35 @@ const es: typeof en = {
   durationShort: (days: number) => `${days}D/${days - 1}N`,
 };
 
-export const bookingMessages = byLocale({ en, vi, ja, fr, es });
+// Same request-only behaviour as fr/es: no online payment, prices on request, English booking terms apply.
+const de: typeof en = {
+  regionLabel: 'Termine und Buchungsanfrage',
+  from: 'Ab',
+  perCabin: '/ Kabine',
+  priceOnRequest: 'Preis auf Anfrage',
+  priceLabel: 'Preis',
+  onRequest: 'Auf Anfrage',
+  voyage: 'Kreuzfahrt',
+  date: 'Abfahrtstermin',
+  chooseDate: 'Datum wählen',
+  prevMonth: 'Vorheriger Monat',
+  nextMonth: 'Nächster Monat',
+  selected: 'Gewähltes Datum',
+  available: 'Geplante Abfahrt',
+  check: 'Verfügbarkeit anfragen',
+  checkDates: 'Termine ansehen',
+  soonTitle: 'Abfahrtstermine folgen in Kürze',
+  soonBody: 'Senden Sie uns Ihre Wunschtermine: Unser Reservierungsteam prüft die Verfügbarkeit und meldet sich bei Ihnen.',
+  soonDate: 'Termine folgen in Kürze',
+  request: 'Wunschtermine senden',
+  trustCancel: 'Volle Erstattung bei Stornierung 30 Tage oder mehr vor der Abfahrt',
+  trustPayment: 'Senden Sie Ihre Anfrage ohne Online-Zahlung. Unser Team nennt Ihnen den Preis (Buchungsbedingungen auf Englisch).',
+  questions: 'Fragen? Schreiben Sie uns',
+  close: 'Schließen',
+  demo: 'Demodaten',
+  nights: (n: number) => (n === 1 ? '1 Nacht' : `${n} Nächte`),
+  durationShort: (days: number) => `${days}T/${days - 1}N`,
+};
+
+export const bookingMessages = byLocale({ en, vi, ja, fr, es, de });
 export type BookingMessages = typeof en;

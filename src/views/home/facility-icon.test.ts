@@ -10,6 +10,10 @@ test('facility names map to the same icon in every language', () => {
     ['Sundeck Pool', 'pool'], ['Piscine du pont soleil', 'pool'], ['Piscina superior', 'pool'], ['サンデッキのプール', 'pool'], ['Hồ bơi', 'pool'],
     ['Spa & Wellness Centre', 'wellness'], ['Spa et centre de bien-être', 'wellness'], ['Spa y bienestar', 'wellness'],
     ['Imperial Suite', 'cabin'], ['Camarote', 'cabin'],
+    ['Hauptrestaurant', 'dining'], ['Speisesaal', 'dining'], ['Sky Bar & Lounge (Getränke)', 'bar'], ['Weinbar', 'bar'],
+    ['Pool auf dem Sonnendeck', 'pool'], ['Schwimmbecken', 'pool'], ['Spa & Wellness', 'wellness'], ['Massage und Sauna', 'wellness'],
+    ['Kabine Ocean Breeze Premium', 'cabin'], ['Kabinen und Suiten', 'cabin'], ['Livemusik am Abend', 'entertainment'], ['Kino an Deck', 'entertainment'],
+    ['Geringerer Energieverbrauch', 'default'],
     ['Lower Energy Use', 'default'], ['Menor consumo energético', 'default'],
   ];
   for (const [name, kind] of cases) assert.equal(facilityKind(name), kind, name);

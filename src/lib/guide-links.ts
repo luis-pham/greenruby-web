@@ -6,8 +6,11 @@ import { sectionHref } from './section-links.ts';
  * (app_article.slug), so they don't change when a title is edited; if one is moved to another category
  * or unpublished, update it here (the footer links to these on every page).
  *
- * es: Spanish slugs set with content:slug (es drafts 2026-11-11); they must be set the same way on production before
+ * es/de: Spanish/German slugs set with content:slug (es drafts 2026-11-11); they must be set the same way on production before
  * the Spanish blog is public (until then guideArticlePath() gives /es pages the English article).
+ *
+ * de: no German article paths yet: they are added once the German slugs are set with content:slug (until then /de
+ * pages link the English article).
  */
 const ARTICLES = {
   // Not a translation pair: EN 221 is the eco-luxury guide, VI 240 the "choosing a luxury cruise" guide.
@@ -18,6 +21,7 @@ const ARTICLES = {
     // FR 289 (French slug), the translation of EN 221.
     fr: '/fr/blog/ecotourisme/croisiere-ecoresponsable-baie-d-halong.html',
     es: '/es/blog/sostenibilidad/crucero-sostenible-bahia-de-halong-que-comprobar.html',
+    de: '/de/blog/nachhaltigkeit/nachhaltige-kreuzfahrt-halong-bucht-worauf-achten.html',
   },
   // EN 236 / VI 265 / JA (2026-11-01).
   bestTime: {
@@ -26,6 +30,7 @@ const ARTICLES = {
     ja: '/ja/blog/travel-tips/best-time-to-visit-halong-bay.html',
     fr: '/fr/blog/conseils-pratiques/quand-partir-en-baie-d-halong.html',
     es: '/es/blog/consejos-de-viaje/mejor-epoca-para-visitar-la-bahia-de-halong.html',
+    de: '/de/blog/reisetipps/beste-reisezeit-halong-bucht.html',
   },
   // EN 222 / VI 223 / JA (2026-11-01).
   bayComparison: {
@@ -34,6 +39,7 @@ const ARTICLES = {
     ja: '/ja/blog/destinations-itineraries/ha-long-bay-vs-lan-ha-bay-which-cruise.html',
     fr: '/fr/blog/destinations-et-itineraires/baie-de-lan-ha-ou-baie-d-halong.html',
     es: '/es/blog/destinos-e-itinerarios/bahia-de-halong-o-bahia-de-lan-ha.html',
+    de: '/de/blog/ziele-und-reiserouten/halong-bucht-oder-lan-ha-bucht.html',
   },
 } as const satisfies Record<string, { en: string; vi: string } & Partial<Record<Locale, string>>>;
 

@@ -15,7 +15,7 @@ import { plainText, RichText, type LinkResolver } from './Rich';
 import { TransferSelector } from './TransferSelector';
 import type { Block, GuideContent } from './types';
 
-const CONTACT_RESERVATIONS: LegacyCopy<string> = { en: 'Contact reservations', vi: 'Liên hệ đặt chỗ', ja: '予約担当チームに問い合わせる', fr: 'Contacter le service réservations', es: 'Contactar con reservas' };
+const CONTACT_RESERVATIONS: LegacyCopy<string> = { en: 'Contact reservations', vi: 'Liên hệ đặt chỗ', ja: '予約担当チームに問い合わせる', fr: 'Contacter le service réservations', es: 'Contactar con reservas', de: 'Reservierungsteam kontaktieren' };
 import s from './guide.module.css';
 
 const escapeHtml = (value: string) => value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
