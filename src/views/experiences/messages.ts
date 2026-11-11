@@ -621,7 +621,7 @@ const fr: ExperienceMessages = {
   momentBody: 'Voici un aperçu de cette activité. Les horaires et son déroulement dépendent de la croisière choisie.',
   steps: [
     { title: 'Retrouver l’équipage', body: 'Vérifiez le point de rendez-vous, l’horaire et l’équipement éventuel auprès de l’équipe Green Ruby avant de commencer.' },
-    { title: 'Trouver votre rythme', body: 'Participez à votre rythme, au milieu des îlots calcaires de la baie.' },
+    { title: 'Selon les conditions', body: 'Le déroulement peut varier selon la météo, la réglementation locale et le programme du jour.' },
     { title: 'Vivre l’instant', body: 'Prenez le temps d’observer les paysages et de profiter de l’activité.' },
   ],
   photosEyebrow: 'Carnet photo',
