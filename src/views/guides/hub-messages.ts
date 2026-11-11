@@ -99,4 +99,27 @@ const fr: HubMessages = {
   journal: { title: 'Extraits du carnet de voyage', lede: 'Nos derniers articles sur les saisons, les comparatifs et le tourisme durable.', all: 'Tous les articles du carnet de voyage' },
 };
 
-export const hubMessages = byLocale<HubMessages>({ en, vi, ja, fr });
+const es: HubMessages = {
+  metaTitle: 'Guía de viaje de la bahía de Halong',
+  metaDescription: 'Empiece aquí: guías de la bahía de Halong y la bahía de Lan Ha sobre qué ver, cómo llegar, cuándo viajar y cómo elegir su crucero.',
+  eyebrow: 'Bahía de Halong · Bahía de Lan Ha',
+  title: 'Bahía de Halong',
+  titleEm: 'guía de viaje',
+  lead: 'Todas nuestras guías sobre las dos bahías, agrupadas según lo que esté planificando. Cada tarjeta le lleva a la página que responde a fondo.',
+  plan: { title: 'Planifique su viaje', lede: 'Cuándo ir, cuántas noches, qué bahía elegir y cómo llegar al puerto.' },
+  places: {
+    title: 'Lugares que visitar',
+    lede: 'Cuevas, islas y aldeas de las bahías: en qué consiste cada visita y qué itinerarios tienen prevista una parada allí.',
+    hub: 'Ver todos los lugares que visitar',
+  },
+  cruises: {
+    title: 'Elija su crucero',
+    lede: 'Los dos barcos, los cuatro itinerarios y lo que conviene comparar antes de reservar.',
+    itineraries: ['Todos los itinerarios', 'Dos bahías, una o dos noches: los programas día a día, uno junto a otro.'],
+    luxury: ['La guía completa de los cruceros de lujo sostenibles (en inglés)', 'Qué comprobar antes de reservar: certificaciones, tecnología y las dos bahías.'],
+    ship: (bay: string) => `${bay}: el barco, sus camarotes, instalaciones e itinerarios.`,
+  },
+  journal: { title: 'Del cuaderno de viaje', lede: 'Artículos recientes sobre temporadas, comparativas y sostenibilidad.', all: 'Todos los artículos del cuaderno de viaje' },
+};
+
+export const hubMessages = byLocale<HubMessages>({ en, vi, ja, fr, es });

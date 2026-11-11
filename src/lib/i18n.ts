@@ -1,7 +1,7 @@
 // Compiled locales (phase 1D-b). en/vi are the legacy site (unprefixed EN, /vi + Vietnamese segments). ja is an
 // 'intl' locale: /ja + the English segments (docs/i18n-audit/12 §7). Compiling a locale does not make it public:
 // the CMS serves it only once it is effectively public and every web instance lists it in its manifest.
-export const locales = ['en', 'vi', 'ja', 'fr'] as const;
+export const locales = ['en', 'vi', 'ja', 'fr', 'es'] as const;
 export type Locale = (typeof locales)[number];
 export const defaultLocale: Locale = 'en';
 
@@ -28,6 +28,8 @@ export const localeInfo: Record<Locale, { nativeName: string; code: string; href
   vi: { nativeName: 'Tiếng Việt', code: 'VI', hreflang: 'vi', ogLocale: 'vi_VN', intlTag: 'vi-VN' },
   ja: { nativeName: '日本語', code: 'JA', hreflang: 'ja', ogLocale: 'ja_JP', intlTag: 'ja-JP' },
   fr: { nativeName: 'Français', code: 'FR', hreflang: 'fr', ogLocale: 'fr_FR', intlTag: 'fr-FR' },
+  // One neutral Spanish edition for Spain and Latin America (no es-ES / es-MX split): hreflang 'es'.
+  es: { nativeName: 'Español', code: 'ES', hreflang: 'es', ogLocale: 'es_ES', intlTag: 'es-ES' },
 };
 
 const intlTagOf = (locale: string): string | undefined => (localeInfo as Partial<Record<string, { intlTag: string }>>)[locale]?.intlTag;

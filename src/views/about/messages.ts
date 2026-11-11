@@ -421,7 +421,111 @@ const fr: AboutMessages = {
   },
 };
 
-export const aboutMessages = byLocale<AboutMessages>({ en, vi, ja, fr });
+const es: AboutMessages = {
+  metaTitle: 'Sobre Green Ruby Cruises',
+  metaDescription:
+    'La historia de Green Ruby: un lujo sereno, barcos diseñados para reducir su huella y un vínculo cercano con la bahía de Halong, la bahía de Lan Ha y su gente.',
+  breadcrumb: 'Sobre nosotros',
+  hero: {
+    eyebrow: 'La historia de Green Ruby Cruises',
+    title: 'Lujo con',
+    titleEm: 'una huella más ligera.',
+    body: 'Creemos que la mejor manera de conocer las bahías de Vietnam es la que respeta su belleza y ayuda a cuidar el entorno que las rodea.',
+    primary: 'Conocer nuestra historia',
+    secondary: 'Nuestros compromisos',
+  },
+  values: {
+    label: 'Lo que define la filosofía Green Ruby',
+    items: [
+      { icon: 'compass', tag: 'Filosofía', title: 'Un lujo consciente', body: 'Menos distracciones. Más momentos que importan sobre el agua.' },
+      { icon: 'leaf', tag: 'Medio ambiente', title: 'Respetar la bahía', body: 'Tecnología y decisiones diarias pensadas para reducir nuestra huella.' },
+      { icon: 'people', tag: 'Comunidad', title: 'Arraigados en el lugar', body: 'Un vínculo más estrecho con la gente y las tradiciones de la región.' },
+    ],
+  },
+  subnav: {
+    label: 'Secciones de la página Sobre nosotros',
+    story: 'Nuestra historia',
+    approach: 'Nuestro enfoque',
+    community: 'Comunidad local',
+    collection: 'Nuestros barcos',
+    progress: 'En qué punto estamos',
+  },
+  story: {
+    eyebrow: 'Nuestra historia',
+    title: 'La bahía merece',
+    titleEm: 'algo mejor.',
+    lead: 'Hay lugares que nos piden ir más despacio, mirar con más atención y viajar de otra manera.',
+    link: 'Conocer nuestros barcos',
+    stamp: ['Una manera', 'más consciente', 'de navegar'],
+  },
+  statement: {
+    index: 'La mirada Green Ruby',
+    line1: 'El verdadero lujo no es tener más.',
+    line2: 'Es descubrir',
+    em: 'lo que importa.',
+    footer: 'Aire para respirar. Espacio para conectar. Una bahía que merece protección.',
+  },
+  technology: {
+    eyebrow: 'Diseñados con intención',
+    title: 'Una nueva forma de',
+    titleEm: 'viajar con criterio.',
+    body: 'Cuidar la bahía empieza por lo que no se ve. Nuestros barcos combinan sistemas eficientes con cambios prácticos en nuestra forma de trabajar cada día.',
+    micro: 'Tecnología y diseño',
+    foot: 'Compromiso de diseño',
+    qualifier:
+      'Las características de diseño y los objetivos ambientales describen cómo está previsto que funcionen nuestros barcos; no son resultados de operación verificados de forma independiente.',
+  },
+  impact: {
+    eyebrow: 'Nuestro impacto',
+    wastewater: 'Aguas residuales tratadas',
+    co2: 'Toneladas de CO₂ evitadas al año (solar, estimación)',
+    solar: 'Paneles solares en cubierta',
+  },
+  community: {
+    eyebrow: 'Más allá del barco',
+    title: 'Nuestro hogar.',
+    titleEm: 'Nuestra responsabilidad.',
+    body: 'Proteger un destino también significa apostar por las personas que viven en él.',
+    link: 'Hablar con nuestro equipo',
+  },
+  collection: {
+    eyebrow: 'Nuestros barcos',
+    title: (n: number): string => (n === 2 ? 'Dos barcos.' : 'Nuestra flota.'),
+    titleEm: 'Una misma filosofía.',
+    body: 'Aguas distintas, el mismo cuidado. Descubra las dos caras de la experiencia Green Ruby y adónde le llevará cada barco.',
+    vessel: (i: number, bay: string | null) => `Barco ${String(i).padStart(2, '0')}${bay ? ` / ${bay}` : ''}`,
+    explore: (name: string) => `Descubrir el ${name}`,
+  },
+  standards: {
+    eyebrow: 'Transparencia sobre nuestros avances',
+    title: 'La confianza se construye',
+    titleEm: 'con transparencia.',
+    body: 'Preferimos contar el proceso antes que dar a entender que ya contamos con un certificado. Así están las cosas hoy.',
+    label: 'Certificaciones de sostenibilidad',
+    // No Spanish eco article exists; like French, Spanish readers get only the brand facts link.
+    guide: null,
+    facts: 'Estado de cada cifra de sostenibilidad',
+  },
+  cta: {
+    eyebrow: 'Otra manera de ver la bahía',
+    title: 'Viajar con belleza.',
+    titleEm: 'Partir con respeto.',
+    body: 'Encuentre el crucero Green Ruby en el que se unen paisajes extraordinarios, un confort generoso y una conexión más profunda con el lugar.',
+    primary: 'Ver nuestros itinerarios',
+    secondary: 'Hablar con nuestro equipo',
+  },
+  honest: {
+    solar: 'Unos paneles solares de unos 70 kW en la cubierta superior ayudan, durante el día, a alimentar la iluminación, el agua caliente y los sistemas de a bordo. Junto con el aire acondicionado refrigerado por agua de mar, están diseñados para reducir el consumo de energía a bordo en torno a un 40 %, según las estimaciones de diseño; publicaremos el ahorro medido cuando empecemos a navegar.',
+    water: 'El 100 % de las aguas residuales recibe un tratamiento biológico a bordo antes de su vertido, para proteger los delicados hábitats marinos de la bahía.',
+    plastic: 'Botellas rellenables, amenities en dispensadores y envases de proveedores con menos plástico forman parte de nuestro plan para el día a día a bordo.',
+    energy: 'Un sistema de recuperación del calor residual aprovecha el calor de los motores y generadores para el agua caliente y la climatización, en lugar de desperdiciarlo.',
+    local: 'Queremos abastecernos de pescadores y agricultores locales siempre que sea posible, y dar prioridad al talento de la zona al contratar y formar a nuestra tripulación.',
+    cleanup: 'Tenemos previstas jornadas de limpieza de la costa abiertas a los huéspedes, junto con charlas a bordo sobre el ecosistema de la bahía y sobre cómo los viajeros pueden reducir su impacto.',
+    culture: 'Esperamos apoyar la educación ambiental en las escuelas locales, abrir a los jóvenes el camino hacia las profesiones del mar y colaborar para mantener vivos la artesanía y las tradiciones de la bahía.',
+  },
+};
+
+export const aboutMessages = byLocale<AboutMessages>({ en, vi, ja, fr, es });
 
 type HonestTopic = keyof AboutMessages['honest'];
 

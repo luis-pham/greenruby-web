@@ -451,7 +451,119 @@ const fr: DestinationMessages = {
   },
 };
 
-export const destinationMessages = byLocale<DestinationMessages>({ en, vi, ja, fr });
+const es: DestinationMessages = {
+  metaTitle: 'Qué ver en la bahía de Halong',
+  metaDescription:
+    'Cuevas, islas, playas y aldeas de pescadores en la bahía de Halong y la bahía de Lan Ha: las paradas previstas de los cruceros Green Ruby y otros lugares.',
+  breadcrumb: 'Lugares que visitar',
+  breadcrumbGuide: 'Guía de viaje',
+  eyebrow: 'Guía de viaje',
+  title: 'Qué hacer en la',
+  titleEm: 'bahía de Halong y la bahía de Lan Ha',
+  lead: 'Cuevas, islas, playas y aldeas de pescadores de las dos bahías: en qué consiste cada visita, qué lugares están en las rutas previstas de Green Ruby y cuáles tendría que visitar por otros medios.',
+  bays: { 'ha-long': 'Bahía de Halong', 'lan-ha': 'Bahía de Lan Ha' },
+  bayIntro: {
+    'ha-long': 'La bahía clásica del Patrimonio Mundial de la UNESCO: grandes cuevas acondicionadas para la visita, miradores sobre las islas y rutas más concurridas. La navega el Green Ruby 1.',
+    'lan-ha': 'Al sur de Halong, frente a la isla de Cat Ba: aguas más tranquilas, lagunas resguardadas (el kayak está suspendido temporalmente por la normativa local) y visitas a aldeas. La navega el Green Ruby 2.',
+  },
+  categories: { cave: 'Cuevas', island: 'Islas y playas', village: 'Aldeas', lagoon: 'Lagunas y kayak', other: 'Otros' },
+  category: { cave: 'Cueva', island: 'Isla', village: 'Aldea', lagoon: 'Laguna', other: 'Lugar' },
+  places: (n: number) => (n === 1 ? '1 lugar' : `${n} lugares`),
+  compareBays: 'Comparar las dos bahías',
+  filter: {
+    label: 'Filtrar destinos',
+    search: 'Buscar destinos',
+    searchPlaceholder: 'Buscar por nombre, p. ej. cueva',
+    bay: 'Bahía',
+    category: 'Tipo',
+    all: 'Todos',
+    results: (n: number) => (n === 1 ? '1 destino' : `${n} destinos`),
+    empty: 'Ningún destino coincide con estos filtros.',
+    reset: 'Borrar filtros',
+  },
+  stop: 'Parada prevista de Green Ruby',
+  regional: 'Atracción de la región',
+  thingsToDo: {
+    title: 'Qué se puede hacer',
+    lede: 'Los principales tipos de visita en las dos bahías. Cada lugar tiene su propia guía con acceso, horarios y condiciones.',
+    groups: {
+      cave: ['Cuevas', 'Cuevas acondicionadas que se recorren a pie, con escalones, y pasos bajos a ras del agua que se cruzan en kayak o en una pequeña embarcación.'],
+      island: ['Islas y playas', 'Miradores en las islas a los que se sube por escalones y pequeñas playas donde solo se permite el baño si las condiciones lo permiten.'],
+      village: ['Aldeas de pescadores y vida local', 'Una antigua aldea flotante cuyos habitantes se trasladaron a tierra firme en 2014 y una aldea agrícola de la isla de Cat Ba a la que se llega en barco y luego en bicicleta o en carrito eléctrico.'],
+      lagoon: ['Lagunas, kayaks y pequeñas embarcaciones', 'Aguas resguardadas entre los islotes que se recorren en kayak, en barca de bambú o en bote de remos, según la bahía y la normativa local.'],
+    },
+    cavesLink: 'Comparar las cuevas',
+    kayakNote: 'El kayak en la bahía de Lan Ha está suspendido temporalmente por la normativa local (situación a octubre de 2026), por lo que las paradas de Lan Ha se recorren en barco. En la bahía de Halong, la cueva de Luon se visita en kayak o en barca de bambú.',
+    onboard: ['Actividades a bordo', 'La clase de cocina, el ejercicio matinal y las demás actividades en el propio barco se describen en la página Experiencias.'],
+    onboardLink: 'Ver las experiencias a bordo',
+  },
+  stops: {
+    title: 'Paradas de los cruceros Green Ruby',
+    lede: 'Lugares incluidos en los itinerarios publicados de Green Ruby. Son paradas previstas, no garantizadas: el tiempo, las mareas y la normativa local deciden cada día.',
+  },
+  others: {
+    title: 'Otros lugares que conocer',
+    lede: 'Lugares conocidos de las bahías que no forman parte de ningún itinerario de Green Ruby. Nuestros cruceros no paran en ellos; puede visitarlos por su cuenta en los barcos de excursión de día de la bahía de Halong.',
+    notStop: 'No es parada de Green Ruby',
+    source: 'Fuente',
+    route: 'Se visita en la ruta turística VHL1 de la bahía de Halong (desde Tuan Chau o desde el puerto internacional de cruceros de Ha Long)',
+  },
+  caves: {
+    title: 'Cuevas de la bahía de Halong y la bahía de Lan Ha',
+    lede: 'Cómo se visita cada cueva y si forma parte de un itinerario de Green Ruby.',
+    cave: 'Cueva',
+    bay: 'Bahía',
+    visit: 'Cómo se visita',
+    greenRuby: 'Con Green Ruby',
+    none: 'No es parada de Green Ruby',
+  },
+  cruises: { title: 'Los barcos', lede: 'El Green Ruby 1 navega por la bahía de Halong y el Green Ruby 2, por la bahía de Lan Ha.' },
+  stopNote: 'Las paradas de Green Ruby proceden de los itinerarios publicados, que siguen siendo provisionales hasta que comiencen las salidas, previstas para febrero de 2027. Las demás atracciones de la región no forman parte de ninguna ruta de Green Ruby.',
+  readMore: 'Leer la guía',
+  map: {
+    title: 'Mapa de las bahías',
+    lede: 'Destinos con ubicación verificada. Las posiciones son aproximadas y solo sirven de orientación.',
+    attribution: '© colaboradores de OpenStreetMap',
+    listLabel: 'Destinos en el mapa',
+  },
+  itineraries: {
+    title: 'Qué visita cada crucero',
+    lede: 'Paradas previstas en cada itinerario de Green Ruby. Los horarios y las paradas pueden cambiar según el tiempo y las mareas.',
+    days: (n: number) => `${n} días y ${n - 1} noche${n > 2 ? 's' : ''}`,
+    view: 'Ver itinerario',
+  },
+  plan: {
+    title: 'Antes de viajar',
+    items: [
+      ['Manda el tiempo', 'Cada visita depende de que se autorice la navegación. Con avisos de tormenta, sobre todo de junio a octubre, las salidas pueden suspenderse con poca antelación.'],
+      ['Importan las mareas', 'Los pasos bajos de cuevas como la de Luon o la cueva Sang Toi (Dark & Bright) solo son practicables con la marea adecuada, así que su guía puede cambiar el orden del día.'],
+      ['Escalones y equilibrio', 'Las cuevas acondicionadas y los miradores tienen muchos escalones; el kayak y el bote de remos exigen algo de equilibrio. Cada guía incluye notas de accesibilidad.'],
+    ],
+  },
+  guides: {
+    title: 'Planifique el resto de su viaje',
+    firstTime: ['¿Su primer crucero por la bahía de Halong?', 'Qué esperar, qué llevar en la maleta y cómo es el día del embarque.'],
+    transfer: ['De Hanói a la bahía de Halong', 'Traslados, puertos y tiempos de viaje realistas.'],
+    bestTime: ['Cuándo viajar', 'El tiempo mes a mes y la temporada de tormentas.'],
+  },
+  detail: {
+    facts: 'Datos básicos',
+    plan: 'En el plan de Green Ruby',
+    planNone: 'Este lugar no forma parte de ningún itinerario de Green Ruby. Figura como atracción de la región que puede visitar por su cuenta o con otros operadores.',
+    planNote: 'Paradas previstas según los itinerarios publicados; provisionales hasta el inicio de las salidas en febrero de 2027.',
+    mapsLink: 'Abrir en Google Maps',
+    faq: 'Preguntas de los viajeros',
+    sources: 'Fuentes',
+    photo: 'Foto',
+    checked: 'Información comprobada',
+    related: 'Cerca y similares',
+    back: 'Todos los lugares que visitar',
+    ctaTitle: 'Ver el itinerario completo',
+    ctaBody: 'Horarios, comidas, camarotes y lo que incluye el crucero que tiene prevista una parada aquí.',
+  },
+};
+
+export const destinationMessages = byLocale<DestinationMessages>({ en, vi, ja, fr, es });
 
 /**
  * How each cave is visited, by destination slug of each language (for the hub's cave table). Taken from the
@@ -490,6 +602,14 @@ export const caveVisit = byLocale<Record<string, string>>({
     'thien-cung-cave': 'À pied, par des marches jusqu’à une entrée située à environ 20 m au-dessus du niveau de la mer ; environ 30 à 60 minutes',
     'dau-go-cave': 'À pied, environ 90 marches raides ; lumière du jour dans la première des trois salles ; environ 30 à 60 minutes',
   },
+  es: {
+    'sung-sot-cave': 'A pie, con escalones y caminos irregulares; unos 45–60 minutos',
+    'luon-cave': 'En kayak o en barca de bambú, por un túnel a ras del agua',
+    'tien-ong-cave': 'A pie tras un breve paseo; muestra arqueológica',
+    'dark-bright-cave': 'En bote de remos (el kayak está suspendido en la bahía de Lan Ha)',
+    'thien-cung-cave': 'A pie, subiendo escalones hasta una entrada a unos 20 m sobre el nivel del mar; unos 30–60 minutos',
+    'dau-go-cave': 'A pie, unos 90 escalones empinados; luz natural en la primera de sus tres salas; unos 30–60 minutos',
+  },
 });
 
 /**
@@ -500,4 +620,4 @@ export const caveVisit = byLocale<Record<string, string>>({
 export type OtherPlace = { key: string; name: string; bay: Bay; category: Category; summary: string; visit: string; sources: { title: string; url: string }[] };
 
 
-export const otherPlaces = byLocale<OtherPlace[]>({ en: [], vi: [], ja: [], fr: [] });
+export const otherPlaces = byLocale<OtherPlace[]>({ en: [], vi: [], ja: [], fr: [], es: [] });

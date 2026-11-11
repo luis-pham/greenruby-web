@@ -97,6 +97,29 @@ const LABEL_COPY = {
     types: { 'shared-limousine': 'Limousine partagée', bus: 'Autocar', 'private-car': 'Voiture privée' },
     checked: (date: string) => `Tarifs et horaires tels que publiés, vérifiés le ${date}. Les transporteurs peuvent les modifier sans préavis : confirmez-les au moment de réserver. Ces compagnies ne sont pas des partenaires de Green Ruby.`,
   },
+  es: {
+    operator: 'Empresa',
+    vehicle: 'Vehículo',
+    fare: 'Tarifa',
+    pickup: 'Recogida',
+    dropoff: 'Destino',
+    booking: 'Reserva',
+    departures: 'Salidas',
+    duration: 'Duración',
+    luggage: 'Equipaje',
+    perSeat: 'por plaza',
+    perVehicle: 'por vehículo',
+    from: 'desde',
+    askFare: 'Consultar con la empresa',
+    website: 'Sitio web',
+    bookOn: 'Reservar en Vexere',
+    whatsapp: 'WhatsApp',
+    zalo: 'Zalo',
+    domestic: 'solo desde Vietnam',
+    status: { confirmed: 'Sitio web de la empresa', indicative: 'Comprobar antes de reservar', agentOnly: 'Solo en plataforma de reservas' },
+    types: { 'shared-limousine': 'Limusina compartida', bus: 'Autocar', 'private-car': 'Coche privado' },
+    checked: (date: string) => `Tarifas y horarios según la información publicada, comprobados el ${date}. Las empresas pueden cambiarlos sin previo aviso, así que confírmelos al reservar. Estas compañías no son socias de Green Ruby.`,
+  },
 } as const;
 const LABELS = byLocale<(typeof LABEL_COPY)[keyof typeof LABEL_COPY]>(LABEL_COPY);
 
@@ -108,8 +131,13 @@ export function checkedDate(locale: Locale, iso = TRANSPORT_CHECKED): string {
 }
 
 // en/vi as before (1,000 / 1.000); an intl locale groups digits its own way (ja 1,000, fr 1 000).
+// Spanish groups thousands with a space, as the RAE recommends (10 000; four digits stay 1000), not es-ES's '.'.
 const digits = (n: number, locale: Locale) =>
-  isLegacyLocale(locale) ? n.toLocaleString('en-US').replace(/,/g, locale === 'vi' ? '.' : ',') : n.toLocaleString(numberFormatTag(locale));
+  isLegacyLocale(locale)
+    ? n.toLocaleString('en-US').replace(/,/g, locale === 'vi' ? '.' : ',')
+    : locale === 'es'
+      ? n.toLocaleString(numberFormatTag(locale)).replace(/\./g, '\u00a0')
+      : n.toLocaleString(numberFormatTag(locale));
 
 /** Unspaced languages (ja) write ranges with a wave dash: "260,000〜360,000 VND" (glossary §2). */
 const rangeDash = (locale: Locale) => (wordSpace(locale) ? '–' : '〜');

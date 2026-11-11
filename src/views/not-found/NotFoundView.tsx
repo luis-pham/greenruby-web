@@ -7,6 +7,7 @@ const copy = byLocale({
   vi: { eyebrow: 'Không tìm thấy trang', title: 'Vùng vịnh này chưa có trên bản đồ.', body: 'Trang bạn tìm đã được chuyển hoặc không còn tồn tại.', home: 'Về trang chủ', contact: 'Liên hệ chúng tôi' },
   ja: { eyebrow: 'ページが見つかりません', title: '湾のこのあたりは、まだ地図にありません。', body: 'お探しのページは移動したか、現在は存在しません。', home: 'ホームへ戻る', contact: 'お問い合わせ' },
   fr: { eyebrow: 'Page introuvable', title: "Cette page est introuvable.", body: 'La page que vous cherchez a été déplacée ou n’existe plus.', home: 'Retour à l’accueil', contact: 'Contacter notre équipe' },
+  es: { eyebrow: 'Página no encontrada', title: 'No encontramos esta página.', body: 'La página que busca se ha trasladado o ya no existe.', home: 'Volver al inicio', contact: 'Contactar con nuestro equipo' },
 });
 
 /**

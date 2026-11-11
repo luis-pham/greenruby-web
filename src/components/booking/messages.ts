@@ -116,5 +116,35 @@ const fr: typeof en = {
   durationShort: (days: number) => `${days}J/${days - 1}N`,
 };
 
-export const bookingMessages = byLocale({ en, vi, ja, fr });
+// Same request-only behaviour as fr: no online payment, prices on request, English booking terms apply.
+const es: typeof en = {
+  regionLabel: 'Fechas y solicitud de reserva',
+  from: 'Desde',
+  perCabin: '/ camarote',
+  priceOnRequest: 'Tarifa bajo petición',
+  priceLabel: 'Tarifa',
+  onRequest: 'Bajo petición',
+  voyage: 'Crucero',
+  date: 'Fecha de salida',
+  chooseDate: 'Elegir una fecha',
+  prevMonth: 'Mes anterior',
+  nextMonth: 'Mes siguiente',
+  selected: 'Fecha elegida',
+  available: 'Salida prevista',
+  check: 'Consultar disponibilidad',
+  checkDates: 'Ver las fechas',
+  soonTitle: 'Próxima apertura de salidas',
+  soonBody: 'Envíenos las fechas que prefiere: nuestro equipo de reservas comprobará la disponibilidad y se pondrá en contacto con usted.',
+  soonDate: 'Fechas disponibles próximamente',
+  request: 'Enviar mis fechas',
+  trustCancel: 'Reembolso íntegro si cancela con 30 días o más de antelación',
+  trustPayment: 'Envíe su solicitud sin pago en línea. Nuestro equipo le indicará la tarifa (condiciones de reserva en inglés).',
+  questions: '¿Alguna pregunta? Escríbanos',
+  close: 'Cerrar',
+  demo: 'Datos de demostración',
+  nights: (n: number) => (n === 1 ? '1 noche' : `${n} noches`),
+  durationShort: (days: number) => `${days}D/${days - 1}N`,
+};
+
+export const bookingMessages = byLocale({ en, vi, ja, fr, es });
 export type BookingMessages = typeof en;

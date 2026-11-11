@@ -10,7 +10,7 @@ export function sectionHref(locale: Locale, section: Section, publicSections: re
 }
 
 /** What a new language appends to a link label whose page exists only in English (glossary §10). */
-const ENGLISH_ONLY: Partial<Record<Locale, string>> = { ja: '（英語版）', fr: ' (en anglais)' };
+const ENGLISH_ONLY: Partial<Record<Locale, string>> = { ja: '（英語版）', fr: ' (en anglais)', es: ' (en inglés)' };
 
 /**
  * `label` for a link to `href`: a new language's link that goes to an English page says so（英語版）, unless the label

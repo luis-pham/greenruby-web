@@ -520,4 +520,133 @@ const fr: ServicesMessages = {
   },
 };
 
-export const servicesMessages = byLocale<ServicesMessages>({ en, vi, ja, fr });
+const es: ServicesMessages = {
+  metaTitle: 'Servicios premium y eventos privados a bordo',
+  metaDescription:
+    'Traslados, tratamientos de spa, fotografía, celebraciones y chárteres privados a bordo de los cruceros Green Ruby por la bahía de Halong y la bahía de Lan Ha.',
+  breadcrumb: 'Servicios',
+  hero: {
+    eyebrow: 'Los servicios de conserjería de Green Ruby',
+    title: 'Cada detalle,',
+    titleEm: 'cuidadosamente pensado.',
+    body: 'De una llegada sin complicaciones a los momentos que merecen celebrarse, descubra los servicios que pueden hacer que su crucero sea realmente suyo.',
+    primary: 'Ver nuestros servicios',
+    secondary: 'Hablar con nuestro equipo',
+    visualLabel: 'El arte del servicio personal',
+    visualCaption: 'Pensado para sus momentos.',
+  },
+  collection: {
+    heading: 'Nuestros servicios',
+    filterLabel: 'Filtrar servicios',
+    all: 'Todos los servicios',
+    results: (n: number) => `Mostrando ${pad(n)} ${n === 1 ? 'servicio' : 'servicios'}`,
+    included: 'Incluido',
+    optional: 'Servicio opcional',
+    price: (price: string) => `Desde ${price}`,
+    enquire: 'Consultar este servicio',
+    enquireSubject: (name: string) => `Consulta sobre un servicio de Green Ruby: ${name}`,
+    note: 'El equipo de reservas de Green Ruby confirma la disponibilidad, los precios y las condiciones aplicables. Los servicios opcionales no están incluidos en la tarifa estándar del crucero.',
+    empty: 'Nuestro equipo le explicará con gusto los servicios disponibles para su crucero.',
+  },
+  story: {
+    eyebrow: 'Antes de zarpar',
+    title: 'Un comienzo sereno para',
+    titleEm: 'cada escapada.',
+    paragraphs: [
+      'El trayecto de Hanói a la bahía debería formar parte de la experiencia, no ser un detalle más que gestionar. Green Ruby puede organizar un traslado privado entre su hotel y la terminal de cruceros.',
+      'Indique a nuestro equipo su hotel, la fecha de viaje y el número de personas para valorar la opción más adecuada.',
+    ],
+    points: ['De Hanói a la zona de embarque de Tuan Chau', 'Traslado privado bajo petición', 'El coste del traslado se confirma aparte'],
+    stamp: ['El viaje', 'empieza', 'antes del embarque'],
+    cta: 'Organizar su llegada',
+  },
+  inclusions: {
+    eyebrow: 'Viajar con claridad',
+    title: 'Lo que incluye el crucero',
+    titleEm: 'y lo que organizamos para usted.',
+    body: 'Una guía sencilla para distinguir lo que incluye el itinerario de los servicios personales opcionales.',
+    included: {
+      label: 'Incluido en el itinerario',
+      title: ['Ya forma parte', 'del viaje.'],
+      items: [
+        'Su camarote privado con aire acondicionado y las comidas indicadas en el itinerario',
+        'Las visitas programadas y las entradas',
+        'El kayak, la barca de bambú y las actividades a bordo indicadas en su itinerario (el kayak en la bahía de Lan Ha está suspendido temporalmente por la normativa local)',
+        'Agua potable y asistencia a los huéspedes a bordo',
+        'Recepción 24 horas, limpieza diaria y servicio de cobertura',
+      ],
+      foot: 'Lo incluido puede variar según el itinerario elegido; confírmelo al hacer la reserva.',
+    },
+    optional: {
+      label: 'Servicios personalizados',
+      title: ['Organizados con esmero,', 'bajo petición.'],
+      items: [
+        'Traslados Hanói–Halong y transporte privado',
+        'Una selección de tratamientos de spa y paquetes de masaje',
+        'Fotografía, grabación con dron, decoración para celebraciones y cenas privadas',
+        'Otras bebidas y compras personales',
+      ],
+      foot: 'Los servicios opcionales, sus precios, los permisos necesarios y la disponibilidad deben confirmarse antes de reservar.',
+    },
+  },
+  celebrations: {
+    eyebrow: 'Bodas y celebraciones',
+    eventsEyebrow: 'Eventos privados',
+    eventsTitle: 'Reuniones con',
+    eventsTitleEm: 'la bahía como escenario.',
+    spaces: 'Espacios para la ocasión',
+    viewSpace: 'Ver el espacio',
+    proposal: 'Solicitar una propuesta',
+    area: (m2: number) => `${m2} m²`,
+  },
+  process: {
+    eyebrow: 'A su medida',
+    title: 'Un toque personal',
+    titleEm: 'está a una conversación.',
+    body: 'Empiece por el crucero. Cuéntenos los detalles que le importan. El equipo de reservas le confirmará lo que se puede organizar.',
+    steps: [
+      { tag: 'Descubrir', title: 'Elija su crucero', body: 'Empiece por la bahía, el itinerario y el camarote que prefiera, ya sea una escapada de una noche o un viaje más largo.' },
+      { tag: 'Personalizar', title: 'Cuéntenos sus deseos', body: 'Pregunte por traslados, tratamientos de bienestar, fotografía o una bienvenida especial.' },
+      { tag: 'Confirmar', title: 'Viaje con tranquilidad', body: 'Revise con el equipo de reservas la disponibilidad y los posibles costes adicionales antes del viaje.' },
+    ],
+  },
+  faq: {
+    eyebrow: 'Conviene saber',
+    title: 'Los detalles,',
+    titleEm: 'resueltos.',
+    body: '¿Tiene algo concreto en mente? Nuestro equipo le ayudará a aclarar las opciones de su itinerario.',
+    link: 'Más preguntas frecuentes',
+    items: [
+      {
+        question: '¿Los traslados desde Hanói están incluidos en la tarifa del crucero?',
+        answerHtml:
+          '<p>Los traslados no forman parte de la tarifa estándar. Se puede organizar un traslado privado con un coste adicional.</p>',
+      },
+      {
+        question: '¿Los tratamientos de spa y los masajes están incluidos?',
+        answerHtml:
+          '<p>Los tratamientos de spa son opcionales y pueden tener un coste adicional. Consulte al equipo de reservas qué tratamientos estarán disponibles en su crucero.</p>',
+      },
+      {
+        question: '¿Puedo contratar fotografía o grabación con dron?',
+        answerHtml:
+          '<p>La fotografía y la grabación con dron son servicios opcionales. Confirme con antelación con nuestro equipo la disponibilidad, el horario, los permisos locales y el precio.</p>',
+      },
+      {
+        question: '¿Pueden ayudarme a preparar una celebración especial?',
+        answerHtml:
+          '<p>Sí. Cuéntele al equipo de reservas la ocasión y lo que tiene en mente, y comprobará qué se puede organizar a bordo.</p>',
+      },
+    ],
+  },
+  cta: {
+    eyebrow: 'Un crucero hecho para usted',
+    title: 'Que lo extraordinario resulte',
+    titleEm: 'sencillo.',
+    body: 'Cuéntenos cómo imagina su estancia en la bahía. Le ayudaremos a conocer los servicios disponibles y el crucero que mejor encaja con ellos.',
+    primary: 'Planificar con nuestro equipo',
+    secondary: 'Ver los itinerarios',
+  },
+};
+
+export const servicesMessages = byLocale<ServicesMessages>({ en, vi, ja, fr, es });

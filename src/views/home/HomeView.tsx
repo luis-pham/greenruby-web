@@ -75,7 +75,7 @@ export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
   const bayOfCruise = (cruiseId: number) => page.itineraries.find((i) => i.cruiseId === cruiseId)?.bay ?? null;
   const firstItineraryOfCruise = (cruiseId: number) => page.itineraries.find((i) => i.cruiseId === cruiseId);
   const experiences = page.experiences.slice(0, 3);
-  const experienceVerbs = inLocale({ en: ['Discover', 'Savour', 'Restore'], vi: ['Khám phá', 'Thưởng thức', 'Thư thái'], ja: ['発見', '味わい', '癒やし'], fr: ['Découvrir', 'Savourer', 'Se ressourcer'] }, locale);
+  const experienceVerbs = inLocale({ en: ['Discover', 'Savour', 'Restore'], vi: ['Khám phá', 'Thưởng thức', 'Thư thái'], ja: ['発見', '味わい', '癒やし'], fr: ['Découvrir', 'Savourer', 'Se ressourcer'], es: ['Descubrir', 'Saborear', 'Descansar'] }, locale);
   // Slideshow: the CMS homepage banners. The first slide keeps the designed tagline; the others use the
   // banner's own title and description.
   // Japanese joins the two parts without a space; en/vi slides keep their exact previous shape (no `gap` key).

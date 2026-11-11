@@ -70,7 +70,7 @@ export async function getServicesPage(locale: Locale) {
 }
 
 // FAQ group shown on the services page (life on board: dietary needs, dress code…). Slugs are per language.
-const SERVICE_FAQ_GROUP = byLocale<string>({ en: 'life-on-board', vi: 'cuoc-song-tren-tau', ja: 'life-on-board', fr: 'life-on-board' });
+const SERVICE_FAQ_GROUP = byLocale<string>({ en: 'life-on-board', vi: 'cuoc-song-tren-tau', ja: 'life-on-board', fr: 'life-on-board', es: 'life-on-board' });
 
 /** CMS FAQs of the "life on board" group. Empty when the group is missing or renamed. */
 export async function getServiceFaqs(locale: Locale) {

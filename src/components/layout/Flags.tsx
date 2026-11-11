@@ -42,3 +42,13 @@ export function FlagFR() {
     </svg>
   );
 }
+
+/** Spanish edition (one neutral Spanish for Spain and Latin America): the flag of Spain, simplified (no coat of arms). */
+export function FlagES() {
+  return (
+    <svg viewBox="0 0 30 20" aria-hidden="true">
+      <rect width="30" height="20" fill="#AA151B" />
+      <rect y="5" width="30" height="10" fill="#F1BF00" />
+    </svg>
+  );
+}
