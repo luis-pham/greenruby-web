@@ -1,31 +1,10 @@
 import type { ReactNode } from 'react';
 
 // Line icons for the homepage "Life on board" cards. The cards come from the CMS (the ship's facilities, or the
-// homepage-service picks), so the icon is picked from the name in any site language; unknown names get the compass.
+// homepage-service picks), so the icon is picked from the name in any site language (en, vi, ja, fr, es — add a new
+// language's words here); unknown names get the compass.
 
-type Kind = 'dining' | 'bar' | 'entertainment' | 'wellness' | 'pool' | 'cabin' | 'default';
-
-const MATCHERS: [Kind, RegExp][] = [
-  ['dining', /restaurant|dining|cuisine|nha hang|am thuc|bua an|レストラン|ダイニング|料理|食事/],
-  ['bar', /\bbar\b|bars|drink|cocktail|wine|lounge|do uong|ruou|バー|ドリンク|カクテル|ワイン|ラウンジ/],
-  ['entertainment', /entertain|music|karaoke|cinema|show|giai tri|am nhac|エンターテインメント|音楽|ライブ|カラオケ|シアター/],
-  ['wellness', /spa|fitness|gym|wellness|massage|yoga|thu gian|cham soc|スパ|フィットネス|ジム|ウェルネス|マッサージ|ヨガ/],
-  ['pool', /pool|swim|jacuzzi|be boi|ho boi|プール|ジャグジー/],
-  ['cabin', /cabin|suite|room|phong|giuong|キャビン|スイート|客室|ベッド/],
-];
-
-const fold = (text: string) =>
-  text
-    .toLowerCase()
-    .replace(/đ/g, 'd')
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .normalize('NFC'); // NFD splits kana voicing marks (ド → ト + ゙); put them back
-
-export function facilityKind(name: string): Kind {
-  const key = fold(name);
-  return MATCHERS.find(([, re]) => re.test(key))?.[0] ?? 'default';
-}
+import { facilityKind, type Kind } from './facility-kind';
 
 const PATHS: Record<Kind, ReactNode> = {
   // Cloche on a plate
