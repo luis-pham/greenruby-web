@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { Suspense } from 'react';
 import { Breadcrumb, SiteFooter, SolidHeader, type Chrome, type Crumb } from '@/components/layout';
 import { ORGANIZATION_ID } from '@/lib/organization';
 import { DEFAULT_SOCIAL_IMAGE } from '@/lib/seo';
@@ -16,6 +17,8 @@ import { newsMessages } from '@/views/news/messages';
 import { articlePath, blogPath, isNewsCategory, newsPath } from './paths';
 import { formatDate, linked, pad } from './shared';
 import { Toc } from './Toc';
+import { BayWeather } from './BayWeather';
+import { showsWeather } from '@/lib/weather';
 import { prepareContent, readingMinutes, withHeadingIds } from './headings';
 import { normalizeArticleHtml } from './normalize';
 import s from './article.module.css';
@@ -127,6 +130,12 @@ export function ArticleView({ article, chrome }: { article: Article; chrome: Chr
                   </details>
                 )}
                 {openingHtml && <div className={s.opening} dangerouslySetInnerHTML={{ __html: openingHtml }} />}
+                {/* Live bay weather on the "best time to visit" articles; left out when the forecast is unavailable. */}
+                {!news && showsWeather(locale, article.canonical.slug) && (
+                  <Suspense fallback={null}>
+                    <BayWeather locale={locale} />
+                  </Suspense>
+                )}
                 {html && <div className={s.prose} dangerouslySetInnerHTML={{ __html: html }} />}
 
                 <nav className={s.planLinks} aria-label={plan.title}>
