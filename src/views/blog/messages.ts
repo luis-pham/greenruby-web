@@ -12,7 +12,7 @@ const en = {
   heroTitleEm: 'the bay.',
   categoryLead: 'Stories and practical insights from the Green Ruby Journal.',
   // Listing
-  listIntro: 'Stories and practical insights to help you discover the extraordinary beauty of Vietnam’s northern bays — more deeply, more thoughtfully.',
+  listIntro: 'Stories and practical insights to help you understand and explore Vietnam’s northern bays.',
   filterLabel: 'Browse stories by category',
   allStories: 'All stories',
   searchLabel: 'Search journal articles',
@@ -107,7 +107,7 @@ const vi: BlogMessages = {
   heroTitle: 'Những câu chuyện',
   heroTitleEm: 'từ vịnh.',
   categoryLead: 'Câu chuyện và kinh nghiệm thực tế từ cẩm nang Green Ruby.',
-  listIntro: 'Những câu chuyện và kinh nghiệm thực tế giúp bạn khám phá vẻ đẹp phi thường của các vịnh miền Bắc Việt Nam — sâu sắc và trọn vẹn hơn.',
+  listIntro: 'Những câu chuyện và kinh nghiệm thực tế giúp bạn hiểu và khám phá các vịnh biển miền Bắc Việt Nam kỹ hơn.',
   filterLabel: 'Lọc bài viết theo chuyên mục',
   allStories: 'Tất cả bài viết',
   searchLabel: 'Tìm bài viết trong cẩm nang',
@@ -185,7 +185,7 @@ const vi: BlogMessages = {
   bannerTitleEm: 'giữa muôn đảo đá.',
   bannerBody: 'Từ những thắng cảnh nổi tiếng của Hạ Long đến các góc vịnh yên bình của Lan Hạ, khám phá một hành trình tinh tế hơn cùng Green Ruby Cruises.',
   bannerPrimary: 'Khám phá hành trình',
-  bannerSecondary: 'Lên kế hoạch chuyến đi',
+  bannerSecondary: 'Đặt chuyến đi',
 };
 
 const ja: BlogMessages = {

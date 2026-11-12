@@ -413,7 +413,7 @@ const es: Messages = {
     inclusionsTitle: 'Pensado con esmero.',
     inclusionsTitleEm: 'Explicado con claridad.',
     included: 'Qué está incluido',
-    notIncluded: 'Disponible bajo petición',
+    notIncluded: 'No incluido en la tarifa',
     beforeYouSail: 'Antes de embarcar',
     departuresTitle: 'Próximas salidas',
     shipEyebrow: 'Su barco entre parada y parada',

@@ -47,7 +47,7 @@ const en = {
   next: 'Next',
   assuranceEyebrow: 'Plan with confidence',
   assuranceTitle: 'A smooth start to',
-  assuranceTitleEm: 'something extraordinary.',
+  assuranceTitleEm: 'your trip.',
   assuranceBody:
     'Our team can guide you from the first question to the final confirmation, so you can focus on what awaits on the bay.',
   assuranceCta: 'Discover our itineraries',
@@ -82,7 +82,7 @@ const vi: FaqMessages = {
   heroBody:
     'Từ việc chọn vịnh đến những chi tiết nhỏ của cuộc sống trên tàu, tìm câu trả lời rõ ràng để bạn yên tâm lên đường.',
   heroPrimary: 'Xem câu hỏi',
-  heroSecondary: 'Hỏi đội ngũ của chúng tôi',
+  heroSecondary: 'Liên hệ tư vấn',
   artKicker: 'Giải đáp tận tâm',
   artTitle: 'Trước khi ra khơi.',
   questions: (n) => `${n} câu hỏi`,
@@ -114,7 +114,7 @@ const vi: FaqMessages = {
   next: 'Trang sau',
   assuranceEyebrow: 'Yên tâm lên kế hoạch',
   assuranceTitle: 'Khởi đầu suôn sẻ cho',
-  assuranceTitleEm: 'một hành trình đặc biệt.',
+  assuranceTitleEm: 'chuyến đi của bạn.',
   assuranceBody:
     'Đội ngũ của chúng tôi đồng hành cùng bạn từ câu hỏi đầu tiên đến khi xác nhận đặt chỗ, để bạn chỉ cần nghĩ đến những gì đang chờ trên vịnh.',
   assuranceCta: 'Khám phá hành trình',
@@ -123,7 +123,7 @@ const vi: FaqMessages = {
     { title: 'Xác nhận chi tiết', body: 'Kiểm tra chỗ trống, dịch vụ bao gồm, phương án đưa đón và điều khoản đặt chỗ cùng đội ngũ đặt chỗ.' },
     { title: 'Háo hức chờ ngày lên tàu', body: 'Nhận xác nhận cùng hướng dẫn đón tiếp, và tận hưởng cảm giác mong chờ chuyến đi.' },
   ],
-  contactEyebrow: 'Đặt chỗ riêng',
+  contactEyebrow: 'Tư vấn đặt chỗ',
   contactTitle: 'Bạn vẫn còn',
   contactTitleEm: 'điều băn khoăn?',
   contactBody:

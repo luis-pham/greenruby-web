@@ -13,7 +13,7 @@ const en = {
   heroTitle: 'A thousand ways to',
   heroTitleEm: 'remember.',
   heroBody:
-    'The quiet magic of the bay. The comfort of a private sanctuary. The moments, big and small, that make a journey unforgettable.',
+    'The quiet magic of the bay. The comfort of a private sanctuary. The moments, big and small, of a journey on the bay.',
   heroPrimary: 'Explore the gallery',
   heroSecondary: 'Discover the 360° experience',
   heroFolio: 'Ha Long · Lan Ha / A visual journal',
@@ -92,7 +92,7 @@ const vi: GalleryMessages = {
   heroTitle: 'Muôn cách để',
   heroTitleEm: 'lưu giữ.',
   heroBody:
-    'Vẻ đẹp tĩnh lặng của vịnh. Sự riêng tư của một không gian nghỉ dưỡng. Những khoảnh khắc lớn nhỏ làm nên một hành trình khó quên.',
+    'Vẻ đẹp tĩnh lặng của vịnh. Sự riêng tư của một không gian nghỉ dưỡng. Những khoảnh khắc lớn nhỏ của một chuyến đi trên vịnh.',
   heroPrimary: 'Khám phá thư viện',
   heroSecondary: 'Trải nghiệm 360°',
   heroFolio: 'Hạ Long · Lan Hạ / Nhật ký hình ảnh',
@@ -152,7 +152,7 @@ const vi: GalleryMessages = {
   ctaTitleEm: 'Khó quên khi tận mắt.',
   ctaBody: 'Hãy tự mình trải nghiệm vịnh. Xem các hành trình hoặc trao đổi với đội ngũ đặt chỗ về chuyến đi Green Ruby tiếp theo của bạn.',
   ctaPrimary: 'Xem hành trình',
-  ctaSecondary: 'Lên kế hoạch chuyến đi',
+  ctaSecondary: 'Đặt chuyến đi',
   schemaName: 'Thư viện ảnh du thuyền Green Ruby',
 };
 

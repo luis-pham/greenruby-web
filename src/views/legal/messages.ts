@@ -26,7 +26,7 @@ const en = {
   hub: {
     heroTitle: 'Peace of mind,',
     heroTitleEm: 'every voyage.',
-    heroIntro: 'Our policies for a safe, transparent and well-prepared journey through Vietnam’s extraordinary bays.',
+    heroIntro: 'Our policies for a safe, transparent and well-prepared journey through Vietnam’s northern bays.',
     artEyebrow: 'Travel with confidence',
     artCaption: 'The details matter, at every turn.',
     introEyebrow: 'Information for our guests',

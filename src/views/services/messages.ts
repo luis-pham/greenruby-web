@@ -43,7 +43,7 @@ const en = {
     ],
     points: ['Hanoi to the Tuan Chau departure area', 'Private transfer on request', 'Transfer charges confirmed separately'],
     stamp: ['The journey', 'begins', 'before boarding'],
-    cta: 'Arrange your arrival',
+    cta: 'Enquire about transfers',
   },
   inclusions: {
     eyebrow: 'Travel with clarity',
@@ -126,8 +126,8 @@ const en = {
   },
   cta: {
     eyebrow: 'A voyage made for you',
-    title: 'Let the extraordinary feel',
-    titleEm: 'effortless.',
+    title: 'Every arrangement for your trip,',
+    titleEm: 'handled clearly.',
     body: 'Tell our team how you imagine your time on the bay. We will help you explore the available services and the right journey to pair them with.',
     primary: 'Plan with our team',
     secondary: 'Explore itineraries',
@@ -174,7 +174,7 @@ const vi: ServicesMessages = {
     ],
     points: ['Từ Hà Nội đến khu vực đón khách tại Tuần Châu', 'Xe riêng theo yêu cầu', 'Phí đưa đón được báo riêng'],
     stamp: ['Hành trình', 'bắt đầu', 'trước khi lên tàu'],
-    cta: 'Sắp xếp đưa đón',
+    cta: 'Hỏi về dịch vụ đưa đón',
   },
   inclusions: {
     eyebrow: 'Rõ ràng từ đầu',
@@ -254,10 +254,10 @@ const vi: ServicesMessages = {
   },
   cta: {
     eyebrow: 'Hành trình dành riêng cho bạn',
-    title: 'Để điều phi thường trở nên',
-    titleEm: 'thật nhẹ nhàng.',
+    title: 'Mọi sắp xếp cho chuyến đi,',
+    titleEm: 'gọn gàng và rõ ràng.',
     body: 'Hãy kể cho chúng tôi về chuyến đi bạn hình dung. Chúng tôi sẽ giúp bạn chọn dịch vụ và hành trình phù hợp.',
-    primary: 'Lên kế hoạch cùng chúng tôi',
+    primary: 'Liên hệ tư vấn',
     secondary: 'Xem hành trình',
   },
 };
@@ -429,7 +429,7 @@ const fr: ServicesMessages = {
     ],
     points: ["De Hanoï à la zone d’embarquement de Tuan Chau", 'Transfert privé sur demande', 'Coût du transfert confirmé séparément'],
     stamp: ['Le voyage', 'commence', "avant l’embarquement"],
-    cta: 'Organiser votre arrivée',
+    cta: 'Se renseigner sur les transferts',
   },
   inclusions: {
     eyebrow: 'Comprendre votre tarif',
@@ -558,7 +558,7 @@ const es: ServicesMessages = {
     ],
     points: ['De Hanói a la zona de embarque de Tuan Chau', 'Traslado privado bajo petición', 'El coste del traslado se confirma aparte'],
     stamp: ['El viaje', 'empieza', 'antes del embarque'],
-    cta: 'Organizar su llegada',
+    cta: 'Consultar sobre traslados',
   },
   inclusions: {
     eyebrow: 'Viajar con claridad',

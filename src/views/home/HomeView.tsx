@@ -390,7 +390,7 @@ export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
                     </li>
                   ))}
                 </ol>
-                <TextLink href={sectionHref(locale, 'aboutUs', chrome.site.publicSections)}>{linkLabel(locale, sectionHref(locale, 'aboutUs', chrome.site.publicSections), h.sustainLink)}</TextLink>
+                <TextLink href={`${sectionHref(locale, 'aboutUs', chrome.site.publicSections)}#sustainability`}>{linkLabel(locale, sectionHref(locale, 'aboutUs', chrome.site.publicSections), h.sustainLink)}</TextLink>
               </div>
             </div>
           </section>
