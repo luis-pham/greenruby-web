@@ -205,7 +205,7 @@
 
 /* ---------- Related ---------- */
 .related { padding: 96px 0; background: var(--bg-surface-alt); }
-.relatedHead { display: flex; justify-content: space-between; align-items: flex-end; gap: 25px; margin-bottom: 35px; }
+.relatedHead { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; margin-bottom: 35px; }
 .relatedHead p { max-width: 350px; color: var(--text-muted); font-size: var(--font-size-sm); line-height: 1.85; }
 .relatedGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; margin: 0; padding: 0; list-style: none; }
 .relatedCard {

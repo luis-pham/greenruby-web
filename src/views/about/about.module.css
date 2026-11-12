@@ -3,7 +3,7 @@
 .heading em { font-style: italic; color: var(--text-accent); }
 .description { margin: 0; color: var(--text-muted); font-size: 14px; line-height: 1.97; }
 .micro { color: var(--text-accent); font-size: var(--font-size-label); font-weight: var(--font-weight-bold); letter-spacing: 0.17em; text-transform: uppercase; }
-.sectionHeading { display: grid; grid-template-columns: 1.2fr 0.72fr; gap: 75px; align-items: end; margin-bottom: 48px; }
+.sectionHeading { display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; margin-bottom: 48px; }
 .sectionHeading .description { max-width: 380px; margin-bottom: 5px; }
 .chip { position: absolute; z-index: 1; top: 22px; left: 24px; padding: 10px 13px; background: rgba(247, 246, 240, 0.93); color: #35534a; font-size: var(--font-size-label); font-weight: var(--font-weight-bold); letter-spacing: 0.1em; }
 

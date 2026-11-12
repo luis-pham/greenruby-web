@@ -71,7 +71,7 @@ export function TextLink({ href, inverse, children }: { href: string; inverse?: 
   return isExternal(href) ? <a href={href} className={classes}>{content}</a> : <Link href={href} className={classes}>{content}</Link>;
 }
 
-/** Eyebrow + h2 (with optional <em> accent) + intro paragraph, in the design's split layout. */
+/** Eyebrow + h2 (with optional <em> accent) + intro paragraph below the heading (stacked at every width). */
 export function SectionHeading({
   eyebrow,
   title,

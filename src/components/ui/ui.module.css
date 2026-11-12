@@ -72,11 +72,11 @@
 /* Section heading: title block left, intro right (stacks on small screens). */
 .sectionHeading {
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.7fr);
-  gap: 64px;
-  align-items: end;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-4);
   margin-bottom: var(--space-12);
 }
+.sectionHeading .heading { max-width: 760px; }
 .sectionHeadingStacked { grid-template-columns: minmax(0, 1fr); gap: var(--space-4); }
 .heading {
   margin: 22px 0 0;
@@ -95,9 +95,6 @@
 }
 .inverse .description { color: var(--color-green-100); }
 
-@media (max-width: 900px) {
-  .sectionHeading { gap: 35px; }
-}
 @media (max-width: 600px) {
   .sectionHeading { grid-template-columns: 1fr; gap: 13px; margin-bottom: 33px; }
   .btn { padding: 0 var(--space-5); min-height: 49px; }
