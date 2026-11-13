@@ -9,6 +9,7 @@ const copy = byLocale({
   fr: { eyebrow: 'Page introuvable', title: "Cette page est introuvable.", body: 'La page que vous cherchez a été déplacée ou n’existe plus.', home: 'Retour à l’accueil', contact: 'Contacter notre équipe' },
   es: { eyebrow: 'Página no encontrada', title: 'No encontramos esta página.', body: 'La página que busca se ha trasladado o ya no existe.', home: 'Volver al inicio', contact: 'Contactar con nuestro equipo' },
   de: { eyebrow: 'Seite nicht gefunden', title: 'Diese Seite gibt es nicht.', body: 'Die gesuchte Seite wurde verschoben oder existiert nicht mehr.', home: 'Zur Startseite', contact: 'Unser Team kontaktieren' },
+  ko: { eyebrow: '페이지를 찾을 수 없습니다', title: '찾으시는 페이지가 없습니다.', body: '페이지가 이동되었거나 더 이상 존재하지 않습니다.', home: '홈으로', contact: '문의하기' },
 });
 
 /**

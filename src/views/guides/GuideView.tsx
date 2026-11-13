@@ -15,7 +15,7 @@ import { plainText, RichText, type LinkResolver } from './Rich';
 import { TransferSelector } from './TransferSelector';
 import type { Block, GuideContent } from './types';
 
-const CONTACT_RESERVATIONS: LegacyCopy<string> = { en: 'Contact reservations', vi: 'Liên hệ đặt chỗ', ja: '予約担当チームに問い合わせる', fr: 'Contacter le service réservations', es: 'Contactar con reservas', de: 'Reservierungsteam kontaktieren' };
+const CONTACT_RESERVATIONS: LegacyCopy<string> = { en: 'Contact reservations', vi: 'Liên hệ đặt chỗ', ja: '予約担当チームに問い合わせる', fr: 'Contacter le service réservations', es: 'Contactar con reservas', de: 'Reservierungsteam kontaktieren', ko: '예약팀에 문의하기' };
 import s from './guide.module.css';
 
 const escapeHtml = (value: string) => value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -88,6 +88,7 @@ export function GuideView({
           {...sel}
           // Only unspaced languages (ja) get the prop, so the en/vi props (and RSC payload) stay as they were.
           {...(wordSpace(locale) ? {} : { unspaced: true as const })}
+          {...(locale === 'ko' ? { unitAttached: true as const } : {})}
           panels={Object.fromEntries(sel.origins.map((o) => [o.key, <SelectorPanel key={o.key} origin={o.key} locale={locale} labels={sel.labels} />]))}
         />
       );

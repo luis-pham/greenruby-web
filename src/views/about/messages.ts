@@ -630,7 +630,112 @@ const de: AboutMessages = {
   },
 };
 
-export const aboutMessages = byLocale<AboutMessages>({ en, vi, ja, fr, es, de });
+const ko: AboutMessages = {
+  metaTitle: 'Green Ruby Cruises 소개',
+  metaDescription:
+    'Green Ruby 이야기: 절제된 럭셔리, 환경을 고려해 설계한 선박, 그리고 하롱베이·란하베이와 그 지역 공동체와의 더 깊은 관계를 소개합니다.',
+  breadcrumb: '회사 소개',
+  hero: {
+    eyebrow: 'Green Ruby Cruises 이야기',
+    title: '럭셔리는 그대로,',
+    titleEm: '흔적은 가볍게.',
+    body: '베트남의 바다를 품격 있게 경험하는 방법은 그 아름다움을 존중하고, 주변 환경을 함께 돌보는 여행이라고 믿습니다.',
+    primary: 'Green Ruby 이야기',
+    secondary: '우리의 약속',
+  },
+  values: {
+    label: 'Green Ruby의 철학을 이루는 것',
+    items: [
+      { icon: 'compass', tag: '철학', title: '의식 있는 럭셔리', body: '방해 요소는 줄이고, 물 위에서의 의미 있는 순간은 늘립니다.' },
+      { icon: 'leaf', tag: '환경', title: '바다를 존중합니다', body: '환경 부담을 줄이도록 설계한 기술과 일상의 선택.' },
+      { icon: 'people', tag: '지역 공동체', title: '지역과 함께', body: '이 지역의 사람들, 전통과 더 가까이 연결됩니다.' },
+    ],
+  },
+  subnav: {
+    label: '회사 소개 페이지 목차',
+    story: 'Green Ruby 이야기',
+    approach: '우리의 방식',
+    community: '지역 공동체',
+    collection: '선박 소개',
+    progress: '진행 현황',
+  },
+  story: {
+    eyebrow: 'Green Ruby 이야기',
+    title: '이 바다에는',
+    titleEm: '더 나은 방식이 필요합니다.',
+    lead: '어떤 곳은 걸음을 늦추고, 더 가까이 들여다보고, 다르게 여행하기를 청합니다.',
+    link: '선박 소개 보기',
+    stamp: ['더 신중하게', '바다를', '여행하는 법'],
+  },
+  statement: {
+    index: 'Green Ruby의 관점',
+    line1: '진정한 럭셔리는 더 많이 갖는 것이 아닙니다.',
+    line2: '정말 중요한 것을',
+    em: '발견하는 일입니다.',
+    footer: '숨 쉴 여유. 서로 이어지는 시간. 지켜야 할 바다.',
+  },
+  technology: {
+    eyebrow: '의도를 담은 설계',
+    title: '사려 깊은 여행의',
+    titleEm: '새로운 기준.',
+    body: '바다를 돌보는 일은 보이지 않는 곳에서 시작됩니다. Green Ruby의 선박은 효율적인 설비와 일상 운영의 실질적인 변화를 함께 갖추었습니다.',
+    micro: '기술과 설계',
+    foot: '설계 목표',
+    qualifier:
+      '설계 특징과 환경 목표는 선박이 운항하도록 계획된 방식을 설명한 것으로, 독립적으로 검증된 운항 결과가 아닙니다.',
+  },
+  impact: {
+    eyebrow: '환경 영향',
+    wastewater: '폐수 처리율(설계 사양)',
+    co2: '연간 CO₂ 감축량(톤, 태양광, 추정치)',
+    solar: '상부 태양광 발전 설비',
+  },
+  community: {
+    eyebrow: '선박 너머로',
+    title: '우리의 터전.',
+    titleEm: '우리의 책임.',
+    body: '여행지를 지킨다는 것은 그곳을 삶의 터전으로 삼은 사람들에게 투자하는 일이기도 합니다.',
+    link: '팀에 문의하기',
+  },
+  collection: {
+    eyebrow: '선박 소개',
+    title: (n: number): string => (n === 2 ? '두 척의 선박.' : 'Green Ruby 선단.'),
+    titleEm: '하나의 철학.',
+    body: '서로 다른 바다, 같은 마음가짐. Green Ruby가 펼치는 두 가지 여정과 각 선박이 향하는 곳을 만나 보세요.',
+    vessel: (i: number, bay: string | null) => `선박 ${String(i).padStart(2, '0')}${bay ? ` / ${bay}` : ''}`,
+    explore: (name: string) => `${name} 보기`,
+  },
+  standards: {
+    eyebrow: '진행 상황을 투명하게',
+    title: '신뢰는',
+    titleEm: '투명함에서 시작됩니다.',
+    body: '이미 인증을 받은 것처럼 말하기보다 준비 과정을 그대로 공유하겠습니다. 현재 진행 상황은 다음과 같습니다.',
+    label: '지속 가능성 관련 현황',
+    // Like German, French and Spanish: the about page links the eco article only in English, so Korean readers get
+    // only the brand facts link (an English-only page).
+    guide: null,
+    facts: '지속 가능성 수치별 현황 (영어)',
+  },
+  cta: {
+    eyebrow: '바다를 바라보는 다른 시선',
+    title: '아름답게 여행하고,',
+    titleEm: '사려 깊게 떠나세요.',
+    body: '빼어난 풍경, 넉넉한 편안함, 그리고 그곳과의 깊은 교감이 어우러진 Green Ruby의 여정을 찾아보세요.',
+    primary: '일정 보기',
+    secondary: '팀에 문의하기',
+  },
+  honest: {
+    solar: '상부 갑판의 약 70kW 태양광 발전 설비(설계 사양)가 낮 동안 조명, 온수, 선내 설비에 전력을 보탭니다. 해수 냉각 방식의 에어컨과 함께 선내 에너지 사용량을 약 40% 줄이도록 설계했으며(설계 단계 추정치), 실제 절감량은 운항을 시작한 뒤 측정해 공개하겠습니다.',
+    water: '설계상 선내 폐수 100%는 배출 전에 생물학적 폐수 처리 시스템을 거치도록 되어 있어, 만의 섬세한 해양 생태계를 보호합니다. 실제 운항에서 검증할 예정입니다.',
+    plastic: '리필용 병, 대용량 디스펜서 어메니티, 플라스틱을 줄인 납품 포장은 선상 일상 운영 계획의 일부입니다. 일회용 플라스틱은 단계적으로 줄여 나갑니다.',
+    energy: '폐열 회수 시스템이 엔진과 발전기에서 나오는 열을 버리지 않고 온수와 냉난방에 다시 활용합니다.',
+    local: '가능한 한 지역 어민과 농민에게서 식재료를 조달하고, 승무원 채용과 교육에서 지역 인재를 우선하려 합니다.',
+    cleanup: '고객이 함께할 수 있는 해안 정화 활동과, 이 바다의 생태계 및 여행자가 환경 부담을 줄이는 방법에 관한 선상 강연을 계획하고 있습니다.',
+    culture: '지역 학교의 환경 교육, 청년들의 해양 분야 진로, 그리고 이 지역의 공예와 전통을 이어 가는 협력을 지원하고자 합니다.',
+  },
+};
+
+export const aboutMessages = byLocale<AboutMessages>({ en, vi, ja, fr, es, de, ko });
 
 type HonestTopic = keyof AboutMessages['honest'];
 

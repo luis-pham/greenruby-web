@@ -8,6 +8,9 @@ import { sectionHref } from './section-links.ts';
  *
  * es/de: Spanish/German slugs set with content:slug (es/de drafts 2026-11-11); they must be set the same way on production
  * before that language's blog is public (until then guideArticlePath() gives the page the English article).
+ *
+ * ko: Korean articles reuse the English slugs; categories use the English slugs too, except destinations-itineraries
+ * (as ja: 'destinations' is a reserved site path).
  */
 const ARTICLES = {
   // Not a translation pair: EN 221 is the eco-luxury guide, VI 240 the "choosing a luxury cruise" guide.
@@ -19,6 +22,7 @@ const ARTICLES = {
     fr: '/fr/blog/ecotourisme/croisiere-ecoresponsable-baie-d-halong.html',
     es: '/es/blog/sostenibilidad/crucero-sostenible-bahia-de-halong-que-comprobar.html',
     de: '/de/blog/nachhaltigkeit/nachhaltige-kreuzfahrt-halong-bucht-worauf-achten.html',
+    ko: '/ko/blog/eco-sustainability/the-complete-guide-to-eco-friendly-luxury-cruises-in-ha-long-bay-2026.html',
   },
   // EN 236 / VI 265 / JA (2026-11-01).
   bestTime: {
@@ -28,6 +32,7 @@ const ARTICLES = {
     fr: '/fr/blog/conseils-pratiques/quand-partir-en-baie-d-halong.html',
     es: '/es/blog/consejos-de-viaje/mejor-epoca-para-visitar-la-bahia-de-halong.html',
     de: '/de/blog/reisetipps/beste-reisezeit-halong-bucht.html',
+    ko: '/ko/blog/travel-tips/best-time-to-visit-halong-bay.html',
   },
   // EN 222 / VI 223 / JA (2026-11-01).
   bayComparison: {
@@ -37,6 +42,7 @@ const ARTICLES = {
     fr: '/fr/blog/destinations-et-itineraires/baie-de-lan-ha-ou-baie-d-halong.html',
     es: '/es/blog/destinos-e-itinerarios/bahia-de-halong-o-bahia-de-lan-ha.html',
     de: '/de/blog/ziele-und-reiserouten/halong-bucht-oder-lan-ha-bucht.html',
+    ko: '/ko/blog/destinations-itineraries/ha-long-bay-vs-lan-ha-bay-which-cruise.html',
   },
 } as const satisfies Record<string, { en: string; vi: string } & Partial<Record<Locale, string>>>;
 

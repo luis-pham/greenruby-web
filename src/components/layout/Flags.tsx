@@ -63,3 +63,22 @@ export function FlagDE() {
     </svg>
   );
 }
+
+/** Korean edition (South Korea): the flag of South Korea (Taegukgi, simplified at flag-icon size). */
+export function FlagKR() {
+  return (
+    <svg viewBox="0 0 30 20" aria-hidden="true">
+      <rect width="30" height="20" fill="#fff" />
+      <g transform="translate(15 10)">
+        <path d="M-4.2 0a4.2 4.2 0 0 1 8.4 0a2.1 2.1 0 0 1-4.2 0a2.1 2.1 0 0 0-4.2 0" fill="#CD2E3A" />
+        <path d="M-4.2 0a4.2 4.2 0 0 0 8.4 0a2.1 2.1 0 0 0-4.2 0a2.1 2.1 0 0 1-4.2 0" fill="#0047A0" />
+      </g>
+      <g stroke="#000" strokeWidth="0.9">
+        <path d="M6.2 4.2l2.6-1.7M6.7 5l2.6-1.7M7.2 5.8l2.6-1.7" transform="rotate(0)" />
+        <path d="M20.2 14.2l2.6 1.7M20.7 13.4l2.6 1.7M21.2 12.6l2.6 1.7" />
+        <path d="M6.2 15.8l2.6 1.7M6.7 15l2.6 1.7M7.2 14.2l2.6 1.7" />
+        <path d="M20.2 5.8l2.6-1.7M20.7 6.6l2.6-1.7M21.2 7.4l2.6-1.7" />
+      </g>
+    </svg>
+  );
+}

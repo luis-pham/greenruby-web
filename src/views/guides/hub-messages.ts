@@ -145,4 +145,27 @@ const de: HubMessages = {
   journal: { title: 'Aus dem Reisejournal', lede: 'Neue Beiträge zu Reisezeiten, Vergleichen und Nachhaltigkeit.', all: 'Alle Beiträge im Reisejournal' },
 };
 
-export const hubMessages = byLocale<HubMessages>({ en, vi, ja, fr, es, de });
+const ko: HubMessages = {
+  metaTitle: '하롱베이 여행 가이드: 명소·교통·크루즈',
+  metaDescription: '하롱베이와 란하베이 여행을 준비한다면 여기서 시작하세요. 가볼 만한 곳, 가는 법, 여행 시기, 크루즈 고르는 법을 한곳에 모았습니다.',
+  eyebrow: '하롱베이 · 란하베이',
+  title: '하롱베이',
+  titleEm: '여행 가이드',
+  lead: '하롱베이와 란하베이에 관해 저희가 펴낸 가이드를 여행 준비 단계별로 묶었습니다. 카드를 누르면 해당 주제를 자세히 다룬 페이지로 이동합니다.',
+  plan: { title: '여행 계획', lede: '언제 갈지, 몇 박을 할지, 하롱베이와 란하베이 중 어디로 갈지, 선착장까지 어떻게 갈지 정리했습니다.' },
+  places: {
+    title: '가볼 만한 곳',
+    lede: '하롱베이와 란하베이의 동굴, 섬, 마을을 소개합니다. 방문은 어떻게 이루어지는지, 어떤 일정에 포함될 예정인지 함께 확인하세요.',
+    hub: '가볼 만한 곳 모두 보기',
+  },
+  cruises: {
+    title: '크루즈 고르기',
+    lede: '두 척의 선박과 네 가지 일정, 예약 전에 비교해 볼 사항을 정리했습니다.',
+    itineraries: ['전체 일정 보기', '하롱베이와 란하베이, 1박 또는 2박: 날짜별 프로그램을 나란히 비교합니다.'],
+    luxury: ['친환경 럭셔리 크루즈 종합 가이드', '예약 전에 확인할 점: 인증, 기술, 그리고 하롱베이와 란하베이의 차이.'],
+    ship: (bay: string) => `${bay} 운항 선박: 객실, 시설, 일정 안내.`,
+  },
+  journal: { title: '여행 저널', lede: '여행 시기, 비교 정보, 지속 가능한 여행을 다룬 최근 글입니다.', all: '여행 저널 전체 보기' },
+};
+
+export const hubMessages = byLocale<HubMessages>({ en, vi, ja, fr, es, de, ko });

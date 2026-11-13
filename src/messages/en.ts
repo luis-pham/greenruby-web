@@ -407,7 +407,7 @@ const en = {
     shipTitle: 'Every horizon.',
     shipTitleEm: 'From your own sanctuary.',
     shipBody: (cruise: string) => `Your journey is aboard ${cruise}. Return from each day’s explorations to the comfort of a private cabin, dining on board and carefully considered spaces.`,
-    cabinsOnBoard: 'Cabins on board',
+    cabinsOnBoard: 'Cabin types',
     discover: (cruise: string) => `Discover ${cruise}`,
     faqEyebrow: 'Before you sail',
     faqTitle: 'A few things',

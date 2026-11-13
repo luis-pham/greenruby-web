@@ -355,7 +355,7 @@ a.langOption:focus-visible { color: var(--text-inverse-accent); background: rgba
   color: var(--text-inverse-muted);
   font-size: var(--font-size-xs);
 }
-.footerBottom nav { display: flex; gap: var(--space-3); }
+.footerBottom nav { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-3); min-width: 0; }
 .footerBottom a:hover { color: var(--text-inverse); }
 .footerContact {
   display: flex;

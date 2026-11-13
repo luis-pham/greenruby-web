@@ -166,7 +166,7 @@ const de: typeof en = {
   soonTitle: 'Abfahrtstermine folgen in Kürze',
   soonBody: 'Senden Sie uns Ihre Wunschtermine: Unser Reservierungsteam prüft die Verfügbarkeit und meldet sich bei Ihnen.',
   soonDate: 'Termine folgen in Kürze',
-  request: 'Wunschtermine senden',
+  request: 'Reisedatum wählen',
   trustCancel: 'Volle Erstattung bei Stornierung 30 Tage oder mehr vor der Abfahrt',
   trustPayment: 'Senden Sie Ihre Anfrage ohne Online-Zahlung. Unser Team nennt Ihnen den Preis (Buchungsbedingungen auf Englisch).',
   questions: 'Fragen? Schreiben Sie uns',
@@ -176,5 +176,35 @@ const de: typeof en = {
   durationShort: (days: number) => `${days}T/${days - 1}N`,
 };
 
-export const bookingMessages = byLocale({ en, vi, ja, fr, es, de });
+// Same request-only behaviour as ja/fr/es/de: no online payment, prices on request, English booking terms apply.
+const ko: typeof en = {
+  regionLabel: '출발일 및 예약 문의',
+  from: '최저',
+  perCabin: '/ 객실',
+  priceOnRequest: '요금 문의',
+  priceLabel: '요금',
+  onRequest: '문의',
+  voyage: '일정',
+  date: '출발일',
+  chooseDate: '날짜 선택',
+  prevMonth: '이전 달',
+  nextMonth: '다음 달',
+  selected: '선택한 날짜',
+  available: '출발 예정',
+  check: '예약 가능 여부 문의',
+  checkDates: '출발일 보기',
+  soonTitle: '출발일 곧 공개 예정',
+  soonBody: '희망 날짜를 보내 주시면 예약팀이 예약 가능 여부를 확인하고 연락드립니다.',
+  soonDate: '출발일 곧 공개',
+  request: '출발일 선택하기',
+  trustCancel: '출발 30일 이상 전 취소 시 전액 환불',
+  trustPayment: '온라인 결제 없이 문의를 보내실 수 있습니다. 요금은 예약팀이 안내해 드립니다(예약 약관은 영어로 제공).',
+  questions: '궁금한 점이 있으십니까? 채팅 문의',
+  close: '닫기',
+  demo: '데모 데이터',
+  nights: (n: number) => `${n}박`,
+  durationShort: (days: number) => `${days - 1}박 ${days}일`,
+};
+
+export const bookingMessages = byLocale({ en, vi, ja, fr, es, de, ko });
 export type BookingMessages = typeof en;

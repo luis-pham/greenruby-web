@@ -463,4 +463,81 @@ const de: GalleryMessages = {
   schemaName: 'Fotogalerie von Green Ruby Cruises',
 };
 
-export const galleryMessages = byLocale({ en, vi, ja, fr, es, de });
+const ko: GalleryMessages = {
+  breadcrumb: '갤러리',
+  metaTitle: '하롱베이 크루즈 사진 갤러리',
+  pageSuffix: (page) => ` - ${page}페이지`,
+  categoryDescription: (name) =>
+    `${name}: 하롱베이와 란하베이를 운항하는 Green Ruby 크루즈의 사진입니다. 객실, 식사, 체험 프로그램, 그리고 바다 풍경을 담았습니다.`,
+  heroEyebrow: '사진으로 보는 Green Ruby',
+  heroTitle: '기억하는 방법은',
+  heroTitleEm: '천 가지.',
+  heroBody:
+    '바다의 고요함. 나만의 공간이 주는 편안함. 여행을 채우는 크고 작은 순간들.',
+  heroPrimary: '갤러리 보기',
+  heroSecondary: '360° 체험 보기',
+  heroFolio: '하롱 · 란하 / 사진으로 보는 크루즈',
+  listEyebrow: '사진 컬렉션',
+  filterLabel: '카테고리별 갤러리 필터',
+  browseBy: '분류',
+  all: '전체',
+  showing: (from, to, total) =>
+    total === 0 ? '아직 사진이 없습니다' : `사진 ${pad(total)}장 중 ${pad(from)}–${pad(to)}`,
+  viewHint: '사진을 선택하면 크게 볼 수 있습니다',
+  enlarge: (alt) => `크게 보기: ${alt}`,
+  empty: '이 컬렉션에는 아직 사진이 없습니다. 다른 카테고리를 선택해 보세요.',
+  more: '사진 더 보기',
+  morePage: (page, last) => `${last}페이지 중 ${page}페이지`,
+  allSeen: '이 컬렉션의 사진을 모두 보셨습니다',
+  paginationLabel: '갤러리 페이지',
+  previous: '이전',
+  next: '다음',
+  photoAlt: (category, n, total) => `Green Ruby Cruises ${category}, 사진 ${total}장 중 ${n}번째`,
+  photoAltGeneric: '하롱베이와 란하베이의 Green Ruby Cruises',
+  categoryCopy: {
+    onboard: '라운지, 갑판, 레스토랑. 바다 위의 하루가 느리게 흘러가는 공용 공간입니다.',
+    suites: '고요함과 편안함, 창밖 풍경을 위해 설계한 객실과 스위트를 들여다봅니다.',
+    activities: '해 뜰 무렵의 태극권, 하롱베이 루온 동굴의 카약, 갑판에서 즐기는 저녁 오징어 낚시.',
+    nature: '석회암 봉우리와 에메랄드빛 바다, 하롱베이와 란하베이에 시시각각 달라지는 빛.',
+    moments: '처음 마주하는 풍경부터 선상에서 보는 마지막 일몰까지, 크루즈의 작은 순간들.',
+  },
+  lightbox: {
+    label: '사진 뷰어',
+    close: '닫기',
+    previous: '이전 사진',
+    next: '다음 사진',
+  },
+  virtualEyebrow: '몰입형 체험',
+  virtualTitle: '미리 승선해 보세요.',
+  virtualTitleEm: '조금 더 머물러도 좋습니다.',
+  virtualBody:
+    '어떤 공간은 모든 각도에서 봐야 제대로 보입니다. 360°로 둘러보며 떠나기 전에 선상의 분위기를 느껴 보세요.',
+  virtualCta: '360° 체험 시작',
+  virtualStamp: '360° 체험',
+  virtualOpen: (n) => `360° 체험 ${n} 열기`,
+  virtualNote: '드래그하거나 화면을 밀거나 방향키를 눌러 둘러보세요. 영상은 소리 없이 재생되며, 열었을 때만 불러옵니다.',
+  viewer: {
+    label: '360° 뷰어',
+    close: '닫기',
+    loading: '360° 화면을 불러오는 중…',
+    unsupported: '사용 중인 브라우저에서 360° 화면을 표시할 수 없어 일반 영상으로 재생합니다.',
+    hint: '드래그해서 둘러보기',
+  },
+  momentsEyebrow: '크루즈의 순간들',
+  momentsTitle: '오래 기억될',
+  momentsTitleEm: '순간들.',
+  momentsBody:
+    '바다의 고요한 아침부터 함께 무언가를 발견하는 기쁨까지, 나만의 여행 이야기가 될 순간들입니다.',
+  momentFallbackTag: '체험',
+  momentLink: '체험 보기',
+  ctaEyebrow: '다음 여행을 기다리며',
+  ctaTitle: '사진으로도 아름답지만,',
+  ctaTitleEm: '직접 보면 다릅니다.',
+  ctaBody:
+    '하롱베이와 란하베이를 직접 경험해 보세요. 일정을 둘러보시거나 예약팀과 다음 Green Ruby 여행을 상의해 보세요.',
+  ctaPrimary: '일정 보기',
+  ctaSecondary: '여행 계획하기',
+  schemaName: 'Green Ruby Cruises 사진 갤러리',
+};
+
+export const galleryMessages = byLocale({ en, vi, ja, fr, es, de, ko });

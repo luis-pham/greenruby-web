@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, type ReactNode } from 'react';
 import { localeInfo, locales, type Locale } from '@/lib/i18n';
-import { FlagDE, FlagES, FlagGB, FlagFR, FlagJP, FlagVN } from './Flags';
+import { FlagDE, FlagES, FlagGB, FlagFR, FlagJP, FlagKR, FlagVN } from './Flags';
 import s from './layout.module.css';
 
 const LANGUAGES: { locale: Locale; name: string; code: string }[] = locales.map((locale) => ({ locale, name: localeInfo[locale].nativeName, code: localeInfo[locale].code }));
@@ -14,6 +14,7 @@ const FLAGS: Record<Locale, (uid: string) => ReactNode> = {
   fr: () => <FlagFR />,
   es: () => <FlagES />,
   de: () => <FlagDE />,
+  ko: () => <FlagKR />,
 };
 const flag = (locale: Locale, uid: string) => FLAGS[locale](uid);
 

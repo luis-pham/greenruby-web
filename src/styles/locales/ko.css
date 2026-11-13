@@ -1,0 +1,26 @@
+/* Korean typography. Loaded only by the Korean root layout (src/styles/locales/ko.ts); every rule is scoped to
+   :lang(ko), so an element marked lang="en" inside a Korean page keeps the English rules. */
+
+/* Font stacks: Latin keeps Playfair / DM Sans; Hangul uses Noto Serif KR (web font) for the serif and the system
+   Korean sans for body and interface text. Outranks base.css `html:root`.
+   Korean is written with spaces between words (eojeol): keep-all breaks lines at those spaces, never inside a word
+   (the browser default would split 크루/즈); break-word still breaks a word that cannot fit, so nothing overflows. */
+html:root:lang(ko) {
+  --font-family-serif: var(--font-playfair), var(--font-noto-serif-kr), "AppleMyungjo", "Nanum Myeongjo", "Batang", serif;
+  --font-family-sans: var(--font-dm-sans), "Apple SD Gothic Neo", "Noto Sans KR", "Noto Sans CJK KR", "Malgun Gothic", "맑은 고딕", sans-serif;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+/* Hangul has no true italics: the <em> accents (and italic captions) would render as synthetic oblique. Upright
+   instead, as for Japanese; colour and weight of the accent are unchanged. */
+:lang(ko),
+:lang(ko)::before,
+:lang(ko)::after {
+  font-style: normal !important;
+}
+
+/* Headings: a long word that cannot fit still wraps instead of overflowing. */
+:lang(ko) :is(h1, h2, h3, h4, h5, h6) {
+  overflow-wrap: anywhere;
+}

@@ -32,6 +32,7 @@ const PLAN = byLocale<{ title: string; firstTime: string; transfer: string; dest
   fr: { title: 'Préparer votre voyage', firstTime: 'Guide de la première croisière', transfer: 'De Hanoï à la baie d’Halong', destinations: 'Lieux à découvrir', hub: 'Tous nos guides de voyage' },
   es: { title: 'Prepare su viaje', firstTime: 'Guía para su primer crucero', transfer: 'De Hanói a la bahía de Halong', destinations: 'Lugares que visitar', hub: 'Todas nuestras guías de viaje' },
   de: { title: 'Reise planen', firstTime: 'Ratgeber für die erste Kreuzfahrt', transfer: 'Von Hanoi zur Halong-Bucht', destinations: 'Sehenswerte Orte', hub: 'Alle Reiseratgeber' },
+  ko: { title: '여행 준비', firstTime: '첫 크루즈 가이드', transfer: '하노이에서 하롱베이 가는 법', destinations: '가볼 만한 곳', hub: '여행 가이드 전체' },
 });
 
 /** Blog article, or a company news article (category news / tin-tuc: /news/{slug}.html). */

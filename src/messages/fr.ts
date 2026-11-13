@@ -419,7 +419,7 @@ const fr: Messages = {
     shipTitle: 'Tous les horizons.',
     shipTitleEm: 'Depuis votre propre refuge.',
     shipBody: (cruise: string) => `Votre croisière se déroule à bord du ${cruise}. Au retour de chaque excursion, retrouvez le confort d’une cabine privée, les repas à bord et des espaces pensés avec soin.`,
-    cabinsOnBoard: 'Les cabines à bord',
+    cabinsOnBoard: 'Catégories de cabines',
     discover: (cruise: string) => `Découvrir le ${cruise}`,
     faqEyebrow: 'Avant d’embarquer',
     faqTitle: 'Quelques points',

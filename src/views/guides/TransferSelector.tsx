@@ -44,11 +44,12 @@ const fill = (template: string, values: Record<string, string>) => template.repl
  * Range dash and the space before a unit. Unspaced languages (ja) use a wave dash and no space: "2.5〜3時間" (glossary
  * §2, rule T23); en/vi keep "–" and " ".
  */
-const style = (unspaced?: boolean) => (unspaced ? { dash: '〜', space: '' } : { dash: '–', space: ' ' });
+const style = (unspaced?: boolean, unitAttached?: boolean) =>
+  unspaced ? { dash: '〜', space: '' } : { dash: '–', space: unitAttached ? '' : ' ' };
 
 /** "2.5–3 hours" (localised decimal) or, under two hours, "50–70 min"; ja "2.5〜3時間", "50〜70分". */
-function duration([a, b]: [number, number], labels: SelectorLabels, unspaced?: boolean): string {
-  const { dash, space } = style(unspaced);
+function duration([a, b]: [number, number], labels: SelectorLabels, unspaced?: boolean, unitAttached?: boolean): string {
+  const { dash, space } = style(unspaced, unitAttached);
   if (b < 120) return `${a}${dash}${b}${space}${labels.minutes}`;
   const h = (m: number) => String(Math.round((m / 60) * 2) / 2).replace('.', labels.decimal);
   return `${h(a)}${dash}${h(b)}${space}${labels.hours}`;
@@ -57,21 +58,24 @@ function duration([a, b]: [number, number], labels: SelectorLabels, unspaced?: b
 /**
  * "Where are you starting from?" → options, a suggested departure window, fares, operators and last-day
  * guidance (estimates only). Every origin's panel is in the server HTML; the radios only toggle `hidden`.
- * `unspaced` is passed (true) only for languages written without spaces (ja); en/vi omit it, so their props are unchanged.
+ * `unspaced` is passed (true) only for languages written without spaces (ja); `unitAttached` (true) only for Korean, which
+ * spaces words but writes units on the number ("2.5–3시간"); other languages omit both, so their props are unchanged.
  */
 export function TransferSelector({
   origins,
   labels,
   panels = {},
   unspaced,
+  unitAttached,
 }: {
   origins: SelectorOrigin[];
   labels: SelectorLabels;
   panels?: Partial<Record<Origin, ReactNode>>;
   unspaced?: true;
+  unitAttached?: true;
 }) {
   const [key, setKey] = useState<Origin>(origins[0].key);
-  const { dash, space } = style(unspaced);
+  const { dash, space } = style(unspaced, unitAttached);
   const id = useId();
   return (
     <div className={s.selector}>
@@ -96,7 +100,7 @@ export function TransferSelector({
             <div className={s.selectorFigures}>
               <div>
                 <span>{labels.road}</span>
-                {road ? <b>{duration(road, labels, unspaced)}</b> : <small>{labels.roadUnknown}</small>}
+                {road ? <b>{duration(road, labels, unspaced, unitAttached)}</b> : <small>{labels.roadUnknown}</small>}
               </div>
               <div>
                 <span>{labels.depart}</span>

@@ -411,6 +411,7 @@ const CHAT_CHANNELS = byLocale<ChannelKey[]>({
   fr: ['call', 'whatsapp', 'ai'],
   es: ['call', 'whatsapp', 'ai'],
   de: ['call', 'whatsapp', 'ai'],
+  ko: ['call', 'whatsapp', 'ai'],
 });
 
 export function SiteFooter({ locale, site, t }: Pick<Chrome, 'locale' | 'site' | 't'>) {

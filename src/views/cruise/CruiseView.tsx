@@ -357,7 +357,8 @@ export function CruiseView({ cruise, index, chrome, places = [] }: { cruise: Cru
           name: cruise.name,
           description: cruise.summary ?? undefined,
           ...(heroImage && { image: [cruise.image, cruise.cover].filter((p): p is string => !!p).map((p) => absoluteImageUrl(p)) }),
-          numberOfRooms: cruise.cabins.length || undefined,
+          // Rooms on the ship (46), not the cabin categories listed (cruise.cabins); left out when the CMS row has no total.
+          numberOfRooms: cruise.totalCabin ?? undefined,
           ...(cruise.capacity != null && { occupancy: { '@type': 'QuantitativeValue', maxValue: cruise.capacity } }),
           amenityFeature: cruise.amenities.map((a) => ({ '@type': 'LocationFeatureSpecification', name: a.name, value: true })),
           containsPlace: cruise.cabins.map((cabin) => ({ '@type': 'HotelRoom', name: cabin.name, url: absoluteUrl(cabinPath(locale, cabin)) })),

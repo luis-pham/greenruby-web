@@ -675,7 +675,119 @@ const de: DestinationMessages = {
   },
 };
 
-export const destinationMessages = byLocale<DestinationMessages>({ en, vi, ja, fr, es, de });
+const ko: DestinationMessages = {
+  metaTitle: '하롱베이 가볼 만한 곳: 동굴·섬·마을',
+  metaDescription:
+    '하롱베이와 란하베이의 동굴, 섬, 해변, 어촌 마을을 소개합니다. Green Ruby 크루즈가 들를 예정인 곳과 따로 둘러볼 만한 곳을 함께 정리했습니다.',
+  breadcrumb: '가볼 만한 곳',
+  breadcrumbGuide: '여행 가이드',
+  eyebrow: '여행 가이드',
+  title: '하롱베이와 란하베이',
+  titleEm: '가볼 만한 곳',
+  lead: '하롱베이와 란하베이의 동굴, 섬, 해변, 어촌 마을을 한데 모았습니다. 방문은 어떻게 이루어지는지, 어느 곳이 Green Ruby의 예정 항로에 있고 어느 곳은 다른 방법으로 가야 하는지 확인하세요.',
+  bays: { 'ha-long': '하롱베이', 'lan-ha': '란하베이' },
+  bayIntro: {
+    'ha-long': '유네스코 세계자연유산의 중심이 되는 곳입니다. 규모가 큰 관광 동굴과 섬 전망대가 있고, 항로는 비교적 붐빕니다. Green Ruby 1이 운항합니다.',
+    'lan-ha': '하롱베이 남쪽, 깟바섬(Cat Ba Island) 앞바다입니다. 물살이 잔잔하고 아늑한 라군(현지 규정에 따라 카약은 현재 일시 중단)과 마을 방문이 기다립니다. Green Ruby 2가 운항합니다.',
+  },
+  categories: { cave: '동굴', island: '섬 · 해변', village: '마을', lagoon: '라군 · 카약', other: '기타' },
+  category: { cave: '동굴', island: '섬', village: '마을', lagoon: '라군', other: '명소' },
+  places: (n: number) => `${n}곳`,
+  compareBays: '하롱베이·란하베이 비교하기',
+  filter: {
+    label: '여행지 필터',
+    search: '여행지 검색',
+    searchPlaceholder: '이름으로 검색(예: 동굴)',
+    bay: '지역',
+    category: '유형',
+    all: '전체',
+    results: (n: number) => `여행지 ${n}곳`,
+    empty: '조건에 맞는 여행지가 없습니다.',
+    reset: '필터 초기화',
+  },
+  stop: 'Green Ruby 기항 예정지',
+  regional: '주변 명소',
+  thingsToDo: {
+    title: '무엇을 할 수 있을까요?',
+    lede: '하롱베이와 란하베이에서 즐길 수 있는 주요 방문 유형입니다. 장소마다 별도의 가이드에서 가는 방법, 소요 시간, 방문 조건을 안내합니다.',
+    groups: {
+      cave: ['동굴', '계단을 따라 걸어서 둘러보는 관광 동굴, 그리고 카약이나 작은 배로 지나가는 수면 높이의 낮은 통로가 있습니다.'],
+      island: ['섬 · 해변', '계단을 올라 닿는 섬 전망대와 작은 해변이 있습니다. 해수욕은 여건이 허락할 때만 가능합니다.'],
+      village: ['어촌 마을과 현지 생활', '2014년 주민들이 뭍으로 이주한 옛 수상마을, 그리고 배를 타고 건너가 자전거나 전동 카트로 둘러보는 깟바섬의 농촌 마을이 있습니다.'],
+      lagoon: ['라군 · 카약 · 작은 배', '섬들 사이의 잔잔한 물길을 장소와 현지 규정에 따라 카약, 대나무 보트, 노 젓는 배로 둘러봅니다.'],
+    },
+    cavesLink: '동굴 비교하기',
+    kayakNote: '란하베이의 카약은 현지 규정에 따라 일시 중단된 상태입니다(2026년 10월 기준). 따라서 란하베이 기항지는 배를 타고 둘러봅니다. 하롱베이의 루온 동굴(Luon Cave)은 카약이나 대나무 보트로 방문합니다.',
+    onboard: ['선상 액티비티', '쿠킹 클래스, 아침 운동 등 선상에서 즐기는 활동은 ‘체험’ 페이지에서 소개합니다.'],
+    onboardLink: '선상 체험 보기',
+  },
+  stops: {
+    title: 'Green Ruby 크루즈 기항지',
+    lede: 'Green Ruby가 공개한 일정에 포함된 곳입니다. 확정이 아닌 예정 기항지로, 당일 날씨와 조수, 현지 규정에 따라 달라집니다.',
+  },
+  others: {
+    title: '그 밖의 가볼 만한 곳',
+    lede: '하롱베이와 란하베이의 이름난 명소 가운데 Green Ruby 일정에 없는 곳입니다. Green Ruby 크루즈는 이곳에 들르지 않으며, 하롱베이 유람선을 이용해 따로 방문할 수 있습니다.',
+    notStop: 'Green Ruby 기항지 아님',
+    source: '출처',
+    route: '하롱베이 관광 항로 VHL1로 방문(뚜언쩌우 또는 하롱 국제 크루즈 터미널 출발)',
+  },
+  caves: {
+    title: '하롱베이와 란하베이의 동굴',
+    lede: '동굴마다 어떻게 방문하는지, Green Ruby 일정에 포함되는지 정리했습니다.',
+    cave: '동굴',
+    bay: '지역',
+    visit: '방문 방법',
+    greenRuby: 'Green Ruby 일정',
+    none: 'Green Ruby 기항지 아님',
+  },
+  cruises: { title: '선박', lede: 'Green Ruby 1은 하롱베이를, Green Ruby 2는 란하베이를 운항합니다.' },
+  stopNote: 'Green Ruby 기항지는 공개된 일정을 기준으로 하며, 2027년 2월 첫 운항 전까지는 변경될 수 있습니다. 그 밖의 주변 명소는 Green Ruby 항로에 포함되지 않습니다.',
+  readMore: '가이드 읽기',
+  map: {
+    title: '하롱베이·란하베이 지도',
+    lede: '위치가 확인된 여행지입니다. 위치는 대략적인 것으로, 방향을 가늠하는 용도로만 참고하세요.',
+    attribution: '© OpenStreetMap contributors',
+    listLabel: '지도에 표시된 여행지',
+  },
+  itineraries: {
+    title: '일정별 방문지',
+    lede: 'Green Ruby 일정별 예정 기항지입니다. 시간과 기항지는 날씨와 조수에 따라 바뀔 수 있습니다.',
+    days: (n: number) => `${n - 1}박 ${n}일`,
+    view: '일정 보기',
+  },
+  plan: {
+    title: '떠나기 전에',
+    items: [
+      ['날씨가 관건입니다', '모든 방문은 선박 운항이 허가되어야 가능합니다. 주로 6월부터 10월 사이 폭풍 경보가 내려지면 운항이 갑자기 중단될 수 있습니다.'],
+      ['조수도 중요합니다', '루온 동굴, 다크 앤 브라이트 동굴(Dark & Bright Cave)처럼 통로가 낮은 동굴은 물때가 맞아야 지나갈 수 있어, 가이드가 그날의 순서를 바꿀 수 있습니다.'],
+      ['계단과 균형 감각', '관광 동굴과 전망대에는 계단이 많고, 카약과 노 젓는 배는 어느 정도 균형 감각이 필요합니다. 가이드마다 이동 편의 관련 안내를 실었습니다.'],
+    ],
+  },
+  guides: {
+    title: '나머지 여행 준비하기',
+    firstTime: ['하롱베이 크루즈가 처음이신가요?', '무엇을 기대하면 좋을지, 무엇을 챙길지, 승선 당일은 어떻게 진행되는지 안내합니다.'],
+    transfer: ['하노이에서 하롱베이 가는 법', '이동 수단, 선착장, 현실적인 소요 시간.'],
+    bestTime: ['하롱베이 여행 시기', '월별 날씨와 폭풍 시즌.'],
+  },
+  detail: {
+    facts: '한눈에 보기',
+    plan: 'Green Ruby 일정',
+    planNone: '이곳은 Green Ruby 일정에 포함되지 않습니다. 개별적으로 또는 다른 업체를 통해 방문할 수 있는 주변 명소로 소개합니다.',
+    planNote: '공개된 일정에 따른 예정 기항지이며, 2027년 2월 첫 운항 전까지는 변경될 수 있습니다.',
+    mapsLink: 'Google 지도에서 열기',
+    faq: '자주 묻는 질문',
+    sources: '출처',
+    photo: '사진',
+    checked: '정보 확인일',
+    related: '주변 및 비슷한 여행지',
+    back: '가볼 만한 곳 전체 보기',
+    ctaTitle: '전체 일정 보기',
+    ctaBody: '이곳에 들를 예정인 크루즈의 시간표, 식사, 객실, 포함 사항을 확인하세요.',
+  },
+};
+
+export const destinationMessages = byLocale<DestinationMessages>({ en, vi, ja, fr, es, de, ko });
 
 /**
  * How each cave is visited, by destination slug of each language (for the hub's cave table). Taken from the
@@ -730,6 +842,14 @@ export const caveVisit = byLocale<Record<string, string>>({
     'thien-cung-cave': 'Zu Fuß, über Stufen zu einem Eingang etwa 20 m über dem Meeresspiegel; etwa 30–60 Minuten',
     'dau-go-cave': 'Zu Fuß, etwa 90 steile Stufen; Tageslicht in der ersten von drei Kammern; etwa 30–60 Minuten',
   },
+  ko: {
+    'sung-sot-cave': '도보로 관람합니다. 계단과 고르지 않은 길이 있으며 약 45–60분 소요',
+    'luon-cave': '카약이나 대나무 보트를 타고 수면 높이의 터널을 지납니다',
+    'tien-ong-cave': '잠시 걸어서 들어갑니다. 고고학 전시가 있습니다',
+    'dark-bright-cave': '노 젓는 배로 방문(란하베이 카약은 중단 중)',
+    'thien-cung-cave': '도보로 관람합니다. 해발 약 20m의 입구까지 계단을 오르며 약 30–60분 소요',
+    'dau-go-cave': '도보로 관람합니다. 가파른 계단 약 90개를 오르며, 세 개의 공간 중 첫 번째 공간에는 햇빛이 듭니다. 약 30–60분 소요',
+  },
 });
 
 /**
@@ -740,4 +860,4 @@ export const caveVisit = byLocale<Record<string, string>>({
 export type OtherPlace = { key: string; name: string; bay: Bay; category: Category; summary: string; visit: string; sources: { title: string; url: string }[] };
 
 
-export const otherPlaces = byLocale<OtherPlace[]>({ en: [], vi: [], ja: [], fr: [], es: [], de: [] });
+export const otherPlaces = byLocale<OtherPlace[]>({ en: [], vi: [], ja: [], fr: [], es: [], de: [], ko: [] });

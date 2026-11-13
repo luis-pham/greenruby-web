@@ -396,4 +396,70 @@ const de: FaqMessages = {
   contactCaption: 'Bis bald in der Bucht.',
 };
 
-export const faqMessages = byLocale({ en, vi, ja, fr, es, de });
+const ko: FaqMessages = {
+  breadcrumb: '자주 묻는 질문',
+  metaTitle: '하롱베이 크루즈 자주 묻는 질문',
+  metaDescription:
+    '하롱베이와 란하베이를 운항하는 Green Ruby 크루즈에 관해 자주 묻는 질문을 모았습니다. 일정, 예약 문의, 객실, 선상 생활을 안내합니다.',
+  pageSuffix: (page) => ` - ${page}페이지`,
+  categoryDescription: (name) =>
+    `${name}: 하롱베이와 란하베이를 운항하는 Green Ruby 크루즈에 관해 자주 묻는 질문에 예약팀이 답합니다.`,
+  heroEyebrow: 'Green Ruby 안내',
+  heroTitle: '궁금한 점은 미리.',
+  heroTitleEm: '여행은 더 편안하게.',
+  heroBody:
+    '목적지 선택부터 선상 생활의 세세한 부분까지, 안심하고 떠날 수 있도록 명확한 답을 정리했습니다.',
+  heroPrimary: '자주 묻는 질문 보기',
+  heroSecondary: '팀에 문의하기',
+  artKicker: '꼼꼼하게 답했습니다',
+  artTitle: '출항 전에.',
+  questions: (n) => `질문 ${n}개`,
+  introEyebrow: '알아 두어야 할 모든 것',
+  introTitle: '궁금한 점에',
+  introTitleEm: '명확하게 답합니다.',
+  introBody:
+    '주제별로 둘러보거나 필요한 내용을 검색해 보세요. 꼭 필요한 여행 정보를 한곳에 모았습니다.',
+  topicsKicker: '주제별 보기',
+  topicsLabel: '자주 묻는 질문 주제',
+  allTopics: '전체 질문',
+  helpTitle: '직접 상담이 필요하신가요?',
+  helpBody: '특별한 요청, 여행 계획, 예약 관련 세부 사항은 예약팀이 도와 드립니다.',
+  helpLink: '팀에 문의하기',
+  search: {
+    label: '자주 묻는 질문 검색',
+    placeholder: '질문 검색(예: 결제, 복장)',
+    clear: '지우기',
+    found: (n) => `질문 ${n}개를 찾았습니다`,
+    expandAll: '모두 펼치기',
+    collapseAll: '모두 접기',
+    emptyTitle: '찾는 질문이 없습니다',
+    emptyBody: '다른 검색어로 찾아보시거나 저희 팀에 문의해 주세요.',
+    reset: '전체 질문 보기',
+  },
+  otherGroup: '기타 질문',
+  emptyGroup: '이 주제에는 아직 질문이 없습니다.',
+  paginationLabel: '자주 묻는 질문 페이지',
+  previous: '이전',
+  next: '다음',
+  assuranceEyebrow: '차근차근 준비하기',
+  assuranceTitle: '순조로운 출발이',
+  assuranceTitleEm: '좋은 여행을 만듭니다.',
+  assuranceBody:
+    '첫 문의부터 최종 확정까지 저희 팀이 함께하니, 바다 위에서 보낼 시간만 기대해 주세요.',
+  assuranceCta: '일정 보기',
+  steps: [
+    { title: '나에게 맞는 일정 찾기', body: '하롱베이와 란하베이를 살펴보고 원하는 일정과 객실을 고르세요.' },
+    { title: '세부 사항 확인하기', body: '원하는 날짜로 예약 문의를 보내 주시면 예약팀이 예약 가능 여부, 포함 사항, 이동 옵션, 예약 조건을 안내해 드립니다.' },
+    { title: '출항 기다리기', body: '출항 일정이 확정되면 예약 확인과 도착 안내를 받으실 수 있습니다.' },
+  ],
+  contactEyebrow: '1:1 예약 상담',
+  contactTitle: '더 궁금한 점이',
+  contactTitleEm: '있으신가요?',
+  contactBody:
+    '특별한 기념일, 원하는 스위트, 도착 관련 문의까지, 여행 계획을 기꺼이 도와 드리겠습니다.',
+  contactPrimary: '팀에 문의하기',
+  contactEmail: '이메일 보내기',
+  contactCaption: '선상에서 뵙겠습니다.',
+};
+
+export const faqMessages = byLocale({ en, vi, ja, fr, es, de, ko });

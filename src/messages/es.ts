@@ -420,7 +420,7 @@ const es: Messages = {
     shipTitle: 'Todos los horizontes.',
     shipTitleEm: 'Desde su propio refugio.',
     shipBody: (cruise: string) => `Su crucero se realiza a bordo del ${cruise}. Al volver de cada excursión le esperan la comodidad de un camarote privado, las comidas a bordo y unos espacios pensados con esmero.`,
-    cabinsOnBoard: 'Los camarotes a bordo',
+    cabinsOnBoard: 'Tipos de camarote',
     discover: (cruise: string) => `Descubrir el ${cruise}`,
     faqEyebrow: 'Antes de embarcar',
     faqTitle: 'Algunos detalles',

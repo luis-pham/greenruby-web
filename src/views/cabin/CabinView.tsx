@@ -13,6 +13,9 @@ import { absoluteImageUrl, absoluteUrl } from '@/lib/site-url';
 import { wordSpace } from '@/lib/typography';
 import { CabinGallery } from './CabinGallery';
 import { SHIP_SWITCH } from './sisters';
+
+/** Number + guest unit: Korean attaches the counter noun to the digits ("4명"); other languages keep wordSpace. */
+const unitSpace = (locale: Locale) => (locale === 'ko' ? '' : wordSpace(locale));
 import s from './cabin.module.css';
 
 export function cabinPath(locale: Locale, cabin: Pick<CabinSummary, 'slug' | 'id'>): string {
@@ -133,7 +136,7 @@ export function CabinView({
             {cabin.capacity != null && (
               <div className={s.fact}>
                 <dt>{c.guests}</dt>
-                <dd><span className={s.factValue}>{cabin.capacity}{wordSpace(locale)}{c.guestUnit(cabin.capacity)}</span><span className={s.factCaption}>{occupancy ? c.occupancyCaption(occupancy) : c.guestsCaption(extra)}</span></dd>
+                <dd><span className={s.factValue}>{cabin.capacity}{unitSpace(locale)}{c.guestUnit(cabin.capacity)}</span><span className={s.factCaption}>{occupancy ? c.occupancyCaption(occupancy) : c.guestsCaption(extra)}</span></dd>
               </div>
             )}
             {cabin.view && (
@@ -171,7 +174,7 @@ export function CabinView({
                 {cabin.cabinClass && <div className={s.glanceRow}><dt>{c.glance.category}</dt><dd>{cabin.cabinClass}</dd></div>}
                 {cabin.view && <div className={s.glanceRow}><dt>{c.glance.view}</dt><dd>{cabin.view}</dd></div>}
                 {cabin.area != null && <div className={s.glanceRow}><dt>{c.glance.area}</dt><dd>{cabin.area} m²</dd></div>}
-                {cabin.capacity != null && <div className={s.glanceRow}><dt>{c.glance.occupancy}</dt><dd>{cabin.capacity}{wordSpace(locale)}{locale === 'de' ? c.guestUnit(cabin.capacity) : c.guestUnit(cabin.capacity).toLowerCase() /* German nouns stay capitalised */}</dd></div>}
+                {cabin.capacity != null && <div className={s.glanceRow}><dt>{c.glance.occupancy}</dt><dd>{cabin.capacity}{unitSpace(locale)}{locale === 'de' ? c.guestUnit(cabin.capacity) : c.guestUnit(cabin.capacity).toLowerCase() /* German nouns stay capitalised */}</dd></div>}
                 {occupancy ? (
                   <div className={s.glanceRow}><dt>{c.glance.maxGuests}</dt><dd>{occupancy}</dd></div>
                 ) : (

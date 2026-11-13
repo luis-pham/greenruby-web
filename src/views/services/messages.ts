@@ -687,7 +687,7 @@ const de: ServicesMessages = {
     ],
     points: ['Von Hanoi zum Abfahrtsbereich Tuan Chau', 'Privater Transfer auf Anfrage', 'Transferkosten werden gesondert bestätigt'],
     stamp: ['Die Reise', 'beginnt', 'vor dem Einschiffen'],
-    cta: 'Anreise organisieren',
+    cta: 'Transfer anfragen',
   },
   inclusions: {
     eyebrow: 'Klar informiert reisen',
@@ -778,4 +778,133 @@ const de: ServicesMessages = {
   },
 };
 
-export const servicesMessages = byLocale<ServicesMessages>({ en, vi, ja, fr, es, de });
+const ko: ServicesMessages = {
+  metaTitle: '하롱베이 크루즈 부가 서비스 · 프라이빗 행사',
+  metaDescription:
+    '하롱베이와 란하베이를 운항하는 Green Ruby 크루즈의 픽업·샌딩, 스파 트리트먼트, 사진 촬영, 기념일 준비, 프라이빗 전세 서비스를 소개합니다.',
+  breadcrumb: '서비스',
+  hero: {
+    eyebrow: 'Green Ruby 컨시어지 서비스',
+    title: '모든 디테일을',
+    titleEm: '세심하게.',
+    body: '편안한 도착부터 축하하고 싶은 순간까지, 여행을 온전히 나만의 것으로 만들어 줄 부가 서비스를 만나 보세요.',
+    primary: '서비스 둘러보기',
+    secondary: '팀에 문의하기',
+    visualLabel: '1:1 맞춤 서비스',
+    visualCaption: '당신의 순간을 위해.',
+  },
+  collection: {
+    heading: '서비스 안내',
+    filterLabel: '서비스 필터',
+    all: '전체 서비스',
+    results: (n: number) => `서비스 ${pad(n)}개`,
+    included: '포함',
+    optional: '선택 서비스',
+    price: (price: string) => `${price}부터`,
+    enquire: '이 서비스 문의하기',
+    enquireSubject: (name: string) => `Green Ruby 서비스 문의: ${name}`,
+    note: '이용 가능 여부, 요금, 적용 조건은 Green Ruby 예약팀이 확인해 드립니다. 선택 서비스는 기본 크루즈 요금에 포함되지 않습니다.',
+    empty: '여행에 이용할 수 있는 서비스는 저희 팀이 자세히 안내해 드립니다.',
+  },
+  story: {
+    eyebrow: '출항 전에',
+    title: '여유로운 출발이',
+    titleEm: '여행의 시작입니다.',
+    paragraphs: [
+      '하노이에서 선착장까지 가는 길도 여행의 일부여야 합니다. 신경 쓸 일이 하나 더 늘어서는 안 됩니다. Green Ruby는 호텔과 크루즈 터미널 사이의 전용 차량 이동을 준비해 드릴 수 있습니다.',
+      '호텔, 여행 날짜, 인원을 알려 주시면 가장 알맞은 방법을 함께 상의하겠습니다.',
+    ],
+    points: ['하노이에서 뚜언쩌우 출항 지역까지', '요청 시 전용 차량 이동', '차량 요금은 별도 안내'],
+    stamp: ['여행은', '승선 전부터', '시작됩니다'],
+    cta: '픽업 서비스 문의하기',
+  },
+  inclusions: {
+    eyebrow: '명확한 안내',
+    title: '여행에 포함된 것,',
+    titleEm: '그리고 따로 준비해 드리는 것.',
+    body: '일정에 기본으로 포함된 사항과 선택형 맞춤 서비스의 차이를 한눈에 정리했습니다.',
+    included: {
+      label: '일정 기본 포함 사항',
+      title: ['이미 여행에', '포함되어 있습니다.'],
+      items: [
+        '에어컨이 갖춰진 전용 객실과 일정에 명시된 식사',
+        '예정된 관광 일정과 입장료',
+        '일정에 안내된 카약, 대나무 보트, 선상 액티비티(란하베이 카약은 현지 규정에 따라 일시 중단)',
+        '식수와 선상 고객 지원',
+        '24시간 리셉션, 매일 객실 청소, 턴다운 서비스',
+      ],
+      foot: '포함 사항은 선택한 일정에 따라 다를 수 있으니 예약 시 최종 포함 사항을 확인해 주세요.',
+    },
+    optional: {
+      label: '맞춤 추가 서비스',
+      title: ['요청하시면', '세심하게 준비합니다.'],
+      items: [
+        '하노이–하롱 이동 및 전용 차량',
+        '엄선한 스파 트리트먼트와 마사지 패키지',
+        '사진 촬영, 드론 촬영, 기념일 장식, 프라이빗 다이닝',
+        '그 밖의 음료와 개인 구매 품목',
+      ],
+      foot: '선택 서비스의 내용, 요금, 허가 여부, 이용 가능 여부는 예약 전에 확인해 주세요.',
+    },
+  },
+  celebrations: {
+    eyebrow: '웨딩 · 기념일',
+    eventsEyebrow: '프라이빗 행사',
+    eventsTitle: '바다를 배경으로 한',
+    eventsTitleEm: '특별한 모임.',
+    spaces: '행사 공간',
+    viewSpace: '공간 보기',
+    proposal: '제안서 요청하기',
+    area: (m2: number) => `${m2}m²`,
+  },
+  process: {
+    eyebrow: '나만의 여행으로',
+    title: '맞춤 준비는',
+    titleEm: '한 번의 상담으로 시작됩니다.',
+    body: '먼저 일정을 고르세요. 중요하게 여기는 점을 알려 주세요. 준비할 수 있는 사항은 예약팀이 확인해 드립니다.',
+    steps: [
+      { tag: '찾기', title: '일정 고르기', body: '1박의 짧은 휴식이든 더 긴 여정이든, 원하는 목적지와 일정, 객실부터 정하세요.' },
+      { tag: '맞춤', title: '원하는 사항 알려 주기', body: '이동 수단, 웰니스 트리트먼트, 사진 촬영, 특별한 환영 준비 등을 문의하세요.' },
+      { tag: '확인', title: '편안하게 떠나기', body: '여행 전에 예약팀과 이용 가능 여부와 추가 비용을 확인하세요.' },
+    ],
+  },
+  faq: {
+    eyebrow: '알아 두면 좋은 정보',
+    title: '세세한 궁금증에',
+    titleEm: '답합니다.',
+    body: '특별히 계획하는 일이 있으신가요? 일정에 맞는 선택지를 저희 팀이 안내해 드립니다.',
+    link: '자주 묻는 질문 더 보기',
+    items: [
+      {
+        question: '하노이 픽업·샌딩은 크루즈 요금에 포함되나요?',
+        answerHtml:
+          '<p>이동 서비스는 기본 요금에 포함되지 않습니다. 전용 차량 이동은 추가 요금으로 준비해 드릴 수 있습니다.</p>',
+      },
+      {
+        question: '스파와 마사지는 포함되나요?',
+        answerHtml:
+          '<p>스파 트리트먼트는 선택 서비스이며 추가 요금이 있을 수 있습니다. 여행 중 이용할 수 있는 트리트먼트는 예약팀에 문의해 주세요.</p>',
+      },
+      {
+        question: '사진 촬영이나 드론 촬영을 요청할 수 있나요?',
+        answerHtml:
+          '<p>사진 촬영과 드론 촬영은 선택 서비스입니다. 이용 가능 여부, 시간, 현지 허가, 요금을 미리 저희 팀과 확인해 주세요.</p>',
+      },
+      {
+        question: '기념일을 특별하게 준비할 수 있나요?',
+        answerHtml:
+          '<p>네. 어떤 기념일인지, 생각하시는 내용을 예약팀에 알려 주시면 선상에서 준비할 수 있는 사항을 확인해 드립니다.</p>',
+      },
+    ],
+  },
+  cta: {
+    eyebrow: '나를 위한 여행',
+    title: '특별한 여행을',
+    titleEm: '편안하게.',
+    body: '바다 위에서 보내고 싶은 시간을 저희 팀에 들려주세요. 이용할 수 있는 서비스와 그에 맞는 일정을 함께 찾아 드리겠습니다.',
+    primary: '팀과 함께 계획하기',
+    secondary: '일정 보기',
+  },
+};
+
+export const servicesMessages = byLocale<ServicesMessages>({ en, vi, ja, fr, es, de, ko });

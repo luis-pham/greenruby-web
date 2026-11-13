@@ -143,6 +143,30 @@ const LABEL_COPY = {
     types: { 'shared-limousine': 'Sammel-Limousine', bus: 'Reisebus', 'private-car': 'Privatwagen' },
     checked: (date: string) => `Preise und Zeiten laut Veröffentlichung der Anbieter, geprüft am ${date}. Die Anbieter ändern sie ohne Ankündigung; bitte bei der Buchung bestätigen lassen. Diese Unternehmen sind keine Partner von Green Ruby.`,
   },
+  ko: {
+    operator: '운수 업체',
+    vehicle: '차량',
+    fare: '요금',
+    pickup: '승차 장소',
+    dropoff: '하차 장소',
+    booking: '예약',
+    departures: '출발 시각',
+    duration: '소요 시간',
+    luggage: '수하물',
+    // Spaced like en ("260,000–360,000 VND (좌석당)", "최저 1,600,000 VND (차량 1대당)"); ko-KR digits group with commas.
+    perSeat: '(좌석당)',
+    perVehicle: '(차량 1대당)',
+    from: '최저',
+    askFare: '업체에 문의',
+    website: '웹사이트',
+    bookOn: 'Vexere에서 예약',
+    whatsapp: 'WhatsApp',
+    zalo: 'Zalo',
+    domestic: '베트남 국내 전용',
+    status: { confirmed: '업체 웹사이트 기준', indicative: '예약 전 확인 필요', agentOnly: '예약 플랫폼 전용' },
+    types: { 'shared-limousine': '합승 리무진', bus: '버스', 'private-car': '전용 차량' },
+    checked: (date: string) => `요금과 시간은 각 업체가 공개한 정보로, ${date}에 확인했습니다. 업체가 예고 없이 변경할 수 있으니 예약할 때 다시 확인하세요. 이 업체들은 Green Ruby의 제휴사가 아닙니다.`,
+  },
 } as const;
 const LABELS = byLocale<(typeof LABEL_COPY)[keyof typeof LABEL_COPY]>(LABEL_COPY);
 
