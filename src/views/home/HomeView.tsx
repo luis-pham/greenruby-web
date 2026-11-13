@@ -64,7 +64,7 @@ export function HomeView({ page, chrome, allCabins = [] }: { page: Homepage; chr
   const h = t.home;
   const info = siteInfo(site);
   const heroImage = page.banner[0]?.image ?? page.cruises[0]?.cover ?? null;
-  const quoteImage = page.banner[1]?.image ?? heroImage;
+  const quoteImage = page.readyToSailImage ?? page.banner[1]?.image ?? heroImage;
   const bays = [...new Set(page.itineraries.map((i) => i.bay).filter((b): b is 'ha-long' | 'lan-ha' => b !== null))];
   const durations = [...new Set(page.itineraries.map((i) => i.duration))].sort((a, b) => a - b);
   // "Life on board": the ship's spaces (facilities); the picked services only while the CMS does not send them.

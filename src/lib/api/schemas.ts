@@ -125,6 +125,8 @@ export const homepageSchema = z.object({
   faqs: z.array(z.object({ question: z.string(), answerHtml: z.string() })),
   support: optionalText,
   readyToSail: optionalText,
+  // Closing block background (CMS 2026-11-13); absent from an older CMS.
+  readyToSailImage: optionalText.default(null),
 });
 export type Homepage = z.infer<typeof homepageSchema>;
 
