@@ -11,6 +11,7 @@ import { guideLinks } from '@/lib/guide-links';
 import { detailPath, homePath, itineraryPath, numberFormatTag, sectionPath, type Locale } from '@/lib/i18n';
 import { absoluteImageUrl, absoluteUrl } from '@/lib/site-url';
 import { wordSpace } from '@/lib/typography';
+import { CabinGallery } from './CabinGallery';
 import s from './cabin.module.css';
 
 export function cabinPath(locale: Locale, cabin: Pick<CabinSummary, 'slug' | 'id'>): string {
@@ -59,8 +60,10 @@ export function CabinView({
   const durations = [...new Set(pricing.matrix.map((r) => r.duration))].sort((a, b) => a - b);
   const guests = [...new Set(pricing.matrix.map((r) => r.guest))].sort((a, b) => a - b);
   const priceOf = (d: number, g: number) => pricing.matrix.find((r) => r.duration === d && r.guest === g)?.price;
-  // The gallery grid is laid out for at most 6 photos: one large, two stacked, three across.
-  const photos = [...(cabin.image ? [{ src: cabin.image, alt: cabin.name }] : []), ...cabin.gallery].slice(0, 6);
+  // Gallery viewer: the cover and every gallery photo. With a full gallery (6+ photos) the first gallery photo closes
+  // the page (CTA) instead of repeating the cover; smaller galleries keep the cover behind the CTA.
+  const photos = [...(cabin.image ? [{ src: cabin.image, alt: cabin.name }] : []), ...cabin.gallery];
+  const ctaImage = cabin.gallery.length >= 6 ? cabin.gallery[0].src : cabin.image;
 
   const tabs = [
     { id: 'overview', label: c.tabs.overview, show: true },
@@ -258,18 +261,7 @@ export function CabinView({
           <section className={s.section} id="gallery" aria-labelledby="gallery-title">
             <div className="container">
               <SectionHeading id="gallery-title" eyebrow={c.galleryEyebrow} title={c.galleryHeading} />
-              <div className={s.gallery}>
-                {photos.map((photo, i) => (
-                  <figure key={photo.src + i} className={s.galleryItem}>
-                    <Image
-                      src={photo.src}
-                      alt={photo.alt ?? cabin.name}
-                      fill
-                      sizes={i === 0 ? '(max-width: 600px) 100vw, 66vw' : '(max-width: 600px) 100vw, 33vw'}
-                    />
-                  </figure>
-                ))}
-              </div>
+              <CabinGallery photos={photos} name={cabin.name} locale={locale} />
             </div>
           </section>
         )}
@@ -339,7 +331,7 @@ export function CabinView({
         )}
 
         <section className={s.cta} aria-labelledby="cta-title">
-          {cabin.image && <Image src={cabin.image} alt="" fill sizes="100vw" className={s.ctaImage} />}
+          {ctaImage && <Image src={ctaImage} alt="" fill sizes="100vw" className={s.ctaImage} />}
           <div className={s.ctaInner}>
             <SectionHeading id="cta-title" eyebrow={c.ctaEyebrow} title={c.ctaHeading} inverse stacked />
             <p>{c.ctaBody}</p>
