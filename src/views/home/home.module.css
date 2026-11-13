@@ -210,9 +210,11 @@
 .facts div { display: flex; flex-direction: column; }
 .facts dt { order: 2; color: var(--text-muted); font-size: var(--font-size-label); letter-spacing: 0.05em; }
 .facts dd { order: 1; margin: 0; font-family: var(--font-family-serif); font-size: 29px; color: var(--text-heading); }
-.storyVisual { position: relative; height: 540px; }
-.photoMain { position: absolute; right: 0; top: 0; width: 82%; height: 92%; overflow: hidden; }
-.photoSecondary { position: absolute; left: 0; bottom: -22px; width: 40%; height: 47%; overflow: hidden; border: 9px solid var(--bg-page); }
+/* Both photos 4:3 (owner 2026-11-13): the main one in flow on the right, the second overlapping its lower left corner.
+   padding-bottom (a % of the width) leaves room for the part of the second photo below the main one. */
+.storyVisual { position: relative; padding-bottom: 14%; }
+.photoMain { position: relative; width: 92%; margin-left: auto; aspect-ratio: 4 / 3; overflow: hidden; }
+.photoSecondary { position: absolute; left: 0; bottom: 0; width: 48%; aspect-ratio: 4 / 3; overflow: hidden; border: 9px solid var(--bg-page); }
 .photoMain img, .photoSecondary img { object-fit: cover; }
 
 /* ---------- Journeys ---------- */
@@ -465,7 +467,6 @@
   .fleetGrid { grid-template-columns: 1fr; }
   .fleetVisual { aspect-ratio: 1.7 / 1; }
   .storyGrid { grid-template-columns: 1fr; }
-  .storyVisual { height: 450px; }
   .head { flex-direction: column; align-items: flex-start; gap: 12px; }
   .head p { max-width: 560px; }
   .experienceGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -488,7 +489,6 @@
   .fleetBody { padding: 26px 23px 30px; }
   .fleetSpecs dd { font-size: 25px; }
   .story { padding: 87px 0 90px; }
-  .storyVisual { height: 360px; }
   .facts { gap: 8px; }
   .facts dd { font-size: 24px; }
   .journeyPhoto { height: 220px; }
