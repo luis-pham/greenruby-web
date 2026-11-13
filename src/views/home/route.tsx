@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { withPreviewBanner } from '@/components/layout/PreviewBanner';
-import { listItineraries } from '@/lib/api/content';
+import { listCabins, listItineraries } from '@/lib/api/content';
 import { homePath, type Locale } from '@/lib/i18n';
 import { hubAlternates } from '@/lib/intl-hubs';
 import { getHomepageFor, getSiteFor, isPreview, previewMetadata } from '@/lib/preview-loaders';
@@ -28,7 +28,7 @@ export function homeRoute(locale: Locale) {
   }
 
   async function Page() {
-    const [site, raw, list, alternates] = await Promise.all([getSiteFor(locale), getHomepageFor(locale), listItineraries(locale), hubAlternates('home')]);
+    const [site, raw, list, cabins, alternates] = await Promise.all([getSiteFor(locale), getHomepageFor(locale), listItineraries(locale), listCabins(locale), hubAlternates('home')]);
     // The homepage config stores a snapshot of each itinerary's ship, which goes stale when an itinerary
     // moves to another ship (links then hit a 308). Take ship, URL parts and bay from the live listing.
     const live = new Map(list.items.map((it) => [it.itineraryId, it]));
@@ -39,7 +39,7 @@ export function homeRoute(locale: Locale) {
         return current ? { ...it, cruiseId: current.cruiseId, cruiseName: current.cruiseName, slug: current.slug, bay: current.bay ?? it.bay } : it;
       }),
     };
-    return withPreviewBanner(await isPreview(), <HomeView page={page} chrome={{ locale, site, t: getMessages(locale), alternateHref: homePath(other), alternates }} />);
+    return withPreviewBanner(await isPreview(), <HomeView page={page} allCabins={cabins} chrome={{ locale, site, t: getMessages(locale), alternateHref: homePath(other), alternates }} />);
   }
 
   return { generateMetadata, Page };

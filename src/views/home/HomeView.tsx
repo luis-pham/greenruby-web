@@ -6,17 +6,19 @@ import { FaqList, faqPageSchema } from '@/components/sections/Faq';
 import { organizationSchema, SITE_ALTERNATE_NAME, SITE_NAME, WEBSITE_ID } from '@/lib/organization';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SmartLink, TextLink } from '@/components/ui';
-import type { Homepage } from '@/lib/api/schemas';
+import type { CabinSummary, Homepage } from '@/lib/api/schemas';
 import { detailPath, experiencePath, homePath, inLocale, itineraryPath, sectionPath, type Locale } from '@/lib/i18n';
 import { englishOnlyMark, linkLabel, sectionHref } from '@/lib/section-links';
 import { siteInfo } from '@/lib/site-info';
 import { absoluteImageUrl, absoluteUrl, siteUrl } from '@/lib/site-url';
 import { cabinPath } from '@/views/cabin/CabinView';
+import { SHIP_SWITCH, sisterCabins } from '@/views/cabin/sisters';
 import { cabinHighlights, cabinTier } from './cabin-card';
 import { Carousel } from './Carousel';
 import { HeroSlideshow, type HeroSlide } from './HeroSlideshow';
 import { FacilityIcon } from './FacilityIcon';
 import { JourneyTabs } from './JourneyTabs';
+import { ShipTabs } from './ShipTabs';
 import s from './home.module.css';
 import { headline, wordSpace } from '@/lib/typography';
 
@@ -57,7 +59,7 @@ function splitTitle(title: string, locale: Locale): { title: string; titleEm: st
 /** Banner titles editors left as the uploaded file name ("a1ea43d….jpg") are not copy. */
 const isFileName = (text: string | null) => !text || /\.(jpe?g|png|webp|gif)$/i.test(text.trim());
 
-export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
+export function HomeView({ page, chrome, allCabins = [] }: { page: Homepage; chrome: Chrome; allCabins?: CabinSummary[] }) {
   const { locale, t, site } = chrome;
   const h = t.home;
   const info = siteInfo(site);
@@ -73,6 +75,21 @@ export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
   const ecoMark = englishOnlyMark(locale, ecoHref);
   const largestSuite = Math.max(0, ...page.cabins.map((c) => c.area ?? 0));
   const bayOfCruise = (cruiseId: number) => page.itineraries.find((i) => i.cruiseId === cruiseId)?.bay ?? null;
+  // Suite collection: the homepage lists one ship's cabins; each card also links the same suite on the other ship.
+  const suiteShips = page.cruises
+    .map((cruise) => {
+      const bay = bayOfCruise(cruise.id);
+      return { id: cruise.id, label: [bay ? h.bays[bay] : null, cruise.name].filter(Boolean).join(' · ') };
+    })
+    .filter((ship) => page.cabins.every((cabin) => sisterCabins(cabin, allCabins).some((c) => c.cruise?.id === ship.id)));
+  const switchShips = suiteShips.length > 1;
+  const suiteLinks = (cabin: CabinSummary) =>
+    switchShips
+      ? suiteShips.map((ship, i) => {
+          const sister = sisterCabins(cabin, allCabins).find((c) => c.cruise?.id === ship.id);
+          return { ship: ship.id as number | undefined, href: cabinPath(locale, sister ?? cabin), hidden: i > 0 };
+        })
+      : [{ ship: undefined, href: cabinPath(locale, cabin), hidden: false }];
   const firstItineraryOfCruise = (cruiseId: number) => page.itineraries.find((i) => i.cruiseId === cruiseId);
   const experiences = page.experiences.slice(0, 3);
   const experienceVerbs = inLocale({ en: ['Discover', 'Savour', 'Restore'], vi: ['Khám phá', 'Thưởng thức', 'Thư thái'], ja: ['発見', '味わい', '癒やし'], fr: ['Découvrir', 'Savourer', 'Se ressourcer'], es: ['Descubrir', 'Saborear', 'Descansar'] }, locale);
@@ -278,6 +295,7 @@ export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
           <section className={s.section} id="suites" aria-labelledby="suites-title">
             <div className="container">
               <Head eyebrow={h.suitesEyebrow} title={<Heading locale={locale} id="suites-title" title={h.suitesTitle} em={h.suitesTitleEm} />} body={h.suitesBody} />
+              <ShipTabs label={SHIP_SWITCH[locale].choose} ships={switchShips ? suiteShips : []}>
               <Carousel label={h.suitesCollection} count={page.cabins.length} caption={h.suitesCollection} previous={h.previous} next={h.next} featured>
                 {page.cabins.map((cabin, i) => (
                   <article key={cabin.id} className={s.roomCard}>
@@ -296,16 +314,25 @@ export function HomeView({ page, chrome }: { page: Homepage; chrome: Chrome }) {
                         <span className={s.roomTier}>{cabinTier(cabin, locale) ?? cabin.cruise?.name}</span>
                         {cabin.area != null && <span className={s.roomArea}>{cabin.area} m²</span>}
                       </p>
-                      <h3><SmartLink href={cabinPath(locale, cabin)}>{cabin.name}</SmartLink></h3>
+                      <h3>
+                        {suiteLinks(cabin).map((l) => (
+                          <SmartLink key={l.ship ?? 0} href={l.href} data-ship={l.ship} hidden={l.hidden}>{cabin.name}</SmartLink>
+                        ))}
+                      </h3>
                       <p className={s.roomHighlights}>{cabinHighlights(cabin, locale).join(' · ')}</p>
                       <p className={s.roomSummary}>{cabin.summary}</p>
                       <div className={s.roomCta}>
-                        <TextLink href={cabinPath(locale, cabin)}>{h.discoverSuite}</TextLink>
+                        {suiteLinks(cabin).map((l) => (
+                          <span key={l.ship ?? 0} data-ship={l.ship} hidden={l.hidden}>
+                            <TextLink href={l.href}>{h.discoverSuite}</TextLink>
+                          </span>
+                        ))}
                       </div>
                     </div>
                   </article>
                 ))}
               </Carousel>
+              </ShipTabs>
             </div>
           </section>
         )}

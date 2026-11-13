@@ -11,6 +11,7 @@ import { getMessages } from '@/messages';
 import { listDestinations } from '@/views/destinations/data';
 import { placesOnItineraries } from '@/views/destinations/links';
 import { CabinView, cabinPath } from './CabinView';
+import { sisterCabins } from './sisters';
 
 type Params = { params: Promise<{ file: string }> };
 
@@ -79,6 +80,17 @@ export function cabinRoute(locale: Locale) {
       pageAlternates(locale, 'cabin', cabin.alternates),
       isPreview(),
     ]);
+    // The same suite on the other ship(s): a ship switch under the title (owner request 2026-11-13).
+    const sisters = sisterCabins(cabin, await listCabins(locale));
+    const ships =
+      sisters.length > 1
+        ? await Promise.all(
+            sisters.map(async (sister) => {
+              const sisterCruise = sister.cruise?.id === cabin.cruise.id ? cruise : sister.cruise ? await getCruise(sister.cruise.id, locale) : null;
+              return { id: sister.id, name: sister.cruise?.name ?? '', bay: sisterCruise?.bay ?? null, href: cabinPath(locale, sister), current: sister.id === cabin.id };
+            }),
+          )
+        : [];
     // Published places on this ship's itineraries (CMS relation), for the boarding-day block.
     const places = placesOnItineraries(destinations.items, (cruise?.itineraries ?? []).map((it) => it.itineraryId));
     return withPreviewBanner(
@@ -86,6 +98,7 @@ export function cabinRoute(locale: Locale) {
       <CabinView
         cabin={cabin}
         cruise={cruise}
+        ships={ships}
         places={places.map((d) => ({ href: destinationPath(locale, d.slug), label: d.name }))}
         chrome={{ locale, site, t: getMessages(locale), alternateHref: alternate.href, alternates }}
       />,

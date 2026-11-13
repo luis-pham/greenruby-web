@@ -218,6 +218,8 @@
 /* ---------- Journeys ---------- */
 .journeys { background: var(--bg-surface); }
 .tabs { display: inline-flex; gap: 4px; margin-bottom: 35px; padding: 5px; background: #f1efe8; }
+/* Suite collection ship choice (ShipTabs): bay + ship labels are longer than the duration tabs. */
+.shipTabs { flex-wrap: wrap; max-width: 100%; }
 .tab {
   padding: 13px 19px;
   border: 0;

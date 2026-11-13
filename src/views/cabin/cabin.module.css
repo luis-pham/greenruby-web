@@ -199,6 +199,18 @@
 }
 
 /* Cruise page hero: booking bar under the hero links (CruiseView reuses this module). */
+/* Ship switch (same suite on Green Ruby 1 / 2), on the dark hero. */
+.shipSwitch { flex-basis: 100%; width: 100%; margin-bottom: 20px; }
+.shipSwitchLabel { display: block; margin-bottom: 10px; color: var(--text-inverse-accent); font-size: var(--font-size-label); font-weight: var(--font-weight-bold); letter-spacing: 0.14em; text-transform: uppercase; }
+.shipSwitchOptions { display: flex; flex-wrap: wrap; gap: 10px; }
+.shipOption {
+  display: flex; flex-direction: column; gap: 2px; min-width: 190px; padding: 11px 18px;
+  border: 1px solid rgb(255 255 255 / 35%); color: #fff; text-decoration: none; transition: border-color 0.2s, background 0.2s;
+}
+.shipOption strong { font-size: var(--font-size-sm); letter-spacing: 0.04em; }
+.shipOption span { font-size: 13px; opacity: 0.8; }
+.shipOption:hover, .shipOption:focus-visible { border-color: var(--color-gold-500); background: rgb(255 255 255 / 6%); }
+.shipOptionCurrent { border-color: var(--color-gold-500); background: rgb(196 160 98 / 18%); }
 .heroBooking { flex-basis: 100%; width: 100%; margin-top: 22px; }
 
 /* H1 second line: ship + bay (keyword, and it tells the GR1/GR2 copies of a suite apart). */

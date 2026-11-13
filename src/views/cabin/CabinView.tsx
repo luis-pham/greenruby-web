@@ -12,6 +12,7 @@ import { detailPath, homePath, itineraryPath, numberFormatTag, sectionPath, type
 import { absoluteImageUrl, absoluteUrl } from '@/lib/site-url';
 import { wordSpace } from '@/lib/typography';
 import { CabinGallery } from './CabinGallery';
+import { SHIP_SWITCH } from './sisters';
 import s from './cabin.module.css';
 
 export function cabinPath(locale: Locale, cabin: Pick<CabinSummary, 'slug' | 'id'>): string {
@@ -33,12 +34,15 @@ export function CabinView({
   cruise,
   chrome,
   places = [],
+  ships = [],
 }: {
   cabin: Cabin;
   cruise: Cruise | null;
   chrome: Chrome;
   /** Published destinations on this ship's itineraries. */
   places?: { href: string; label: string }[];
+  /** This suite on each ship (same slug), when it is on more than one. */
+  ships?: { id: number; name: string; bay: 'ha-long' | 'lan-ha' | null; href: string; current: boolean }[];
 }) {
   const { locale, t } = chrome;
   const c = t.cabin;
@@ -91,6 +95,24 @@ export function CabinView({
         subtitle={cabin.summary}
         actions={
           <>
+            {ships.length > 1 && (
+              <nav className={s.shipSwitch} aria-label={SHIP_SWITCH[locale].onBoth}>
+                <span className={s.shipSwitchLabel}>{SHIP_SWITCH[locale].onBoth}</span>
+                <div className={s.shipSwitchOptions}>
+                  {ships.map((ship) => (
+                    <SmartLink
+                      key={ship.id}
+                      href={ship.href}
+                      className={cx(s.shipOption, ship.current && s.shipOptionCurrent)}
+                      aria-current={ship.current ? 'page' : undefined}
+                    >
+                      <strong>{ship.name}</strong>
+                      {ship.bay && <span>{t.home.bays[ship.bay]}</span>}
+                    </SmartLink>
+                  ))}
+                </div>
+              </nav>
+            )}
             <TextLink href={cruiseUrl} inverse>{c.discoverShip(cabin.cruise.name)}</TextLink>
             <div className={s.heroBooking}>
               <Booking locale={locale} site={chrome.site} scope={{ cruiseId: cabin.cruise.id }} cabinId={inventoryCabinId(locale, cabin)} layout="bar" />
