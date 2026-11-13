@@ -242,6 +242,10 @@ a.langOption:focus-visible { color: var(--text-inverse-accent); background: rgba
 .pageIntroLead { margin: 0; color: var(--text-muted); font-size: var(--font-size-base); line-height: var(--font-leading-relaxed); }
 .pageIntroActions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4) var(--space-6); margin-top: var(--space-6); }
 .pageIntroMeta { margin-top: var(--space-5); color: var(--text-muted); font-size: var(--font-size-sm); }
+/* Stacked (destinations, travel guides; owner 2026-11-13): lead under the title, title over the full width. */
+.pageIntroStacked .pageIntroGrid { grid-template-columns: minmax(0, 1fr); gap: var(--space-6); align-items: start; }
+.pageIntroStacked .pageIntroTitle { max-width: none; text-wrap: balance; }
+.pageIntroStacked .pageIntroAside { max-width: 760px; padding-bottom: 0; }
 @media (max-width: 900px) {
   .pageIntroGrid { grid-template-columns: 1fr; gap: var(--space-6); }
   .pageIntro { padding: var(--space-10) 0 var(--space-12); }

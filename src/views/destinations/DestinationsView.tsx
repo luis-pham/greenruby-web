@@ -11,7 +11,7 @@ import { DestinationFilter, type CardItem } from './DestinationFilter';
 import { DestinationMap } from './DestinationMap';
 import { caveVisit, destinationMessages, otherPlaces } from './messages';
 import s from './destinations.module.css';
-import { wordSpace } from '@/lib/typography';
+import { wordSpace, keepBayNames } from '@/lib/typography';
 
 type CruiseLink = { id: number; slug: string; name: string };
 
@@ -69,6 +69,7 @@ export function DestinationsView({ chrome, items, itineraries, cruises }: { chro
       <PageIntro
         chrome={chrome}
         currentHref={path}
+        stacked
         crumbs={[
           { label: t.breadcrumb.home, href: homePath(locale) },
           { label: m.breadcrumbGuide, href: sectionPath(locale, 'guides') },
@@ -77,7 +78,7 @@ export function DestinationsView({ chrome, items, itineraries, cruises }: { chro
         eyebrow={m.eyebrow}
         title={
           <>
-            {m.title}{wordSpace(locale)}<em>{m.titleEm}</em>
+            {keepBayNames(m.title)}{wordSpace(locale)}<em>{keepBayNames(m.titleEm)}</em>
           </>
         }
         lead={m.lead}

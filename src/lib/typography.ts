@@ -51,3 +51,7 @@ export function splitAt(text: string, name: string): [before: string, after: str
   const at = text.indexOf(token);
   return at === -1 ? null : [text.slice(0, at), text.slice(at + token.length)];
 }
+
+/** Keeps two-word bay names on one line (no "Ha / Long Bay" break in balanced headings): Ha Long, Hạ Long, Lan Ha, Lan Hạ. */
+export const keepBayNames = (text: string): string => text.replace(/(?<!\p{L})(Ha|Hạ|Lan) (Long|Ha|Hạ)(?!\p{L})/gu, '$1\u00a0$2');
+

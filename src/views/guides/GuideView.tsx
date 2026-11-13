@@ -5,7 +5,7 @@ import { SmartLink, TextLink } from '@/components/ui';
 import type { ItinerarySummary } from '@/lib/api/schemas';
 import { homePath, inLocale, itineraryPath, sectionPath, type LegacyCopy } from '@/lib/i18n';
 import { organizationRef } from '@/lib/organization';
-import { wordSpace } from '@/lib/typography';
+import { wordSpace, keepBayNames } from '@/lib/typography';
 import { siteInfo } from '@/lib/site-info';
 import { absoluteUrl, siteUrl } from '@/lib/site-url';
 import { BoardingTimeline } from './BoardingTimeline';
@@ -126,9 +126,10 @@ export function GuideView({
           { label: c.breadcrumb, href: path },
         ]}
         eyebrow={c.eyebrow}
-        title={c.title}
+        title={keepBayNames(c.title)}
         lead={c.lead}
         meta={<time dateTime={c.updated.iso}>{c.updated.label}</time>}
+        stacked
       />
 
       <section className={s.glance} aria-labelledby="glance-title">

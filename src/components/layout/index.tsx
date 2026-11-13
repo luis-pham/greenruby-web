@@ -84,13 +84,16 @@ export function Topbar({ site, t }: Pick<Chrome, 'site' | 't'>) {
  */
 const textWidth = (text: string) => [...text].reduce((w, ch) => w + (/[⺀-鿿가-힯＀-￯]/.test(ch) ? 15 : 9.7), 0);
 
-function menuBreakpoint(links: NavLink[], bookLabel: string): number {
+function menuLayout(links: NavLink[], bookLabel: string): { collapseAt: number; gap: number } {
   const chevrons = links.filter((l) => l.children.length > 0).length;
-  const menu = links.reduce((w, l) => w + textWidth(l.label), 0) + chevrons * 21 + Math.max(0, links.length - 1) * 28;
-  const needed = menu + 80 + 160 + bookLabel.length * 7.7 + 50; // menu, logo, flags + booking button, gaps
   const column = 1300 - 2 * 46; // content column inside the container padding
-  if (needed > column) return 100000;
-  return Math.round(Math.max(1200, needed + 2 * 46 + 16));
+  // A long menu (German) first tightens the gap between items; only if it still doesn't fit does it always collapse.
+  for (const gap of [28, 20, 16]) {
+    const menu = links.reduce((w, l) => w + textWidth(l.label), 0) + chevrons * 21 + Math.max(0, links.length - 1) * gap;
+    const needed = menu + 80 + 160 + bookLabel.length * 7.7 + 50; // menu, logo, flags + booking button, gaps
+    if (needed <= column) return { collapseAt: Math.round(Math.max(1200, needed + 2 * 46 + 16)), gap };
+  }
+  return { collapseAt: 100000, gap: 28 };
 }
 
 function Chevron() {
@@ -147,12 +150,12 @@ export function SiteNav({ locale, site, t, alternateHref, alternates, currentHre
   });
   // The brand already links home, so the home item is left out of the desktop menu.
   const desktopLinks = links.filter((link) => link.href !== homeHref(locale, site.publicSections));
-  const collapseAt = menuBreakpoint(desktopLinks, t.nav.book);
+  const { collapseAt, gap } = menuLayout(desktopLinks, t.nav.book);
   const isCurrent = (link: NavLink) => link.href === currentHref || link.children.some((c) => c.href === currentHref);
   return (
     <nav className={s.nav} aria-label={t.nav.label}>
       {/* Collapse to the menu button when this menu (from the CMS) wouldn't fit on one line. */}
-      <style>{`@media (max-width:${collapseAt}px){.${s.navLinks}{display:none}.${s.mobileMenu}{display:block}}`}</style>
+      <style>{`@media (max-width:${collapseAt}px){.${s.navLinks}{display:none}.${s.mobileMenu}{display:block}}${gap < 28 ? `.${s.navLinks}{gap:${gap}px}` : ''}`}</style>
       <Brand locale={locale} site={site} eager />
       <ul className={s.navLinks}>
         {desktopLinks.map((link) => (
@@ -227,6 +230,7 @@ export function PageIntro({
   lead,
   actions,
   meta,
+  stacked,
 }: {
   chrome: Chrome;
   currentHref?: string;
@@ -236,11 +240,13 @@ export function PageIntro({
   lead?: ReactNode;
   actions?: ReactNode;
   meta?: ReactNode;
+  /** Lead under the title (not beside it), title across the full width: at most two lines on desktop. */
+  stacked?: boolean;
 }) {
   return (
     <>
       <SolidHeader chrome={chrome} currentHref={currentHref} />
-      <section className={s.pageIntro}>
+      <section className={stacked ? `${s.pageIntro} ${s.pageIntroStacked}` : s.pageIntro}>
         <div className="container">
           <Breadcrumb onLight items={crumbs} label={chrome.t.breadcrumb.label} />
           <div className={s.pageIntroGrid}>

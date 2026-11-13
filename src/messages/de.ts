@@ -25,7 +25,7 @@ const de: Messages = {
     itineraries: 'Reiseverläufe',
     experiences: 'Erlebnisse',
     contact: 'Kontakt',
-    book: 'Kreuzfahrt anfragen',
+    book: 'Jetzt anfragen',
     openMenu: 'Menü öffnen',
     closeMenu: 'Menü schließen',
     switchLanguage: 'English',
