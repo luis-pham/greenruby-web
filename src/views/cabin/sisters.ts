@@ -15,4 +15,6 @@ export const SHIP_SWITCH = byLocale<{ onBoth: string; choose: string }>({
   ja: { onBoth: 'この客室タイプは2隻どちらにもございます', choose: '船を選択' },
   fr: { onBoth: 'Cette catégorie existe sur nos deux bateaux', choose: 'Choisir un bateau' },
   es: { onBoth: 'Esta categoría está disponible en los dos barcos', choose: 'Elegir un barco' },
+  de: { onBoth: 'Diese Suitenkategorie gibt es auf beiden Schiffen', choose: 'Schiff wählen' },
+  ko: { onBoth: '이 객실 유형은 두 선박 모두에서 이용하실 수 있습니다', choose: '선박 선택' },
 });

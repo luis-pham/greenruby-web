@@ -14,9 +14,10 @@ import { wordSpace } from '@/lib/typography';
 import { CabinGallery } from './CabinGallery';
 import { SHIP_SWITCH } from './sisters';
 
+import s from './cabin.module.css';
+
 /** Number + guest unit: Korean attaches the counter noun to the digits ("4명"); other languages keep wordSpace. */
 const unitSpace = (locale: Locale) => (locale === 'ko' ? '' : wordSpace(locale));
-import s from './cabin.module.css';
 
 export function cabinPath(locale: Locale, cabin: Pick<CabinSummary, 'slug' | 'id'>): string {
   return detailPath(locale, 'cabin', cabin.slug, cabin.id);

@@ -5,7 +5,12 @@ import { localeInfo, locales, type Locale } from '@/lib/i18n';
 import { FlagDE, FlagES, FlagGB, FlagFR, FlagJP, FlagKR, FlagVN } from './Flags';
 import s from './layout.module.css';
 
-const LANGUAGES: { locale: Locale; name: string; code: string }[] = locales.map((locale) => ({ locale, name: localeInfo[locale].nativeName, code: localeInfo[locale].code }));
+// Menu order (owner 2026-11-13): the two home languages first, then Latin-script languages alphabetically by their own
+// name (Deutsch, Español, Français), then Japanese and Korean. Compiled locales missing here are appended.
+const MENU_ORDER: readonly Locale[] = ['en', 'vi', 'de', 'es', 'fr', 'ja', 'ko'];
+const LANGUAGES: { locale: Locale; name: string; code: string }[] = [...MENU_ORDER.filter((l) => locales.includes(l)), ...locales.filter((l) => !MENU_ORDER.includes(l))].map(
+  (locale) => ({ locale, name: localeInfo[locale].nativeName, code: localeInfo[locale].code }),
+);
 
 const FLAGS: Record<Locale, (uid: string) => ReactNode> = {
   en: (uid) => <FlagGB uid={uid} />,

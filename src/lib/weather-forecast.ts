@@ -26,6 +26,8 @@ const WEATHER_ARTICLES: ReadonlySet<string> = new Set([
   'ja/best-time-to-visit-halong-bay',
   'fr/quand-partir-en-baie-d-halong',
   'es/mejor-epoca-para-visitar-la-bahia-de-halong',
+  'de/beste-reisezeit-halong-bucht',
+  'ko/best-time-to-visit-halong-bay',
 ]);
 
 export const showsWeather = (locale: Locale, slug: string | null | undefined): boolean => !!slug && WEATHER_ARTICLES.has(`${locale}/${slug}`);

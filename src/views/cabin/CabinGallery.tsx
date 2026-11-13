@@ -13,6 +13,8 @@ const COPY = byLocale<{ previous: string; next: string; show: (n: number, total:
   ja: { previous: '前の写真', next: '次の写真', show: (n, t) => `写真 ${n} / ${t} を表示`, thumbs: '写真を選択' },
   fr: { previous: 'Photo précédente', next: 'Photo suivante', show: (n, t) => `Afficher la photo ${n} sur ${t}`, thumbs: 'Choisir une photo' },
   es: { previous: 'Foto anterior', next: 'Foto siguiente', show: (n, t) => `Ver la foto ${n} de ${t}`, thumbs: 'Elegir una foto' },
+  de: { previous: 'Vorheriges Foto', next: 'Nächstes Foto', show: (n, t) => `Foto ${n} von ${t} anzeigen`, thumbs: 'Foto auswählen' },
+  ko: { previous: '이전 사진', next: '다음 사진', show: (n, t) => `사진 ${n}/${t} 보기`, thumbs: '사진 선택' },
 });
 
 /** One large photo with a row of thumbnails underneath; a thumbnail (or the arrows / arrow keys) changes the large photo. */
