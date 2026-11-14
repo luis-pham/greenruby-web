@@ -150,7 +150,7 @@ export function CruiseView({ cruise, index, chrome, places = [] }: { cruise: Cru
               <Carousel label={t.home.suitesCollection} count={cruise.cabins.length} caption={t.home.suitesCollection} previous={t.home.previous} next={t.home.next}>
                 {cruise.cabins.map((cabin) => (
                   <article key={cabin.id} className={homeStyles.roomCard}>
-                    <div className={homeStyles.roomImg}>
+                    <div className={`${homeStyles.roomImg} ${s.suiteImg}`}>
                       {cabin.image && <Image src={cabin.image} alt={cabin.name} fill sizes="(max-width: 600px) 100vw, (max-width: 1160px) 50vw, 33vw" />}
                     </div>
                     {/* Same card as the homepage "Rooms with a different view" carousel. */}

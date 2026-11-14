@@ -4,8 +4,9 @@
 .body { color: var(--text-muted); font-size: 14px; line-height: 1.95; }
 .body > * + * { margin-top: 1em; }
 .body p { margin: 0; }
-.head { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.7fr); gap: 65px; align-items: end; margin-bottom: 50px; }
-.head p { max-width: 380px; margin: 0 0 7px; }
+/* Text under the title, as on the homepage and the other pages. */
+.head { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; margin-bottom: 50px; }
+.head p { max-width: 560px; margin: 0; }
 
 /* Intro */
 .introGrid { display: grid; grid-template-columns: 0.84fr 1.16fr; gap: 100px; align-items: center; }
@@ -19,7 +20,8 @@
 .introSecondary { position: absolute; bottom: 0; left: 0; width: 47%; height: 49%; overflow: hidden; border: 9px solid var(--bg-page); background: #516b66; }
 .introMain img, .introSecondary img { object-fit: cover; }
 
-/* Suites */
+/* Suites: 16:9 photos here (the homepage card keeps its own ratio). */
+.section .suiteImg { aspect-ratio: 16 / 9; }
 
 /* Onboard */
 .onboard { overflow: hidden; background: #0e332e; color: var(--color-neutral-white); }
@@ -99,7 +101,6 @@
   .facility { padding: 24px 18px; }
 }
 @media (max-width: 900px) {
-  .head { grid-template-columns: 1fr; gap: 16px; }
   .introGrid { grid-template-columns: 1fr; gap: 45px; }
   .introVisual { height: 480px; max-width: 700px; }
   .onboardMain { grid-template-columns: 1fr; gap: 22px; }
