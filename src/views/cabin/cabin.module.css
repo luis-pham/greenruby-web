@@ -59,14 +59,18 @@
 .prose { color: var(--text-body); font-size: var(--font-size-base); line-height: var(--font-leading-relaxed); }
 .prose > * + * { margin-top: 1em; }
 .prose p { margin: 0; }
+.overviewSingle { grid-template-columns: minmax(0, 1fr); max-width: 980px; }
+.overviewMain { min-width: 0; }
+.overviewGallery { margin-top: 44px; }
+.comforts { position: sticky; top: 32px; background: var(--bg-page); border-top: 1px solid var(--color-gold-200); padding: 34px 30px 30px; }
+.comfortsEyebrow { display: block; margin-bottom: 10px; color: var(--text-accent); font-size: var(--font-size-label); font-weight: var(--font-weight-bold); letter-spacing: 0.14em; text-transform: uppercase; }
+.comforts h3 { margin: 0 0 18px; font-size: 26px; line-height: 1.2; }
+.comfortsFor { margin: 0 0 18px; padding: 12px 0; border-top: 1px solid var(--border-default); border-bottom: 1px solid var(--border-default); font-size: 13px; line-height: 1.6; color: var(--text-heading); }
+.comfortsFor span { display: block; margin-bottom: 2px; color: var(--text-muted); font-size: var(--font-size-label); font-weight: var(--font-weight-bold); letter-spacing: 0.12em; text-transform: uppercase; }
+.comfortsList { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 18px; }
+.comfortsList li { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--border-default); font-size: 13px; line-height: 1.4; color: var(--text-heading); }
+.comfortsList .amenityIcon { width: 22px; height: 22px; }
 .lead { margin: 0 0 var(--space-6); font-family: var(--font-family-serif); font-size: var(--font-size-lg); line-height: 1.55; color: var(--text-heading); }
-.glance { background: var(--bg-page); border-top: 1px solid var(--color-gold-200); padding: 34px 32px 30px; }
-.glance h3 { margin: 0 0 18px; font-size: 26px; }
-.glance dl { margin: 0; }
-.glanceRow { display: grid; grid-template-columns: 120px 1fr; gap: 16px; padding: 13px 0; border-top: 1px solid var(--border-default); font-size: 13px; }
-.glanceRow dt { color: var(--text-muted); font-size: var(--font-size-label); font-weight: var(--font-weight-bold); letter-spacing: 0.12em; text-transform: uppercase; padding-top: 2px; }
-.glanceRow dd { margin: 0; color: var(--text-heading); line-height: 1.6; }
-.glance .glanceCta { margin-top: 24px; width: 100%; }
 
 /* ---------- The space (rooms) ---------- */
 .rooms { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 0 40px; }
@@ -186,6 +190,7 @@
   .fact:nth-child(3) { border-left: 0; }
   .fact:nth-child(n + 3) { border-top: 1px solid var(--border-default); }
   .overview { grid-template-columns: 1fr; }
+  .comforts { position: static; }
   .onRequest { grid-template-columns: 1fr; padding: 36px 30px; }
 }
 @media (max-width: 600px) {
@@ -195,8 +200,7 @@
   .fact { padding: 20px 15px; }
   .factValue { font-size: 22px; }
   .subnav { margin-top: 28px; gap: 28px; }
-  .glance { padding: 28px 22px; }
-  .glanceRow { grid-template-columns: 1fr; gap: 4px; }
+  .comforts { padding: 28px 22px; }
   .cards { grid-template-columns: 1fr; }
 }
 

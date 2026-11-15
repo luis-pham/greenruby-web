@@ -80,12 +80,12 @@ export function CabinView({
   const photos = [...(cabin.image ? [{ src: cabin.image, alt: cabin.name }] : []), ...cabin.gallery];
   const ctaImage = cabin.gallery.length >= 6 ? cabin.gallery[0].src : cabin.image;
 
+  const hasAside = cabin.amenities.length > 0 || cabin.suitableFor.length > 0;
+
   const tabs = [
     { id: 'overview', label: c.tabs.overview, show: true },
-    { id: 'gallery', label: c.tabs.gallery, show: photos.length > 1 },
     { id: 'voyages', label: t.cruise.tabs.journeys, show: voyages.length > 0 },
     { id: 'space', label: c.tabs.space, show: cabin.rooms.length > 0 },
-    { id: 'amenities', label: c.tabs.amenities, show: cabin.amenities.length > 0 },
     { id: 'rates', label: c.tabs.rates, show: true },
     { id: 'more', label: c.tabs.more, show: cabin.otherCabins.length > 0 },
   ].filter((tab) => tab.show);
@@ -167,44 +167,50 @@ export function CabinView({
         </div>
 
         <section className={s.section} id="overview" aria-labelledby="overview-title">
-          <div className={cx('container', s.overview)}>
-            <div>
+          {/* Cabin redesign 2026-11-15: photos beside the story, the comforts on the right. The facts bar above already
+              carries area, guests, view and category, so the old "At a glance" box (which repeated them) is gone. */}
+          <div className={cx('container', s.overview, !hasAside && s.overviewSingle)}>
+            <div className={s.overviewMain}>
               <SectionHeading id="overview-title" eyebrow={c.overviewEyebrow} title={c.overviewHeading(cabin.name)} stacked />
               {cabin.contentHtml ? (
                 <div className={s.prose} dangerouslySetInnerHTML={{ __html: cabin.contentHtml }} />
               ) : (
                 cabin.summary && <p className={s.lead}>{cabin.summary}</p>
               )}
+              {photos.length > 1 && (
+                <div className={s.overviewGallery} id="gallery">
+                  <h3 className="sr-only">{c.galleryHeading}</h3>
+                  <CabinGallery photos={photos} name={cabin.name} ship={cabin.cruise.name} locale={locale} />
+                </div>
+              )}
             </div>
-            <aside className={s.glance} aria-labelledby="glance-title">
-              <h3 id="glance-title">{c.atAGlance}</h3>
-              <dl>
-                <div className={s.glanceRow}><dt>{c.glance.ship}</dt><dd><SmartLink href={cruiseUrl}>{cabin.cruise.name}</SmartLink></dd></div>
-                {cabin.cabinClass && <div className={s.glanceRow}><dt>{c.glance.category}</dt><dd>{cabin.cabinClass}</dd></div>}
-                {cabin.view && <div className={s.glanceRow}><dt>{c.glance.view}</dt><dd>{cabin.view}</dd></div>}
-                {cabin.area != null && <div className={s.glanceRow}><dt>{c.glance.area}</dt><dd>{cabin.area} m²</dd></div>}
-                {cabin.capacity != null && <div className={s.glanceRow}><dt>{c.glance.occupancy}</dt><dd>{cabin.capacity}{unitSpace(locale)}{locale === 'de' ? c.guestUnit(cabin.capacity) : c.guestUnit(cabin.capacity).toLowerCase() /* German nouns stay capitalised */}</dd></div>}
-                {occupancy ? (
-                  <div className={s.glanceRow}><dt>{c.glance.maxGuests}</dt><dd>{occupancy}</dd></div>
-                ) : (
-                  <div className={s.glanceRow}><dt>{c.glance.extraGuests}</dt><dd>{c.extraGuests(cabin.overCapacity)}</dd></div>
-                )}
+            {hasAside && (
+              <aside className={s.comforts} id="amenities" aria-labelledby="amenities-title">
+                <span className={s.comfortsEyebrow}>{c.amenitiesEyebrow}</span>
+                <h3 id="amenities-title">{c.amenitiesHeading}</h3>
                 {cabin.suitableFor.length > 0 && (
-                  <div className={s.glanceRow}><dt>{c.glance.suitableFor}</dt><dd>{cabin.suitableFor.map((a) => a.name).join(', ')}</dd></div>
+                  <p className={s.comfortsFor}>
+                    <span>{c.glance.suitableFor}</span> {cabin.suitableFor.map((a) => a.name).join(', ')}
+                  </p>
                 )}
-              </dl>
-            </aside>
+                {cabin.amenities.length > 0 && (
+                  <ul className={s.comfortsList}>
+                    {cabin.amenities.map((amenity) => (
+                      <li key={amenity.name}>
+                        {amenity.icon ? (
+                          <Image src={amenity.icon} alt="" width={22} height={22} className={s.amenityIcon} />
+                        ) : (
+                          <span className={s.amenityDot} aria-hidden="true" />
+                        )}
+                        {amenity.name}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </aside>
+            )}
           </div>
         </section>
-
-        {photos.length > 1 && (
-          <section className={cx(s.section, s.surface)} id="gallery" aria-labelledby="gallery-title">
-            <div className="container">
-              <SectionHeading id="gallery-title" eyebrow={c.galleryEyebrow} title={c.galleryHeading} />
-              <CabinGallery photos={photos} name={cabin.name} ship={cabin.cruise.name} locale={locale} />
-            </div>
-          </section>
-        )}
 
         {voyages.length > 0 && (
           <section className={cx(s.section, s.alt)} id="voyages" aria-labelledby="voyages-title">
@@ -280,27 +286,7 @@ export function CabinView({
           </section>
         )}
 
-        {cabin.amenities.length > 0 && (
-          <section className={cx(s.section, s.alt)} id="amenities" aria-labelledby="amenities-title">
-            <div className="container">
-              <SectionHeading id="amenities-title" eyebrow={c.amenitiesEyebrow} title={c.amenitiesHeading} />
-              <ul className={s.amenities}>
-                {cabin.amenities.map((amenity) => (
-                  <li key={amenity.name} className={s.amenity}>
-                    {amenity.icon ? (
-                      <Image src={amenity.icon} alt="" width={28} height={28} className={s.amenityIcon} />
-                    ) : (
-                      <span className={s.amenityDot} aria-hidden="true" />
-                    )}
-                    {amenity.name}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </section>
-        )}
-
-        <section className={cx(s.section, s.surface)} id="rates" aria-labelledby="rates-title">
+        <section className={s.section} id="rates" aria-labelledby="rates-title">
           <div className="container">
             <SectionHeading id="rates-title" eyebrow={c.ratesEyebrow} title={pricing.showPublic ? c.ratesHeading : c.onRequestHeading} />
             {pricing.showPublic && pricing.matrix.length > 0 ? (
