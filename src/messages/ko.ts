@@ -277,7 +277,7 @@ const ko: Messages = {
     suitesEyebrow: '나만의 공간',
     suitesTitle: '창밖 풍경이',
     suitesTitleEm: '다른 객실.',
-    suitesBody: '세심하게 구성한 객실 등급. 고요함과 편안함, 막힘 없는 바다 전망을 누릴 수 있습니다.',
+    suitesBody: '세심하게 구성한 객실 등급. 고요함과 편안함, 막힘 없는 베이 전망을 누릴 수 있습니다.',
     suitesCollection: '스위트 컬렉션',
     previous: '이전',
     next: '다음',
