@@ -314,6 +314,7 @@ export function PageHero({
   actions,
   compact,
   tagline,
+  titleSize,
 }: {
   chrome: Chrome;
   currentHref?: string;
@@ -328,6 +329,8 @@ export function PageHero({
   compact?: boolean;
   /** A brand line shown under the H1 but outside it (vi hubs whose H1 now names the topic, SEO pass 2026-11-15). */
   tagline?: ReactNode;
+  /** 'detail': a smaller H1 for the ship and itinerary pages, whose titles are long (owner 2026-11-15). */
+  titleSize?: 'detail';
 }) {
   return (
     <>
@@ -339,7 +342,7 @@ export function PageHero({
           <div className={s.heroBody}>
             <Breadcrumb items={crumbs} label={chrome.t.breadcrumb.label} />
             <Eyebrow inverse>{eyebrow}</Eyebrow>
-            <h1 className={s.heroTitle}>{title}</h1>
+            <h1 className={cx(s.heroTitle, titleSize === 'detail' && s.heroTitleDetail)}>{title}</h1>
             {tagline && <p className={s.heroTagline}>{tagline}</p>}
             {subtitle && <p className={s.heroSubtitle}>{subtitle}</p>}
             {description && <p className={s.heroDescription}>{description}</p>}

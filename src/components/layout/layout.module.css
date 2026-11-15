@@ -273,6 +273,10 @@ a.langOption:focus-visible { color: var(--text-inverse-accent); background: rgba
   letter-spacing: -0.055em;
 }
 .heroTitle em { color: var(--text-inverse-accent); }
+/* Ship and itinerary pages (owner 2026-11-15): long titles ("Du thuyền Hạ Long 2 ngày 1 đêm – Một Thoáng Hạ Long"),
+   so a smaller, calmer H1 in every language; the ship's bay tag under the name keeps a readable size. */
+.heroTitleDetail { max-width: 1000px; font-size: clamp(44px, 4.8vw, 74px); line-height: 1.06; letter-spacing: -0.045em; text-wrap: balance; }
+.heroTitleDetail > span { font-size: max(0.4em, 16px); }
 /* Brand line under a topic H1 (vi hubs, SEO pass 2026-11-15), the same look as the itinerary hub's title tag. */
 .heroTagline {
   margin: -10px 0 23px;
@@ -441,6 +445,7 @@ a.langOption:focus-visible { color: var(--text-inverse-accent); background: rgba
   .heroBody { padding-top: 72px; padding-bottom: 109px; }
   .breadcrumb ol { margin-bottom: 40px; }
   .heroTitle { font-size: clamp(46px, 12vw, 72px); line-height: 1.06; }
+  .heroTitleDetail { font-size: clamp(36px, 9.6vw, 48px); line-height: 1.08; }
   .heroSubtitle { font-size: 16px; }
   .heroDescription { font-size: 13px; }
   .heroActions { align-items: flex-start; gap: 17px; }

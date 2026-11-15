@@ -67,6 +67,7 @@ export function CruiseView({ cruise, index, chrome, places = [] }: { cruise: Cru
   return (
     <>
       <PageHero
+        titleSize="detail"
         chrome={chrome}
         image={heroImage}
         imageAlt={cruise.name}

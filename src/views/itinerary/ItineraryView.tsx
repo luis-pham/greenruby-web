@@ -40,6 +40,7 @@ export function ItineraryView({ itinerary: it, chrome, places = [] }: { itinerar
   return (
     <>
       <PageHero
+        titleSize="detail"
         chrome={chrome}
         image={it.image ?? it.cruise.image}
         imageAlt={it.name}

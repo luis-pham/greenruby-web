@@ -20,5 +20,10 @@ export function itineraryHeading(
   if (!bay || !(it.duration > 1)) return it.name;
   const product = it.name.replace(LEADING_DURATION, '').trim();
   // Bay names kept on one line (no "Hạ / Long" break on phones), as on the other vi headings.
-  return keepBayNames(`Du thuyền ${bay} ${it.duration} ngày ${it.duration - 1} đêm – ${product || it.name}`);
+  // Lines may only break between the three parts ("Du thuyền Hạ Long" / "2 ngày 1 đêm –" / "Một Thoáng Hạ Long"):
+  // no-break spaces inside the duration (dash included) and inside a short product name.
+  const nights = `${it.duration} ngày ${it.duration - 1} đêm –`.replace(/ /g, '\u00a0');
+  const name = product || it.name;
+  const tail = name.length <= 20 ? name.replace(/ /g, '\u00a0') : name;
+  return keepBayNames(`Du thuyền ${bay} ${nights} ${tail}`);
 }
