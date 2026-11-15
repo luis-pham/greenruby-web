@@ -153,7 +153,7 @@ const ja: Messages = {
     occupancyCaption: (text: string) => `最大：${text}`,
     guestUnit: () => '名',
     view: '眺望',
-    viewCaption: '客室の窓から',
+    viewCaption: '専用バルコニーから',
     category: 'カテゴリー',
     categoryCaption: '客室のラインナップ',
     subnavLabel: 'ページ内メニュー',

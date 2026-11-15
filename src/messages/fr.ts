@@ -162,7 +162,7 @@ const fr: Messages = {
         .join(', ou '),
     occupancyCaption: (text: string) => `Jusqu’à ${text}`,
     view: 'La vue',
-    viewCaption: 'Depuis votre fenêtre',
+    viewCaption: 'Depuis votre balcon privé',
     category: 'Catégorie',
     categoryCaption: 'Catégories de cabines',
     subnavLabel: 'Sur cette page',

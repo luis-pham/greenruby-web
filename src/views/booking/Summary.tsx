@@ -14,7 +14,7 @@ export function Summary({ t, locale, model, contact, image }: { t: T; locale: Lo
   const [open, setOpen] = useState(false);
   const sm = t.summary;
   const cabinCount = model.cabins.reduce((n, c) => n + c.count, 0);
-  const price = (value: number) => formatAmount(value, model.currency, locale);
+  const price = (value: number) => (model.pricesHidden ? t.priceOnRequest : formatAmount(value, model.currency, locale));
 
   return (
     <aside className={s.aside} aria-labelledby="summary-title">
@@ -68,7 +68,7 @@ export function Summary({ t, locale, model, contact, image }: { t: T; locale: Lo
                     <strong>{c.count > 1 ? fmt(t.cabinTimes, { name: c.name, count: c.count }) : c.name}</strong>
                     {c.guests && <small>{c.guests}</small>}
                   </div>
-                  <span>{price(c.total)}</span>
+                  {!model.pricesHidden && <span>{price(c.total)}</span>}
                 </li>
               ))}
             </ul>
@@ -91,7 +91,7 @@ export function Summary({ t, locale, model, contact, image }: { t: T; locale: Lo
                       {a.quantity}
                     </small>
                   </div>
-                  <span>{price(a.total)}</span>
+                  {!model.pricesHidden && <span>{price(a.total)}</span>}
                 </li>
               ))}
             </ul>

@@ -170,7 +170,7 @@ const de: Messages = {
         .join(' oder '),
     occupancyCaption: (text: string) => `Bis zu ${text}`,
     view: 'Der Ausblick',
-    viewCaption: 'Von Ihrem Fenster aus',
+    viewCaption: 'Von Ihrem privaten Balkon aus',
     category: 'Kategorie',
     categoryCaption: 'Kabinenkategorien',
     subnavLabel: 'Auf dieser Seite',

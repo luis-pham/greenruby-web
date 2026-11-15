@@ -7,23 +7,29 @@ import s from './cabin.module.css';
 
 type Photo = { src: string; alt?: string | null };
 
-const COPY = byLocale<{ previous: string; next: string; show: (n: number, total: number) => string; thumbs: string }>({
-  en: { previous: 'Previous photo', next: 'Next photo', show: (n, t) => `Show photo ${n} of ${t}`, thumbs: 'Choose a photo' },
-  vi: { previous: 'Ảnh trước', next: 'Ảnh tiếp theo', show: (n, t) => `Xem ảnh ${n} trên ${t}`, thumbs: 'Chọn ảnh' },
-  ja: { previous: '前の写真', next: '次の写真', show: (n, t) => `写真 ${n} / ${t} を表示`, thumbs: '写真を選択' },
-  fr: { previous: 'Photo précédente', next: 'Photo suivante', show: (n, t) => `Afficher la photo ${n} sur ${t}`, thumbs: 'Choisir une photo' },
-  es: { previous: 'Foto anterior', next: 'Foto siguiente', show: (n, t) => `Ver la foto ${n} de ${t}`, thumbs: 'Elegir una foto' },
-  de: { previous: 'Vorheriges Foto', next: 'Nächstes Foto', show: (n, t) => `Foto ${n} von ${t} anzeigen`, thumbs: 'Foto auswählen' },
-  ko: { previous: '이전 사진', next: '다음 사진', show: (n, t) => `사진 ${n}/${t} 보기`, thumbs: '사진 선택' },
+type Copy = { previous: string; next: string; show: (n: number, total: number) => string; thumbs: string; photo: (name: string, n: number, total: number) => string };
+
+const COPY = byLocale<Copy>({
+  en: { previous: 'Previous photo', next: 'Next photo', show: (n, t) => `Show photo ${n} of ${t}`, thumbs: 'Choose a photo', photo: (name, n, t) => `${name}, photo ${n} of ${t}` },
+  vi: { previous: 'Ảnh trước', next: 'Ảnh tiếp theo', show: (n, t) => `Xem ảnh ${n} trên ${t}`, thumbs: 'Chọn ảnh', photo: (name, n, t) => `${name}, ảnh ${n}/${t}` },
+  ja: { previous: '前の写真', next: '次の写真', show: (n, t) => `写真 ${n} / ${t} を表示`, thumbs: '写真を選択', photo: (name, n, t) => `${name} 写真 ${n} / ${t}` },
+  fr: { previous: 'Photo précédente', next: 'Photo suivante', show: (n, t) => `Afficher la photo ${n} sur ${t}`, thumbs: 'Choisir une photo', photo: (name, n, t) => `${name}, photo ${n} sur ${t}` },
+  es: { previous: 'Foto anterior', next: 'Foto siguiente', show: (n, t) => `Ver la foto ${n} de ${t}`, thumbs: 'Elegir una foto', photo: (name, n, t) => `${name}, foto ${n} de ${t}` },
+  de: { previous: 'Vorheriges Foto', next: 'Nächstes Foto', show: (n, t) => `Foto ${n} von ${t} anzeigen`, thumbs: 'Foto auswählen', photo: (name, n, t) => `${name}, Foto ${n} von ${t}` },
+  ko: { previous: '이전 사진', next: '다음 사진', show: (n, t) => `사진 ${n}/${t} 보기`, thumbs: '사진 선택', photo: (name, n, t) => `${name} 사진 ${n}/${t}` },
 });
 
 /** One large photo with a row of thumbnails underneath; a thumbnail (or the arrows / arrow keys) changes the large photo. */
-export function CabinGallery({ photos, name, locale }: { photos: Photo[]; name: string; locale: Locale }) {
+export function CabinGallery({ photos, name, ship, locale }: { photos: Photo[]; name: string; ship?: string; locale: Locale }) {
   const [current, setCurrent] = useState(0);
   const thumbs = useRef<HTMLDivElement>(null);
   const track = useRef<HTMLDivElement>(null);
   const c = COPY[locale];
   const total = photos.length;
+  // The CMS gives most gallery photos the cabin name as alt text; each one gets its own ("Imperial Suite – Green Ruby 1,
+  // photo 3 of 10") unless an editor wrote a real description.
+  const label = ship ? `${name} – ${ship}` : name;
+  const altOf = (p: Photo, i: number) => (p.alt && p.alt.trim() !== name ? p.alt : i === 0 ? label : c.photo(label, i + 1, total));
 
   const show = (i: number) => {
     const next = (i + total) % total;
@@ -53,7 +59,7 @@ export function CabinGallery({ photos, name, locale }: { photos: Photo[]; name: 
     >
       <div className={s.viewerDesktop}>
       <figure className={s.viewerMain}>
-        <Image key={photo.src} src={photo.src} alt={photo.alt ?? name} fill sizes="(max-width: 1300px) 94vw, 1208px" quality={82} className={s.viewerImage} />
+        <Image key={photo.src} src={photo.src} alt={altOf(photo, current)} fill sizes="(max-width: 1300px) 94vw, 1208px" quality={82} className={s.viewerImage} />
         {total > 1 && (
           <>
             <button type="button" className={`${s.viewerArrow} ${s.viewerPrev}`} onClick={() => show(current - 1)} aria-label={c.previous}>
@@ -91,7 +97,7 @@ export function CabinGallery({ photos, name, locale }: { photos: Photo[]; name: 
         <div className={s.viewerTrack} ref={track} onScroll={onSwipe}>
           {photos.map((p, i) => (
             <figure key={p.src + i} className={s.viewerSlide} aria-label={c.show(i + 1, total)}>
-              <Image src={p.src} alt={p.alt ?? name} fill sizes="100vw" quality={75} />
+              <Image src={p.src} alt={altOf(p, i)} fill sizes="100vw" quality={75} />
             </figure>
           ))}
         </div>

@@ -149,7 +149,7 @@ const vi: Messages = {
     occupancyCaption: (text: string) => `Tối đa ${text}`,
     guestUnit: () => 'Khách',
     view: 'Tầm nhìn',
-    viewCaption: 'Từ cửa sổ phòng',
+    viewCaption: 'Từ ban công riêng',
     category: 'Hạng phòng',
     categoryCaption: 'Bộ sưu tập phòng',
     subnavLabel: 'Trên trang này',
@@ -237,7 +237,7 @@ const vi: Messages = {
     fleetTitle: 'Hai du thuyền,',
     fleetTitleEm: 'hai vịnh biển để khám phá.',
     fleetBody:
-      'Cùng một triết lý sang trọng tinh tế. Hai thế giới riêng để khám phá: cảnh quan biểu tượng của Hạ Long và vẻ đẹp tĩnh lặng của Lan Hạ.',
+      'Cùng một triết lý sang trọng tinh tế. Hai thế giới riêng để khám phá: cảnh quan biểu tượng của Hạ Long và vẻ đẹp tĩnh lặng của Lan Hạ. Mỗi phòng đều có ban công riêng nhìn ra vịnh.',
     fleetCollection: 'Bộ sưu tập',
     vessel: (n: number) => `Du thuyền ${String(n).padStart(2, '0')}`,
     vesselLength: 'Chiều dài tàu',

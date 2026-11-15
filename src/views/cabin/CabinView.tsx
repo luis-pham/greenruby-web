@@ -8,10 +8,11 @@ import { ButtonLink, cx, SectionHeading, SmartLink, TextLink } from '@/component
 import type { Cabin, CabinSummary, Cruise } from '@/lib/api/schemas';
 import { LinkChips } from '@/components/sections/TravelLinks';
 import { guideLinks } from '@/lib/guide-links';
-import { detailPath, homePath, itineraryPath, numberFormatTag, sectionPath, type Locale } from '@/lib/i18n';
+import { detailPath, homePath, isLegacyLocale, itineraryPath, numberFormatTag, sectionPath, type Locale } from '@/lib/i18n';
 import { absoluteImageUrl, absoluteUrl } from '@/lib/site-url';
 import { wordSpace } from '@/lib/typography';
 import { CabinGallery } from './CabinGallery';
+import { rateNotes } from './rate-notes';
 import { SHIP_SWITCH } from './sisters';
 
 import s from './cabin.module.css';
@@ -58,7 +59,13 @@ export function CabinView({
   const cruiseUrl = detailPath(locale, 'cruise', cabin.cruise.slug, cabin.cruise.id);
   // A new language books the linked English cabin (inventoryCabinId); en/vi: the page's own id, as before.
   const bookCabin = inventoryCabinId(locale, cabin);
-  const bookingUrl = `${sectionHref(locale, 'booking', chrome.site.publicSections)}${bookCabin ? `?cabin_id=${bookCabin}` : ''}`;
+  // en/vi also name the ship, so the wizard can open this cabin's voyages even when the cabin suggestion is unavailable
+  // (a new language's ship ids are not the inventory's).
+  const bookingQuery = new URLSearchParams();
+  if (isLegacyLocale(locale)) bookingQuery.set('cruise_id', String(cabin.cruise.id));
+  if (bookCabin) bookingQuery.set('cabin_id', String(bookCabin));
+  const bookingUrl = `${sectionHref(locale, 'booking', chrome.site.publicSections)}${bookingQuery.size ? `?${bookingQuery}` : ''}`;
+  const notes = rateNotes(locale);
   const contactUrl = sectionHref(locale, 'contact', chrome.site.publicSections);
   const extra = cabin.overCapacity.adult + cabin.overCapacity.child6to12 + cabin.overCapacity.child2to5 + cabin.overCapacity.infant;
   // Maximum combinations from the CMS ("3 adults, or 2 adults + 2 children"); null while the cabin uses overCapacity.
@@ -75,10 +82,10 @@ export function CabinView({
 
   const tabs = [
     { id: 'overview', label: c.tabs.overview, show: true },
+    { id: 'gallery', label: c.tabs.gallery, show: photos.length > 1 },
     { id: 'voyages', label: t.cruise.tabs.journeys, show: voyages.length > 0 },
     { id: 'space', label: c.tabs.space, show: cabin.rooms.length > 0 },
     { id: 'amenities', label: c.tabs.amenities, show: cabin.amenities.length > 0 },
-    { id: 'gallery', label: c.tabs.gallery, show: photos.length > 1 },
     { id: 'rates', label: c.tabs.rates, show: true },
     { id: 'more', label: c.tabs.more, show: cabin.otherCabins.length > 0 },
   ].filter((tab) => tab.show);
@@ -95,6 +102,7 @@ export function CabinView({
           { label: cabin.name, href: url },
         ]}
         eyebrow={[cabin.cabinClass, cabin.cruise.name].filter(Boolean).join(' · ') || c.eyebrowFallback}
+        titleSize="detail"
         title={<>{cabin.name}{' '}<span className={s.titleTag}>{c.titleTag(cabin.cruise.name, bayName)}</span></>}
         subtitle={cabin.summary}
         actions={
@@ -188,6 +196,15 @@ export function CabinView({
             </aside>
           </div>
         </section>
+
+        {photos.length > 1 && (
+          <section className={cx(s.section, s.surface)} id="gallery" aria-labelledby="gallery-title">
+            <div className="container">
+              <SectionHeading id="gallery-title" eyebrow={c.galleryEyebrow} title={c.galleryHeading} />
+              <CabinGallery photos={photos} name={cabin.name} ship={cabin.cruise.name} locale={locale} />
+            </div>
+          </section>
+        )}
 
         {voyages.length > 0 && (
           <section className={cx(s.section, s.alt)} id="voyages" aria-labelledby="voyages-title">
@@ -283,15 +300,6 @@ export function CabinView({
           </section>
         )}
 
-        {photos.length > 1 && (
-          <section className={s.section} id="gallery" aria-labelledby="gallery-title">
-            <div className="container">
-              <SectionHeading id="gallery-title" eyebrow={c.galleryEyebrow} title={c.galleryHeading} />
-              <CabinGallery photos={photos} name={cabin.name} locale={locale} />
-            </div>
-          </section>
-        )}
-
         <section className={cx(s.section, s.surface)} id="rates" aria-labelledby="rates-title">
           <div className="container">
             <SectionHeading id="rates-title" eyebrow={c.ratesEyebrow} title={pricing.showPublic ? c.ratesHeading : c.onRequestHeading} />
@@ -323,8 +331,21 @@ export function CabinView({
                 <div>
                   <h3>{cabin.name}</h3>
                   <p>{c.onRequestBody}</p>
+                  {notes && <p>{notes.launch}</p>}
+                  {notes && voyages.length > 0 && (
+                    <p className={s.rateInclusions}>
+                      {notes.inclusions}{' '}
+                      {voyages.map((v, i) => (
+                        <span key={`${v.cruiseId}-${v.itineraryId}`}>
+                          {i > 0 && ' · '}
+                          <SmartLink href={`${itineraryPath(locale, v.slug, v.cruiseId, v.itineraryId)}#inclusions`}>{v.name}</SmartLink>
+                        </span>
+                      ))}
+                    </p>
+                  )}
                 </div>
-                <ButtonLink href={contactUrl}>{c.requestQuote}</ButtonLink>
+                {/* The reservation request with this cabin chosen: the shortest path to a quote for real dates. */}
+                <ButtonLink href={bookingUrl}>{c.requestQuote}</ButtonLink>
               </div>
             )}
           </div>

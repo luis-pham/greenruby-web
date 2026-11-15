@@ -172,7 +172,8 @@ export function StepConfirmation({ t, locale, state, dispatch, currency }: Props
 }
 
 export function StepReview({ t, locale, state, dispatch, currency, termsHref, privacyHref }: Props & { termsHref: string; privacyHref: string }) {
-  const price = (value: number) => formatAmount(value, currency, locale);
+  // Free entry (state.ts freeEntry): no confirmed fares, so every amount reads "price on request".
+  const price = (value: number) => (state.freeEntry ? t.priceOnRequest : formatAmount(value, currency, locale));
   const rooms = pricedRooms(state, currency);
   const amenities = selectedAmenities(state, currency);
   const total = estimatedTotal(state, currency);
@@ -182,7 +183,7 @@ export function StepReview({ t, locale, state, dispatch, currency, termsHref, pr
     [t.review.voyage, it ? [it.name, it.cruise_name, durationLabel(t, it.duration)].filter(Boolean).join(' · ') : '—'],
     [t.review.departure, formatDate(locale, state.date) || '—'],
     [t.review.cabins, rooms.map(({ cabin, room, unitPrice }) => fmt(t.reviewCabinLine, { name: cabin.name, guests: guestsText(t, room.guests), price: price(unitPrice) })).join('; ') || '—'],
-    [t.review.amenities, amenities.map((a) => `${a.amenity.name} × ${a.quantity} – ${price(a.total)}`).join('; ') || t.none],
+    [t.review.amenities, amenities.map((a) => (state.freeEntry ? `${a.amenity.name} × ${a.quantity}` : `${a.amenity.name} × ${a.quantity} – ${price(a.total)}`)).join('; ') || t.none],
     [t.review.leadGuest, state.guest.fullName.trim()],
     [t.review.contact, [state.guest.email.trim(), state.guest.phone.trim()].filter(Boolean).join(' · ')],
     [

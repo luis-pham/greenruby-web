@@ -56,6 +56,8 @@ export function StepBookingInfo({ t, locale, state, dispatch, currency, routeIma
   // (that path does not exist); en/vi link their own pages as before.
   const itemLocale: Locale = isLegacyLocale(locale) ? locale : defaultLocale;
   const listed = state.enabledDates.length > 0;
+  // Free entry (no listed departures): no confirmed fares yet, so no price is shown (state.ts freeEntry).
+  const showPrices = !state.freeEntry;
   const dateOptions = listed && state.date && !state.enabledDates.includes(state.date) ? [state.date, ...state.enabledDates] : state.enabledDates;
   const rooms = pricedRooms(state, currency);
   const cabinErrors = Object.entries(errors).filter(([key]) => key === 'cabin' || key.startsWith('cabin_'));
@@ -150,7 +152,7 @@ export function StepBookingInfo({ t, locale, state, dispatch, currency, routeIma
           <FieldError id="booking-voyage-error" message={errors.voyage} />
         </div>
         <div id="booking-voyage-status" aria-live="polite">
-          {!state.date && <p className={s.fieldHint}>{t.voyageNeedsDate}</p>}
+          {!state.date && !state.freeEntry && <p className={s.fieldHint}>{t.voyageNeedsDate}</p>}
           {state.itinerariesStatus === 'ready' && state.itineraries.length === 0 && <p className={s.note}>{t.voyageEmpty}</p>}
           {state.itinerariesStatus === 'error' && (
             <p className={s.note}>
@@ -207,7 +209,7 @@ export function StepBookingInfo({ t, locale, state, dispatch, currency, routeIma
             {state.cabins.map((cabin) => {
               const count = state.rooms.filter((r) => r.cabinId === cabin.id).length;
               const img = mediaSrc(cabin.image_url);
-              const fromPrice = cabin.min_price && cabin.min_price > 0 ? cabin.min_price : 0;
+              const fromPrice = showPrices && cabin.min_price && cabin.min_price > 0 ? cabin.min_price : 0;
               return (
                 <li key={cabin.id} className={cx(s.cabCard, count > 0 && s.cabSelected)}>
                   <div className={s.cabVisual}>{img && <Image src={img} alt="" fill sizes="(max-width: 760px) 130px, 170px" />}</div>
@@ -273,7 +275,7 @@ export function StepBookingInfo({ t, locale, state, dispatch, currency, routeIma
                           {cabin.name} <span className={s.muted}>#{i + 1}</span>
                         </strong>
                         <small>
-                          {t.adjustedFare}: <b>{unitPrice > 0 ? price(unitPrice) : t.priceOnRequest}</b>
+                          {t.adjustedFare}: <b>{showPrices && unitPrice > 0 ? price(unitPrice) : t.priceOnRequest}</b>
                         </small>
                       </div>
                       <button type="button" className={s.removeBtn} onClick={() => dispatch({ type: 'removeRoom', key: room.key })} aria-label={fmt(t.removeCabin, { name: cabin.name, n: i + 1 })}>
@@ -328,7 +330,7 @@ export function StepBookingInfo({ t, locale, state, dispatch, currency, routeIma
                   <div className={s.addonCopy}>
                     <h4 id={`amenity-${a.id}`}>{a.name}</h4>
                     {a.description && <small>{a.description}</small>}
-                    <small className={s.addonPrice}>{price(roundPrice(a.price ?? 0, currency))}</small>
+                    {showPrices && <small className={s.addonPrice}>{price(roundPrice(a.price ?? 0, currency))}</small>}
                   </div>
                   <Stepper
                     value={qty}

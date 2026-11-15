@@ -116,6 +116,8 @@ export type SummaryModel = {
   total: number;
   currency: Currency;
   code: string | null;
+  /** Free entry (state.ts freeEntry): amounts read "price on request". */
+  pricesHidden?: boolean;
 };
 
 function groupCabins(rows: { name: string; count: number; guests: string; total: number }[]) {
@@ -147,6 +149,7 @@ export function summaryFromState(state: State, t: T, currency: Currency): Summar
     total: roundPrice(cabinsTotal + amenitiesTotal, currency),
     currency,
     code: null,
+    pricesHidden: state.freeEntry,
   };
 }
 

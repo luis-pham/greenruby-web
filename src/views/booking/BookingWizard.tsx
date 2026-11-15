@@ -135,9 +135,11 @@ export function BookingWizard({ locale, t, contact, homeHref, bookingHref, priva
         cabinId || cruiseId ? bookingApi.suggest(locale, { cabinId, cruiseId }).catch(() => null) : Promise.resolve(null),
       ]).then(([dates, suggestion]) => {
         let date = '';
-        if (startAt && dates.includes(startAt)) date = startAt;
-        // Language handoff into a page without listed departures (free date entry): keep the guest's date.
-        else if (!dates.length && handoff?.date && startAt === handoff.date && handoff.date >= todayYmd()) date = startAt;
+        if (!dates.length) {
+          // No listed departures (free entry): only a future date the guest asked for; never a suggested one,
+          // which can be a past or test departure.
+          if (startAt && startAt >= todayYmd()) date = startAt;
+        } else if (startAt && dates.includes(startAt)) date = startAt;
         else if (itineraryId && dates.length) date = dates[0];
         else if (suggestion?.date) date = suggestion.date;
         else if (cruiseId && dates.length) date = dates[0];
@@ -194,17 +196,17 @@ export function BookingWizard({ locale, t, contact, homeHref, bookingHref, priva
     return () => document.removeEventListener('click', onClick, true);
   }, [locale]);
 
-  // Voyages for the chosen date.
+  // Voyages for the chosen date (free entry: every voyage, without a date).
   useEffect(() => {
-    if (state.itinerariesStatus !== 'loading' || !state.date) return;
-    const date = state.date;
+    if (state.itinerariesStatus !== 'loading' || (!state.date && !state.freeEntry)) return;
+    const date = state.freeEntry ? '' : state.date;
     const ctrl = new AbortController();
     bookingApi
       .itineraries(locale, date, ctrl.signal)
       .then((items) => dispatch({ type: 'itinerariesLoaded', date, items }))
       .catch(() => ctrl.signal.aborted || dispatch({ type: 'itinerariesFailed', date }));
     return () => ctrl.abort();
-  }, [state.itinerariesStatus, state.date, locale]);
+  }, [state.itinerariesStatus, state.date, state.freeEntry, locale]);
 
   // Cabins, amenities and route details for the chosen voyage.
   const itinerary = state.itinerary;

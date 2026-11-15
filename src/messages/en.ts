@@ -151,7 +151,7 @@ const en = {
         .join(', or '),
     occupancyCaption: (text: string) => `Up to ${text}`,
     view: 'The view',
-    viewCaption: 'From your window',
+    viewCaption: 'From your private balcony',
     category: 'Category',
     categoryCaption: 'Suite collection',
     subnavLabel: 'On this page',
@@ -240,7 +240,7 @@ const en = {
     fleetTitleEm: 'Two beautiful ways to escape.',
     // SEO pass 2026-11-15 (EN only): what Green Ruby offers, which bay each ship sails, the overnight formats.
     fleetBody:
-      'Discover Ha Long Bay aboard Green Ruby 1 or the quieter waters of Lan Ha Bay aboard Green Ruby 2. Each 46-cabin ship offers overnight cruises of 2 days 1 night or 3 days 2 nights, with first sailings planned for February 2027. [Explore all four itineraries](itinerary).',
+      'Discover Ha Long Bay aboard Green Ruby 1 or the quieter waters of Lan Ha Bay aboard Green Ruby 2. Each 46-cabin ship offers overnight cruises of 2 days 1 night or 3 days 2 nights, with first sailings planned for February 2027. Every cabin opens onto a private balcony overlooking the bay. [Explore all four itineraries](itinerary).',
     fleetCollection: 'The collection',
     vessel: (n: number) => `Vessel ${String(n).padStart(2, '0')}`,
     vesselLength: 'Vessel length',

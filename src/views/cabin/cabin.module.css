@@ -151,6 +151,8 @@
 }
 .onRequest h3 { margin: 0 0 12px; color: var(--color-neutral-white); font-size: var(--font-size-xl); }
 .onRequest p { margin: 0; max-width: 560px; color: var(--color-green-100); font-size: 14px; line-height: 1.9; }
+.onRequest p + p { margin-top: 12px; }
+.rateInclusions a { color: var(--color-neutral-white); text-decoration: underline; text-underline-offset: 3px; }
 
 /* ---------- Other cabins ---------- */
 .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }

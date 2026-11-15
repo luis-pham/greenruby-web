@@ -163,7 +163,7 @@ const es: Messages = {
         .join(', o '),
     occupancyCaption: (text: string) => `Hasta ${text}`,
     view: 'Las vistas',
-    viewCaption: 'Desde su ventana',
+    viewCaption: 'Desde su balcón privado',
     category: 'Categoría',
     categoryCaption: 'Categorías de camarote',
     subnavLabel: 'En esta página',

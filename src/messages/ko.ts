@@ -160,7 +160,7 @@ const ko: Messages = {
       limits.map((l) => `성인 ${l.adults}명${l.children > 0 ? ` + 어린이 ${l.children}명` : ''}`).join(' 또는 '),
     occupancyCaption: (text: string) => `최대 ${text}`,
     view: '전망',
-    viewCaption: '객실 창밖 풍경',
+    viewCaption: '전용 발코니에서 보는 풍경',
     category: '등급',
     categoryCaption: '스위트 컬렉션',
     subnavLabel: '이 페이지의 내용',

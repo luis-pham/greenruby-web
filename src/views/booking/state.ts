@@ -34,6 +34,12 @@ export type State = {
   reference: string | null;
 
   enabledDates: string[];
+  /**
+   * No departures are listed (before launch, or the dates failed to load): the guest types any future date, all
+   * voyages are offered without a date, prices stay hidden (the CMS holds no confirmed fares yet) and the
+   * reservation request is the only path. Set at boot.
+   */
+  freeEntry: boolean;
   date: string;
   itineraries: Itinerary[];
   itinerariesStatus: LoadStatus;
@@ -79,6 +85,7 @@ export function initialState(defaultMethod: PaymentMethod, paymentAllowed = true
     serverBooking: null,
     reference: null,
     enabledDates: [],
+    freeEntry: false,
     date: '',
     itineraries: [],
     itinerariesStatus: 'idle',
@@ -160,22 +167,29 @@ const clearSelection = { rooms: [] as Room[], amenityQty: {} as Record<number, n
 
 export function reducer(state: State, action: Action): State {
   switch (action.type) {
-    case 'boot':
+    case 'boot': {
+      const freeEntry = action.dates.length === 0;
       return {
         ...state,
         boot: 'ready',
         enabledDates: action.dates,
+        freeEntry,
         prefill: action.prefill,
         restoreAmenities: action.prefill?.amenityQty ?? null,
         guest: action.guest ?? state.guest,
         date: action.date,
-        itinerariesStatus: action.date ? 'loading' : 'idle',
+        // Free entry: the voyages do not depend on the date, so they load straight away.
+        itinerariesStatus: action.date || freeEntry ? 'loading' : 'idle',
+        ...(freeEntry ? { paymentAllowed: false, confirmation: 'inquiry' as const } : {}),
       };
+    }
     case 'bootFailed':
       return { ...state, boot: 'ready' };
 
     case 'setDate':
       if (action.date === state.date) return state;
+      // Free entry: the date is only the guest's wish; the voyage and cabins chosen stay.
+      if (state.freeEntry) return { ...state, date: action.date, errors: without(state.errors, 'date') };
       return {
         ...state,
         ...clearSelection,
@@ -191,19 +205,25 @@ export function reducer(state: State, action: Action): State {
       };
 
     case 'itinerariesLoaded': {
-      if (action.date !== state.date) return state;
+      if (state.freeEntry ? action.date !== '' : action.date !== state.date) return state;
       const next: State = { ...state, itineraries: action.items, itinerariesStatus: 'ready' };
       const p = state.prefill;
       if (p?.itineraryId) {
         const match = action.items.find((it) => it.itinerary_id === p.itineraryId && (!p.cruiseId || it.cruise_id === p.cruiseId));
         if (match) return reducer(next, { type: 'selectItinerary', id: match.id });
       }
+      if (p?.cabinId && p.cruiseId) {
+        // A cabin link without a voyage (cabin suggestion unavailable): the ship's shortest voyage, which the guest
+        // can still change, so the cabin is added rather than dropped.
+        const first = action.items.filter((it) => it.cruise_id === p.cruiseId).sort((a, b) => a.duration - b.duration)[0];
+        if (first) return reducer(next, { type: 'selectItinerary', id: first.id });
+      }
       return { ...next, prefill: null };
     }
     case 'itinerariesFailed':
-      return action.date === state.date ? { ...state, itinerariesStatus: 'error', prefill: null } : state;
+      return (state.freeEntry ? action.date === '' : action.date === state.date) ? { ...state, itinerariesStatus: 'error', prefill: null } : state;
     case 'retryItineraries':
-      return state.date ? { ...state, itinerariesStatus: 'loading' } : state;
+      return state.date || state.freeEntry ? { ...state, itinerariesStatus: 'loading' } : state;
 
     case 'selectItinerary': {
       const itinerary = state.itineraries.find((it) => it.id === action.id) ?? null;
@@ -277,8 +297,10 @@ export function reducer(state: State, action: Action): State {
     case 'policyLoaded': {
       // Payment closed: the request is the only path. Opened after an intl page started closed: offer payment first,
       // as en/vi do. en/vi with the default CMS list: allowed before and after, nothing changes.
-      const confirmation: Confirmation = !action.paymentAllowed ? 'inquiry' : state.paymentAllowed ? state.confirmation : 'direct';
-      return { ...state, policy: action.policy, paymentAllowed: action.paymentAllowed, confirmation };
+      // Free entry (no listed departure to pay for) stays request only.
+      const allowed = action.paymentAllowed && !state.freeEntry;
+      const confirmation: Confirmation = !allowed ? 'inquiry' : state.paymentAllowed ? state.confirmation : 'direct';
+      return { ...state, policy: action.policy, paymentAllowed: allowed, confirmation };
     }
     case 'setPlan':
       return { ...state, paymentPlan: action.value, submitError: null };
