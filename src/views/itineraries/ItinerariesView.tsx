@@ -47,6 +47,7 @@ export function ItinerariesView({
   return (
     <>
       <PageHero
+        titleSize="detail"
         chrome={chrome}
         currentHref={path}
         image={heroImage}
