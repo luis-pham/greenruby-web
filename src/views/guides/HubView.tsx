@@ -79,16 +79,18 @@ export function HubView({
             {m.title}{wordSpace(locale)}<em>{m.titleEm}</em>
           </>
         }
-        lead={m.lead}
+        lead={m.lead || undefined}
       />
 
       <main>
         {m.overview && (
           <section className={`container ${s.hubOverview}`} aria-labelledby="overview-title">
-            <h2 id="overview-title">{m.overview.title}</h2>
-            {m.overview.paragraphs.map((p, i) => (
-              <p key={i}><RichText text={p} resolve={copyLinks(locale, chrome.site)} /></p>
-            ))}
+            <div className={s.hubOverviewText}>
+              <h2 id="overview-title">{m.overview.title}</h2>
+              {m.overview.paragraphs.map((p, i) => (
+                <p key={i}><RichText text={p} resolve={copyLinks(locale, chrome.site)} /></p>
+              ))}
+            </div>
           </section>
         )}
 

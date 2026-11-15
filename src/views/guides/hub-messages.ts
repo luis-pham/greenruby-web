@@ -10,7 +10,8 @@ const en = {
   eyebrow: 'Ha Long Bay · Lan Ha Bay',
   title: 'Ha Long Bay',
   titleEm: 'travel guide',
-  lead: 'Every guide we publish about the two bays, grouped by what you are planning. Each card leads to the page that answers it in full.',
+  // No lead under the title (owner 2026-11-15): the overview section below introduces the page.
+  lead: '',
   plan: { title: 'Plan your trip', lede: 'When to go, how many nights, which bay and how to get to the port.' },
   places: {
     title: 'Places to visit',
