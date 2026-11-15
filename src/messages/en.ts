@@ -240,7 +240,7 @@ const en = {
     fleetTitleEm: 'Two beautiful ways to escape.',
     // SEO pass 2026-11-15 (EN only): what Green Ruby offers, which bay each ship sails, the overnight formats.
     fleetBody:
-      'Green Ruby Cruises sails two sister ships of 46 cabins each, with check-in at Tuan Chau. Green Ruby 1 cruises Ha Long Bay, past Ti Top Island and Sung Sot Cave; Green Ruby 2 sails the quieter waters of Lan Ha Bay, off Cat Ba Island. Both offer overnight cruises of 2 days 1 night, or 3 days 2 nights with a full extra day on the bay. First sailings are planned for February 2027. Explore each ship below, or [compare all four itineraries](itinerary).',
+      'Discover Ha Long Bay aboard Green Ruby 1 or the quieter waters of Lan Ha Bay aboard Green Ruby 2. Each 46-cabin ship offers overnight cruises of 2 days 1 night or 3 days 2 nights, with first sailings planned for February 2027. [Explore all four itineraries](itinerary).',
     fleetCollection: 'The collection',
     vessel: (n: number) => `Vessel ${String(n).padStart(2, '0')}`,
     vesselLength: 'Vessel length',
