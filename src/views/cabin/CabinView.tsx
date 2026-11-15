@@ -175,7 +175,8 @@ export function CabinView({
               {cabin.contentHtml ? (
                 <div className={s.prose} dangerouslySetInnerHTML={{ __html: cabin.contentHtml }} />
               ) : (
-                cabin.summary && <p className={s.lead}>{cabin.summary}</p>
+                // No description yet: the summary, set like every other cabin's description (not as a serif lead).
+                cabin.summary && <div className={s.prose}><p>{cabin.summary}</p></div>
               )}
               {photos.length > 1 && (
                 <div className={s.overviewGallery} id="gallery">
