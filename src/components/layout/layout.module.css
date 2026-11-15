@@ -385,16 +385,6 @@ a.langOption:focus-visible { color: var(--text-inverse-accent); background: rgba
 }
 .footerBottom nav { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-3); min-width: 0; }
 .footerBottom a:hover { color: var(--text-inverse); }
-.footerContact {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2) var(--space-6);
-  padding: 0 0 var(--space-6);
-  color: var(--text-inverse-muted);
-  font-size: var(--font-size-xs);
-  font-style: normal;
-}
-.footerContact a:hover { color: var(--text-inverse); }
 
 @media (max-width: 1200px) {
   .navLinks, .navBook { display: none; }

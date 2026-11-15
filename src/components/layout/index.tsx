@@ -509,13 +509,6 @@ export function SiteFooter({ locale, site, t }: Pick<Chrome, 'locale' | 'site' |
           labels={t.chat}
         />
         <CookieConsent gtmId={info.gtmId} labels={t.cookies} policyHref={sectionPath(locale, 'cookiePolicy')} />
-        {(info.hotlineHref || info.email || info.address) && (
-          <address className={s.footerContact}>
-            {info.hotlineHref && <a href={info.hotlineHref}>{info.hotline}</a>}
-            {info.email && <a href={`mailto:${info.email}`}>{info.email}</a>}
-            {info.address && <span>{info.address}</span>}
-          </address>
-        )}
       </div>
     </footer>
   );
