@@ -162,6 +162,8 @@
 /* Heading kept at its former column width so the italic line still breaks as before. */
 .head .heading, .fleetIntro .heading { max-width: 760px; }
 .fleetIntro .heading em { display: block; }
+.fleetIntro .heading .headingLine { display: block; }
+.fleetIntro .heading .headingLine em { display: inline; }
 /* Desktop: the intro paragraph under the heading, the 01 02 mark at the right of the same row. */
 @media (min-width: 901px) {
   .fleetIntro > div:last-child { display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; }

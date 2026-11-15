@@ -26,10 +26,17 @@ import { RichText } from '@/views/guides/Rich';
 
 const pad = (n: number) => String(n).padStart(2, '0');
 
+/** "Two beautiful ways to *escape.*": only the starred words in italic gold, the rest of the line upright. */
+function accented(em: string): ReactNode {
+  const m = /^(.*?)\*(.+?)\*(.*)$/.exec(em);
+  if (!m) return <em>{em}</em>;
+  return <span className={s.headingLine}>{m[1]}<em>{m[2]}</em>{m[3]}</span>;
+}
+
 function Heading({ locale, title, em, id, className }: { locale: Locale; title: string; em: string; id?: string; className?: string }) {
   return (
     <h2 className={cx(s.heading, className)} id={id}>
-      {title}{wordSpace(locale)}<em>{em}</em>
+      {title}{wordSpace(locale)}{accented(em)}
     </h2>
   );
 }
