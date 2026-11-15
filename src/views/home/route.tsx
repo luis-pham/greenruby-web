@@ -27,6 +27,9 @@ export function homeRoute(locale: Locale) {
     }));
   }
 
+  // Ha Long (Green Ruby 1) first, then Lan Ha; shorter voyage first. The vi homepage config listed them out of order.
+  const bayRank = (bay: string | null | undefined) => (bay === 'ha-long' ? 0 : bay === 'lan-ha' ? 1 : 2);
+
   async function Page() {
     const [site, raw, list, cabins, alternates] = await Promise.all([getSiteFor(locale), getHomepageFor(locale), listItineraries(locale), listCabins(locale), hubAlternates('home')]);
     // The homepage config stores a snapshot of each itinerary's ship, which goes stale when an itinerary
@@ -37,7 +40,7 @@ export function homeRoute(locale: Locale) {
       itineraries: raw.itineraries.map((it) => {
         const current = live.get(it.itineraryId);
         return current ? { ...it, cruiseId: current.cruiseId, cruiseName: current.cruiseName, slug: current.slug, bay: current.bay ?? it.bay } : it;
-      }),
+      }).sort((a, b) => bayRank(a.bay) - bayRank(b.bay) || a.duration - b.duration),
     };
     return withPreviewBanner(await isPreview(), <HomeView page={page} allCabins={cabins} chrome={{ locale, site, t: getMessages(locale), alternateHref: homePath(other), alternates }} />);
   }

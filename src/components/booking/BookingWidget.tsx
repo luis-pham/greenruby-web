@@ -176,7 +176,8 @@ export function BookingPanel({ locale, data, cabinId, contact }: Props) {
       </a>
       <ul className={s.trust}>
         <li>{t.trustCancel}</li>
-        <li>{t.trustPayment}</li>
+        {/* No departures listed yet: the wizard takes requests only (no online payment). */}
+        <li>{hasDates ? t.trustPayment : t.trustRequest}</li>
       </ul>
       <ContactLinks contact={contact} t={t} />
     </section>

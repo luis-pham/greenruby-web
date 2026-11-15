@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { activityDuration } from '@/lib/minutes';
 import { Booking } from '@/components/booking';
 import { JournalLink } from '@/components/journal/JournalLink';
 import { PageHero, SiteFooter, type Chrome } from '@/components/layout';
@@ -71,7 +72,7 @@ export function ItineraryView({ itinerary: it, chrome, places = [] }: { itinerar
             </div>
             <div className={s.infoItem}>
               <dt>{d.duration}</dt>
-              <dd><strong>{d.durationLabel(it.duration)}</strong>{it.startTime && <small>{it.startTime}</small>}</dd>
+              <dd><strong>{d.durationLabel(it.duration)}</strong></dd>
             </div>
             <div className={s.infoItem}>
               <dt>{d.destination}</dt>
@@ -125,7 +126,7 @@ export function ItineraryView({ itinerary: it, chrome, places = [] }: { itinerar
                     <div className={s.highlightMedia}>
                       {a.image && <Image src={a.image} alt={a.name} fill sizes="(max-width: 600px) 100vw, 33vw" />}
                     </div>
-                    <span className={s.highlightNum}>{pad(i + 1)}{a.duration ? ` / ${/^\d+$/.test(a.duration) ? `${a.duration} min` : a.duration}` : ''}</span>
+                    <span className={s.highlightNum}>{pad(i + 1)}{a.duration ? ` / ${activityDuration(locale, a.duration)}` : ''}</span>
                     <h3><SmartLink href={experiencePath(locale, a.slug, a.id)}>{a.name}</SmartLink></h3>
                     {a.summary && <p>{a.summary}</p>}
                   </article>

@@ -11,6 +11,9 @@ import { guideLinks } from '@/lib/guide-links';
 import { detailPath, homePath, isLegacyLocale, itineraryPath, numberFormatTag, sectionPath, type Locale } from '@/lib/i18n';
 import { absoluteImageUrl, absoluteUrl } from '@/lib/site-url';
 import { wordSpace } from '@/lib/typography';
+import { cabinHighlights, cabinTier } from '@/views/home/cabin-card';
+import { Carousel } from '@/views/home/Carousel';
+import homeStyles from '@/views/home/home.module.css';
 import { CabinGallery } from './CabinGallery';
 import { rateNotes } from './rate-notes';
 import { SHIP_SWITCH } from './sisters';
@@ -341,25 +344,29 @@ export function CabinView({
         {cabin.otherCabins.length > 0 && (
           <section className={s.section} id="more" aria-labelledby="more-title">
             <div className="container">
-              <SectionHeading id="more-title" eyebrow={c.moreEyebrow} title={c.moreHeading} />
-              <div className={s.cards}>
-                {cabin.otherCabins.slice(0, 3).map((other) => (
-                  <article key={other.id} className={s.card}>
-                    <div className={s.cardPhoto}>
+              <SectionHeading id="more-title" eyebrow={t.cruise.suitesEyebrow} title={c.moreHeading} />
+              {/* Same cards and carousel as "The suite collection" on the ship pages and the homepage. */}
+              <Carousel label={t.home.suitesCollection} count={cabin.otherCabins.length} caption={t.home.suitesCollection} previous={t.home.previous} next={t.home.next}>
+                {cabin.otherCabins.map((other) => (
+                  <article key={other.id} className={homeStyles.roomCard}>
+                    <div className={`${homeStyles.roomImg} ${s.moreImg}`}>
                       {other.image && <Image src={other.image} alt={other.name} fill sizes="(max-width: 600px) 100vw, (max-width: 1160px) 50vw, 33vw" />}
                     </div>
-                    <div className={s.cardBody}>
-                      <div className={s.cardMeta}>
-                        <span>{other.view}</span>
-                        {other.area != null && <strong>{other.area} m²</strong>}
+                    <div className={homeStyles.roomContent}>
+                      <p className={homeStyles.roomMeta}>
+                        <span className={homeStyles.roomTier}>{cabinTier(other, locale) ?? cabin.cruise.name}</span>
+                        {other.area != null && <span className={homeStyles.roomArea}>{other.area} m²</span>}
+                      </p>
+                      <h3><SmartLink href={cabinPath(locale, other)}>{other.name}</SmartLink></h3>
+                      <p className={homeStyles.roomHighlights}>{cabinHighlights(other, locale).join(' · ')}</p>
+                      {other.summary && <p className={homeStyles.roomSummary}>{other.summary}</p>}
+                      <div className={homeStyles.roomCta}>
+                        <TextLink href={cabinPath(locale, other)}>{t.home.discoverSuite}</TextLink>
                       </div>
-                      <h3>{other.name}</h3>
-                      {other.summary && <p>{other.summary}</p>}
-                      <span className={s.cardLink}><TextLink href={cabinPath(locale, other)}>{c.viewCabin}</TextLink></span>
                     </div>
                   </article>
                 ))}
-              </div>
+              </Carousel>
             </div>
           </section>
         )}

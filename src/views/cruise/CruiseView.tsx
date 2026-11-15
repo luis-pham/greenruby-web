@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { activityDuration } from '@/lib/minutes';
 import { Booking } from '@/components/booking';
 import { JournalLink } from '@/components/journal/JournalLink';
 import { PageHero, SiteFooter, type Chrome } from '@/components/layout';
@@ -48,9 +49,9 @@ export function CruiseView({ cruise, index, chrome, places = [] }: { cruise: Cru
   const info = siteInfo(site);
 
   const facts = [
-    cruise.length != null && { label: c.length, value: `${cruise.length} m`, caption: c.lengthCaption },
+    cruise.length != null && { label: c.length, value: `${cruise.length} m`, caption: '' },
     cruise.capacity != null && { label: c.capacity, value: String(cruise.capacity), caption: c.capacityCaption },
-    cruise.totalFloor != null && { label: c.decks, value: String(cruise.totalFloor), caption: c.decksCaption },
+    cruise.totalFloor != null && { label: c.decks, value: String(cruise.totalFloor), caption: cruise.totalCabin != null ? c.decksCaption(cruise.totalCabin) : '' },
     cruise.yearBuilt != null && { label: c.built, value: String(cruise.yearBuilt), caption: c.builtCaption },
   ].filter((f): f is { label: string; value: string; caption: string } => Boolean(f));
 
@@ -95,7 +96,7 @@ export function CruiseView({ cruise, index, chrome, places = [] }: { cruise: Cru
               {facts.map((f) => (
                 <div key={f.label} className={cabinStyles.fact}>
                   <dt>{f.label}</dt>
-                  <dd><span className={cabinStyles.factValue}>{f.value}</span><span className={cabinStyles.factCaption}>{f.caption}</span></dd>
+                  <dd><span className={cabinStyles.factValue}>{f.value}</span>{f.caption && <span className={cabinStyles.factCaption}>{f.caption}</span>}</dd>
                 </div>
               ))}
             </dl>
@@ -214,7 +215,7 @@ export function CruiseView({ cruise, index, chrome, places = [] }: { cruise: Cru
                 {cruise.experiences.slice(0, 3).map((e, i) => (
                   <article key={e.id} className={s.moment}>
                     <div className={s.momentImg}>{e.image && <Image src={e.image} alt={e.name} fill sizes="(max-width: 600px) 100vw, 33vw" />}</div>
-                    <span className={s.momentIndex}>{pad(i + 1)}{e.duration ? ` / ${/^\d+$/.test(e.duration) ? `${e.duration} min` : e.duration}` : ''}</span>
+                    <span className={s.momentIndex}>{pad(i + 1)}{e.duration ? ` / ${activityDuration(locale, e.duration)}` : ''}</span>
                     <h3><SmartLink href={experiencePath(locale, e.slug, e.id)}>{e.name}</SmartLink></h3>
                     {e.summary && <p>{e.summary}</p>}
                   </article>

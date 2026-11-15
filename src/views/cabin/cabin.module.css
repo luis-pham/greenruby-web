@@ -157,18 +157,8 @@
 .onRequest p + p { margin-top: 12px; }
 .rateInclusions a { color: var(--color-neutral-white); text-decoration: underline; text-underline-offset: 3px; }
 
-/* ---------- Other cabins ---------- */
-.cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
-.card { display: flex; flex-direction: column; background: var(--bg-page); }
-.cardPhoto { position: relative; aspect-ratio: 1.12 / 1; overflow: hidden; background: linear-gradient(135deg, #60746a, #b3aa93); }
-.cardPhoto img { object-fit: cover; transition: transform 0.55s; }
-.card:hover .cardPhoto img { transform: scale(1.035); }
-.cardBody { display: flex; flex-direction: column; flex: 1; padding: 25px 25px 28px; }
-.cardMeta { display: flex; justify-content: space-between; align-items: center; gap: 12px; color: var(--text-accent); font-size: var(--font-size-label); letter-spacing: 0.04em; }
-.cardMeta strong { font: var(--font-weight-regular) 24px var(--font-family-serif); color: var(--text-heading); white-space: nowrap; }
-.card h3 { margin: 19px 0 13px; font-size: 27px; line-height: 1.22; }
-.card p { margin: 0 0 24px; font-size: 13px; line-height: 1.85; color: var(--text-muted); }
-.cardLink { margin-top: auto; align-self: flex-start; }
+/* ---------- Other cabins (carousel cards from the homepage) ---------- */
+.section .moreImg { aspect-ratio: 16 / 9; }
 
 /* ---------- Closing CTA ---------- */
 .cta { position: relative; isolation: isolate; overflow: hidden; display: grid; place-items: center; min-height: 440px; text-align: center; color: var(--color-neutral-white); background: var(--color-green-900); }
@@ -182,7 +172,6 @@
 @media (max-width: 1160px) {
   .fact { padding: 26px 20px; }
   .overview { gap: 48px; }
-  .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 900px) {
   .factsInner { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -200,7 +189,6 @@
   .factValue { font-size: 22px; }
   .subnav { margin-top: 28px; gap: 28px; }
   .comforts { padding: 28px 22px; }
-  .cards { grid-template-columns: 1fr; }
 }
 
 /* Cruise page hero: booking bar under the hero links (CruiseView reuses this module). */
