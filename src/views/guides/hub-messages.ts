@@ -25,9 +25,22 @@ const en = {
     ship: (bay: string) => `The ship that sails ${bay}: cabins, facilities and itineraries.`,
   },
   journal: { title: 'From the Travel Journal', lede: 'Recent articles on seasons, comparisons and sustainability.', all: 'All Travel Journal articles' },
+  // SEO pass 2026-11-15 (EN only): a short overview of the bay, so the hub answers "what is Ha Long Bay" before it
+  // sends readers on. Facts as published in the guides (UNESCO extension 2023, transfer times, seasons); [label](target)
+  // links resolve through lib/copy-links.
+  overview: {
+    title: 'About Ha Long Bay and Lan Ha Bay',
+    paragraphs: [
+      'Ha Long Bay, on the coast of Quang Ninh province in north-east Vietnam, is a seascape of limestone islands and islets rising from sheltered water. It is a UNESCO World Heritage Site; in 2023 the listing was extended to the Cat Ba Archipelago, which takes in Lan Ha Bay.',
+      'Visitors come for the karst scenery, show caves such as [Sung Sot Cave](/destinations/sung-sot-cave), viewpoints like [Ti Top Island](/destinations/ti-top-island), floating villages and quiet lagoons. [Places to visit](destinations) describes each stop and what a visit involves.',
+      'Ha Long Bay is the classic core, with the best-known sights close together and busier routes. Lan Ha Bay, off Cat Ba Island, is calmer, with lagoons, small beaches and village life. Our [comparison of the two bays](bayComparison) sets out the differences.',
+      'Most travellers see the bay from a boat, and an overnight stay adds the sunset and the early morning on the water after the day boats have gone. Green Ruby’s [overnight itineraries](itinerary) run 2 days 1 night or 3 days 2 nights, from February 2027.',
+      'Late October to November usually brings the most settled weather, while summer is warm but is also storm season: see the [weather month by month](bestTime). From Hanoi, the drive to Tuan Chau takes around 2.5–3 hours; the [Hanoi to Halong Bay guide](transfer) compares limousines, private cars and buses.',
+    ],
+  },
 };
 
-export type HubMessages = typeof en;
+export type HubMessages = Omit<typeof en, 'overview'> & { overview?: { title: string; paragraphs: string[] } };
 
 const vi: HubMessages = {
   metaTitle: 'Cẩm nang du lịch Hạ Long & Lan Hạ',

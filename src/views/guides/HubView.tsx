@@ -1,4 +1,6 @@
 import { PageIntro, SiteFooter, type Chrome } from '@/components/layout';
+import { copyLinks } from '@/lib/copy-links';
+import { RichText } from './Rich';
 import { GuideCards, LinkChips, TravelLinksSection, type GuideCard } from '@/components/sections/TravelLinks';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { TextLink } from '@/components/ui';
@@ -81,6 +83,15 @@ export function HubView({
       />
 
       <main>
+        {m.overview && (
+          <section className={`container ${s.hubOverview}`} aria-labelledby="overview-title">
+            <h2 id="overview-title">{m.overview.title}</h2>
+            {m.overview.paragraphs.map((p, i) => (
+              <p key={i}><RichText text={p} resolve={copyLinks(locale, chrome.site)} /></p>
+            ))}
+          </section>
+        )}
+
         <TravelLinksSection id="plan" title={m.plan.title} lede={m.plan.lede}>
           <GuideCards items={plan} />
         </TravelLinksSection>

@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { topicH1 } from '@/views/topic-headings';
 import type { ReactNode } from 'react';
 import { PageIntro, SiteFooter, type Chrome } from '@/components/layout';
 import { FaqList as FaqAccordion, faqPageSchema } from '@/components/sections/Faq';
@@ -78,9 +79,9 @@ export function FaqView({ list, chrome }: { list: FaqList; chrome: Chrome }) {
         title={
           current
             ? f.categoryH1 ? f.categoryH1(current.name) : <>{current.name}{topicJoin(locale)}<em>{f.breadcrumb}</em></>
-            : f.topicH1 ?? <>{f.heroTitle}{wordSpace(locale)}<em>{f.heroTitleEm}</em></>
+            : topicH1(locale, 'faq') ?? <>{f.heroTitle}{wordSpace(locale)}<em>{f.heroTitleEm}</em></>
         }
-        tagline={!current && f.topicH1 ? <>{f.heroTitle}{wordSpace(locale)}{f.heroTitleEm}</> : undefined}
+        tagline={!current && topicH1(locale, 'faq') ? <>{f.heroTitle}{wordSpace(locale)}{f.heroTitleEm}</> : undefined}
         lead={f.heroBody}
         actions={
           <>

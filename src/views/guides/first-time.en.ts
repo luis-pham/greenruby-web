@@ -50,7 +50,7 @@ const firstTime: GuideContent = {
             ],
           },
         },
-        { p: 'Both Green Ruby ships check guests in at Tuan Chau; Green Ruby 2 guests then continue by tender to Gia Luan Pier to board on Lan Ha Bay. See every stop on the [destinations map](destinations).' },
+        { p: 'Both ships on [Green Ruby’s Ha Long Bay and Lan Ha Bay cruises](/) check guests in at Tuan Chau; Green Ruby 2 guests then continue by tender to Gia Luan Pier to board on Lan Ha Bay. See every stop on the [destinations map](destinations).' },
       ],
     },
     {

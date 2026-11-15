@@ -44,6 +44,12 @@ const ARTICLES = {
     de: '/de/blog/ziele-und-reiserouten/halong-bucht-oder-lan-ha-bucht.html',
     ko: '/ko/blog/destinations-itineraries/ha-long-bay-vs-lan-ha-bay-which-cruise.html',
   },
+  // EN 235 / VI 240: how to choose a luxury cruise (star labels, cabins, inclusions, questions to ask). Linked from the
+  // home FAQ intro (SEO pass 2026-11-15); other languages fall back to the English article.
+  luxuryChoice: {
+    en: '/blog/travel-tips/how-to-choose-luxury-halong-bay-cruise.html',
+    vi: '/vi/blog/hanh-trinh/kinh-nghiem-chon-du-thuyen-ha-long-cao-cap.html',
+  },
 } as const satisfies Record<string, { en: string; vi: string } & Partial<Record<Locale, string>>>;
 
 export type GuideArticle = keyof typeof ARTICLES;
@@ -81,6 +87,7 @@ export function guideLinks(locale: Locale, hiddenPages: readonly string[] = [], 
     destinations: hub('destinations'),
     transfer: hub('guideTransfer'),
     luxuryPillar: guideArticlePath(locale, 'luxuryPillar', publicSections),
+    luxuryChoice: guideArticlePath(locale, 'luxuryChoice', publicSections),
   };
 }
 

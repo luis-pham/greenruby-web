@@ -19,6 +19,7 @@ export const OWN_CHECKS = {
   'src/views/guides/operators.ts': 'Travel guides: operator registry (shown rows have ja; hidden rows never render)',
   'src/views/guides/OperatorTable.tsx': 'Travel guides: operator table labels and ja formatting',
   'src/views/guides/hub-messages.ts': 'Travel guides hub copy (en/vi/ja objects)',
+  'src/views/topic-headings.ts': 'SEO topic H1s for the experiences, FAQ and services hubs: en and vi only by design; other languages keep their slogan H1',
 };
 
 /** Not copy: URL segments, URL paths, locale metadata, components or channel keys. */

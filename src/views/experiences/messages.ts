@@ -171,11 +171,9 @@ const en = {
   detailCtaBody: 'Discover thoughtfully crafted itineraries that bring you closer to the natural wonder of Ha Long Bay.',
 };
 
-/** Optional, vi only (SEO pass 2026-11-15): an H1 naming the topic; heroTitle/heroTitleEm then show under it. */
-export type ExperienceMessages = typeof en & { topicH1?: string };
+export type ExperienceMessages = typeof en;
 
 const vi: ExperienceMessages = {
-  topicH1: 'Hoạt động trên du thuyền Hạ Long & Lan Hạ',
   metaTitle: 'Hoạt động trải nghiệm trên du thuyền vịnh Hạ Long & Lan Hạ',
   metaDescription:
     'Khám phá cuộc sống trên du thuyền Green Ruby: chèo kayak, lớp học nấu ăn Việt, chăm sóc sức khỏe, ngắm hoàng hôn và những khám phá trên vịnh Hạ Long và Lan Hạ.',

@@ -19,9 +19,21 @@ describe('itineraryHeading', () => {
   });
 
   it('returns the CMS name unchanged for every other language and for vi rows without a bay', () => {
-    for (const locale of ['en', 'ja', 'fr', 'es', 'de', 'ko'] as const) {
+    for (const locale of ['ja', 'fr', 'es', 'de', 'ko'] as const) {
       assert.equal(itineraryHeading(locale, { name: 'The Ha Long Escape – 2 Days 1 Night', bay: 'ha-long', duration: 2 }), 'The Ha Long Escape – 2 Days 1 Night');
     }
     assert.equal(plain(itineraryHeading('vi', { name: '2 ngày 1 đêm – Một Thoáng Hạ Long', bay: null, duration: 2 })), '2 ngày 1 đêm – Một Thoáng Hạ Long');
+  });
+
+  it('composes the English H1 from the product name, bay and duration', () => {
+    assert.equal(plain(itineraryHeading('en', { name: 'The Halong Escape - 2 Days 1 Night', bay: 'ha-long', duration: 2 })), 'The Halong Escape: Ha Long Bay Cruise, 2 Days 1 Night');
+    assert.equal(plain(itineraryHeading('en', { name: 'The Halong Immersion - 3 Days 2 Nights', bay: 'ha-long', duration: 3 })), 'The Halong Immersion: Ha Long Bay Cruise, 3 Days 2 Nights');
+    assert.equal(plain(itineraryHeading('en', { name: 'The Lan Ha Escape - 2 Days 1 Night', bay: 'lan-ha', duration: 2 })), 'The Lan Ha Escape: Lan Ha Bay Cruise, 2 Days 1 Night');
+    assert.equal(plain(itineraryHeading('en', { name: 'The Lan Ha Immersion – 3 Days 2 Nights', bay: 'lan-ha', duration: 3 })), 'The Lan Ha Immersion: Lan Ha Bay Cruise, 3 Days 2 Nights');
+  });
+
+  it('keeps an English name it cannot parse, and English rows without a bay', () => {
+    assert.equal(itineraryHeading('en', { name: 'Private Charter', bay: 'ha-long', duration: 2 }), 'Private Charter');
+    assert.equal(itineraryHeading('en', { name: 'The Halong Escape - 2 Days 1 Night', bay: null, duration: 2 }), 'The Halong Escape - 2 Days 1 Night');
   });
 });

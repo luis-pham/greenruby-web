@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { topicH1 } from '@/views/topic-headings';
 import { PageIntro, SiteFooter, type Chrome } from '@/components/layout';
 import { FaqList, type FaqItem } from '@/components/sections/Faq';
 import { organizationRef } from '@/lib/organization';
@@ -63,8 +64,8 @@ export function ServicesView({
         currentHref={path}
         crumbs={[{ label: t.breadcrumb.home, href: homePath(locale) }, { label: m.breadcrumb, href: path }]}
         eyebrow={m.hero.eyebrow}
-        title={m.topicH1 ?? <>{m.hero.title}{wordSpace(locale)}<em>{m.hero.titleEm}</em></>}
-        tagline={m.topicH1 ? <>{m.hero.title}{wordSpace(locale)}{m.hero.titleEm}</> : undefined}
+        title={topicH1(locale, 'services') ?? <>{m.hero.title}{wordSpace(locale)}<em>{m.hero.titleEm}</em></>}
+        tagline={topicH1(locale, 'services') ? <>{m.hero.title}{wordSpace(locale)}{m.hero.titleEm}</> : undefined}
         lead={m.hero.body}
         actions={
           <>

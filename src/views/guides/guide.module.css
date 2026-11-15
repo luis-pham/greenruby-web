@@ -185,3 +185,9 @@
 .sources ul { margin: 0; padding-left: 18px; }
 .sources li { margin: 6px 0; }
 .sources a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+
+/* Travel guide hub overview (EN, SEO pass 2026-11-15): a short reading column before the link sections. */
+.hubOverview { max-width: 860px; padding-top: var(--space-14); padding-bottom: var(--space-4); color: var(--text-body); font-size: var(--font-size-base); line-height: var(--font-leading-relaxed); }
+.hubOverview h2 { margin: 0 0 var(--space-6); color: var(--text-heading); font-size: clamp(28px, 3vw, 40px); line-height: 1.2; letter-spacing: var(--font-tracking-heading); }
+.hubOverview p { margin: 0 0 var(--space-5); }
+.hubOverview a { color: var(--text-heading); text-decoration: underline; text-decoration-color: var(--color-gold-500); text-underline-offset: 3px; }

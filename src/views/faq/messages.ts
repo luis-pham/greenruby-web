@@ -67,14 +67,12 @@ const en = {
 };
 
 /**
- * Optional, vi only (SEO pass 2026-11-15): an H1 that names the topic, with the brand line moved under it, and the
- * category H1 in natural Vietnamese order ("Câu hỏi thường gặp: An toàn & Khách hàng"). Languages without them render
- * exactly as before.
+ * Optional, vi only (SEO pass 2026-11-15): the category H1 in natural Vietnamese order ("Câu hỏi thường gặp: An toàn &
+ * Khách hàng"). Languages without it render exactly as before. Topic H1s of the hubs: views/topic-headings.ts.
  */
-export type FaqMessages = typeof en & { topicH1?: string; categoryH1?: (topic: string) => string };
+export type FaqMessages = typeof en & { categoryH1?: (topic: string) => string };
 
 const vi: FaqMessages = {
-  topicH1: 'Câu hỏi thường gặp về du thuyền Green Ruby',
   categoryH1: (topic: string) => `Câu hỏi thường gặp: ${topic}`,
   breadcrumb: 'Câu hỏi thường gặp',
   metaTitle: 'Câu hỏi thường gặp',

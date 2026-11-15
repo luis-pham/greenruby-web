@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { topicH1 } from '@/views/topic-headings';
 import type { ReactNode } from 'react';
 import { PageIntro, SiteFooter, type Chrome } from '@/components/layout';
 import { FaqList } from '@/components/sections/Faq';
@@ -92,8 +93,8 @@ export function ExperiencesView({ list, chrome, m }: { list: ExperienceList; chr
         currentHref={path}
         crumbs={[{ label: t.breadcrumb.home, href: homePath(locale) }, { label: m.breadcrumb, href: path }]}
         eyebrow={m.heroEyebrow}
-        title={m.topicH1 ?? <>{m.heroTitle}{wordSpace(locale)}<em>{m.heroTitleEm}</em></>}
-        tagline={m.topicH1 ? <>{m.heroTitle}{wordSpace(locale)}{m.heroTitleEm}</> : undefined}
+        title={topicH1(locale, 'experiences') ?? <>{m.heroTitle}{wordSpace(locale)}<em>{m.heroTitleEm}</em></>}
+        tagline={topicH1(locale, 'experiences') ? <>{m.heroTitle}{wordSpace(locale)}{m.heroTitleEm}</> : undefined}
         lead={m.heroBody}
         actions={
           <>

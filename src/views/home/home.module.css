@@ -438,8 +438,8 @@
 .faq { padding: 100px 0; background: var(--bg-surface); }
 .faqGrid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 120px; }
 .faqGrid > div > p { color: var(--text-muted); font-size: var(--font-size-base); line-height: 1.9; }
-/* In-copy guide link (vi FAQ intro, SEO pass 2026-11-15). */
-.faqGrid > div > p a { color: var(--text-accent); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+/* In-copy links (home fleet intro and FAQ intro, SEO pass 2026-11-15). */
+.fleetIntro p a, .faqGrid > div > p a { color: var(--text-accent); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
 /* ---------- Closing banner ---------- */
 .quote { position: relative; isolation: isolate; overflow: hidden; display: grid; place-items: center; min-height: 470px; text-align: center; color: var(--color-neutral-white); background: #1e5550; }
 .quoteImage { z-index: -1; object-fit: cover; object-position: center 54%; filter: brightness(0.37) saturate(0.7); }

@@ -134,11 +134,9 @@ const en = {
   },
 };
 
-/** Optional, vi only (SEO pass 2026-11-15): an H1 naming the topic; hero.title/titleEm then show under it. */
-export type ServicesMessages = typeof en & { topicH1?: string };
+export type ServicesMessages = typeof en;
 
 const vi: ServicesMessages = {
-  topicH1: 'Dịch vụ trên du thuyền Green Ruby',
   metaTitle: 'Dịch vụ cao cấp & Sự kiện riêng',
   metaDescription:
     'Xe đưa đón, spa, chụp ảnh, tiệc kỷ niệm và thuê trọn tàu trên du thuyền Green Ruby tại Vịnh Hạ Long và Lan Hạ.',

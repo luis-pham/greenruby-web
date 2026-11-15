@@ -19,7 +19,7 @@ type Params = { params: Promise<{ file: string }> };
 const SEO: Record<number, { title: string; description: string }> = {
   3: {
     title: 'Green Ruby 1 | Luxury Ha Long Bay Cruise, 46 Cabins',
-    description: 'Green Ruby 1: a 46-cabin eco-luxury cruise on Ha Long Bay with a 120 m² suite, solar-assisted power and seawater cooling. Pre-book now.',
+    description: 'Green Ruby 1: a 46-cabin ship on Ha Long Bay for overnight cruises of 2 or 3 days, with suites up to 120 m², solar-assisted power and seawater cooling.',
   },
   4: {
     title: 'Green Ruby 2 | Quiet Luxury Lan Ha Bay Cruise, 46 Cabins',

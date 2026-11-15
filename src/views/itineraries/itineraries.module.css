@@ -149,3 +149,6 @@
 
 /* H1 second line (keyword H1 above, the brand line in italics). */
 .titleTag { display: block; margin-top: 0.3em; color: var(--text-inverse-accent); font-size: 0.34em; font-style: italic; line-height: 1.25; letter-spacing: 0; word-spacing: normal; }
+
+/* In-copy link in the bays intro (EN, SEO pass 2026-11-15). */
+.bays p a { color: var(--text-heading); text-decoration: underline; text-decoration-color: var(--color-gold-500); text-underline-offset: 3px; }

@@ -12,6 +12,8 @@ import { absoluteUrl } from '@/lib/site-url';
 import { TripFilter } from './TripFilter';
 import s from './itineraries.module.css';
 import { labelled, wordSpace } from '@/lib/typography';
+import { copyLinks } from '@/lib/copy-links';
+import { RichText } from '@/views/guides/Rich';
 
 const pad = (n: number) => String(n).padStart(2, '0');
 
@@ -154,7 +156,7 @@ export function ItinerariesView({
                   <Eyebrow inverse>{l.compareEyebrow}</Eyebrow>
                   <h2 className={s.heading} id="compare-title">{l.compareTitle}{wordSpace(locale)}<em>{l.compareTitleEm}</em></h2>
                 </div>
-                <p>{l.compareBody}</p>
+                <p><RichText text={l.compareBody} resolve={copyLinks(locale, chrome.site)} /></p>
               </div>
               <div className={s.compareGrid}>
                 {durations.slice(0, 2).map((days, i) => {
@@ -187,7 +189,7 @@ export function ItinerariesView({
                   <Eyebrow>{l.baysEyebrow}</Eyebrow>
                   <h2 className={s.heading} id="bays-title">{l.baysTitle}{wordSpace(locale)}<em>{l.baysTitleEm}</em></h2>
                 </div>
-                <p>{l.baysBody}</p>
+                <p><RichText text={l.baysBody} resolve={copyLinks(locale, chrome.site)} /></p>
               </div>
               <div className={s.bayPair}>
                 {bays.map((bay, i) => {
