@@ -26,6 +26,13 @@ const en = {
     ship: (bay: string) => `The ship that sails ${bay}: cabins, facilities and itineraries.`,
   },
   journal: { title: 'From the Travel Journal', lede: 'Recent articles on seasons, comparisons and sustainability.', all: 'All Travel Journal articles' },
+  // Phase 2 (2026-11-15, EN only): the overnight-cruise planning articles grouped under "Choose your cruise" (they were
+  // only reachable through the generic journal list). Paths are the English articles; other languages have none.
+  cruisePlanning: [
+    ['/blog/travel-tips/how-to-choose-luxury-halong-bay-cruise.html', 'How to choose a luxury cruise', 'Twelve questions to ask before you book: the route, the cabin, what is included and the booking terms.'],
+    ['/blog/destinations/halong-bay-2-days-1-night-vs-3-days-2-nights.html', 'One night or two?', 'How a 2 days 1 night cruise compares with 3 days 2 nights, and who each one suits.'],
+    ['/blog/travel-tips/halong-bay-day-cruise-vs-overnight.html', 'Day cruise or overnight?', 'What a night on the bay adds, and when a day trip from Hanoi is enough.'],
+  ] as [string, string, string][],
   // SEO pass 2026-11-15 (EN only): a short overview of the bay, so the hub answers "what is Ha Long Bay" before it
   // sends readers on. Facts as published in the guides (UNESCO extension 2023, transfer times, seasons); [label](target)
   // links resolve through lib/copy-links.
@@ -41,7 +48,10 @@ const en = {
   },
 };
 
-export type HubMessages = Omit<typeof en, 'overview'> & { overview?: { title: string; paragraphs: string[] } };
+export type HubMessages = Omit<typeof en, 'overview' | 'cruisePlanning'> & {
+  overview?: { title: string; paragraphs: string[] };
+  cruisePlanning?: [href: string, title: string, body: string][];
+};
 
 const vi: HubMessages = {
   metaTitle: 'Cẩm nang du lịch Hạ Long & Lan Hạ',

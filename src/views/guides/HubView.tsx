@@ -49,6 +49,7 @@ export function HubView({
   const cruiseCards: GuideCard[] = [
     { href: sectionHref(locale, 'itinerary', site.publicSections), title: m.cruises.itineraries[0], body: m.cruises.itineraries[1] },
     ...cruises.map((c) => ({ href: detailPath(locale, 'cruise', c.slug, c.id), title: c.name, body: c.bay ? m.cruises.ship(dm.bays[c.bay]) : null })),
+    ...(m.cruisePlanning ?? []).map(([href, title, body]) => ({ href, title, body })),
     { href: g.luxuryPillar, title: m.cruises.luxury[0], body: m.cruises.luxury[1] },
   ];
   // Journal articles not already shown above.
