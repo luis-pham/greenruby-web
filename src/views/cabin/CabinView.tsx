@@ -35,7 +35,6 @@ function formatPrice(value: number, currency: 'USD' | 'VND', locale: Locale) {
   }).format(value);
 }
 
-const pad = (n: number) => String(n).padStart(2, '0');
 
 export function CabinView({
   cabin,
@@ -88,7 +87,6 @@ export function CabinView({
   const tabs = [
     { id: 'overview', label: c.tabs.overview, show: true },
     { id: 'voyages', label: t.cruise.tabs.journeys, show: voyages.length > 0 },
-    { id: 'space', label: c.tabs.space, show: cabin.rooms.length > 0 },
     { id: 'rates', label: c.tabs.rates, show: true },
     { id: 'more', label: c.tabs.more, show: cabin.otherCabins.length > 0 },
   ].filter((tab) => tab.show);
@@ -267,25 +265,6 @@ export function CabinView({
                   </p>
                 </div>
               )}
-            </div>
-          </section>
-        )}
-
-        {cabin.rooms.length > 0 && (
-          <section className={cx(s.section, s.surface)} id="space" aria-labelledby="space-title">
-            <div className="container">
-              <SectionHeading id="space-title" eyebrow={c.spaceEyebrow} title={c.spaceHeading} description={c.spaceIntro} />
-              <ol className={s.rooms}>
-                {cabin.rooms.map((room, i) => (
-                  <li key={i} className={s.room}>
-                    <span className={s.roomNum} aria-hidden="true">{pad(i + 1)}</span>
-                    <div>
-                      <h3>{room.title}</h3>
-                      {room.description && <p>{room.description}</p>}
-                    </div>
-                  </li>
-                ))}
-              </ol>
             </div>
           </section>
         )}
