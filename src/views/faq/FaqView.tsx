@@ -75,7 +75,12 @@ export function FaqView({ list, chrome }: { list: FaqList; chrome: Chrome }) {
           ...(current ? [{ label: current.name, href: faqPath(locale, current.slug) }] : []),
         ]}
         eyebrow={f.heroEyebrow}
-        title={current ? <>{current.name}{topicJoin(locale)}<em>{f.breadcrumb}</em></> : <>{f.heroTitle}{wordSpace(locale)}<em>{f.heroTitleEm}</em></>}
+        title={
+          current
+            ? f.categoryH1 ? f.categoryH1(current.name) : <>{current.name}{topicJoin(locale)}<em>{f.breadcrumb}</em></>
+            : f.topicH1 ?? <>{f.heroTitle}{wordSpace(locale)}<em>{f.heroTitleEm}</em></>
+        }
+        tagline={!current && f.topicH1 ? <>{f.heroTitle}{wordSpace(locale)}{f.heroTitleEm}</> : undefined}
         lead={f.heroBody}
         actions={
           <>

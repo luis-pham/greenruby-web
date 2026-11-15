@@ -21,6 +21,20 @@ import { JourneyTabs } from './JourneyTabs';
 import { ShipTabs } from './ShipTabs';
 import s from './home.module.css';
 import { headline, wordSpace } from '@/lib/typography';
+import { guideLinks } from '@/lib/guide-links';
+
+/**
+ * Copy may carry one `{link:anchor text}` marker (vi home FAQ intro, 2026-11-15 SEO pass): the anchor links to the
+ * first-time guide, or stays plain text while that guide is switched off. Copy without a marker is returned as is,
+ * so the other languages render exactly as before.
+ */
+function withGuideLink(text: string, href: string | null): ReactNode {
+  const m = /\{link:([^}]+)\}/.exec(text);
+  if (!m) return text;
+  const before = text.slice(0, m.index);
+  const after = text.slice(m.index + m[0].length);
+  return <>{before}{href ? <SmartLink href={href}>{m[1]}</SmartLink> : m[1]}{after}</>;
+}
 
 const pad = (n: number) => String(n).padStart(2, '0');
 
@@ -429,7 +443,7 @@ export function HomeView({ page, chrome, allCabins = [] }: { page: Homepage; chr
               <div>
                 <Eyebrow>{h.faqEyebrow}</Eyebrow>
                 <Heading locale={locale} id="faq-title" title={h.faqTitle} em={h.faqTitleEm} />
-                <p>{h.faqBody}</p>
+                <p>{withGuideLink(h.faqBody, guideLinks(locale, chrome.site.hiddenPages, chrome.site.publicSections).firstTime)}</p>
                 <TextLink href={sectionHref(locale, 'faq', chrome.site.publicSections)}>{h.faqLink}</TextLink>
               </div>
               <FaqList items={page.faqs} schema={false} />

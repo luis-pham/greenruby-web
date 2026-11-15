@@ -32,7 +32,7 @@ const vi: typeof en = {
   regionLabel: 'Chọn ngày và đặt chỗ',
   from: 'Từ',
   perCabin: '/ cabin',
-  priceOnRequest: 'Giá tốt nhất theo yêu cầu',
+  priceOnRequest: 'Nhận báo giá theo ngày khởi hành',
   priceLabel: 'Giá',
   onRequest: 'Theo yêu cầu',
   voyage: 'Hành trình',

@@ -17,6 +17,7 @@ import type { DestinationSummary } from '@/views/destinations/data';
 import { placeCard } from '@/views/destinations/cards';
 import { formatDate } from '@/views/itineraries/ItinerariesView';
 import s from './itinerary.module.css';
+import { itineraryHeading } from './heading';
 import { wordSpace } from '@/lib/typography';
 
 const pad = (n: number) => String(n).padStart(2, '0');
@@ -48,7 +49,7 @@ export function ItineraryView({ itinerary: it, chrome, places = [] }: { itinerar
           { label: it.name, href: url },
         ]}
         eyebrow={[bayName, it.cruise.name, d.durationLabel(it.duration)].filter(Boolean).join(' · ')}
-        title={it.name}
+        title={itineraryHeading(locale, it)}
         subtitle={it.description}
         actions={
           <>

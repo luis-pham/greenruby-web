@@ -238,6 +238,16 @@ a.langOption:focus-visible { color: var(--text-inverse-accent); background: rgba
   letter-spacing: var(--font-tracking-display);
 }
 .pageIntroTitle em { font-style: italic; color: var(--text-accent); }
+/* Brand line under a topic H1 (vi hubs, SEO pass 2026-11-15): looks like the old italic half of the title, outside the H1. */
+.pageIntroTagline {
+  margin: var(--space-3) 0 0;
+  max-width: 760px;
+  color: var(--text-accent);
+  font-family: var(--font-family-serif);
+  font-size: var(--font-size-xl);
+  font-style: italic;
+  line-height: var(--font-leading-snug);
+}
 .pageIntroAside { padding-bottom: var(--space-2); }
 .pageIntroLead { margin: 0; color: var(--text-muted); font-size: var(--font-size-base); line-height: var(--font-leading-relaxed); }
 .pageIntroActions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4) var(--space-6); margin-top: var(--space-6); }
@@ -263,6 +273,16 @@ a.langOption:focus-visible { color: var(--text-inverse-accent); background: rgba
   letter-spacing: -0.055em;
 }
 .heroTitle em { color: var(--text-inverse-accent); }
+/* Brand line under a topic H1 (vi hubs, SEO pass 2026-11-15), the same look as the itinerary hub's title tag. */
+.heroTagline {
+  margin: -10px 0 23px;
+  max-width: 970px;
+  color: var(--text-inverse-accent);
+  font-family: var(--font-family-serif);
+  font-size: clamp(20px, 2.4vw, 36px);
+  font-style: italic;
+  line-height: 1.25;
+}
 /* Detail pages (cruise, cabin, itinerary): a readable lead under the serif H1, never more than 3 lines
    (the full text is repeated in the intro section below). */
 .heroSubtitle {

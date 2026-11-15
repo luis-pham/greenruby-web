@@ -231,6 +231,7 @@ export function PageIntro({
   actions,
   meta,
   stacked,
+  tagline,
 }: {
   chrome: Chrome;
   currentHref?: string;
@@ -242,6 +243,8 @@ export function PageIntro({
   meta?: ReactNode;
   /** Lead under the title (not beside it), title across the full width: at most two lines on desktop. */
   stacked?: boolean;
+  /** A brand line shown under the H1 but outside it (vi hubs whose H1 now names the topic, SEO pass 2026-11-15). */
+  tagline?: ReactNode;
 }) {
   return (
     <>
@@ -253,6 +256,7 @@ export function PageIntro({
             <div>
               <Eyebrow>{eyebrow}</Eyebrow>
               <h1 className={s.pageIntroTitle}>{title}</h1>
+              {tagline && <p className={s.pageIntroTagline}>{tagline}</p>}
             </div>
             {(lead || actions || meta) && (
               <div className={s.pageIntroAside}>
@@ -309,6 +313,7 @@ export function PageHero({
   description,
   actions,
   compact,
+  tagline,
 }: {
   chrome: Chrome;
   currentHref?: string;
@@ -321,6 +326,8 @@ export function PageHero({
   description?: ReactNode;
   actions?: ReactNode;
   compact?: boolean;
+  /** A brand line shown under the H1 but outside it (vi hubs whose H1 now names the topic, SEO pass 2026-11-15). */
+  tagline?: ReactNode;
 }) {
   return (
     <>
@@ -333,6 +340,7 @@ export function PageHero({
             <Breadcrumb items={crumbs} label={chrome.t.breadcrumb.label} />
             <Eyebrow inverse>{eyebrow}</Eyebrow>
             <h1 className={s.heroTitle}>{title}</h1>
+            {tagline && <p className={s.heroTagline}>{tagline}</p>}
             {subtitle && <p className={s.heroSubtitle}>{subtitle}</p>}
             {description && <p className={s.heroDescription}>{description}</p>}
             {actions && <div className={s.heroActions}>{actions}</div>}

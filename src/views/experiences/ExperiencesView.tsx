@@ -92,7 +92,8 @@ export function ExperiencesView({ list, chrome, m }: { list: ExperienceList; chr
         currentHref={path}
         crumbs={[{ label: t.breadcrumb.home, href: homePath(locale) }, { label: m.breadcrumb, href: path }]}
         eyebrow={m.heroEyebrow}
-        title={<>{m.heroTitle}{wordSpace(locale)}<em>{m.heroTitleEm}</em></>}
+        title={m.topicH1 ?? <>{m.heroTitle}{wordSpace(locale)}<em>{m.heroTitleEm}</em></>}
+        tagline={m.topicH1 ? <>{m.heroTitle}{wordSpace(locale)}{m.heroTitleEm}</> : undefined}
         lead={m.heroBody}
         actions={
           <>

@@ -291,7 +291,8 @@ const vi: Messages = {
     faqEyebrow: 'Thông tin hữu ích',
     faqTitle: 'Trước khi',
     faqTitleEm: 'khởi hành.',
-    faqBody: 'Một vài thông tin giúp việc lên kế hoạch thêm nhẹ nhàng.',
+    faqBody:
+      'Một vài thông tin giúp việc lên kế hoạch thêm nhẹ nhàng. Đi lần đầu? Cẩm nang về {link:ngủ đêm trên du thuyền Hạ Long} giải đáp nên đi mấy đêm, mang gì và ngày lên tàu diễn ra thế nào.',
     faqLink: 'Xem tất cả câu hỏi',
     quoteEyebrow: 'Hành trình bắt đầu từ đây',
     quoteTitle: 'Bỏ lại những điều',

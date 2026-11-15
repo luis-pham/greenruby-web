@@ -63,7 +63,8 @@ export function ServicesView({
         currentHref={path}
         crumbs={[{ label: t.breadcrumb.home, href: homePath(locale) }, { label: m.breadcrumb, href: path }]}
         eyebrow={m.hero.eyebrow}
-        title={<>{m.hero.title}{wordSpace(locale)}<em>{m.hero.titleEm}</em></>}
+        title={m.topicH1 ?? <>{m.hero.title}{wordSpace(locale)}<em>{m.hero.titleEm}</em></>}
+        tagline={m.topicH1 ? <>{m.hero.title}{wordSpace(locale)}{m.hero.titleEm}</> : undefined}
         lead={m.hero.body}
         actions={
           <>

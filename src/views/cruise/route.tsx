@@ -23,7 +23,8 @@ const SEO: Record<number, { title: string; description: string }> = {
   },
   4: {
     title: 'Green Ruby 2 | Quiet Luxury Lan Ha Bay Cruise, 46 Cabins',
-    description: 'Green Ruby 2: a 46-cabin eco-luxury cruise on the quieter Lan Ha Bay, with Jacuzzi suites, kayaking beside the ship and fewer crowds. Pre-book now.',
+    // No kayaking claim: kayaking on the Cat Ba bays (Lan Ha) is suspended by the local authority (2026-11-15 SEO pass).
+    description: 'Green Ruby 2: a 46-cabin cruise on the quieter Lan Ha Bay, with Jacuzzi suites and unhurried days among hidden lagoons. First sailings in 2027.',
   },
   1: {
     title: 'Green Ruby 1 | Du Thuyền Hạng Sang Vịnh Hạ Long',
@@ -31,7 +32,7 @@ const SEO: Record<number, { title: string; description: string }> = {
   },
   2: {
     title: 'Green Ruby 2 | Du Thuyền Hạng Sang Yên Tĩnh Vịnh Lan Hạ',
-    description: 'Green Ruby 2: du thuyền eco-luxury 46 cabin trên Vịnh Lan Hạ yên tĩnh, suite Jacuzzi, chèo kayak ngay cạnh tàu, tránh xa đám đông.',
+    description: 'Green Ruby 2: du thuyền 46 phòng trên vịnh Lan Hạ yên tĩnh, với phòng suite có Jacuzzi và các trải nghiệm khám phá vịnh. Dự kiến khởi hành năm 2027.',
   },
 };
 
