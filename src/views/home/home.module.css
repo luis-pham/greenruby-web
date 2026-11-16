@@ -480,6 +480,8 @@
 }
 @media (max-width: 600px) {
   .hero { min-height: 800px; padding-bottom: 230px; }
+  /* Suite cards: landscape 4:3 on phones (the near-square crop wasted the narrow screen). */
+  .roomImg { aspect-ratio: 4 / 3; }
   .heroImage { object-position: 62% center; }
   .heroCopy { margin-top: 100px; }
   .heroTitle { font-size: 48px; line-height: 1.11; }
