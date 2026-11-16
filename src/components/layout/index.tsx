@@ -158,16 +158,16 @@ export function SiteNav({ locale, site, t, alternateHref, alternates, currentHre
       <style>{`@media (max-width:${collapseAt}px){.${s.navLinks}{display:none}.${s.mobileMenu}{display:block}}${gap < 28 ? `.${s.navLinks}{gap:${gap}px}` : ''}`}</style>
       <Brand locale={locale} site={site} eager />
       <ul className={s.navLinks}>
-        {desktopLinks.map((link) => (
-          <li key={link.href + link.label} className={s.navItem}>
+        {desktopLinks.map((link, i) => (
+          <li key={i} className={s.navItem}>
             <Anchor href={link.href} external={link.external} className={s.navLink}>
               <span aria-current={isCurrent(link) ? 'page' : undefined}>{link.label}</span>
               {link.children.length > 0 && <Chevron />}
             </Anchor>
             {link.children.length > 0 && (
               <ul className={s.dropdown}>
-                {link.children.map((child) => (
-                  <li key={child.href + child.label}>
+                {link.children.map((child, j) => (
+                  <li key={j}>
                     <Anchor href={child.href} external={child.external}>
                       <span aria-current={child.href === currentHref ? 'page' : undefined}>{child.label}</span>
                     </Anchor>
@@ -184,8 +184,8 @@ export function SiteNav({ locale, site, t, alternateHref, alternates, currentHre
           {t.nav.book} <span aria-hidden="true">↗︎</span>
         </SmartLink>
         <MobileMenu label={t.nav.openMenu}>
-          {links.map((link) => (
-            <div key={link.href + link.label}>
+          {links.map((link, i) => (
+            <div key={i}>
               <Anchor href={link.href} external={link.external}>{link.label}</Anchor>
               {link.children.length > 0 && (
                 <div className={s.mobileChildren}>

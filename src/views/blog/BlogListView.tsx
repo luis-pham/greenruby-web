@@ -6,7 +6,7 @@ import { DEFAULT_SOCIAL_IMAGE } from '@/lib/seo';
 import { siteInfo } from '@/lib/site-info';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink, cx, Eyebrow, SmartLink, TextLink } from '@/components/ui';
-import { homePath } from '@/lib/i18n';
+import { homePath, isLegacyLocale } from '@/lib/i18n';
 import { sectionHref } from '@/lib/section-links';
 import { absoluteImageUrl, absoluteUrl } from '@/lib/site-url';
 import type { ArticleList, CategoryNode } from './data';
@@ -44,6 +44,7 @@ export function BlogListView({ chrome, list, search }: { chrome: Chrome; list: A
   const { category, pagination } = list;
   const page = pagination.page;
   const blogHref = sectionHref(locale, 'blog', chrome.site.publicSections);
+  const canSearch = isLegacyLocale(locale);
   const selfHref = search ? searchPath(locale) : blogPath(locale, category?.slug, page);
 
   const crumbs: Crumb[] = [
@@ -124,12 +125,15 @@ export function BlogListView({ chrome, list, search }: { chrome: Chrome; list: A
                   </SmartLink>
                 ))}
               </nav>
-              <form className={s.searchField} role="search" action={searchPath(locale)} method="get">
-                <SearchIcon />
-                <input type="search" name="k" aria-label={m.searchLabel} placeholder={m.searchPlaceholder} defaultValue={search?.keyword ?? ''} autoComplete="off" />
-                {formCategory && <input type="hidden" name="category" value={formCategory} />}
-                <button type="submit" className="sr-only">{m.searchSubmit}</button>
-              </form>
+              {/* Keyword search exists in en/vi only (intlExcludedRoutes): elsewhere the form would post to a 404. */}
+              {canSearch && (
+                <form className={s.searchField} role="search" action={searchPath(locale)} method="get">
+                  <SearchIcon />
+                  <input type="search" name="k" aria-label={m.searchLabel} placeholder={m.searchPlaceholder} defaultValue={search?.keyword ?? ''} autoComplete="off" />
+                  {formCategory && <input type="hidden" name="category" value={formCategory} />}
+                  <button type="submit" className="sr-only">{m.searchSubmit}</button>
+                </form>
+              )}
             </div>
 
             <p className={s.resultLine}>
@@ -244,9 +248,11 @@ export function BlogListView({ chrome, list, search }: { chrome: Chrome; list: A
       {!search && (
         <>
           {/* Old Laravel search links (/blog?k=…) move to the search route; normal visits render nothing. */}
-          <Suspense fallback={null}>
-            <SearchRedirect searchHref={searchPath(locale)} category={category?.slug} />
-          </Suspense>
+          {canSearch && (
+            <Suspense fallback={null}>
+              <SearchRedirect searchHref={searchPath(locale)} category={category?.slug} />
+            </Suspense>
+          )}
           <JsonLd
             data={{
               '@context': 'https://schema.org',

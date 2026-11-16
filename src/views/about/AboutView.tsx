@@ -185,7 +185,7 @@ export function AboutView({
                 {tech.slice(0, 2).map((item, i) => {
                   const body = honestDescription(locale, item.title, item.description);
                   return (
-                    <article key={item.src + item.title} className={s.techCard}>
+                    <article key={item.title} className={s.techCard}>
                       <div className={s.techPhoto}>
                         <Image src={item.src} alt={item.title ?? ''} fill sizes="(max-width: 690px) 100vw, 50vw" />
                         <span className={s.chip}>{pad(i + 1)} / {pad(tech.length)}</span>
@@ -205,7 +205,7 @@ export function AboutView({
                   {tech.slice(2).map((item, i) => {
                     const body = honestDescription(locale, item.title, item.description);
                     return (
-                      <article key={item.src + item.title} className={s.techText}>
+                      <article key={item.title} className={s.techText}>
                         <span className={s.techTextIcon}><Icon name={i % 2 === 0 ? 'sun' : 'leaf'} /></span>
                         <div>
                           <span className={s.micro}>{pad(i + 3)} / {pad(tech.length)}</span>
@@ -261,7 +261,7 @@ export function AboutView({
                   const body = honestDescription(locale, item.title, item.description);
                   const isText = i === 2 && community.length === 3;
                   return isText ? (
-                    <article key={item.src + item.title} className={s.communityText}>
+                    <article key={item.title} className={s.communityText}>
                       <span className={s.micro}>{pad(i + 1)} / {pad(community.length)}</span>
                       <Icon name="people" className={s.communityIcon} />
                       {item.title && <h3>{item.title}</h3>}
@@ -269,7 +269,7 @@ export function AboutView({
                       <TextLink href={contactUrl}>{m.community.link}</TextLink>
                     </article>
                   ) : (
-                    <article key={item.src + item.title} className={s.communityCard}>
+                    <article key={item.title} className={s.communityCard}>
                       <div className={s.communityPhoto}>
                         <Image src={item.src} alt={item.title ?? ''} fill sizes="(max-width: 690px) 100vw, (max-width: 950px) 50vw, 33vw" />
                         <span className={s.chip}>{pad(i + 1)} / {pad(community.length)}</span>

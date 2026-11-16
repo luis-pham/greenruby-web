@@ -100,7 +100,7 @@ export function GalleryView({ gallery, chrome }: { gallery: Gallery; chrome: Chr
                 {photos.map((photo, i) => {
                   const alt = altOf(photo);
                   return (
-                    <figure key={`${photo.src}-${i}`} className={s.card}>
+                    <figure key={i} className={s.card}>
                       <a href={largeImage(photo.src)} className={s.open} data-slide={i} aria-label={g.enlarge(alt)}>
                         <span className={s.photo}>
                           <Image src={photo.thumbnail} alt={alt} fill sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw" />

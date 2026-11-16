@@ -78,7 +78,7 @@ export function CabinGallery({ photos, name, ship, locale }: { photos: Photo[]; 
         <div className={s.viewerThumbs} ref={thumbs} role="group" aria-label={c.thumbs}>
           {photos.map((p, i) => (
             <button
-              key={p.src + i}
+              key={i}
               type="button"
               className={s.viewerThumb}
               aria-label={c.show(i + 1, total)}
@@ -96,7 +96,7 @@ export function CabinGallery({ photos, name, ship, locale }: { photos: Photo[]; 
       <div className={s.viewerMobile}>
         <div className={s.viewerTrack} ref={track} onScroll={onSwipe}>
           {photos.map((p, i) => (
-            <figure key={p.src + i} className={s.viewerSlide} aria-label={c.show(i + 1, total)}>
+            <figure key={i} className={s.viewerSlide} aria-label={c.show(i + 1, total)}>
               <Image src={p.src} alt={altOf(p, i)} fill sizes="100vw" quality={75} />
             </figure>
           ))}
@@ -109,7 +109,7 @@ export function CabinGallery({ photos, name, ship, locale }: { photos: Photo[]; 
             <div className={s.viewerDots} role="group" aria-label={c.thumbs}>
               {photos.map((p, i) => (
                 <button
-                  key={p.src + i}
+                  key={i}
                   type="button"
                   className={s.viewerDot}
                   aria-label={c.show(i + 1, total)}

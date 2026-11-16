@@ -42,7 +42,7 @@ export function PhotoJournal({
     <>
       <div className={s.galleryGrid} data-count={Math.min(photos.length, 3)}>
         {photos.map((photo, i) => (
-          <button key={photo.src + i} type="button" className={s.galleryBtn} aria-label={openLabel[i]} onClick={() => open(i)}>
+          <button key={i} type="button" className={s.galleryBtn} aria-label={openLabel[i]} onClick={() => open(i)}>
             <Image src={photo.src} alt={photo.alt} fill sizes={i === 0 ? '(max-width: 850px) 100vw, 42vw' : '(max-width: 850px) 50vw, 30vw'} />
             <span className={s.expand} aria-hidden="true">↗︎</span>
             <span className={s.caption}>

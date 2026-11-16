@@ -178,7 +178,7 @@ export function ServicesView({
                 {weddingIcons.length > 0 && (
                   <ul className={s.features}>
                     {weddingIcons.map((f) => (
-                      <li key={f.src + f.title}>
+                      <li key={f.title}>
                         <Image src={f.src} alt="" width={36} height={36} className={s.featureIcon} />
                         <div>
                           {f.title && <h3>{f.title}</h3>}
@@ -215,7 +215,7 @@ export function ServicesView({
               {events.length > 0 && (
                 <ul className={s.eventGrid}>
                   {events.map((ev, i) => (
-                    <li key={ev.src + ev.title} className={s.eventCard}>
+                    <li key={ev.title} className={s.eventCard}>
                       <span className={s.eventNumber}>{pad(i + 1)}</span>
                       <Image src={ev.src} alt="" width={40} height={40} className={s.eventIcon} />
                       {ev.title && <h3>{ev.title}</h3>}

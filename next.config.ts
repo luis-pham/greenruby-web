@@ -17,6 +17,9 @@ const nextConfig: NextConfig = {
     return [
       { source: '/en', destination: '/', permanent: true },
       { source: '/en/:path*', destination: '/:path*', permanent: true },
+      // Old Laravel home URL; Googlebot still requests it about once a day (404 in Search Console, 2026-11).
+      { source: '/index.html', destination: '/', permanent: true },
+      { source: '/vi/index.html', destination: '/vi', permanent: true },
       // Early drafts of the brand facts page used /about/brand-facts.
       { source: '/about/brand-facts', destination: '/about-us/brand-facts', permanent: true },
       // VI destinations section renamed 2026-10-24 (Điểm đến → Địa điểm tham quan).
