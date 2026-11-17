@@ -163,6 +163,8 @@ export const appRoutes: readonly string[] = [
   '/(ko)/ko/news',
   '/(ko)/ko/news/[segment]',
   '/(ko)/ko/services',
+  '/(vi)/tuyen-dung',
+  '/(vi)/tuyen-dung/[slug]',
   '/(vi)/vi',
   '/(vi)/vi/bao-cao-sinh-thai',
   '/(vi)/vi/blog',

@@ -10,6 +10,8 @@ import { byLocale, sectionPath, type Locale, type Section } from '@/lib/i18n';
 import { homeHref, linkLabel, sectionHref } from '@/lib/section-links';
 import { navLinks, siteInfo, type NavLink } from '@/lib/site-info';
 import { absoluteUrl } from '@/lib/site-url';
+import { careersMessages } from '@/views/careers/messages';
+import { CAREERS_PATH } from '@/views/careers/paths';
 import { bookingTermsLinked } from '@/views/legal/booking-terms';
 import type { Messages } from '@/messages';
 import { ChatWidget, type ChannelKey } from './ChatWidget';
@@ -391,6 +393,8 @@ export function footerColumns(
         { label: f.fleetFacts, href: p('brandFacts') },
         { label: f.gallery, href: p('gallery') },
         { label: f.news, href: p('news') },
+        // Recruitment exists in Vietnamese only (views/careers): no link in the other languages.
+        ...(locale === 'vi' ? [{ label: careersMessages.footerLink, href: CAREERS_PATH }] : []),
         { label: f.sustainability, href: p('aboutUs', '#sustainability') },
         { label: f.greenTechnology, href: p('ecoDashboard', '#technology') },
         { label: f.greenGlobe, href: p('aboutUs', '#standards') },

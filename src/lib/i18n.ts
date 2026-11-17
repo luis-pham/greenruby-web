@@ -169,6 +169,8 @@ const MIGRATED = [
   /^\/vi\/blog(\/|$)/,
   /^\/(destinations|guides)(\/|$)/,
   /^\/vi\/(dia-diem-tham-quan|cam-nang)(\/|$)/,
+  // Recruitment (Vietnamese only, no /vi prefix): app/(vi)/tuyen-dung.
+  /^\/tuyen-dung(\/|$)/,
 ];
 
 export function isMigratedPath(href: string): boolean {
